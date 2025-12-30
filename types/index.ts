@@ -3,13 +3,30 @@ export type CrewType = "Support" | "LeadGen";
 // Multi-tenant types
 export interface Client {
   id: string;
-  name: string;
   companyName: string;
-  email: string;
+  clientCode: string;
+  contactPersonName: string;  // Renamed from "name"
+  contactEmail: string;       // Renamed from "email"
+  phone?: string;             // OPTIONAL
+  address?: string;           // OPTIONAL
+  city?: string;              // OPTIONAL
+  country?: string;           // OPTIONAL
   plan: "starter" | "professional" | "enterprise";
   status: "active" | "inactive" | "trial";
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface NewClientInput {
+  companyName: string;
+  contactPersonName: string;
+  contactEmail: string;
+  phone?: string;             // OPTIONAL
+  address?: string;           // OPTIONAL
+  city?: string;              // OPTIONAL
+  country?: string;           // OPTIONAL
+  plan: "starter" | "professional" | "enterprise";
+  status?: "active" | "inactive" | "trial";
 }
 
 export interface AdminUser {

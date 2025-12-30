@@ -13,13 +13,33 @@ import {
 } from "@/components/ui/table"
 import { ArrowRight, Users, Bot } from "lucide-react"
 import {
-  mockClients,
   getCrewAssignmentsByClientId,
   getAdminUsersByClientId,
 } from "@/lib/mock-data/multi-tenant-data"
 import { format } from "date-fns"
+import type { Client } from "@/types"
 
-export default function ClientsPage() {
+async function getClients(): Promise<Client[]> {
+  try {
+    const response = await fetch('http://localhost:3000/api/clients', {
+      cache: 'no-store',
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch clients')
+    }
+
+    const result = await response.json()
+    return result.data || []
+  } catch (error) {
+    console.error('Error fetching clients:', error)
+    return []
+  }
+}
+
+export default async function ClientsPage() {
+  const clients = await getClients()
+
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case "active":
@@ -74,6 +94,7 @@ export default function ClientsPage() {
           <TableHeader>
             <TableRow>
               <TableHead>Company</TableHead>
+              <TableHead>Client Code</TableHead>
               <TableHead>Contact</TableHead>
               <TableHead>Plan</TableHead>
               <TableHead>Status</TableHead>
@@ -84,61 +105,74 @@ export default function ClientsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mockClients.map((client) => {
-              const crewCount = getCrewAssignmentsByClientId(client.id).length
-              const userCount = getAdminUsersByClientId(client.id).length
+            {clients.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={9} className="text-center text-muted-foreground">
+                  No clients found
+                </TableCell>
+              </TableRow>
+            ) : (
+              clients.map((client) => {
+                const crewCount = getCrewAssignmentsByClientId(client.id).length
+                const userCount = getAdminUsersByClientId(client.id).length
 
-              return (
-                <TableRow key={client.id}>
-                  <TableCell>
-                    <div>
-                      <p className="font-medium text-foreground">
-                        {client.companyName}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {client.name}
-                      </p>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {client.email}
-                  </TableCell>
-                  <TableCell>
-                    <Badge className={getPlanColor(client.plan)}>
-                      {client.plan}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge className={getStatusColor(client.status)}>
-                      {client.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-1 text-muted-foreground">
-                      <Bot className="h-4 w-4" />
-                      <span>{crewCount}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-1 text-muted-foreground">
-                      <Users className="h-4 w-4" />
-                      <span>{userCount}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {format(client.createdAt, "MMM d, yyyy")}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Link href={`/admin/clients/${client.id}`}>
-                      <Button variant="ghost" size="sm">
-                        View
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              )
-            })}
+                return (
+                  <TableRow key={client.id}>
+                    <TableCell>
+                      <div>
+                        <p className="font-medium text-foreground">
+                          {client.companyName}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {client.contactPersonName}
+                        </p>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className="font-mono text-xs">
+                        {client.clientCode}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {client.contactEmail}
+                    </TableCell>
+                    <TableCell>
+                      <Badge className={getPlanColor(client.plan)}>
+                        {client.plan}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge className={getStatusColor(client.status)}>
+                        {client.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-1 text-muted-foreground">
+                        <Bot className="h-4 w-4" />
+                        <span>{crewCount}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-1 text-muted-foreground">
+                        <Users className="h-4 w-4" />
+                        <span>{userCount}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {format(new Date(client.createdAt), "MMM d, yyyy")}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Link href={`/admin/clients/${client.id}`}>
+                        <Button variant="ghost" size="sm">
+                          View
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                )
+              })
+            )}
           </TableBody>
         </Table>
       </div>

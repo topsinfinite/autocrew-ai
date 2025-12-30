@@ -6,7 +6,8 @@ import { Bot, Users, TrendingUp, ArrowRight } from "lucide-react"
 
 interface ClientOverviewCardProps {
   id: string
-  name: string
+  clientCode: string
+  contactPersonName: string
   companyName: string
   plan: string
   status: string
@@ -17,7 +18,8 @@ interface ClientOverviewCardProps {
 
 export function ClientOverviewCard({
   id,
-  name,
+  clientCode,
+  contactPersonName,
   companyName,
   plan,
   status,
@@ -56,8 +58,13 @@ export function ClientOverviewCard({
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="space-y-1">
-            <CardTitle className="text-lg">{companyName}</CardTitle>
-            <p className="text-sm text-muted-foreground">{name}</p>
+            <div className="flex items-center gap-2">
+              <CardTitle className="text-lg">{companyName}</CardTitle>
+              <Badge variant="outline" className="font-mono text-xs">
+                {clientCode}
+              </Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">{contactPersonName}</p>
           </div>
           <div className="flex gap-2">
             <Badge className={getPlanColor(plan)}>{plan}</Badge>

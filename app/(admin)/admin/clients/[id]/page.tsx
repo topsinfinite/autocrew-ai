@@ -13,19 +13,42 @@ import {
 } from "@/components/ui/table"
 import { ArrowLeft, Bot, Users, TrendingUp, Calendar } from "lucide-react"
 import {
-  getClientById,
   getCrewAssignmentsByClientId,
   getAdminUsersByClientId,
 } from "@/lib/mock-data/multi-tenant-data"
 import { dummyCrews, dummyConversations } from "@/lib/dummy-data"
 import { format } from "date-fns"
+import type { Client } from "@/types"
 
-export default function ClientDetailsPage({
+async function getClient(id: string): Promise<Client | null> {
+  try {
+    const response = await fetch(`http://localhost:3000/api/clients/${id}`, {
+      cache: 'no-store',
+    })
+
+    if (response.status === 404) {
+      return null
+    }
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch client')
+    }
+
+    const result = await response.json()
+    return result.data || null
+  } catch (error) {
+    console.error('Error fetching client:', error)
+    return null
+  }
+}
+
+export default async function ClientDetailsPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
-  const client = getClientById(params.id)
+  const { id } = await params
+  const client = await getClient(id)
 
   if (!client) {
     notFound()
@@ -78,10 +101,15 @@ export default function ClientDetailsPage({
         </Link>
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">
-              {client.companyName}
-            </h1>
-            <p className="text-muted-foreground">{client.name}</p>
+            <div className="mb-2 flex items-center gap-3">
+              <h1 className="text-3xl font-bold text-foreground">
+                {client.companyName}
+              </h1>
+              <Badge variant="outline" className="font-mono text-xs">
+                {client.clientCode}
+              </Badge>
+            </div>
+            <p className="text-muted-foreground">{client.contactPersonName}</p>
           </div>
           <div className="flex gap-2">
             <Badge className={getPlanColor(client.plan)}>{client.plan}</Badge>
@@ -147,11 +175,11 @@ export default function ClientDetailsPage({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-foreground">
-              {format(client.createdAt, "MMM yyyy")}
+              {format(new Date(client.createdAt), "MMM yyyy")}
             </div>
             <p className="text-xs text-muted-foreground">
               {Math.floor(
-                (Date.now() - client.createdAt.getTime()) /
+                (Date.now() - new Date(client.createdAt).getTime()) /
                   (1000 * 60 * 60 * 24)
               )}{" "}
               days
@@ -169,6 +197,14 @@ export default function ClientDetailsPage({
           <CardContent className="space-y-4">
             <div>
               <p className="text-sm font-medium text-muted-foreground">
+                Client Code
+              </p>
+              <Badge variant="outline" className="font-mono">
+                {client.clientCode}
+              </Badge>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">
                 Company Name
               </p>
               <p className="text-foreground">{client.companyName}</p>
@@ -177,13 +213,21 @@ export default function ClientDetailsPage({
               <p className="text-sm font-medium text-muted-foreground">
                 Contact Person
               </p>
-              <p className="text-foreground">{client.name}</p>
+              <p className="text-foreground">{client.contactPersonName}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">
-                Email
+                Contact Email
               </p>
-              <p className="text-foreground">{client.email}</p>
+              <p className="text-foreground">{client.contactEmail}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">
+                Phone
+              </p>
+              <p className="text-foreground">
+                {client.phone || <span className="text-muted-foreground">N/A</span>}
+              </p>
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">
@@ -206,7 +250,7 @@ export default function ClientDetailsPage({
                 Created At
               </p>
               <p className="text-foreground">
-                {format(client.createdAt, "PPP")}
+                {format(new Date(client.createdAt), "PPP")}
               </p>
             </div>
             <div>
@@ -214,12 +258,47 @@ export default function ClientDetailsPage({
                 Last Updated
               </p>
               <p className="text-foreground">
-                {format(client.updatedAt, "PPP")}
+                {format(new Date(client.updatedAt), "PPP")}
               </p>
             </div>
           </CardContent>
         </Card>
 
+        {/* Address Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Address Information</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">
+                Address
+              </p>
+              <p className="text-foreground">
+                {client.address || <span className="text-muted-foreground">N/A</span>}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">
+                City
+              </p>
+              <p className="text-foreground">
+                {client.city || <span className="text-muted-foreground">N/A</span>}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">
+                Country
+              </p>
+              <p className="text-foreground">
+                {client.country || <span className="text-muted-foreground">N/A</span>}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
         {/* Assigned Crews */}
         <Card>
           <CardHeader>
@@ -260,46 +339,46 @@ export default function ClientDetailsPage({
             )}
           </CardContent>
         </Card>
-      </div>
 
-      {/* Users Table */}
-      <Card className="mt-8">
-        <CardHeader>
-          <CardTitle>Client Admin Users</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {users.length > 0 ? (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Role</TableHead>
-                  <TableHead>Joined</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {users.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell className="font-medium">{user.name}</TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {user.email}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">{user.role}</Badge>
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {format(user.createdAt, "MMM d, yyyy")}
-                    </TableCell>
+        {/* Users Table */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Client Admin Users</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {users.length > 0 ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Joined</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          ) : (
-            <p className="text-sm text-muted-foreground">No users found</p>
-          )}
-        </CardContent>
-      </Card>
+                </TableHeader>
+                <TableBody>
+                  {users.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.name}</TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {user.email}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">{user.role}</Badge>
+                      </TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {format(user.createdAt, "MMM d, yyyy")}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            ) : (
+              <p className="text-sm text-muted-foreground">No users found</p>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }
