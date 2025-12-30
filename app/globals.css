@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/* Dark Mode Primary Theme - Professional & Industrious */
+:root {
+  /* Dark backgrounds - Professional slate tones */
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
+
+  /* Cards with subtle elevation */
+  --card: 222 47% 14%;
+  --card-foreground: 210 40% 98%;
+
+  /* Popovers and dialogs - Much brighter for excellent visibility */
+  --popover: 222 30% 45%;
+  --popover-foreground: 210 40% 98%;
+
+  /* Cyan/Teal - Primary accent for CTAs and important actions */
+  --primary: 185 80% 50%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Cyber Blue - Secondary accent for information and status */
+  --secondary: 199 89% 48%;
+  --secondary-foreground: 0 0% 100%;
+
+  /* Muted elements - Subtle backgrounds */
+  --muted: 222 47% 20%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  /* Interactive accent states */
+  --accent: 199 89% 48%;
+  --accent-foreground: 0 0% 100%;
+
+  /* Destructive actions - Muted red */
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  /* Success indicators */
+  --success: 142 71% 45%;
+  --success-foreground: 0 0% 100%;
+
+  /* Warning indicators */
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+
+  /* Borders and inputs - Subtle contrast */
+  --border: 222 47% 22%;
+  --input: 222 47% 22%;
+  --ring: 185 80% 50%;
+
+  /* Border radius for modern feel */
+  --radius: 0.75rem;
+
+  /* Chart colors - Cyber aesthetic */
+  --chart-1: 185 80% 50%;
+  --chart-2: 199 89% 48%;
+  --chart-3: 142 71% 45%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 38 92% 50%;
+}
+
+/* Light Mode Theme */
+:root[data-theme="light"] {
+  /* Light backgrounds */
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+
+  /* Cards with subtle elevation */
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+
+  /* Popovers and dialogs */
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+
+  /* Cyan/Teal - Keep same for consistency */
+  --primary: 185 75% 45%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Cyber Blue - Keep same for consistency */
+  --secondary: 199 89% 48%;
+  --secondary-foreground: 0 0% 100%;
+
+  /* Muted elements */
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 20.2% 35%;
+
+  /* Interactive accent states */
+  --accent: 199 89% 48%;
+  --accent-foreground: 0 0% 100%;
+
+  /* Destructive actions */
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Success indicators */
+  --success: 142 71% 45%;
+  --success-foreground: 0 0% 100%;
+
+  /* Warning indicators */
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+
+  /* Borders and inputs */
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 185 75% 45%;
+
+  /* Chart colors - same as dark mode */
+  --chart-1: 185 80% 50%;
+  --chart-2: 199 89% 48%;
+  --chart-3: 142 71% 45%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 38 92% 50%;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* CTA Section theme-specific colors */
+:root {
+  --cta-heading-color: rgb(15 23 42); /* slate-900 for light mode */
+  --cta-text-color: rgb(30 41 59); /* slate-800 for light mode */
+  --cta-features-color: rgb(51 65 85); /* slate-700 for light mode */
+}
+
+:root[data-theme="dark"] {
+  --cta-heading-color: rgb(255 255 255); /* white for dark mode */
+  --cta-text-color: rgba(255 255 255 / 0.9); /* white/90 for dark mode */
+  --cta-features-color: rgba(255 255 255 / 0.9); /* white/90 for dark mode */
+}
+
+/* Scrollbar styling for dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Selection styling */
+::selection {
+  background-color: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
+}
