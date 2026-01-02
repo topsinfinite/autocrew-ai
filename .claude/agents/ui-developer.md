@@ -34,4 +34,5 @@ When working on UI tasks:
 5. Test accessibility with keyboard navigation and screen readers
 6. Verify consistency with the overall design system
 
+This solution is multi-tenant, always consider multi-tenancy control for all features
 Always prioritize user experience, maintainability, and consistency in your implementations. If you encounter conflicting design requirements, ask for clarification while suggesting solutions that maintain design system integrity.

@@ -1,4 +1,5 @@
-export type CrewType = "Support" | "LeadGen";
+export type CrewType = "customer_support" | "lead_generation";
+export type CrewStatus = "active" | "inactive" | "error";
 
 // Multi-tenant types
 export interface Client {
@@ -53,16 +54,31 @@ export interface User {
   createdAt: Date;
 }
 
+export interface CrewConfig {
+  vectorTableName?: string;
+  historiesTableName?: string;
+  metadata?: Record<string, unknown>;
+}
+
 export interface Crew {
   id: string;
-  clientId: string; // NEW: Multi-tenant support
-  userId: string;
+  clientId: string; // Multi-tenant support - references clients.clientCode
+  crewCode: string; // Auto-generated unique code (e.g., "ACME-001-SUP-001")
   name: string;
   type: CrewType;
-  n8nWebhookUrl: string;
-  status: "active" | "inactive" | "error";
+  config: CrewConfig; // JSONB field with dynamic table names
+  webhookUrl: string; // n8n webhook URL
+  status: CrewStatus;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface NewCrewInput {
+  name: string;
+  clientId: string;
+  type: CrewType;
+  webhookUrl: string;
+  status?: CrewStatus;
 }
 
 export interface ConversationMessage {

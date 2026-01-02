@@ -72,7 +72,8 @@ export default function AdminDashboardPage() {
               <ClientOverviewCard
                 key={client.id}
                 id={client.id}
-                name={client.name}
+                clientCode={client.clientCode}
+                contactPersonName={client.contactPersonName}
                 companyName={client.companyName}
                 plan={client.plan}
                 status={client.status}

@@ -13,14 +13,31 @@ const runMigration = async () => {
     throw new Error('POSTGRES_URL environment variable is not set');
   }
 
-  console.log('Running migrations...');
+  console.log('Connecting to database...');
 
   const migrationClient = postgres(connectionString, { max: 1 });
   const db = drizzle(migrationClient);
 
-  await migrate(db, { migrationsFolder: './db/migrations' });
+  // Enable pgvector extension before running migrations
+  console.log('Enabling pgvector extension...');
+  await migrationClient`CREATE EXTENSION IF NOT EXISTS vector`;
+  console.log('✓ pgvector extension enabled');
 
-  console.log('Migrations completed successfully');
+  // Verify pgvector extension is installed
+  const extensionCheck = await migrationClient`
+    SELECT * FROM pg_extension WHERE extname = 'vector'
+  `;
+
+  if (extensionCheck.length === 0) {
+    throw new Error('pgvector extension failed to install');
+  }
+
+  console.log('✓ pgvector extension verified');
+
+  // Run migrations
+  console.log('Running migrations...');
+  await migrate(db, { migrationsFolder: './db/migrations' });
+  console.log('✓ Migrations completed successfully');
 
   await migrationClient.end();
   process.exit(0);

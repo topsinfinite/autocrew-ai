@@ -1,28 +1,48 @@
 "use client"
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   dummyDashboardStats,
   dummyCrews,
-  dummyConversations,
   dummyLeads,
 } from "@/lib/dummy-data";
-import { Activity, Users, MessageSquare, TrendingUp, Plus, Sparkles } from "lucide-react";
+import { getConversations } from "@/lib/api/conversations";
+import { Conversation } from "@/types";
+import { Activity, Users, MessageSquare, TrendingUp, Plus, Sparkles, Loader2 } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import Link from "next/link";
 import { useClient } from "@/lib/hooks/use-client";
 
 export default function DashboardPage() {
   const { selectedClient } = useClient();
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [loadingConversations, setLoadingConversations] = useState(true);
+
+  // Fetch conversations when client changes
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoadingConversations(true);
+        const { conversations: data } = await getConversations({
+          clientId: selectedClient?.clientCode,
+        });
+        setConversations(data);
+      } catch (error) {
+        console.error('Failed to fetch conversations:', error);
+      } finally {
+        setLoadingConversations(false);
+      }
+    }
+
+    fetchData();
+  }, [selectedClient]);
 
   // Filter data by selected client
   const clientCrews = selectedClient
     ? dummyCrews.filter((crew) => crew.clientId === selectedClient.id)
-    : [];
-  const clientConversations = selectedClient
-    ? dummyConversations.filter((conv) => conv.clientId === selectedClient.id)
     : [];
   const clientLeads = selectedClient
     ? dummyLeads.filter((lead) => lead.clientId === selectedClient.id)
@@ -32,11 +52,11 @@ export default function DashboardPage() {
   const stats = {
     totalCrews: clientCrews.length,
     activeCrews: clientCrews.filter((c) => c.status === "active").length,
-    totalConversations: clientConversations.length,
+    totalConversations: conversations.length,
     totalLeads: clientLeads.length,
   };
 
-  const recentConversations = clientConversations.slice(0, 5);
+  const recentConversations = conversations.slice(0, 5);
 
   return (
     <div className="space-y-6">
@@ -145,14 +165,14 @@ export default function DashboardPage() {
                       <h3 className="font-semibold">{crew.name}</h3>
                       <Badge
                         variant={
-                          crew.type === "Support" ? "default" : "secondary"
+                          crew.type === "customer_support" ? "default" : "secondary"
                         }
                       >
-                        {crew.type}
+                        {crew.type === "customer_support" ? "Customer Support" : "Lead Generation"}
                       </Badge>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      {crew.n8nWebhookUrl}
+                      {crew.webhookUrl}
                     </p>
                   </div>
                   <Badge variant="success">Active</Badge>
@@ -164,7 +184,13 @@ export default function DashboardPage() {
       )}
 
       {/* Recent Conversations */}
-      {recentConversations.length === 0 ? (
+      {loadingConversations ? (
+        <Card>
+          <CardContent className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </CardContent>
+        </Card>
+      ) : recentConversations.length === 0 ? (
         <EmptyState
           icon={MessageSquare}
           title="No Conversations Yet"
@@ -204,7 +230,8 @@ export default function DashboardPage() {
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    {conv.transcript[0]?.content.substring(0, 100)}...
+                    {conv.metadata.customerEmail || 'No email'} •
+                    {conv.metadata.duration ? ` ${Math.floor(conv.metadata.duration / 60)}m ${conv.metadata.duration % 60}s` : ' Unknown duration'}
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {new Date(conv.createdAt).toLocaleDateString()} at{" "}

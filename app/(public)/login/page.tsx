@@ -22,9 +22,10 @@ export default function LoginPage() {
       router.push("/admin");
     } else {
       const client = mockClients.find(c => c.id === selectedClientId);
-      login("client_admin", selectedClientId, {
+      // Use clientCode instead of id for database compatibility
+      login("client_admin", client?.clientCode, {
         email: `admin@${client?.companyName.toLowerCase().replace(/\s+/g, '')}.com`,
-        name: `${client?.name} Admin`,
+        name: `${client?.companyName} Admin`,
       });
       router.push("/dashboard");
     }

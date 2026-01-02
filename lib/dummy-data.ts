@@ -5,10 +5,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-1",
     clientId: "client-1", // Acme Corporation
-    userId: "user-1",
+    crewCode: "CLIENT-1-SUP-001",
     name: "Customer Support Crew",
-    type: "Support",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/support-crew-1",
+    type: "customer_support",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/support-crew-1",
     status: "active",
     createdAt: new Date("2024-01-15"),
     updatedAt: new Date("2024-12-20"),
@@ -16,10 +17,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-2",
     clientId: "client-1", // Acme Corporation
-    userId: "user-1",
+    crewCode: "CLIENT-1-LEAD-001",
     name: "Lead Generation Crew - Tech",
-    type: "LeadGen",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/leadgen-crew-2",
+    type: "lead_generation",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/leadgen-crew-2",
     status: "active",
     createdAt: new Date("2024-02-01"),
     updatedAt: new Date("2024-12-22"),
@@ -27,10 +29,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-3",
     clientId: "client-1", // Acme Corporation
-    userId: "user-1",
+    crewCode: "CLIENT-1-SUP-002",
     name: "Product Support Crew",
-    type: "Support",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/support-crew-3",
+    type: "customer_support",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/support-crew-3",
     status: "active",
     createdAt: new Date("2024-03-10"),
     updatedAt: new Date("2024-12-25"),
@@ -38,10 +41,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-4",
     clientId: "client-2", // TechStart Inc
-    userId: "user-1",
+    crewCode: "CLIENT-2-LEAD-001",
     name: "Sales Outreach Crew",
-    type: "LeadGen",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/leadgen-crew-4",
+    type: "lead_generation",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/leadgen-crew-4",
     status: "active",
     createdAt: new Date("2024-06-15"),
     updatedAt: new Date("2024-11-01"),
@@ -49,10 +53,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-5",
     clientId: "client-2", // TechStart Inc
-    userId: "user-1",
+    crewCode: "CLIENT-2-SUP-001",
     name: "Technical Support Crew",
-    type: "Support",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/support-crew-5",
+    type: "customer_support",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/support-crew-5",
     status: "active",
     createdAt: new Date("2024-08-20"),
     updatedAt: new Date("2024-12-28"),
@@ -60,10 +65,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-6",
     clientId: "client-3", // RetailCo
-    userId: "user-1",
+    crewCode: "CLIENT-3-SUP-001",
     name: "Retail Support Crew",
-    type: "Support",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/support-crew-6",
+    type: "customer_support",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/support-crew-6",
     status: "active",
     createdAt: new Date("2024-11-10"),
     updatedAt: new Date("2024-12-29"),
@@ -71,10 +77,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-7",
     clientId: "client-4", // FinanceHub
-    userId: "user-1",
+    crewCode: "CLIENT-4-SUP-001",
     name: "Finance Support Crew",
-    type: "Support",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/support-crew-7",
+    type: "customer_support",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/support-crew-7",
     status: "active",
     createdAt: new Date("2024-06-08"),
     updatedAt: new Date("2024-12-15"),
@@ -82,10 +89,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-8",
     clientId: "client-4", // FinanceHub
-    userId: "user-1",
+    crewCode: "CLIENT-4-LEAD-001",
     name: "Finance LeadGen Crew",
-    type: "LeadGen",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/leadgen-crew-8",
+    type: "lead_generation",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/leadgen-crew-8",
     status: "active",
     createdAt: new Date("2024-06-15"),
     updatedAt: new Date("2024-12-16"),
@@ -93,10 +101,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-9",
     clientId: "client-5", // HealthTech
-    userId: "user-1",
+    crewCode: "CLIENT-5-SUP-001",
     name: "Healthcare Support Crew",
-    type: "Support",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/support-crew-9",
+    type: "customer_support",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/support-crew-9",
     status: "active",
     createdAt: new Date("2024-02-20"),
     updatedAt: new Date("2024-12-27"),
@@ -104,10 +113,11 @@ export const dummyCrews: Crew[] = [
   {
     id: "crew-10",
     clientId: "client-5", // HealthTech
-    userId: "user-1",
+    crewCode: "CLIENT-5-LEAD-001",
     name: "Patient Outreach Crew",
-    type: "LeadGen",
-    n8nWebhookUrl: "https://n8n.example.com/webhook/leadgen-crew-10",
+    type: "lead_generation",
+    config: { metadata: {} },
+    webhookUrl: "https://n8n.example.com/webhook/leadgen-crew-10",
     status: "active",
     createdAt: new Date("2024-03-01"),
     updatedAt: new Date("2024-12-28"),
