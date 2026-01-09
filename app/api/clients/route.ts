@@ -3,10 +3,11 @@ import { db } from '@/db';
 import { clients } from '@/db/schema';
 import { insertClientSchema } from '@/db/schema';
 import { generateClientCode } from '@/lib/utils/generators/client-code-generator';
-import { generateSlug, generateUniqueSlug } from '@/lib/utils';
+import { generateSlug, generateUniqueSlug, logger, successResponse, errorResponse, ErrorCodes } from '@/lib/utils';
 import { eq, and, desc, asc } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
 import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
+import { mapDatabaseError } from '@/lib/errors/error-codes';
 
 /**
  * GET /api/clients
@@ -19,19 +20,21 @@ import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
  * Query params: status, plan, sortBy, order
  */
 export async function GET(request: NextRequest) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
+    await logger.info('Fetch clients request received', { requestId });
+
     // Require authentication
     await requireAuth();
 
     // Only SuperAdmin can list all clients
     if (!await isSuperAdmin()) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Forbidden - SuperAdmin access required',
-        },
-        { status: 403 }
-      );
+      await logger.warn('Fetch clients failed - insufficient permissions', {
+        requestId,
+      });
+      return errorResponse(ErrorCodes.PERMISSION_SUPER_ADMIN_REQUIRED, null, requestId);
     }
 
     const searchParams = request.nextUrl.searchParams;
@@ -67,20 +70,35 @@ export async function GET(request: NextRequest) {
     // Execute query
     const result = await query;
 
+    const duration = Date.now() - startTime;
+    await logger.info('Clients fetched successfully', {
+      requestId,
+      count: result.length,
+      filters: { status, plan },
+      sortBy,
+      order,
+      duration,
+      operation: 'fetch_clients',
+    });
+
     return NextResponse.json({
       success: true,
       data: result,
       count: result.length,
+      requestId,
     });
   } catch (error) {
-    console.error('GET /api/clients error:', error);
-    return NextResponse.json(
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to fetch clients',
       {
-        success: false,
-        error: 'Failed to fetch clients',
+        requestId,
+        duration,
+        operation: 'fetch_clients',
       },
-      { status: 500 }
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }
 
@@ -93,19 +111,21 @@ export async function GET(request: NextRequest) {
  * - Client Admin: Forbidden (403)
  */
 export async function POST(request: NextRequest) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
+    await logger.info('Create client request received', { requestId });
+
     // Require authentication
     await requireAuth();
 
     // Only SuperAdmin can create clients
     if (!await isSuperAdmin()) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Forbidden - SuperAdmin access required',
-        },
-        { status: 403 }
-      );
+      await logger.warn('Create client failed - insufficient permissions', {
+        requestId,
+      });
+      return errorResponse(ErrorCodes.PERMISSION_SUPER_ADMIN_REQUIRED, null, requestId);
     }
 
     const body = await request.json();
@@ -114,14 +134,11 @@ export async function POST(request: NextRequest) {
     const validation = insertClientSchema.safeParse(body);
 
     if (!validation.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Validation failed',
-          details: validation.error.issues,
-        },
-        { status: 400 }
-      );
+      await logger.warn('Create client validation failed', {
+        requestId,
+        errors: validation.error.issues,
+      });
+      return errorResponse(ErrorCodes.VALIDATION_FAILED, validation.error.issues, requestId);
     }
 
     const data = validation.data;
@@ -156,35 +173,47 @@ export async function POST(request: NextRequest) {
         })
         .returning();
 
+      const duration = Date.now() - startTime;
+      await logger.info('Client created successfully', {
+        requestId,
+        clientId: newClient.id,
+        clientCode,
+        companyName: newClient.companyName,
+        duration,
+        operation: 'create_client',
+      });
+
       return NextResponse.json(
         {
           success: true,
           data: newClient,
           message: `Client created successfully with code: ${clientCode}`,
+          requestId,
         },
         { status: 201 }
       );
     } catch (dbError: any) {
       // Handle unique constraint violation (duplicate client code)
       if (dbError.code === '23505') {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'A client with this code already exists',
-          },
-          { status: 409 }
-        );
+        await logger.warn('Create client failed - duplicate client code', {
+          requestId,
+          clientCode,
+        });
+        return errorResponse(ErrorCodes.CLIENT_ALREADY_EXISTS, null, requestId);
       }
       throw dbError;
     }
   } catch (error) {
-    console.error('POST /api/clients error:', error);
-    return NextResponse.json(
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to create client',
       {
-        success: false,
-        error: 'Failed to create client',
+        requestId,
+        duration,
+        operation: 'create_client',
       },
-      { status: 500 }
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

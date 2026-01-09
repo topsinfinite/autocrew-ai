@@ -6,6 +6,7 @@ import { provisionCrew } from '@/lib/utils/crew';
 import { eq, and, desc, asc, inArray } from 'drizzle-orm';
 import type { CrewType, CrewStatus } from '@/types';
 import { requireAuth, isSuperAdmin, requireAuthWithClient } from '@/lib/auth/session-helpers';
+import { logger, successResponse, errorResponse, ErrorCodes } from '@/lib/utils';
 
 /**
  * GET /api/crews
@@ -18,6 +19,9 @@ import { requireAuth, isSuperAdmin, requireAuthWithClient } from '@/lib/auth/ses
  * Query params: clientId, type, status, sortBy, order
  */
 export async function GET(request: NextRequest) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
     // Require authentication
     const session = await requireAuth();
@@ -29,10 +33,17 @@ export async function GET(request: NextRequest) {
     const sortBy = searchParams.get('sortBy') || 'createdAt';
     const order = searchParams.get('order') || 'desc';
 
+    await logger.info('Fetch crews request received', {
+      requestId,
+      userId: session.user.id,
+      filters: { clientId: requestedClientId, type, status, sortBy, order },
+    });
+
     // Determine which clients the user can access
     let allowedClientCodes: string[] = [];
+    const isSuperAdminUser = await isSuperAdmin();
 
-    if (await isSuperAdmin()) {
+    if (isSuperAdminUser) {
       // SuperAdmin can see all crews, or filter by specific clientId
       if (requestedClientId) {
         // Get clientCode for the requested organization ID
@@ -46,10 +57,15 @@ export async function GET(request: NextRequest) {
           allowedClientCodes = [client.clientCode];
         } else {
           // Requested client doesn't exist
+          await logger.warn('Fetch crews - requested client not found', {
+            requestId,
+            clientId: requestedClientId,
+          });
           return NextResponse.json({
             success: true,
             data: [],
             count: 0,
+            requestId,
           });
         }
       }
@@ -67,10 +83,15 @@ export async function GET(request: NextRequest) {
 
       if (memberships.length === 0) {
         // User has no organization membership - return empty
+        await logger.warn('Fetch crews - user has no organization membership', {
+          requestId,
+          userId,
+        });
         return NextResponse.json({
           success: true,
           data: [],
           count: 0,
+          requestId,
         });
       }
 
@@ -117,20 +138,37 @@ export async function GET(request: NextRequest) {
     // Execute query
     const result = await query;
 
+    const duration = Date.now() - startTime;
+    await logger.info('Crews fetched successfully', {
+      requestId,
+      userId: session.user.id,
+      isSuperAdmin: isSuperAdminUser,
+      count: result.length,
+      filters: { clientId: requestedClientId, type, status },
+      sortBy,
+      order,
+      duration,
+      operation: 'fetch_crews',
+    });
+
     return NextResponse.json({
       success: true,
       data: result,
       count: result.length,
+      requestId,
     });
   } catch (error) {
-    console.error('GET /api/crews error:', error);
-    return NextResponse.json(
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to fetch crews',
       {
-        success: false,
-        error: 'Failed to fetch crews',
+        requestId,
+        duration,
+        operation: 'fetch_crews',
       },
-      { status: 500 }
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }
 
@@ -143,24 +181,33 @@ export async function GET(request: NextRequest) {
  * - Client Admin: Can only create crews for their organization
  */
 export async function POST(request: NextRequest) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
     // Require authentication
     const session = await requireAuth();
 
     const body = await request.json();
 
+    await logger.info('Create crew request received', {
+      requestId,
+      userId: session.user.id,
+      clientId: body.clientId,
+      crewName: body.name,
+      crewType: body.type,
+    });
+
     // Validate request body
     const validation = insertCrewSchema.safeParse(body);
 
     if (!validation.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Validation failed',
-          details: validation.error.issues,
-        },
-        { status: 400 }
-      );
+      await logger.warn('Create crew validation failed', {
+        requestId,
+        userId: session.user.id,
+        errors: validation.error.issues,
+      });
+      return errorResponse(ErrorCodes.VALIDATION_FAILED, validation.error.issues, requestId);
     }
 
     const data = validation.data;
@@ -173,17 +220,17 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (!client) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: `Client not found: ${data.clientId}`,
-        },
-        { status: 404 }
-      );
+      await logger.warn('Create crew failed - client not found', {
+        requestId,
+        clientId: data.clientId,
+      });
+      return errorResponse(ErrorCodes.CLIENT_NOT_FOUND, null, requestId);
     }
 
     // Authorization check: verify user can create crews for this client
-    if (!await isSuperAdmin()) {
+    const isSuperAdminUser = await isSuperAdmin();
+
+    if (!isSuperAdminUser) {
       // Client Admin - verify they belong to this organization
       // @ts-ignore - Better Auth additionalFields typing
       const userId = session.user.id;
@@ -200,18 +247,34 @@ export async function POST(request: NextRequest) {
         .limit(1);
 
       if (membership.length === 0) {
-        return NextResponse.json(
+        await logger.warn('Create crew failed - insufficient permissions', {
+          requestId,
+          userId,
+          clientId: data.clientId,
+          organizationId: client.id,
+        });
+        return errorResponse(
           {
-            success: false,
-            error: 'Forbidden - You can only create crews for your organization',
+            code: 'PERMISSION_DENIED',
+            status: 403,
+            message: 'You can only create crews for your organization',
           },
-          { status: 403 }
+          null,
+          requestId
         );
       }
     }
 
     // Provision crew (creates tables for customer_support, generates crew code)
     try {
+      await logger.info('Starting crew provisioning', {
+        requestId,
+        clientId: data.clientId,
+        crewName: data.name,
+        crewType: data.type,
+        operation: 'create_crew',
+      });
+
       const result = await provisionCrew({
         name: data.name,
         clientId: data.clientId,
@@ -220,36 +283,61 @@ export async function POST(request: NextRequest) {
         status: data.status as CrewStatus | undefined,
       });
 
+      const duration = Date.now() - startTime;
+      await logger.info('Crew created successfully', {
+        requestId,
+        userId: session.user.id,
+        crewId: result.crew.id,
+        crewCode: result.crew.crewCode,
+        crewName: result.crew.name,
+        crewType: result.crew.type,
+        clientId: data.clientId,
+        tablesCreated: result.tablesCreated,
+        duration,
+        operation: 'create_crew',
+      });
+
       return NextResponse.json(
         {
           success: true,
           data: result.crew,
           tablesCreated: result.tablesCreated,
           message: `Crew created successfully: ${result.crew.crewCode}`,
+          requestId,
         },
         { status: 201 }
       );
     } catch (provisionError: any) {
       // Handle unique constraint violation (duplicate crew code - should be rare)
       if (provisionError.code === '23505') {
-        return NextResponse.json(
+        await logger.warn('Create crew failed - duplicate crew code', {
+          requestId,
+          clientId: data.clientId,
+          crewName: data.name,
+        });
+        return errorResponse(
           {
-            success: false,
-            error: 'A crew with this code already exists. Please try again.',
+            code: 'CREW_ALREADY_EXISTS',
+            status: 409,
+            message: 'A crew with this code already exists. Please try again.',
           },
-          { status: 409 }
+          null,
+          requestId
         );
       }
       throw provisionError;
     }
   } catch (error) {
-    console.error('POST /api/crews error:', error);
-    return NextResponse.json(
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to create crew',
       {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to create crew',
+        requestId,
+        duration,
+        operation: 'create_crew',
       },
-      { status: 500 }
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

@@ -5,6 +5,7 @@ import { db } from '@/db';
 import { user as userTable, account as accountTable } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { z } from 'zod';
+import { logger, successResponse, errorResponse, ErrorCodes, sanitizePII } from '@/lib/utils';
 
 /**
  * Validation schema for resending invitation
@@ -25,16 +26,18 @@ const resendInvitationSchema = z.object({
  * }
  */
 export async function POST(request: NextRequest) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
+    await logger.info('Resend invitation request received', { requestId });
+
     // Verify SuperAdmin session
     if (!await isSuperAdmin()) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Forbidden - SuperAdmin access required',
-        },
-        { status: 403 }
-      );
+      await logger.warn('Resend invitation failed - insufficient permissions', {
+        requestId,
+      });
+      return errorResponse(ErrorCodes.PERMISSION_SUPER_ADMIN_REQUIRED, null, requestId);
     }
 
     // Parse and validate request body
@@ -42,14 +45,11 @@ export async function POST(request: NextRequest) {
     const validation = resendInvitationSchema.safeParse(body);
 
     if (!validation.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Validation failed',
-          details: validation.error.issues,
-        },
-        { status: 400 }
-      );
+      await logger.warn('Resend invitation validation failed', {
+        requestId,
+        errors: validation.error.issues,
+      });
+      return errorResponse(ErrorCodes.VALIDATION_FAILED, validation.error.issues, requestId);
     }
 
     const { email } = validation.data;
@@ -62,13 +62,11 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (existingUser.length === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'User not found',
-        },
-        { status: 404 }
-      );
+      await logger.warn('Resend invitation failed - user not found', {
+        requestId,
+        email: sanitizePII({ email }).email,
+      });
+      return errorResponse(ErrorCodes.USER_NOT_FOUND, null, requestId);
     }
 
     const user = existingUser[0];
@@ -86,17 +84,29 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (existingAccount.length > 0 && existingAccount[0].password) {
-      return NextResponse.json(
+      await logger.warn('Resend invitation failed - user already has password', {
+        requestId,
+        userId: user.id,
+        email: sanitizePII({ email }).email,
+      });
+      return errorResponse(
         {
-          success: false,
-          error: 'User has already set their password',
+          code: 'PASSWORD_ALREADY_SET',
+          status: 409,
+          message: 'User has already set their password',
         },
-        { status: 409 }
+        null,
+        requestId
       );
     }
 
     // Send password reset email using Better Auth API (which serves as the invitation)
-    console.log('[Resend Invitation] Sending password reset request for:', email);
+    await logger.info('Sending password reset request', {
+      requestId,
+      userId: user.id,
+      email: sanitizePII({ email }).email,
+      operation: 'resend_invitation',
+    });
 
     try {
       const resetResult = await auth.api.requestPasswordReset({
@@ -106,38 +116,47 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      console.log('[Resend Invitation] Password reset result:', resetResult);
-      console.log(`[Resend Invitation] Invitation email resent to ${email}`);
+      const duration = Date.now() - startTime;
+      await logger.info('Invitation email resent successfully', {
+        requestId,
+        userId: user.id,
+        email: sanitizePII({ email }).email,
+        duration,
+        operation: 'resend_invitation',
+      });
 
-      return NextResponse.json(
-        {
-          success: true,
-          message: `Invitation email resent to ${email}`,
-        },
-        { status: 200 }
+      return successResponse(
+        { userId: user.id },
+        `Invitation email resent to ${email}`,
+        requestId
       );
     } catch (resetError) {
-      console.error('[Resend Invitation] Failed to send password reset:', resetError);
-
-      return NextResponse.json(
+      const duration = Date.now() - startTime;
+      await logger.error(
+        'Failed to send invitation email',
         {
-          success: false,
-          error: 'Failed to send invitation email',
-          details: resetError instanceof Error ? resetError.message : 'Unknown error',
+          requestId,
+          userId: user.id,
+          email: sanitizePII({ email }).email,
+          duration,
+          operation: 'resend_invitation',
         },
-        { status: 500 }
+        resetError
       );
+
+      return errorResponse(ErrorCodes.EXTERNAL_EMAIL_ERROR, resetError, requestId);
     }
   } catch (error) {
-    console.error('[Resend Invitation] POST /api/admin/resend-invitation error:', error);
-    console.error('[Resend Invitation] Error stack:', error instanceof Error ? error.stack : 'No stack trace');
-    return NextResponse.json(
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Resend invitation failed',
       {
-        success: false,
-        error: 'Failed to resend invitation',
-        details: error instanceof Error ? error.message : 'Unknown error',
+        requestId,
+        duration,
+        operation: 'resend_invitation',
       },
-      { status: 500 }
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

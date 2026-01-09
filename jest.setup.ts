@@ -1,5 +1,8 @@
 import '@testing-library/jest-dom';
 
+// Node 22+ has built-in Web APIs (fetch, Request, Response, etc.)
+// No need to polyfill if running on Node 22+
+
 // Mock Next.js router
 jest.mock('next/navigation', () => ({
   useRouter() {

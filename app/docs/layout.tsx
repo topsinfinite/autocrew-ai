@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { DocsSidebar } from "@/components/layout/docs-sidebar"
 import { TableOfContents } from "@/components/docs/table-of-contents"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
@@ -15,9 +16,13 @@ export default function DocsLayout({
         <div className="container flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-orange-600">
-                <span className="text-lg font-bold text-white">A</span>
-              </div>
+              <Image
+                src="/images/logo.png"
+                alt="AutoCrew Logo"
+                width={32}
+                height={32}
+                className="h-8 w-8 rounded-lg"
+              />
               <span className="text-xl font-bold text-foreground">
                 AutoCrew
               </span>

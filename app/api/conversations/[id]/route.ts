@@ -4,6 +4,7 @@ import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
 import { db } from '@/db';
 import { conversations, member, clients } from '@/db/schema';
 import { eq, inArray } from 'drizzle-orm';
+import { logger, successResponse, errorResponse, ErrorCodes } from '@/lib/utils';
 
 /**
  * GET /api/conversations/[id]
@@ -17,10 +18,19 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
     // Require authentication
     const session = await requireAuth();
     const { id } = await params;
+
+    await logger.info('Fetch conversation request received', {
+      requestId,
+      conversationId: id,
+      userId: session.user.id,
+    });
 
     // Get the conversation to check ownership
     const [conv] = await db
@@ -30,9 +40,18 @@ export async function GET(
       .limit(1);
 
     if (!conv) {
-      return NextResponse.json(
-        { success: false, error: 'Conversation not found' },
-        { status: 404 }
+      await logger.warn('Fetch conversation failed - not found', {
+        requestId,
+        conversationId: id,
+      });
+      return errorResponse(
+        {
+          code: 'CONVERSATION_NOT_FOUND',
+          status: 404,
+          message: 'Conversation not found',
+        },
+        null,
+        requestId
       );
     }
 
@@ -48,9 +67,19 @@ export async function GET(
         .where(eq(member.userId, userId));
 
       if (memberships.length === 0) {
-        return NextResponse.json(
-          { success: false, error: 'Forbidden - No organization membership' },
-          { status: 403 }
+        await logger.warn('Fetch conversation failed - no organization membership', {
+          requestId,
+          conversationId: id,
+          userId,
+        });
+        return errorResponse(
+          {
+            code: 'PERMISSION_DENIED',
+            status: 403,
+            message: 'No organization membership',
+          },
+          null,
+          requestId
         );
       }
 
@@ -65,9 +94,21 @@ export async function GET(
 
       // Check if conversation belongs to one of user's organizations
       if (!allowedClientCodes.includes(conv.clientId)) {
-        return NextResponse.json(
-          { success: false, error: 'Forbidden - Cannot access other organization\'s conversations' },
-          { status: 403 }
+        await logger.warn('Fetch conversation failed - forbidden', {
+          requestId,
+          conversationId: id,
+          userId,
+          conversationClientId: conv.clientId,
+          allowedClientCodes,
+        });
+        return errorResponse(
+          {
+            code: 'PERMISSION_DENIED',
+            status: 403,
+            message: 'Cannot access other organization\'s conversations',
+          },
+          null,
+          requestId
         );
       }
     }
@@ -76,21 +117,43 @@ export async function GET(
     const conversation = await getConversationById(id);
 
     if (!conversation) {
-      return NextResponse.json(
-        { success: false, error: 'Conversation not found' },
-        { status: 404 }
+      await logger.warn('Fetch conversation failed - not found after authorization', {
+        requestId,
+        conversationId: id,
+      });
+      return errorResponse(
+        {
+          code: 'CONVERSATION_NOT_FOUND',
+          status: 404,
+          message: 'Conversation not found',
+        },
+        null,
+        requestId
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      data: conversation,
+    const duration = Date.now() - startTime;
+    await logger.info('Conversation fetched successfully', {
+      requestId,
+      conversationId: id,
+      clientId: conversation.clientId,
+      crewId: conversation.crewId,
+      duration,
+      operation: 'fetch_conversation',
     });
+
+    return successResponse(conversation, undefined, requestId);
   } catch (error) {
-    console.error('GET /api/conversations/[id] error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch conversation' },
-      { status: 500 }
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to fetch conversation',
+      {
+        requestId,
+        duration,
+        operation: 'fetch_conversation',
+      },
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

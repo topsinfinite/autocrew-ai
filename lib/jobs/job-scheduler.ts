@@ -1,4 +1,5 @@
 import cron, { type ScheduledTask } from 'node-cron';
+import { logger } from '@/lib/utils';
 import { runConversationDiscoveryJob } from './conversation-discovery-job';
 
 /**
@@ -36,13 +37,15 @@ let lastJobResult: {
  * Start the job scheduler
  * Initializes all background jobs based on environment configuration
  */
-export function startJobScheduler(): void {
+export async function startJobScheduler(): Promise<void> {
   // Check if background jobs are enabled
   const enableJobs = process.env.ENABLE_BACKGROUND_JOBS !== 'false';
 
   if (!enableJobs) {
-    console.log('[Scheduler] Background jobs disabled via ENABLE_BACKGROUND_JOBS=false');
-    console.log('[Scheduler] Set ENABLE_BACKGROUND_JOBS=true in .env.local to enable');
+    await logger.info('Background jobs disabled', {
+      enabled: false,
+      operation: 'start_job_scheduler',
+    });
     return;
   }
 
@@ -51,47 +54,60 @@ export function startJobScheduler(): void {
 
   // Validate cron expression
   if (!cron.validate(cronSchedule)) {
-    console.error(
-      `[Scheduler] Invalid cron schedule: "${cronSchedule}"`,
-      '\n[Scheduler] Using default: */5 * * * *',
-      '\n[Scheduler] See docs/cron-syntax.md for valid formats'
-    );
-    scheduleConversationDiscovery('*/5 * * * *');
+    await logger.error('Invalid cron schedule - using default', {
+      providedSchedule: cronSchedule,
+      defaultSchedule: '*/5 * * * *',
+      operation: 'start_job_scheduler',
+    });
+    await scheduleConversationDiscovery('*/5 * * * *');
   } else {
-    scheduleConversationDiscovery(cronSchedule);
+    await scheduleConversationDiscovery(cronSchedule);
   }
 
-  console.log('[Scheduler] Job scheduler initialized successfully');
-  console.log('[Scheduler] Active jobs:', scheduledTasks.length);
+  await logger.info('Job scheduler initialized successfully', {
+    activeTasks: scheduledTasks.length,
+    cronSchedule,
+    operation: 'start_job_scheduler',
+  });
 }
 
 /**
  * Stop all scheduled jobs
  * Useful for graceful shutdown
  */
-export function stopJobScheduler(): void {
-  console.log(`[Scheduler] Stopping ${scheduledTasks.length} scheduled tasks...`);
+export async function stopJobScheduler(): Promise<void> {
+  await logger.info('Stopping scheduled tasks', {
+    taskCount: scheduledTasks.length,
+    operation: 'stop_job_scheduler',
+  });
 
   for (const task of scheduledTasks) {
     task.stop();
   }
 
   scheduledTasks.length = 0;
-  console.log('[Scheduler] All scheduled tasks stopped');
+  await logger.info('All scheduled tasks stopped successfully', {
+    operation: 'stop_job_scheduler',
+  });
 }
 
 /**
  * Schedule the conversation discovery job
  */
-function scheduleConversationDiscovery(cronSchedule: string): void {
-  console.log(`[Scheduler] Scheduling conversation discovery: ${cronSchedule}`);
+async function scheduleConversationDiscovery(cronSchedule: string): Promise<void> {
+  await logger.info('Scheduling conversation discovery job', {
+    cronSchedule,
+    operation: 'schedule_conversation_discovery',
+  });
 
   const task = cron.schedule(
     cronSchedule,
     async () => {
       // Prevent overlapping job executions
       if (isJobRunning) {
-        console.warn('[Scheduler] Discovery job already running, skipping this execution');
+        await logger.warn('Discovery job already running - skipping execution', {
+          operation: 'conversation_discovery_cron',
+        });
         return;
       }
 
@@ -99,7 +115,9 @@ function scheduleConversationDiscovery(cronSchedule: string): void {
       const startedAt = new Date();
 
       try {
-        console.log('[Scheduler] ⏰ Triggering conversation discovery job');
+        await logger.info('Triggering scheduled conversation discovery job', {
+          operation: 'conversation_discovery_cron',
+        });
         const result = await runConversationDiscoveryJob();
 
         lastJobResult = {
@@ -109,9 +127,10 @@ function scheduleConversationDiscovery(cronSchedule: string): void {
           durationMs: result.durationMs,
         };
 
-        console.log('[Scheduler] ✓ Discovery job completed successfully', {
+        await logger.info('Discovery job completed successfully', {
           durationMs: result.durationMs,
           newConversations: result.totalNewConversations,
+          operation: 'conversation_discovery_cron',
         });
       } catch (error) {
         const completedAt = new Date();
@@ -122,7 +141,10 @@ function scheduleConversationDiscovery(cronSchedule: string): void {
           durationMs: completedAt.getTime() - startedAt.getTime(),
         };
 
-        console.error('[Scheduler] ✗ Discovery job failed:', error);
+        await logger.error('Discovery job failed', {
+          durationMs: lastJobResult.durationMs,
+          operation: 'conversation_discovery_cron',
+        }, error);
       } finally {
         isJobRunning = false;
       }
@@ -131,8 +153,12 @@ function scheduleConversationDiscovery(cronSchedule: string): void {
 
   scheduledTasks.push(task);
 
-  console.log('[Scheduler] Conversation discovery job scheduled');
-  console.log(`[Scheduler] Schedule: ${cronSchedule} (${getNextRunDescription(cronSchedule)})`);
+  const scheduleDescription = getNextRunDescription(cronSchedule);
+  await logger.info('Conversation discovery job scheduled successfully', {
+    cronSchedule,
+    scheduleDescription,
+    operation: 'schedule_conversation_discovery',
+  });
 }
 
 /**
@@ -186,13 +212,21 @@ export function getSchedulerStatus(): {
  * Does not respect the isJobRunning lock
  */
 export async function triggerManualRun(): Promise<void> {
-  console.log('[Scheduler] Manual job trigger requested');
+  await logger.info('Manual job trigger requested', {
+    operation: 'trigger_manual_discovery',
+  });
 
   try {
     const result = await runConversationDiscoveryJob();
-    console.log('[Scheduler] Manual job completed:', result);
+    await logger.info('Manual job completed successfully', {
+      durationMs: result.durationMs,
+      newConversations: result.totalNewConversations,
+      operation: 'trigger_manual_discovery',
+    });
   } catch (error) {
-    console.error('[Scheduler] Manual job failed:', error);
+    await logger.error('Manual job failed', {
+      operation: 'trigger_manual_discovery',
+    }, error);
     throw error;
   }
 }

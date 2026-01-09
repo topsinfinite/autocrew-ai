@@ -4,6 +4,7 @@ import { crews, clients, member } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
 import type { CrewConfig } from '@/types';
+import { logger, successResponse, errorResponse, ErrorCodes, sanitizePII } from '@/lib/utils';
 
 /**
  * PATCH /api/crews/[id]/config
@@ -23,6 +24,9 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
     // Verify authentication
     const session = await requireAuth();
@@ -30,30 +34,57 @@ export async function PATCH(
     const body = await request.json();
     const { supportEmail, supportClientName } = body;
 
+    await logger.info('Update crew config request received', {
+      requestId,
+      crewId: id,
+      userId: session.user.id,
+      supportEmail: sanitizePII({ email: supportEmail }).email,
+    });
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!supportEmail || !emailRegex.test(supportEmail)) {
-      return NextResponse.json({
-        success: false,
-        error: 'Valid support email is required'
-      }, { status: 400 });
+      await logger.warn('Update crew config failed - invalid email', {
+        requestId,
+        crewId: id,
+        supportEmail: sanitizePII({ email: supportEmail }).email,
+      });
+      return errorResponse(
+        {
+          code: 'VALIDATION_FAILED',
+          status: 400,
+          message: 'Valid support email is required',
+        },
+        null,
+        requestId
+      );
     }
 
     // Validate client name
     if (!supportClientName || supportClientName.trim().length === 0) {
-      return NextResponse.json({
-        success: false,
-        error: 'Support client name is required'
-      }, { status: 400 });
+      await logger.warn('Update crew config failed - missing client name', {
+        requestId,
+        crewId: id,
+      });
+      return errorResponse(
+        {
+          code: 'VALIDATION_FAILED',
+          status: 400,
+          message: 'Support client name is required',
+        },
+        null,
+        requestId
+      );
     }
 
     // Fetch crew
     const [crew] = await db.select().from(crews).where(eq(crews.id, id)).limit(1);
     if (!crew) {
-      return NextResponse.json({
-        success: false,
-        error: 'Crew not found'
-      }, { status: 404 });
+      await logger.warn('Update crew config failed - crew not found', {
+        requestId,
+        crewId: id,
+      });
+      return errorResponse(ErrorCodes.CREW_NOT_FOUND, null, requestId);
     }
 
     // Authorization: SuperAdmin or Client Admin from same org
@@ -70,21 +101,41 @@ export async function PATCH(
         .limit(1);
 
       if (membership.length === 0) {
-        return NextResponse.json({
-          success: false,
-          error: 'Forbidden - You can only update crews from your organization'
-        }, { status: 403 });
+        await logger.warn('Update crew config failed - insufficient permissions', {
+          requestId,
+          crewId: id,
+          userId,
+          clientId: crew.clientId,
+        });
+        return errorResponse(
+          {
+            code: 'PERMISSION_DENIED',
+            status: 403,
+            message: 'You can only update crews from your organization',
+          },
+          null,
+          requestId
+        );
       }
     }
 
-    // Update config
+    // Update config with metadata and activation state
     const currentConfig = crew.config as CrewConfig;
+    const documentsUploaded = currentConfig.activationState?.documentsUploaded ?? false;
+    const supportConfigured = true; // Support is now configured
+    const activationReady = documentsUploaded && supportConfigured;
+
     const updatedConfig: CrewConfig = {
       ...currentConfig,
       metadata: {
         ...currentConfig.metadata,
         support_email: supportEmail,
         support_client_name: supportClientName.trim()
+      },
+      activationState: {
+        documentsUploaded,
+        supportConfigured,
+        activationReady
       }
     };
 
@@ -97,17 +148,33 @@ export async function PATCH(
       .where(eq(crews.id, id))
       .returning();
 
-    return NextResponse.json({
-      success: true,
-      data: updatedCrew,
-      message: 'Support configuration updated successfully'
+    const duration = Date.now() - startTime;
+    await logger.info('Crew config updated successfully', {
+      requestId,
+      crewId: id,
+      crewCode: crew.crewCode,
+      supportEmail: sanitizePII({ email: supportEmail }).email,
+      supportClientName,
+      duration,
+      operation: 'update_crew_config',
     });
+
+    return successResponse(
+      updatedCrew,
+      'Support configuration updated successfully',
+      requestId
+    );
   } catch (error) {
-    console.error('PATCH /api/crews/[id]/config error:', error);
-    return NextResponse.json({
-      success: false,
-      error: 'Failed to update crew configuration',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 });
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to update crew configuration',
+      {
+        requestId,
+        duration,
+        operation: 'update_crew_config',
+      },
+      error
+    );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

@@ -52,11 +52,26 @@ function matchesRoute(pathname: string, routes: string[]): boolean {
 }
 
 /**
- * Proxy function - lightweight route protection
+ * Generate or extract request ID for correlation logging
+ */
+function getOrCreateRequestId(request: NextRequest): string {
+  // Check if request already has an ID (from load balancer or previous middleware)
+  const existingId = request.headers.get('x-request-id');
+  if (existingId) {
+    return existingId;
+  }
+
+  // Generate new UUID for this request
+  return crypto.randomUUID();
+}
+
+/**
+ * Proxy function - lightweight route protection + request correlation
  *
  * This ONLY checks for:
  * 1. Cookie existence (not validity!)
  * 2. Route-based redirects
+ * 3. Request ID generation for logging correlation
  *
  * It does NOT:
  * - Validate JWT tokens
@@ -69,9 +84,14 @@ function matchesRoute(pathname: string, routes: string[]): boolean {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Generate or extract request ID for correlation logging
+  const requestId = getOrCreateRequestId(request);
+
   // Skip API auth routes (Better Auth handles these)
   if (pathname.startsWith("/api/auth")) {
-    return NextResponse.next();
+    const response = NextResponse.next();
+    response.headers.set('x-request-id', requestId);
+    return response;
   }
 
   // Only check for cookie existence - NO VALIDATION
@@ -80,6 +100,10 @@ export async function proxy(request: NextRequest) {
 
   const isPublicRoute = matchesRoute(pathname, PUBLIC_ROUTES);
   const isAdminRoute = matchesRoute(pathname, ADMIN_ROUTES);
+
+  // Clone request headers and add request ID
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-request-id', requestId);
 
   // ========================================
   // 1. Public Route Logic
@@ -90,10 +114,18 @@ export async function proxy(request: NextRequest) {
     if (hasSessionCookie && (pathname === "/login" || pathname === "/signup")) {
       // We can't determine role here, so redirect to dashboard
       // If they're SuperAdmin, the dashboard layout will redirect to /admin
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      const response = NextResponse.redirect(new URL("/dashboard", request.url));
+      response.headers.set('x-request-id', requestId);
+      return response;
     }
 
-    return NextResponse.next();
+    const response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
+    response.headers.set('x-request-id', requestId);
+    return response;
   }
 
   // ========================================
@@ -103,12 +135,28 @@ export async function proxy(request: NextRequest) {
     // No session cookie - redirect to login
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(loginUrl);
+    const response = NextResponse.redirect(loginUrl);
+    response.headers.set('x-request-id', requestId);
+    return response;
   }
 
   // User has a session cookie (validity checked in Server Components)
   // For admin routes, the Server Component layout will verify SuperAdmin role
-  return NextResponse.next();
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
+  response.headers.set('x-request-id', requestId);
+
+  // Add CORS headers if needed (can be customized per environment)
+  if (process.env.NODE_ENV === 'development') {
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-request-id');
+  }
+
+  return response;
 }
 
 /**

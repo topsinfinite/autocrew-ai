@@ -21,6 +21,7 @@ const config: Config = {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/__tests__/test-utils\\.[jt]s$',
+    '/__tests__/.*/test-helpers\\.[jt]s$',
   ],
   collectCoverageFrom: [
     'app/**/*.{js,jsx,ts,tsx}',

@@ -1,4 +1,5 @@
 import { db } from '@/db';
+import { logger } from '@/lib/utils';
 import type { PgTransaction } from 'drizzle-orm/pg-core';
 import type { PostgresJsQueryResultHKT } from 'drizzle-orm/postgres-js';
 import type * as schema from '@/db/schema';
@@ -55,8 +56,9 @@ export async function withTransaction<T>(
 
   while (attempt <= maxRetries) {
     try {
-      console.log(`[Transaction] ${operation}: Starting transaction`, {
+      await logger.info('Starting database transaction', {
         ...context,
+        operation,
         attempt: attempt + 1,
       });
 
@@ -64,8 +66,9 @@ export async function withTransaction<T>(
         return await fn(tx);
       });
 
-      console.log(`[Transaction] ${operation}: Transaction committed`, {
+      await logger.info('Database transaction committed successfully', {
         ...context,
+        operation,
         attempt: attempt + 1,
       });
 
@@ -83,15 +86,13 @@ export async function withTransaction<T>(
         (error as any)?.cause?.code === '40001';
 
       if (isSerializationError && attempt < maxRetries) {
-        console.warn(
-          `[Transaction] ${operation}: Serialization failure, retrying`,
-          {
-            ...context,
-            attempt: attempt + 1,
-            maxRetries,
-            error: lastError.message,
-          }
-        );
+        await logger.warn('Database transaction serialization failure - retrying', {
+          ...context,
+          operation,
+          attempt: attempt + 1,
+          maxRetries,
+          error: lastError.message,
+        });
 
         // Exponential backoff
         await new Promise((resolve) =>
@@ -103,15 +104,12 @@ export async function withTransaction<T>(
       }
 
       // Non-retryable error or max retries reached
-      console.error(
-        `[Transaction] ${operation}: Transaction failed`,
-        {
-          ...context,
-          attempt: attempt + 1,
-          isSerializationError,
-        },
-        lastError
-      );
+      await logger.error('Database transaction failed', {
+        ...context,
+        operation,
+        attempt: attempt + 1,
+        isSerializationError,
+      }, lastError);
 
       return {
         success: false,

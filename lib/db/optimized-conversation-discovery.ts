@@ -1,6 +1,7 @@
 import { db, client } from '@/db';
 import { conversations, crews } from '@/db/schema';
 import { eq, and, gt } from 'drizzle-orm';
+import { logger } from '@/lib/utils';
 import {
   transformHistoriesToTranscript,
   analyzeSentiment,
@@ -54,7 +55,11 @@ async function getCrewDiscoveryState(
     if (!result || result.length === 0) return null;
     return result[0]?.max_created_at || null;
   } catch (error) {
-    console.error(`[Discovery] Failed to get state for crew ${crewId}:`, error);
+    await logger.error('Failed to get discovery state for crew', {
+      crewId,
+      historiesTableName,
+      operation: 'get_crew_discovery_state',
+    }, error);
     return null;
   }
 }
@@ -104,7 +109,11 @@ async function discoverNewSessionsIncremental(
     const result = await client.unsafe(query, params);
     return result.map((row: any) => row.session_id);
   } catch (error) {
-    console.error(`[Discovery] Failed to get sessions from ${historiesTableName}:`, error);
+    await logger.error('Failed to get sessions from histories table', {
+      historiesTableName,
+      lastDiscoveredAt,
+      operation: 'discover_new_sessions_incremental',
+    }, error);
     return [];
   }
 }
@@ -179,7 +188,11 @@ async function getSessionMetadataEfficient(
       lastMessage: row.last_message,
     };
   } catch (error) {
-    console.error(`[Discovery] Failed to get metadata for session ${sessionId}:`, error);
+    await logger.error('Failed to get metadata for session', {
+      historiesTableName,
+      sessionId,
+      operation: 'get_session_metadata_efficient',
+    }, error);
     return null;
   }
 }
@@ -201,7 +214,13 @@ export async function discoverCrewConversationsOptimized(
   clientId: string,
   batchSize: number = 50
 ): Promise<{ newCount: number; skippedCount: number; errorCount: number }> {
-  console.log(`[Discovery Optimized] Starting for crew ${crewId}, table ${historiesTableName}`);
+  await logger.info('Starting optimized crew discovery', {
+    crewId,
+    historiesTableName,
+    clientId,
+    batchSize,
+    operation: 'discover_crew_conversations_optimized',
+  });
 
   let newCount = 0;
   let skippedCount = 0;
@@ -210,17 +229,29 @@ export async function discoverCrewConversationsOptimized(
   try {
     // Step 1: Get last discovery timestamp (incremental)
     const lastDiscoveredAt = await getCrewDiscoveryState(crewId, historiesTableName);
-    console.log(`[Discovery Optimized] Last discovered at:`, lastDiscoveredAt || 'never');
+    await logger.info('Crew discovery state retrieved', {
+      crewId,
+      lastDiscoveredAt: lastDiscoveredAt?.toISOString() || 'never',
+      operation: 'discover_crew_conversations_optimized',
+    });
 
     // Step 2: Get new sessions efficiently (uses index)
     const newSessions = await discoverNewSessionsIncremental(
       historiesTableName,
       lastDiscoveredAt
     );
-    console.log(`[Discovery Optimized] Found ${newSessions.length} new sessions to process`);
+    await logger.info('New sessions found for crew', {
+      crewId,
+      newSessionCount: newSessions.length,
+      operation: 'discover_crew_conversations_optimized',
+    });
 
     if (newSessions.length === 0) {
-      console.log(`[Discovery Optimized] No new sessions, skipping`);
+      await logger.info('No new sessions to process - skipping', {
+        crewId,
+        historiesTableName,
+        operation: 'discover_crew_conversations_optimized',
+      });
       return { newCount, skippedCount, errorCount };
     }
 
@@ -235,7 +266,12 @@ export async function discoverCrewConversationsOptimized(
     // Step 4: Process in batches to avoid long transactions
     for (let i = 0; i < newSessions.length; i += batchSize) {
       const batch = newSessions.slice(i, i + batchSize);
-      console.log(`[Discovery Optimized] Processing batch ${Math.floor(i / batchSize) + 1} (${batch.length} sessions)`);
+      await logger.info('Processing session batch', {
+        batchNumber: Math.floor(i / batchSize) + 1,
+        batchSize: batch.length,
+        crewId,
+        operation: 'discover_crew_conversations_optimized',
+      });
 
       for (const sessionId of batch) {
         try {
@@ -248,7 +284,12 @@ export async function discoverCrewConversationsOptimized(
           // Get efficient metadata (no full transcript fetch)
           const metadata = await getSessionMetadataEfficient(historiesTableName, sessionId);
           if (!metadata || metadata.messageCount === 0) {
-            console.warn(`[Discovery Optimized] No messages for session ${sessionId}, skipping`);
+            await logger.warn('No messages found for session - skipping', {
+              sessionId,
+              crewId,
+              historiesTableName,
+              operation: 'discover_crew_conversations_optimized',
+            });
             errorCount++;
             continue;
           }
@@ -281,24 +322,47 @@ export async function discoverCrewConversationsOptimized(
 
           newCount++;
           existingSet.add(sessionId); // Prevent duplicates in same batch
-          console.log(`[Discovery Optimized] ✓ Created conversation for session ${sessionId}`);
+          await logger.info('Conversation record created successfully', {
+            sessionId,
+            crewId,
+            clientId,
+            operation: 'discover_crew_conversations_optimized',
+          });
         } catch (error: any) {
           // Handle duplicates gracefully
           if (error?.cause?.code === '23505') {
             skippedCount++;
             existingSet.add(sessionId);
           } else {
-            console.error(`[Discovery Optimized] Error processing session ${sessionId}:`, error);
+            await logger.error('Error processing session', {
+              sessionId,
+              crewId,
+              operation: 'discover_crew_conversations_optimized',
+            }, error);
             errorCount++;
           }
         }
       }
     }
 
-    console.log(`[Discovery Optimized] Completed: ${newCount} new, ${skippedCount} skipped, ${errorCount} errors`);
+    await logger.info('Optimized crew discovery completed', {
+      crewId,
+      historiesTableName,
+      newCount,
+      skippedCount,
+      errorCount,
+      operation: 'discover_crew_conversations_optimized',
+    });
     return { newCount, skippedCount, errorCount };
   } catch (error) {
-    console.error(`[Discovery Optimized] Failed for crew ${crewId}:`, error);
+    await logger.error('Optimized crew discovery failed', {
+      crewId,
+      historiesTableName,
+      newCount,
+      skippedCount,
+      errorCount,
+      operation: 'discover_crew_conversations_optimized',
+    }, error);
     return { newCount, skippedCount, errorCount };
   }
 }
@@ -325,7 +389,11 @@ async function queryHistoriesTableOptimized(
 
     return transformHistoriesToTranscript(result as any);
   } catch (error) {
-    console.error(`[Discovery Optimized] Failed to query ${tableName}:`, error);
+    await logger.error('Failed to query histories table (optimized)', {
+      tableName,
+      sessionId,
+      operation: 'query_histories_table_optimized',
+    }, error);
     return [];
   }
 }
@@ -340,7 +408,10 @@ async function queryHistoriesTableOptimized(
 export async function discoverConversationsOptimized(
   clientId: string
 ): Promise<{ totalNew: number; totalSkipped: number; totalErrors: number }> {
-  console.log(`[Discovery Optimized] Starting for client ${clientId}`);
+  await logger.info('Starting optimized conversation discovery for client', {
+    clientId,
+    operation: 'discover_conversations_optimized',
+  });
 
   const clientCrews = await db
     .select()
@@ -354,7 +425,12 @@ export async function discoverConversationsOptimized(
   for (const crew of clientCrews) {
     const config = crew.config as { historiesTableName?: string };
     if (!config.historiesTableName) {
-      console.log(`[Discovery Optimized] Crew ${crew.crewCode} has no histories table, skipping`);
+      await logger.info('Crew has no histories table - skipping', {
+        crewId: crew.id,
+        crewCode: crew.crewCode,
+        clientId,
+        operation: 'discover_conversations_optimized',
+      });
       continue;
     }
 
@@ -369,10 +445,12 @@ export async function discoverConversationsOptimized(
     totalErrors += result.errorCount;
   }
 
-  console.log(`[Discovery Optimized] Client ${clientId} completed:`, {
+  await logger.info('Optimized conversation discovery completed for client', {
+    clientId,
     totalNew,
     totalSkipped,
     totalErrors,
+    operation: 'discover_conversations_optimized',
   });
 
   return { totalNew, totalSkipped, totalErrors };

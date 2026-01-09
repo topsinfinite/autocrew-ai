@@ -4,6 +4,7 @@ import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
 import { db } from '@/db';
 import { member, clients } from '@/db/schema';
 import { eq, inArray } from 'drizzle-orm';
+import { logger, errorResponse, ErrorCodes } from '@/lib/utils';
 
 /**
  * GET /api/conversations
@@ -16,17 +17,32 @@ import { eq, inArray } from 'drizzle-orm';
  * Query params: clientId, crewId, sentiment, resolved, limit, offset
  */
 export async function GET(request: NextRequest) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
     // Require authentication
     const session = await requireAuth();
 
     const params = request.nextUrl.searchParams;
-    const requestedClientCode = params.get('clientId'); // This is actually a clientCode, not org ID
+    const requestedClientCode = params.get('clientId');
+
+    await logger.info('Fetch conversations request received', {
+      requestId,
+      userId: session.user.id,
+      filters: {
+        clientId: requestedClientCode,
+        crewId: params.get('crewId'),
+        sentiment: params.get('sentiment'),
+        resolved: params.get('resolved'),
+      },
+    });
 
     // Determine which clients the user can access
     let allowedClientCodes: string[] = [];
+    const isSuperAdminUser = await isSuperAdmin();
 
-    if (await isSuperAdmin()) {
+    if (isSuperAdminUser) {
       // SuperAdmin can see all conversations, or filter by specific clientCode
       if (requestedClientCode) {
         // Verify the client exists
@@ -40,10 +56,15 @@ export async function GET(request: NextRequest) {
           allowedClientCodes = [client.clientCode];
         } else {
           // Requested client doesn't exist
+          await logger.warn('Fetch conversations - client not found', {
+            requestId,
+            clientCode: requestedClientCode,
+          });
           return NextResponse.json({
             success: true,
             data: [],
             count: 0,
+            requestId,
           });
         }
       }
@@ -61,10 +82,15 @@ export async function GET(request: NextRequest) {
 
       if (memberships.length === 0) {
         // User has no organization membership - return empty
+        await logger.warn('Fetch conversations - no organization membership', {
+          requestId,
+          userId,
+        });
         return NextResponse.json({
           success: true,
           data: [],
           count: 0,
+          requestId,
         });
       }
 
@@ -79,9 +105,20 @@ export async function GET(request: NextRequest) {
 
       // If Client Admin tries to access a client that's not theirs, deny
       if (requestedClientCode && !allowedClientCodes.includes(requestedClientCode)) {
-        return NextResponse.json(
-          { success: false, error: 'Forbidden - Cannot access other organization\'s data' },
-          { status: 403 }
+        await logger.warn('Fetch conversations failed - forbidden', {
+          requestId,
+          userId,
+          requestedClientCode,
+          allowedClientCodes,
+        });
+        return errorResponse(
+          {
+            code: 'PERMISSION_DENIED',
+            status: 403,
+            message: 'Cannot access other organization\'s data',
+          },
+          null,
+          requestId
         );
       }
     }
@@ -118,16 +155,34 @@ export async function GET(request: NextRequest) {
 
     const conversations = await getConversations(filters);
 
+    const duration = Date.now() - startTime;
+    await logger.info('Conversations fetched successfully', {
+      requestId,
+      userId: session.user.id,
+      isSuperAdmin: isSuperAdminUser,
+      count: conversations.length,
+      filters,
+      duration,
+      operation: 'fetch_conversations',
+    });
+
     return NextResponse.json({
       success: true,
       data: conversations,
       count: conversations.length,
+      requestId,
     });
   } catch (error) {
-    console.error('GET /api/conversations error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch conversations' },
-      { status: 500 }
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to fetch conversations',
+      {
+        requestId,
+        duration,
+        operation: 'fetch_conversations',
+      },
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

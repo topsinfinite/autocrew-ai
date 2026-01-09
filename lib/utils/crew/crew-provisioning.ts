@@ -1,6 +1,7 @@
 import { db } from '@/db';
 import { crews } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import { logger } from '@/lib/utils';
 import type { CrewConfig, CrewType, CrewStatus } from '@/types';
 import { generateCrewCode } from '../generators/crew-code-generator';
 import { generateCrewTableName } from './crew-table-generator';
@@ -58,8 +59,16 @@ export interface ProvisionCrewResult {
  */
 export async function provisionCrew(input: ProvisionCrewInput): Promise<ProvisionCrewResult> {
   const { name, clientId, type, webhookUrl, status = 'inactive' } = input;
+  const startTime = Date.now();
 
-  console.log(`\nProvisioning crew: ${name} (${type}) for client: ${clientId}`);
+  await logger.info('Crew provisioning started', {
+    name,
+    clientId,
+    type,
+    webhookUrl,
+    status,
+    operation: 'provision_crew',
+  });
 
   // Declare variables outside try-catch for cleanup access
   let vectorTableName: string | undefined;
@@ -67,26 +76,52 @@ export async function provisionCrew(input: ProvisionCrewInput): Promise<Provisio
 
   try {
     // Step 1: Generate unique crew code
-    console.log('→ Generating crew code...');
+    await logger.info('Generating crew code', {
+      clientId,
+      type,
+      operation: 'provision_crew',
+    });
     const crewCode = await generateCrewCode(clientId, type);
-    console.log(`  ✓ Crew code: ${crewCode}`);
+    await logger.info('Crew code generated', {
+      crewCode,
+      clientId,
+      type,
+      operation: 'provision_crew',
+    });
 
     // Step 2: Generate table names and create tables (customer_support only)
     const config: CrewConfig = { metadata: {} };
 
     if (type === 'customer_support') {
-      console.log('→ Generating table names...');
+      await logger.info('Generating table names for customer support crew', {
+        clientId,
+        type,
+        operation: 'provision_crew',
+      });
 
       // Generate vector table name
       vectorTableName = await generateCrewTableName(clientId, type, 'vector');
-      console.log(`  ✓ Vector table: ${vectorTableName}`);
+      await logger.info('Vector table name generated', {
+        vectorTableName,
+        clientId,
+        operation: 'provision_crew',
+      });
 
       // Generate histories table name
       historiesTableName = await generateCrewTableName(clientId, type, 'histories');
-      console.log(`  ✓ Histories table: ${historiesTableName}`);
+      await logger.info('Histories table name generated', {
+        historiesTableName,
+        clientId,
+        operation: 'provision_crew',
+      });
 
       // Create tables
-      console.log('→ Creating tables...');
+      await logger.info('Creating database tables', {
+        vectorTableName,
+        historiesTableName,
+        clientId,
+        operation: 'provision_crew',
+      });
       await createVectorTable(vectorTableName);
       await createHistoriesTable(historiesTableName);
 
@@ -94,11 +129,21 @@ export async function provisionCrew(input: ProvisionCrewInput): Promise<Provisio
       config.vectorTableName = vectorTableName;
       config.historiesTableName = historiesTableName;
     } else {
-      console.log('→ Skipping table creation (lead_generation crew)');
+      await logger.info('Skipping table creation for lead generation crew', {
+        type,
+        clientId,
+        operation: 'provision_crew',
+      });
     }
 
     // Step 3: Insert crew record
-    console.log('→ Inserting crew record...');
+    await logger.info('Inserting crew record into database', {
+      name,
+      clientId,
+      crewCode,
+      type,
+      operation: 'provision_crew',
+    });
     const [newCrew] = await db
       .insert(crews)
       .values({
@@ -112,7 +157,17 @@ export async function provisionCrew(input: ProvisionCrewInput): Promise<Provisio
       })
       .returning();
 
-    console.log(`✓ Crew provisioned successfully: ${crewCode}`);
+    const duration = Date.now() - startTime;
+    await logger.info('Crew provisioned successfully', {
+      crewId: newCrew.id,
+      crewCode,
+      clientId,
+      type,
+      vectorTableName,
+      historiesTableName,
+      duration,
+      operation: 'provision_crew',
+    });
 
     return {
       crew: {
@@ -133,15 +188,32 @@ export async function provisionCrew(input: ProvisionCrewInput): Promise<Provisio
       },
     };
   } catch (error) {
-    console.error('✗ Crew provisioning failed:', error);
+    const duration = Date.now() - startTime;
+    await logger.error('Crew provisioning failed', {
+      name,
+      clientId,
+      type,
+      vectorTableName,
+      historiesTableName,
+      duration,
+      operation: 'provision_crew',
+    }, error);
 
     // Attempt to clean up tables if they were created
     if (vectorTableName) {
-      console.log('→ Rolling back: Dropping vector table...');
+      await logger.info('Rolling back: Dropping vector table', {
+        vectorTableName,
+        clientId,
+        operation: 'provision_crew_rollback',
+      });
       await dropTable(vectorTableName);
     }
     if (historiesTableName) {
-      console.log('→ Rolling back: Dropping histories table...');
+      await logger.info('Rolling back: Dropping histories table', {
+        historiesTableName,
+        clientId,
+        operation: 'provision_crew_rollback',
+      });
       await dropTable(historiesTableName);
     }
 
@@ -166,42 +238,92 @@ export async function provisionCrew(input: ProvisionCrewInput): Promise<Provisio
  * @throws Error if crew not found or deletion fails
  */
 export async function deprovisionCrew(crewId: string): Promise<void> {
-  console.log(`\nDeprovisioning crew: ${crewId}`);
+  const startTime = Date.now();
+
+  await logger.info('Crew deprovisioning started', {
+    crewId,
+    operation: 'deprovision_crew',
+  });
 
   try {
     // Step 1: Fetch crew to get table names
-    console.log('→ Fetching crew...');
+    await logger.info('Fetching crew for deprovisioning', {
+      crewId,
+      operation: 'deprovision_crew',
+    });
     const [crew] = await db.select().from(crews).where(eq(crews.id, crewId)).limit(1);
 
     if (!crew) {
+      await logger.warn('Crew not found for deprovisioning', {
+        crewId,
+        operation: 'deprovision_crew',
+      });
       throw new Error(`Crew not found: ${crewId}`);
     }
 
-    console.log(`  ✓ Found crew: ${crew.crewCode}`);
+    await logger.info('Crew found for deprovisioning', {
+      crewId,
+      crewCode: crew.crewCode,
+      clientId: crew.clientId,
+      operation: 'deprovision_crew',
+    });
 
     const config = crew.config as CrewConfig;
     const vectorTableName = config.vectorTableName;
     const historiesTableName = config.historiesTableName;
 
     // Step 2: Delete crew record
-    console.log('→ Deleting crew record...');
+    await logger.info('Deleting crew record from database', {
+      crewId,
+      crewCode: crew.crewCode,
+      clientId: crew.clientId,
+      operation: 'deprovision_crew',
+    });
     await db.delete(crews).where(eq(crews.id, crewId));
-    console.log('  ✓ Crew record deleted');
+    await logger.info('Crew record deleted successfully', {
+      crewId,
+      crewCode: crew.crewCode,
+      operation: 'deprovision_crew',
+    });
 
     // Step 3: Drop tables (if they exist)
     if (vectorTableName) {
-      console.log(`→ Dropping vector table: ${vectorTableName}...`);
+      await logger.info('Dropping vector table', {
+        vectorTableName,
+        crewId,
+        crewCode: crew.crewCode,
+        operation: 'deprovision_crew',
+      });
       await dropTable(vectorTableName);
     }
 
     if (historiesTableName) {
-      console.log(`→ Dropping histories table: ${historiesTableName}...`);
+      await logger.info('Dropping histories table', {
+        historiesTableName,
+        crewId,
+        crewCode: crew.crewCode,
+        operation: 'deprovision_crew',
+      });
       await dropTable(historiesTableName);
     }
 
-    console.log(`✓ Crew deprovisioned successfully: ${crew.crewCode}`);
+    const duration = Date.now() - startTime;
+    await logger.info('Crew deprovisioned successfully', {
+      crewId,
+      crewCode: crew.crewCode,
+      clientId: crew.clientId,
+      vectorTableName,
+      historiesTableName,
+      duration,
+      operation: 'deprovision_crew',
+    });
   } catch (error) {
-    console.error('✗ Crew deprovisioning failed:', error);
+    const duration = Date.now() - startTime;
+    await logger.error('Crew deprovisioning failed', {
+      crewId,
+      duration,
+      operation: 'deprovision_crew',
+    }, error);
     throw new Error(
       `Failed to deprovision crew: ${error instanceof Error ? error.message : 'Unknown error'}`
     );

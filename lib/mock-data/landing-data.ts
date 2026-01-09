@@ -10,7 +10,7 @@ export const heroData = {
   },
   secondaryCta: {
     text: "Watch Demo",
-    href: "#demo",
+    href: "/#demo",
   },
 };
 
@@ -180,8 +180,8 @@ export const ctaData = {
 
 // Navigation Links
 export const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "How It Works", href: "#how-it-works" },
+  { label: "Features", href: "/#features" },
+  { label: "How It Works", href: "/#how-it-works" },
   { label: "Docs", href: "/docs" },
   { label: "About", href: "/about" },
 ];
@@ -196,11 +196,11 @@ export const footerData: FooterSection[] = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "#features" },
+      { label: "Features", href: "/#features" },
       { label: "Support Crew", href: "/docs/support-crew" },
       { label: "LeadGen Crew", href: "/docs/leadgen-crew" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "Changelog", href: "#changelog" },
+      { label: "Pricing", href: "/#pricing" },
+      { label: "Changelog", href: "/#changelog" },
     ],
   },
   {
@@ -210,7 +210,6 @@ export const footerData: FooterSection[] = [
       { label: "Getting Started", href: "/docs/getting-started" },
       { label: "User Guide", href: "/docs/user-guide" },
       { label: "FAQ", href: "/docs/faq" },
-      { label: "API Reference", href: "/docs/api" },
     ],
   },
   {
@@ -218,8 +217,8 @@ export const footerData: FooterSection[] = [
     links: [
       { label: "Privacy Policy", href: "/docs/privacy" },
       { label: "Terms of Service", href: "/docs/terms" },
-      { label: "Security", href: "#security" },
-      { label: "Compliance", href: "#compliance" },
+      { label: "Security", href: "/#security" },
+      { label: "Compliance", href: "/#compliance" },
     ],
   },
   {
@@ -227,8 +226,8 @@ export const footerData: FooterSection[] = [
     links: [
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
-      { label: "Blog", href: "#blog" },
-      { label: "Careers", href: "#careers" },
+      { label: "Blog", href: "/#blog" },
+      { label: "Careers", href: "/#careers" },
     ],
   },
 ];

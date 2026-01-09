@@ -3,6 +3,7 @@ import { knowledgeBaseDocuments, crews } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { withTransaction } from '@/lib/db/transaction-helpers';
 import { deleteDocument } from '@/lib/db/knowledge-base';
+import { logger } from '@/lib/utils';
 import type { CrewConfig } from '@/types';
 
 export interface UpdateDocumentStatusParams {
@@ -42,12 +43,16 @@ export async function updateDocumentAndCrew(
 
       // 2. Update crew config if first upload
       if (!currentConfig.activationState?.documentsUploaded) {
+        const supportConfigured = !!currentConfig.metadata?.support_email && !!currentConfig.metadata?.support_client_name;
+        const documentsUploaded = true;
+        const activationReady = documentsUploaded && supportConfigured;
+
         const updatedConfig: CrewConfig = {
           ...currentConfig,
           activationState: {
-            documentsUploaded: true,
-            supportConfigured: !!currentConfig.metadata?.support_email,
-            activationReady: false,
+            documentsUploaded,
+            supportConfigured,
+            activationReady,
           },
         };
 
@@ -102,20 +107,22 @@ export async function markDocumentAsError(
       })
       .where(eq(knowledgeBaseDocuments.docId, docId));
 
-    console.warn('[KB Service] Document marked as error', {
+    await logger.warn('Document marked as error', {
       docId,
       errorMessage,
       userId: context.userId,
       filename: context.filename,
+      operation: 'mark_document_error',
     });
   } catch (error) {
-    console.error(
-      '[KB Service] Failed to mark document as error',
+    await logger.error(
+      'Failed to mark document as error',
       {
         docId,
         errorMessage,
         userId: context.userId,
         filename: context.filename,
+        operation: 'mark_document_error',
       },
       error
     );
@@ -135,12 +142,13 @@ export async function rollbackDocument(
     if (vectorTableName) {
       // Use the deleteDocument helper which deletes both
       await deleteDocument(docId, vectorTableName);
-      console.log('[KB Service] Complete rollback successful', {
+      await logger.info('Complete rollback successful', {
         docId,
         vectorTableName,
         userId: context.userId,
         filename: context.filename,
         crewId: context.crewId,
+        operation: 'rollback_document',
       });
     } else {
       // No vector table, just delete metadata
@@ -148,23 +156,25 @@ export async function rollbackDocument(
         .delete(knowledgeBaseDocuments)
         .where(eq(knowledgeBaseDocuments.docId, docId));
 
-      console.log('[KB Service] Metadata rollback successful', {
+      await logger.info('Metadata rollback successful', {
         docId,
         userId: context.userId,
         filename: context.filename,
         crewId: context.crewId,
+        operation: 'rollback_document',
       });
     }
   } catch (error) {
     // Critical: rollback failed - needs manual intervention
-    console.error(
-      '[KB Service] CRITICAL: Rollback failed - manual cleanup required',
+    await logger.error(
+      'CRITICAL: Rollback failed - manual cleanup required',
       {
         docId,
         vectorTableName,
         userId: context.userId,
         filename: context.filename,
         crewId: context.crewId,
+        operation: 'rollback_document',
       },
       error
     );
@@ -194,9 +204,12 @@ export async function createDocumentMetadata(params: {
     status: 'processing',
   });
 
-  console.log('[KB Service] Document metadata created', {
+  await logger.info('Document metadata created', {
     docId: params.docId,
+    clientId: params.clientId,
+    crewId: params.crewId,
     filename: params.filename,
     fileSize: params.fileSize,
+    operation: 'create_document_metadata',
   });
 }

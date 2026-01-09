@@ -5,6 +5,7 @@ import { eq, and } from 'drizzle-orm';
 import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
 import { deleteDocument } from '@/lib/db/knowledge-base';
 import type { CrewConfig } from '@/types';
+import { logger, successResponse, errorResponse, ErrorCodes } from '@/lib/utils';
 
 /**
  * DELETE /api/crews/[id]/knowledge-base/[docId]
@@ -22,34 +23,66 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string; docId: string }> }
 ) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
     // 1. Verify authentication
     const session = await requireAuth();
     const { id, docId } = await params;
 
+    await logger.info('Delete document request received', {
+      requestId,
+      crewId: id,
+      docId,
+      userId: session.user.id,
+    });
+
     // 2. Validate docId
     if (!docId || docId.trim() === '') {
-      return NextResponse.json({
-        success: false,
-        error: 'Document ID is required',
-      }, { status: 400 });
+      await logger.warn('Delete document failed - missing docId', {
+        requestId,
+        crewId: id,
+      });
+      return errorResponse(
+        {
+          code: 'VALIDATION_FAILED',
+          status: 400,
+          message: 'Document ID is required',
+        },
+        null,
+        requestId
+      );
     }
 
     // 3. Fetch crew
     const [crew] = await db.select().from(crews).where(eq(crews.id, id)).limit(1);
     if (!crew) {
-      return NextResponse.json({
-        success: false,
-        error: 'Crew not found',
-      }, { status: 404 });
+      await logger.warn('Delete document failed - crew not found', {
+        requestId,
+        crewId: id,
+        docId,
+      });
+      return errorResponse(ErrorCodes.CREW_NOT_FOUND, null, requestId);
     }
 
     // 4. Verify crew type is customer_support
     if (crew.type !== 'customer_support') {
-      return NextResponse.json({
-        success: false,
-        error: 'Knowledge base is only available for customer support crews',
-      }, { status: 400 });
+      await logger.warn('Delete document failed - wrong crew type', {
+        requestId,
+        crewId: id,
+        docId,
+        crewType: crew.type,
+      });
+      return errorResponse(
+        {
+          code: 'INVALID_CREW_TYPE',
+          status: 400,
+          message: 'Knowledge base is only available for customer support crews',
+        },
+        null,
+        requestId
+      );
     }
 
     // 5. Authorization check
@@ -66,10 +99,22 @@ export async function DELETE(
         .limit(1);
 
       if (membership.length === 0) {
-        return NextResponse.json({
-          success: false,
-          error: 'Forbidden - You can only delete documents from crews in your organization',
-        }, { status: 403 });
+        await logger.warn('Delete document failed - insufficient permissions', {
+          requestId,
+          crewId: id,
+          docId,
+          userId,
+          clientId: crew.clientId,
+        });
+        return errorResponse(
+          {
+            code: 'PERMISSION_DENIED',
+            status: 403,
+            message: 'You can only delete documents from crews in your organization',
+          },
+          null,
+          requestId
+        );
       }
     }
 
@@ -78,43 +123,73 @@ export async function DELETE(
     const vectorTableName = crewConfig.vectorTableName;
 
     if (!vectorTableName) {
-      return NextResponse.json({
-        success: false,
-        error: 'Vector table not configured for this crew',
-      }, { status: 400 });
+      await logger.warn('Delete document failed - vector table not configured', {
+        requestId,
+        crewId: id,
+        docId,
+      });
+      return errorResponse(
+        {
+          code: 'CONFIG_ERROR',
+          status: 400,
+          message: 'Vector table not configured for this crew',
+        },
+        null,
+        requestId
+      );
     }
 
     // 7. Delete document (metadata + chunks) using helper function
     const deletedChunks = await deleteDocument(docId, vectorTableName);
 
     if (deletedChunks === 0) {
-      return NextResponse.json({
-        success: false,
-        error: 'Document not found in knowledge base',
-      }, { status: 404 });
+      await logger.warn('Delete document failed - document not found', {
+        requestId,
+        crewId: id,
+        docId,
+        vectorTable: vectorTableName,
+      });
+      return errorResponse(
+        {
+          code: 'DOCUMENT_NOT_FOUND',
+          status: 404,
+          message: 'Document not found in knowledge base',
+        },
+        null,
+        requestId
+      );
     }
 
-    console.log('[Knowledge Base Delete] Deleted document:', {
+    const duration = Date.now() - startTime;
+    await logger.info('Document deleted successfully', {
+      requestId,
+      crewId: id,
+      crewCode: crew.crewCode,
       docId,
       deletedChunks,
       vectorTable: vectorTableName,
+      duration,
+      operation: 'delete_document',
     });
 
     // 8. Return success response
-    return NextResponse.json({
-      success: true,
-      data: {
-        deletedChunks,
-      },
-      message: `Document deleted successfully (${deletedChunks} chunks removed)`,
-    });
+    return successResponse(
+      { deletedChunks },
+      `Document deleted successfully (${deletedChunks} chunks removed)`,
+      requestId
+    );
 
   } catch (error) {
-    console.error('DELETE /api/crews/[id]/knowledge-base/[docId] error:', error);
-    return NextResponse.json({
-      success: false,
-      error: 'Failed to delete document',
-      details: error instanceof Error ? error.message : 'Unknown error',
-    }, { status: 500 });
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to delete document',
+      {
+        requestId,
+        duration,
+        operation: 'delete_document',
+      },
+      error
+    );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

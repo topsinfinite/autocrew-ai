@@ -296,10 +296,13 @@ npm run test:coverage
 - ✅ **Utility Functions**: Slug generation, file validation
 - ✅ **Validation Schemas**: Authentication, client management
 - ✅ **Components**: Empty state component
-- ⏳ **API Routes**: Planned
+- ✅ **API Routes**: Clients (CRUD), conversations (list), admin (create client admin)
 - ⏳ **Database Operations**: Planned
+- ⏳ **Integration Tests**: Planned
 
-All tests use mock data factories from `__tests__/test-utils.ts` for consistency. See `CLAUDE.md` for detailed testing guidelines and examples.
+**Total: 126 tests passing across 9 test suites**
+
+All tests use mock data factories from `__tests__/test-utils.ts` and `__tests__/api/test-helpers.ts` for consistency. See `CLAUDE.md` for detailed testing guidelines and examples.
 
 ## API Routes
 

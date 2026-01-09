@@ -7,6 +7,7 @@ import { eq, and } from 'drizzle-orm';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import { nanoid } from 'nanoid';
+import { logger, successResponse, errorResponse, ErrorCodes } from '@/lib/utils';
 
 /**
  * Validation schema for password setup
@@ -33,18 +34,18 @@ const setupPasswordSchema = z.object({
  * - Password must meet strength requirements
  */
 export async function POST(request: NextRequest) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
+    await logger.info('Password setup request received', { requestId });
+
     // Verify user is authenticated
     const session = await requireAuth();
 
     if (!session) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Authentication required',
-        },
-        { status: 401 }
-      );
+      await logger.warn('Password setup failed - not authenticated', { requestId });
+      return errorResponse(ErrorCodes.AUTH_REQUIRED, null, requestId);
     }
 
     const userId = session.user.id;
@@ -54,13 +55,15 @@ export async function POST(request: NextRequest) {
     const validation = setupPasswordSchema.safeParse(body);
 
     if (!validation.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid password',
-          details: validation.error.issues[0].message,
-        },
-        { status: 400 }
+      await logger.warn('Password setup validation failed', {
+        requestId,
+        userId,
+        error: validation.error.issues[0].message,
+      });
+      return errorResponse(
+        ErrorCodes.VALIDATION_FAILED,
+        validation.error.issues[0].message,
+        requestId
       );
     }
 
@@ -74,13 +77,11 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (existingUser.length === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'User not found',
-        },
-        { status: 404 }
-      );
+      await logger.warn('Password setup failed - user not found', {
+        requestId,
+        userId,
+      });
+      return errorResponse(ErrorCodes.USER_NOT_FOUND, null, requestId);
     }
 
     // Check if user already has a password (account with credential provider)
@@ -96,12 +97,18 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (existingAccount.length > 0 && existingAccount[0].password) {
-      return NextResponse.json(
+      await logger.warn('Password setup failed - password already set', {
+        requestId,
+        userId,
+      });
+      return errorResponse(
         {
-          success: false,
-          error: 'Password already set. Please use the login page.',
+          code: 'PASSWORD_ALREADY_SET',
+          status: 409,
+          message: 'Password already set. Please use the login page.',
         },
-        { status: 409 }
+        null,
+        requestId
       );
     }
 
@@ -141,24 +148,30 @@ export async function POST(request: NextRequest) {
       })
       .where(eq(userTable.id, userId));
 
-    console.log(`Password set successfully for user ${userId}`);
+    const duration = Date.now() - startTime;
+    await logger.info('Password set successfully', {
+      requestId,
+      userId,
+      duration,
+      operation: 'setup_password',
+    });
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: 'Password set successfully',
-      },
-      { status: 200 }
+    return successResponse(
+      { success: true },
+      'Password set successfully',
+      requestId
     );
   } catch (error) {
-    console.error('POST /api/auth/setup-password error:', error);
-    return NextResponse.json(
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Password setup failed',
       {
-        success: false,
-        error: 'Failed to set password',
-        details: error instanceof Error ? error.message : 'Unknown error',
+        requestId,
+        duration,
+        operation: 'setup_password',
       },
-      { status: 500 }
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

@@ -1,6 +1,7 @@
 import { db, client } from '@/db';
 import { knowledgeBaseDocuments, crews } from '@/db/schema';
 import { eq, and, desc } from 'drizzle-orm';
+import { logger } from '@/lib/utils';
 import type { CrewConfig, VectorChunk, KnowledgeBaseDocumentWithChunks } from '@/types';
 
 /**
@@ -110,7 +111,11 @@ export async function queryVectorTable(
 
     return result || [];
   } catch (error) {
-    console.error(`Failed to query vector table ${tableName}:`, error);
+    await logger.error('Failed to query vector table', {
+      tableName,
+      docId,
+      operation: 'query_vector_table',
+    }, error);
     return [];
   }
 }
@@ -140,7 +145,11 @@ export async function deleteDocument(docId: string, vectorTableName: string): Pr
 
     return result.length;
   } catch (error) {
-    console.error(`Failed to delete document ${docId}:`, error);
+    await logger.error('Failed to delete document', {
+      docId,
+      vectorTableName,
+      operation: 'delete_document',
+    }, error);
     throw error;
   }
 }
@@ -175,7 +184,12 @@ export async function discoverDocuments(clientId: string): Promise<void> {
     try {
       // Validate table name
       if (!/^[a-z0-9_]+$/.test(config.vectorTableName)) {
-        console.error(`Invalid table name: ${config.vectorTableName}`);
+        await logger.error('Invalid vector table name detected', {
+          vectorTableName: config.vectorTableName,
+          crewId: crew.id,
+          clientId,
+          operation: 'discover_documents',
+        });
         continue;
       }
 
@@ -220,7 +234,12 @@ export async function discoverDocuments(clientId: string): Promise<void> {
         existingDocIds.add(doc.doc_id);
       }
     } catch (error) {
-      console.error(`Failed to scan ${config.vectorTableName}:`, error);
+      await logger.error('Failed to scan vector table for documents', {
+        vectorTableName: config.vectorTableName,
+        crewId: crew.id,
+        clientId,
+        operation: 'discover_documents',
+      }, error);
     }
   }
 }

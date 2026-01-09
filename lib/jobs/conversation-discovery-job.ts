@@ -1,4 +1,5 @@
 import { discoverConversationsOptimized } from '@/lib/db/optimized-conversation-discovery';
+import { logger } from '@/lib/utils';
 import { db } from '@/db';
 import { clients } from '@/db/schema';
 
@@ -35,7 +36,10 @@ interface DiscoveryJobResult {
  */
 export async function runConversationDiscoveryJob(): Promise<DiscoveryJobResult> {
   const startedAt = new Date();
-  console.log('[Discovery Job] Starting conversation discovery...', { startedAt });
+  await logger.info('Starting conversation discovery job', {
+    startedAt,
+    operation: 'conversation_discovery_job',
+  });
 
   let clientsProcessed = 0;
   let clientsFailed = 0;
@@ -46,10 +50,15 @@ export async function runConversationDiscoveryJob(): Promise<DiscoveryJobResult>
   try {
     // Get all active clients
     const allClients = await db.select().from(clients);
-    console.log(`[Discovery Job] Found ${allClients.length} clients to process`);
+    await logger.info('Clients fetched for discovery', {
+      clientCount: allClients.length,
+      operation: 'conversation_discovery_job',
+    });
 
     if (allClients.length === 0) {
-      console.log('[Discovery Job] No clients found, skipping discovery');
+      await logger.info('No clients found - skipping discovery', {
+        operation: 'conversation_discovery_job',
+      });
       const completedAt = new Date();
       return {
         startedAt,
@@ -66,7 +75,12 @@ export async function runConversationDiscoveryJob(): Promise<DiscoveryJobResult>
     // Process each client sequentially
     for (const client of allClients) {
       try {
-        console.log(`[Discovery Job] Processing client: ${client.clientCode} (${client.companyName})`);
+        await logger.info('Processing client for discovery', {
+          clientCode: client.clientCode,
+          clientId: client.id,
+          companyName: client.companyName,
+          operation: 'conversation_discovery_job',
+        });
 
         const result = await discoverConversationsOptimized(client.clientCode);
 
@@ -75,14 +89,21 @@ export async function runConversationDiscoveryJob(): Promise<DiscoveryJobResult>
         totalErrors += result.totalErrors;
         clientsProcessed++;
 
-        console.log(`[Discovery Job] ✓ Client ${client.clientCode} completed:`, {
-          new: result.totalNew,
-          skipped: result.totalSkipped,
+        await logger.info('Client discovery completed successfully', {
+          clientCode: client.clientCode,
+          clientId: client.id,
+          newConversations: result.totalNew,
+          skippedConversations: result.totalSkipped,
           errors: result.totalErrors,
+          operation: 'conversation_discovery_job',
         });
       } catch (error) {
         clientsFailed++;
-        console.error(`[Discovery Job] ✗ Failed for client ${client.clientCode}:`, error);
+        await logger.error('Client discovery failed', {
+          clientCode: client.clientCode,
+          clientId: client.id,
+          operation: 'conversation_discovery_job',
+        }, error);
         // Continue with other clients even if one fails
       }
     }
@@ -90,14 +111,15 @@ export async function runConversationDiscoveryJob(): Promise<DiscoveryJobResult>
     const completedAt = new Date();
     const durationMs = completedAt.getTime() - startedAt.getTime();
 
-    console.log('[Discovery Job] Conversation discovery completed', {
+    await logger.info('Conversation discovery job completed', {
       completedAt,
-      durationMs: `${durationMs}ms`,
+      durationMs,
       clientsProcessed,
       clientsFailed,
       totalNewConversations,
       totalSkippedConversations,
       totalErrors,
+      operation: 'conversation_discovery_job',
     });
 
     return {
@@ -114,7 +136,12 @@ export async function runConversationDiscoveryJob(): Promise<DiscoveryJobResult>
     const completedAt = new Date();
     const durationMs = completedAt.getTime() - startedAt.getTime();
 
-    console.error('[Discovery Job] Critical error during discovery:', error);
+    await logger.error('Critical error during discovery job', {
+      durationMs,
+      clientsProcessed,
+      clientsFailed,
+      operation: 'conversation_discovery_job',
+    }, error);
 
     return {
       startedAt,
@@ -134,13 +161,25 @@ export async function runConversationDiscoveryJob(): Promise<DiscoveryJobResult>
  * Useful for testing or on-demand discovery
  */
 export async function runDiscoveryForClient(clientCode: string): Promise<void> {
-  console.log(`[Discovery Job] Manual discovery triggered for client: ${clientCode}`);
+  await logger.info('Manual discovery triggered for client', {
+    clientCode,
+    operation: 'manual_discovery_for_client',
+  });
 
   try {
     const result = await discoverConversationsOptimized(clientCode);
-    console.log(`[Discovery Job] Manual discovery completed for ${clientCode}:`, result);
+    await logger.info('Manual discovery completed for client', {
+      clientCode,
+      newConversations: result.totalNew,
+      skippedConversations: result.totalSkipped,
+      errors: result.totalErrors,
+      operation: 'manual_discovery_for_client',
+    });
   } catch (error) {
-    console.error(`[Discovery Job] Manual discovery failed for ${clientCode}:`, error);
+    await logger.error('Manual discovery failed for client', {
+      clientCode,
+      operation: 'manual_discovery_for_client',
+    }, error);
     throw error;
   }
 }

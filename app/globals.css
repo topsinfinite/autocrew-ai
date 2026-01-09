@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "react-day-picker/style.css";
 
 /* Dark Mode Primary Theme - Professional & Industrious */
 :root {
@@ -10,8 +11,8 @@
   --card: 222 47% 14%;
   --card-foreground: 210 40% 98%;
 
-  /* Popovers and dialogs - Much brighter for excellent visibility */
-  --popover: 222 30% 45%;
+  /* Popovers and dialogs - Dark background for excellent visibility */
+  --popover: 222 47% 14%;
   --popover-foreground: 210 40% 98%;
 
   /* Cyan/Teal - Primary accent for CTAs and important actions */
@@ -155,4 +156,73 @@ body {
 ::selection {
   background-color: hsl(var(--primary) / 0.3);
   color: hsl(var(--foreground));
+}
+
+/* React Day Picker Custom Styling for Dark Theme */
+.rdp {
+  --rdp-accent-color: hsl(var(--primary));
+  --rdp-background-color: hsl(var(--primary) / 0.1);
+  --rdp-accent-color-dark: hsl(var(--primary));
+  --rdp-background-color-dark: hsl(var(--primary) / 0.2);
+  --rdp-outline: 2px solid hsl(var(--primary));
+  --rdp-outline-selected: 2px solid hsl(var(--primary));
+  background-color: hsl(var(--popover));
+}
+
+.rdp-month {
+  color: hsl(var(--popover-foreground));
+}
+
+.rdp-caption_label {
+  color: hsl(var(--popover-foreground));
+  font-weight: 500;
+}
+
+.rdp-head_cell {
+  color: hsl(var(--muted-foreground));
+}
+
+.rdp-day {
+  color: hsl(var(--popover-foreground));
+}
+
+.rdp-day_button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: hsl(var(--accent) / 0.2);
+}
+
+.rdp-day_button.rdp-day_selected {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.rdp-day_button.rdp-day_today:not(.rdp-day_selected) {
+  background-color: hsl(var(--accent) / 0.3);
+  color: hsl(var(--accent-foreground));
+  font-weight: 600;
+}
+
+.rdp-day_button[disabled] {
+  color: hsl(var(--muted-foreground));
+  opacity: 0.5;
+}
+
+.rdp-nav_button {
+  color: hsl(var(--popover-foreground));
+}
+
+.rdp-nav_button:hover {
+  background-color: hsl(var(--accent) / 0.2);
+}
+
+/* Ensure popover containing calendar has dark background and proper z-index */
+[data-radix-popper-content-wrapper] {
+  z-index: 50;
+}
+
+/* Override any white backgrounds from react-day-picker child elements */
+.rdp-months,
+.rdp-month,
+.rdp-weeks,
+.rdp-week {
+  background-color: transparent;
 }

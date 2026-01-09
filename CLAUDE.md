@@ -51,6 +51,17 @@ The project uses **Jest 30** and **React Testing Library 16** for unit and integ
 ```
 __tests__/
 ├── test-utils.ts                       # Mock data factories and test helpers
+├── api/
+│   ├── test-helpers.ts                 # API route testing utilities
+│   ├── clients/
+│   │   ├── route.test.ts               # GET, POST /api/clients
+│   │   └── [id]/
+│   │       └── route.test.ts           # GET, PATCH, DELETE /api/clients/[id]
+│   ├── conversations/
+│   │   └── route.test.ts               # GET /api/conversations
+│   └── admin/
+│       └── create-client-admin/
+│           └── route.test.ts           # POST /api/admin/create-client-admin
 ├── lib/
 │   ├── utils/                          # Utility function tests
 │   │   ├── slug-generator.test.ts
@@ -58,9 +69,8 @@ __tests__/
 │   └── validations/                    # Validation schema tests
 │       ├── auth.schema.test.ts
 │       └── client.schema.test.ts
-├── components/                         # Component tests
-│   └── empty-state.test.tsx
-└── app/                                # Route/page tests (future)
+└── components/                         # Component tests
+    └── empty-state.test.tsx
 ```
 
 ### Running Tests
@@ -179,6 +189,81 @@ describe('EmptyState', () => {
 });
 ```
 
+#### Testing API Routes
+
+API routes require Node.js environment and mocked dependencies. Example from `clients/route.test.ts`:
+
+```typescript
+/**
+ * @jest-environment node
+ */
+import { GET, POST } from '@/app/api/clients/route';
+import { createMockRequest, parseResponse } from '../test-helpers';
+
+// Mock dependencies
+jest.mock('@/db', () => ({
+  db: {
+    select: jest.fn().mockReturnThis(),
+    from: jest.fn().mockReturnThis(),
+    // ... other query methods
+  },
+}));
+
+jest.mock('@/lib/auth/session-helpers', () => ({
+  requireAuth: jest.fn().mockResolvedValue({ userId: 'user123' }),
+  isSuperAdmin: jest.fn().mockResolvedValue(true),
+}));
+
+describe('GET /api/clients', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should return all clients for SuperAdmin', async () => {
+    // Mock database response
+    const mockClients = [{ id: 'org_1', companyName: 'Client 1' }];
+    (db.select as jest.Mock).mockReturnValue({
+      select: jest.fn().mockReturnThis(),
+      from: jest.fn().mockReturnThis(),
+      orderBy: jest.fn().mockResolvedValue(mockClients),
+    });
+
+    const request = createMockRequest({
+      url: 'http://localhost:3000/api/clients',
+    });
+
+    const response = await GET(request);
+    const { status, body } = await parseResponse(response);
+
+    expect(status).toBe(200);
+    expect(body.success).toBe(true);
+    expect(body.data).toEqual(mockClients);
+  });
+
+  it('should return 403 for non-SuperAdmin users', async () => {
+    (isSuperAdmin as jest.Mock).mockResolvedValue(false);
+
+    const request = createMockRequest({
+      url: 'http://localhost:3000/api/clients',
+    });
+
+    const response = await GET(request);
+    const { status, body } = await parseResponse(response);
+
+    expect(status).toBe(403);
+    expect(body.success).toBe(false);
+  });
+});
+```
+
+**Key patterns for API route testing:**
+- Use `@jest-environment node` directive
+- Mock database queries with chainable methods
+- Mock authentication helpers (`requireAuth`, `isSuperAdmin`)
+- Test authorization (403), validation (400), not found (404), and success (200) scenarios
+- Use `createMockRequest` helper for request creation
+- Use `parseResponse` helper to extract status and body
+
 #### Testing Utility Functions
 
 Example from `slug-generator.test.ts`:
@@ -223,9 +308,11 @@ describe('generateSlug', () => {
 - ✅ Utility functions: slug generation, file validation
 - ✅ Validation schemas: auth, client management
 - ✅ Components: empty state
-- ⏳ API routes: planned
+- ✅ API routes: clients (GET, POST, PATCH, DELETE), conversations (GET), admin (create-client-admin)
 - ⏳ Database operations: planned
 - ⏳ Integration tests: planned
+
+**Total: 126 tests passing across 9 test suites**
 
 ## Architecture
 

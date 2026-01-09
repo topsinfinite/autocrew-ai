@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 import { sendEmail, generateMagicLinkEmail } from '@/lib/email/mailer';
+import { logger, successResponse, errorResponse, ErrorCodes, sanitizePII } from '@/lib/utils';
 
 /**
  * Validation schema for creating a client admin
@@ -31,16 +32,18 @@ const createClientAdminSchema = z.object({
  * }
  */
 export async function POST(request: NextRequest) {
+  const requestId = request.headers.get('x-request-id');
+  const startTime = Date.now();
+
   try {
+    await logger.info('Create client admin request received', { requestId });
+
     // Verify SuperAdmin session
     if (!await isSuperAdmin()) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Forbidden - SuperAdmin access required',
-        },
-        { status: 403 }
-      );
+      await logger.warn('Create client admin failed - insufficient permissions', {
+        requestId,
+      });
+      return errorResponse(ErrorCodes.PERMISSION_SUPER_ADMIN_REQUIRED, null, requestId);
     }
 
     // Parse and validate request body
@@ -48,14 +51,11 @@ export async function POST(request: NextRequest) {
     const validation = createClientAdminSchema.safeParse(body);
 
     if (!validation.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Validation failed',
-          details: validation.error.issues,
-        },
-        { status: 400 }
-      );
+      await logger.warn('Create client admin validation failed', {
+        requestId,
+        errors: validation.error.issues,
+      });
+      return errorResponse(ErrorCodes.VALIDATION_FAILED, validation.error.issues, requestId);
     }
 
     const { email, name, clientId } = validation.data;
@@ -68,13 +68,11 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (existingUser.length > 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'A user with this email already exists',
-        },
-        { status: 409 }
-      );
+      await logger.warn('Create client admin failed - user already exists', {
+        requestId,
+        email: sanitizePII({ email }).email,
+      });
+      return errorResponse(ErrorCodes.USER_ALREADY_EXISTS, null, requestId);
     }
 
     // Verify client exists
@@ -85,13 +83,11 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (client.length === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Client not found',
-        },
-        { status: 404 }
-      );
+      await logger.warn('Create client admin failed - client not found', {
+        requestId,
+        clientId,
+      });
+      return errorResponse(ErrorCodes.CLIENT_NOT_FOUND, null, requestId);
     }
 
     // Generate user ID
@@ -132,11 +128,27 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      console.log(`Invitation email sent to ${email} for ${client[0].companyName}`);
+      await logger.info('Invitation email sent successfully', {
+        requestId,
+        userId,
+        email: sanitizePII({ email }).email,
+        clientId,
+        clientName: client[0].companyName,
+      });
     } catch (emailError) {
-      console.error('Failed to send invitation email:', emailError);
+      await logger.error(
+        'Failed to send invitation email',
+        {
+          requestId,
+          userId,
+          email: sanitizePII({ email }).email,
+          clientId,
+          clientName: client[0].companyName,
+        },
+        emailError
+      );
 
-      // Log for development
+      // Log for development (keep console for CLI visibility)
       if (process.env.NODE_ENV === 'development') {
         console.log('\n========================================');
         console.log('New Client Admin Created (Email Send Failed)');
@@ -148,6 +160,16 @@ export async function POST(request: NextRequest) {
         console.log('========================================\n');
       }
     }
+
+    const duration = Date.now() - startTime;
+    await logger.info('Client admin created successfully', {
+      requestId,
+      userId,
+      email: sanitizePII({ email }).email,
+      clientId,
+      duration,
+      operation: 'create_client_admin',
+    });
 
     return NextResponse.json(
       {
@@ -165,14 +187,16 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error('POST /api/admin/create-client-admin error:', error);
-    return NextResponse.json(
+    const duration = Date.now() - startTime;
+    await logger.error(
+      'Failed to create client admin',
       {
-        success: false,
-        error: 'Failed to create client admin',
-        details: error instanceof Error ? error.message : 'Unknown error',
+        requestId,
+        duration,
+        operation: 'create_client_admin',
       },
-      { status: 500 }
+      error
     );
+    return errorResponse(ErrorCodes.INTERNAL_ERROR, error, requestId);
   }
 }

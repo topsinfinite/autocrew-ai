@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { logger, sanitizePII } from '@/lib/utils';
 
 // Gmail transporter configuration
 const transporter = nodemailer.createTransport({
@@ -11,11 +12,15 @@ const transporter = nodemailer.createTransport({
 
 // Verify transporter configuration on startup
 if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
-  transporter.verify((error) => {
+  transporter.verify(async (error) => {
     if (error) {
-      console.error('Email transporter verification failed:', error);
+      await logger.error('Email transporter verification failed', {
+        operation: 'verify_email_transporter',
+      }, error);
     } else {
-      console.log('Email server is ready to send messages');
+      await logger.info('Email server is ready to send messages', {
+        operation: 'verify_email_transporter',
+      });
     }
   });
 }
@@ -33,10 +38,11 @@ export interface SendEmailOptions {
 export async function sendEmail({ to, subject, html, text }: SendEmailOptions) {
   try {
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      console.warn('Gmail credentials not configured. Email not sent.');
-      console.log('To:', to);
-      console.log('Subject:', subject);
-      console.log('Content:', text || html);
+      await logger.warn('Gmail credentials not configured - Email not sent', {
+        to: sanitizePII({ email: to }).email,
+        subject,
+        operation: 'send_email',
+      });
       return { success: false, error: 'Email service not configured' };
     }
 
@@ -48,10 +54,19 @@ export async function sendEmail({ to, subject, html, text }: SendEmailOptions) {
       html,
     });
 
-    console.log('Email sent successfully:', info.messageId);
+    await logger.info('Email sent successfully', {
+      to: sanitizePII({ email: to }).email,
+      subject,
+      messageId: info.messageId,
+      operation: 'send_email',
+    });
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('Failed to send email:', error);
+    await logger.error('Failed to send email', {
+      to: sanitizePII({ email: to }).email,
+      subject,
+      operation: 'send_email',
+    }, error);
     return { success: false, error };
   }
 }
