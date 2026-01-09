@@ -2,8 +2,12 @@ import type { Client, NewClientInput } from '@/types';
 import type { ApiResponse } from '@/types/api';
 
 /**
- * API Helper Functions for Client Management
- * These functions provide a clean interface to interact with the client API
+ * Client-Side API Helper Functions for Client Management
+ *
+ * These functions use fetch to interact with the API and can be used
+ * in both Client Components and Server Components.
+ *
+ * For server-side database functions, see lib/db/clients.ts
  */
 
 const API_BASE = '/api/clients';

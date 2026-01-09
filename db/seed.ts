@@ -1,10 +1,11 @@
 import { config } from 'dotenv';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import { clients, crews, conversations } from './schema';
+import { clients, crews, conversations, user, member } from './schema';
 import * as schema from './schema';
-import { provisionCrew } from '../lib/utils/crew-provisioning';
+import { provisionCrew } from '../lib/utils/crew';
 import { sql } from 'drizzle-orm';
+import { nanoid } from 'nanoid';
 
 // Load environment variables from .env.local
 config({ path: '.env.local' });
@@ -63,8 +64,10 @@ const seed = async () => {
 
     const mockClientsData = [
       {
+        id: 'org_acme_001',
         companyName: 'Acme Corp',
         clientCode: 'ACME-001',
+        slug: 'acme-corp',
         contactPersonName: 'John Smith',
         contactEmail: 'contact@acmecorp.com',
         phone: '+1-555-0101',
@@ -77,8 +80,10 @@ const seed = async () => {
         updatedAt: new Date('2024-12-28'),
       },
       {
+        id: 'org_techstart_001',
         companyName: 'TechStart',
         clientCode: 'TECHSTART-001',
+        slug: 'techstart',
         contactPersonName: 'Sarah Johnson',
         contactEmail: 'hello@techstart.io',
         phone: '+1-555-0102',
@@ -91,8 +96,10 @@ const seed = async () => {
         updatedAt: new Date('2024-12-20'),
       },
       {
+        id: 'org_retailco_001',
         companyName: 'RetailCo Ltd',
         clientCode: 'RETAILCO-001',
+        slug: 'retailco-ltd',
         contactPersonName: 'Mike Chen',
         contactEmail: 'info@retailco.com',
         phone: null,
@@ -105,8 +112,10 @@ const seed = async () => {
         updatedAt: new Date('2024-12-29'),
       },
       {
+        id: 'org_financehub_001',
         companyName: 'FinanceHub Solutions',
         clientCode: 'FINANCEHUB-001',
+        slug: 'financehub-solutions',
         contactPersonName: 'Lisa Williams',
         contactEmail: 'support@financehub.com',
         phone: '+1-555-0104',
@@ -119,8 +128,10 @@ const seed = async () => {
         updatedAt: new Date('2024-12-15'),
       },
       {
+        id: 'org_healthtech_001',
         companyName: 'HealthTech',
         clientCode: 'HEALTHTECH-001',
+        slug: 'healthtech',
         contactPersonName: 'David Brown',
         contactEmail: 'admin@healthtech.com',
         phone: '+1-555-0105',
@@ -144,6 +155,81 @@ const seed = async () => {
     seededClients.forEach((client) => {
       console.log(`  - ${client.companyName} (${client.clientCode}) - ${client.status}`);
     });
+
+    // ========================================
+    // Seed Users (SuperAdmin and Test Client Admins)
+    // ========================================
+    console.log('\n→ Seeding users and memberships...\n');
+
+    // Clear existing users and members
+    await db.delete(member);
+    await db.delete(user);
+
+    // 1. Create SuperAdmin user
+    const superAdminId = `user_${nanoid(16)}`;
+    console.log('Creating SuperAdmin user...');
+    await db.insert(user).values({
+      id: superAdminId,
+      name: 'Super Admin',
+      email: 'superadmin@autocrew.com',
+      emailVerified: true,
+      role: 'super_admin',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    console.log(`  ✓ SuperAdmin: superadmin@autocrew.com`);
+    console.log(`  ⚠ Use "Forgot Password" to set password before first login\n`);
+
+    // 2. Create test Client Admin users for each organization
+    const testClientAdmins = [
+      {
+        name: 'John Smith',
+        email: 'john.smith@acmecorp.com',
+        organizationId: 'org_acme_001',
+      },
+      {
+        name: 'Sarah Johnson',
+        email: 'sarah.johnson@techstart.io',
+        organizationId: 'org_techstart_001',
+      },
+      {
+        name: 'Mike Chen',
+        email: 'mike.chen@retailco.com',
+        organizationId: 'org_retailco_001',
+      },
+    ];
+
+    console.log('Creating test Client Admin users...');
+    for (const adminData of testClientAdmins) {
+      const userId = `user_${nanoid(16)}`;
+      const memberId = `member_${nanoid(16)}`;
+
+      // Create user
+      await db.insert(user).values({
+        id: userId,
+        name: adminData.name,
+        email: adminData.email,
+        emailVerified: true,
+        role: 'client_admin',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      // Create membership linking user to organization
+      await db.insert(member).values({
+        id: memberId,
+        userId: userId,
+        organizationId: adminData.organizationId,
+        role: 'admin',
+        createdAt: new Date(),
+      });
+
+      const org = seededClients.find((c) => c.id === adminData.organizationId);
+      console.log(`  ✓ ${adminData.name} → ${org?.companyName || adminData.organizationId}`);
+    }
+
+    console.log(`\n  ✓ Successfully seeded ${testClientAdmins.length + 1} users\n`);
+    console.log('  📧 All users should use "Forgot Password" to set their passwords\n');
 
     // ========================================
     // Seed Crews

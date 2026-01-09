@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DateRangePicker } from "@/components/date-range-picker";
-import { dummyDashboardStats, dummyConversations, dummyLeads } from "@/lib/dummy-data";
 import { DateRange } from "react-day-picker";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { subDays } from "date-fns";
+import { subDays, format as formatDate, eachDayOfInterval } from "date-fns";
 import { useClient } from "@/lib/hooks/use-client";
+import { Conversation, Lead } from "@/types";
+import { getConversations } from "@/lib/api/conversations";
+import { Loader2 } from "lucide-react";
 
 export default function AnalyticsPage() {
   const { selectedClient } = useClient();
@@ -15,59 +17,109 @@ export default function AnalyticsPage() {
     from: subDays(new Date(), 30),
     to: new Date(),
   });
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Filter data based on client and date range
+  // Fetch data when client or date range changes
+  useEffect(() => {
+    async function fetchData() {
+      if (!selectedClient) return;
+
+      try {
+        setLoading(true);
+
+        // Fetch conversations
+        const conversationsRes = await getConversations({
+          clientId: selectedClient?.clientCode,
+        });
+        setConversations(conversationsRes.conversations);
+
+        // Fetch leads
+        const leadsRes = await fetch(`/api/leads?clientId=${selectedClient.id}`);
+        const leadsData = await leadsRes.json();
+        setLeads(leadsData.success ? leadsData.data : []);
+      } catch (error) {
+        console.error('Failed to fetch analytics data:', error);
+        setConversations([]);
+        setLeads([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [selectedClient]);
+
+  // Filter data based on date range
   const filteredData = useMemo(() => {
-    // First filter by client
-    const clientConversations = selectedClient
-      ? dummyConversations.filter((conv) => conv.clientId === selectedClient.id)
-      : dummyConversations;
-    const clientLeads = selectedClient
-      ? dummyLeads.filter((lead) => lead.clientId === selectedClient.id)
-      : dummyLeads;
-
     if (!dateRange?.from || !dateRange?.to) {
       return {
-        conversations: clientConversations,
-        leads: clientLeads,
-        conversationVolume: dummyDashboardStats.conversationVolume,
-        leadsGenerated: dummyDashboardStats.leadsGenerated,
+        conversations,
+        leads,
       };
     }
 
-    const conversations = clientConversations.filter((conv) => {
+    const filteredConversations = conversations.filter((conv) => {
       const date = new Date(conv.createdAt);
       return date >= dateRange.from! && date <= dateRange.to!;
     });
 
-    const leads = clientLeads.filter((lead) => {
+    const filteredLeads = leads.filter((lead) => {
       const date = new Date(lead.createdAt);
       return date >= dateRange.from! && date <= dateRange.to!;
     });
 
     return {
-      conversations,
-      leads,
-      conversationVolume: dummyDashboardStats.conversationVolume,
-      leadsGenerated: dummyDashboardStats.leadsGenerated,
+      conversations: filteredConversations,
+      leads: filteredLeads,
     };
-  }, [dateRange, selectedClient]);
+  }, [conversations, leads, dateRange]);
 
-  // Combine conversation and lead data for chart
+  // Generate chart data from actual conversations and leads
   const chartData = useMemo(() => {
-    const dataMap = new Map();
+    if (!dateRange?.from || !dateRange?.to) return [];
 
-    filteredData.conversationVolume.forEach(item => {
-      dataMap.set(item.date, { date: item.date, conversations: item.count, leads: 0 });
+    // Get all dates in range
+    const dates = eachDayOfInterval({
+      start: dateRange.from,
+      end: dateRange.to,
     });
 
-    filteredData.leadsGenerated.forEach(item => {
-      const existing = dataMap.get(item.date) || { date: item.date, conversations: 0 };
-      dataMap.set(item.date, { ...existing, leads: item.count });
+    // Count conversations and leads per date
+    const dataMap = new Map();
+
+    dates.forEach(date => {
+      const dateStr = formatDate(date, 'yyyy-MM-dd');
+      dataMap.set(dateStr, { date: dateStr, conversations: 0, leads: 0 });
+    });
+
+    filteredData.conversations.forEach(conv => {
+      const dateStr = formatDate(new Date(conv.createdAt), 'yyyy-MM-dd');
+      const existing = dataMap.get(dateStr);
+      if (existing) {
+        existing.conversations++;
+      }
+    });
+
+    filteredData.leads.forEach(lead => {
+      const dateStr = formatDate(new Date(lead.createdAt), 'yyyy-MM-dd');
+      const existing = dataMap.get(dateStr);
+      if (existing) {
+        existing.leads++;
+      }
     });
 
     return Array.from(dataMap.values()).sort((a, b) => a.date.localeCompare(b.date));
-  }, [filteredData]);
+  }, [filteredData, dateRange]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

@@ -4,7 +4,7 @@ import postgres from 'postgres';
 import * as schema from './schema';
 
 // Load environment variables from .env
-config({ path: '.env' });
+//config({ path: '.env.local' });
 
 const connectionString = process.env.POSTGRES_URL!;
 

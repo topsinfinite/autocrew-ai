@@ -4,56 +4,79 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  dummyDashboardStats,
-  dummyCrews,
-  dummyLeads,
-} from "@/lib/dummy-data";
 import { getConversations } from "@/lib/api/conversations";
-import { Conversation } from "@/types";
+import { Conversation, Crew, Lead } from "@/types";
 import { Activity, Users, MessageSquare, TrendingUp, Plus, Sparkles, Loader2 } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import Link from "next/link";
 import { useClient } from "@/lib/hooks/use-client";
+import { useAuth } from "@/lib/hooks/use-auth";
 
 export default function DashboardPage() {
   const { selectedClient } = useClient();
+  const { user } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [crews, setCrews] = useState<Crew[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [loadingConversations, setLoadingConversations] = useState(true);
+  const [loadingCrews, setLoadingCrews] = useState(true);
+  const [loadingLeads, setLoadingLeads] = useState(true);
 
-  // Fetch conversations when client changes
+  // Fetch data when client changes
   useEffect(() => {
     async function fetchData() {
+      if (!selectedClient) return;
+
       try {
+        // Fetch conversations
         setLoadingConversations(true);
-        const { conversations: data } = await getConversations({
+        const conversationsRes = await getConversations({
           clientId: selectedClient?.clientCode,
         });
-        setConversations(data);
+        setConversations(conversationsRes.conversations);
       } catch (error) {
         console.error('Failed to fetch conversations:', error);
+        setConversations([]);
       } finally {
         setLoadingConversations(false);
+      }
+
+      try {
+        // Fetch crews
+        setLoadingCrews(true);
+        const crewsRes = await fetch(`/api/crews?clientId=${selectedClient.id}`);
+        const crewsData = await crewsRes.json();
+        setCrews(crewsData.success ? crewsData.data : []);
+      } catch (error) {
+        console.error('Failed to fetch crews:', error);
+        setCrews([]);
+      } finally {
+        setLoadingCrews(false);
+      }
+
+      try {
+        // Fetch leads
+        setLoadingLeads(true);
+        const leadsRes = await fetch(`/api/leads?clientId=${selectedClient.id}`);
+        const leadsData = await leadsRes.json();
+        setLeads(leadsData.success ? leadsData.data : []);
+      } catch (error) {
+        console.error('Failed to fetch leads:', error);
+        setLeads([]);
+      } finally {
+        setLoadingLeads(false);
       }
     }
 
     fetchData();
   }, [selectedClient]);
 
-  // Filter data by selected client
-  const clientCrews = selectedClient
-    ? dummyCrews.filter((crew) => crew.clientId === selectedClient.id)
-    : [];
-  const clientLeads = selectedClient
-    ? dummyLeads.filter((lead) => lead.clientId === selectedClient.id)
-    : [];
-
   // Calculate client-specific stats
   const stats = {
-    totalCrews: clientCrews.length,
-    activeCrews: clientCrews.filter((c) => c.status === "active").length,
+    totalCrews: crews.length,
+    activeCrews: crews.filter((c) => c.status === "active").length,
     totalConversations: conversations.length,
-    totalLeads: clientLeads.length,
+    totalLeads: leads.length,
   };
 
   const recentConversations = conversations.slice(0, 5);
@@ -71,12 +94,14 @@ export default function DashboardPage() {
             Monitor your AI agent crews and performance metrics
           </p>
         </div>
-        <Link href="/crews">
-          <Button size="lg" className="gap-2">
-            <Plus className="h-4 w-4" />
-            Create New Crew
-          </Button>
-        </Link>
+        {user?.role === "super_admin" && (
+          <Link href="/admin/crews">
+            <Button size="lg" className="gap-2">
+              <Plus className="h-4 w-4" />
+              Create New Crew
+            </Button>
+          </Link>
+        )}
       </div>
 
       {/* Stats Grid */}
@@ -117,7 +142,7 @@ export default function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalLeads}</div>
             <p className="text-xs text-muted-foreground">
-              {clientLeads.filter((l) => l.status === "qualified").length}{" "}
+              {leads.filter((l) => l.status === "qualified").length}{" "}
               qualified
             </p>
           </CardContent>
@@ -138,13 +163,23 @@ export default function DashboardPage() {
       </div>
 
       {/* Active Crews */}
-      {clientCrews.filter((crew) => crew.status === "active").length === 0 ? (
+      {loadingCrews ? (
+        <Card>
+          <CardContent className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </CardContent>
+        </Card>
+      ) : crews.filter((crew) => crew.status === "active").length === 0 ? (
         <EmptyState
           icon={Users}
           title="No Active Crews"
-          description="Create and activate your first AI agent crew to start automating customer interactions and generating leads."
-          actionLabel="Create Your First Crew"
-          onAction={() => window.location.href = '/crews'}
+          description={
+            user?.role === "super_admin"
+              ? "Create and activate your first AI agent crew to start automating customer interactions and generating leads."
+              : "No AI agent crews are currently active. Contact your administrator to activate crews for your organization."
+          }
+          actionLabel={user?.role === "super_admin" ? "Create Your First Crew" : undefined}
+          onAction={user?.role === "super_admin" ? () => window.location.href = '/admin/crews' : undefined}
         />
       ) : (
         <Card>
@@ -153,7 +188,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {clientCrews
+              {crews
                 .filter((crew) => crew.status === "active")
                 .map((crew) => (
                 <div

@@ -131,6 +131,35 @@ export async function updateCrew(
 }
 
 /**
+ * Update crew configuration (support_email and support_client_name)
+ * @param id - Crew ID
+ * @param supportEmail - Support email address
+ * @param supportClientName - Support client name
+ * @returns Promise<Crew>
+ */
+export async function updateCrewConfig(
+  id: string,
+  supportEmail: string,
+  supportClientName: string
+): Promise<Crew> {
+  const response = await fetch(`${API_BASE}/${id}/config`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ supportEmail, supportClientName }),
+  });
+
+  const result: ApiResponse<Crew> = await response.json();
+
+  if (!response.ok || !result.success || !result.data) {
+    throw new Error(result.error || 'Failed to update crew configuration');
+  }
+
+  return result.data;
+}
+
+/**
  * Delete a crew
  * This will automatically:
  * - Delete the crew record

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   LayoutDashboard,
   BarChart3,
@@ -42,6 +42,23 @@ export function Sidebar() {
   const { isSuperAdmin, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // SECURITY: Validate that selectedClient is in availableClients
+  // This prevents showing cached/stale organization data
+  useEffect(() => {
+    if (selectedClient && availableClients.length > 0) {
+      const isValid = availableClients.some(c => c.id === selectedClient.id);
+      if (!isValid) {
+        console.error(
+          '[Sidebar] SECURITY WARNING: Selected client is not in available clients!',
+          {
+            selectedClient: selectedClient.id,
+            availableClients: availableClients.map(c => c.id)
+          }
+        );
+      }
+    }
+  }, [selectedClient, availableClients]);
+
   const sidebarContent = (
     <>
       {/* Logo */}
@@ -59,12 +76,13 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* Client Selector for SuperAdmin */}
-      {isSuperAdmin && selectedClient && (
+      {/* Client Selector for SuperAdmin ONLY */}
+      {isSuperAdmin && selectedClient && availableClients.length > 0 &&
+       availableClients.some(c => c.id === selectedClient.id) && (
         <div className="border-b border-border p-4">
           <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
             <Shield className="h-3 w-3" />
-            <span>Viewing as Client</span>
+            <span>SuperAdmin View</span>
           </div>
           <Select
             value={selectedClient.id}
@@ -92,9 +110,14 @@ export function Sidebar() {
         </div>
       )}
 
-      {/* Current Client Display for Client Admins */}
-      {!isSuperAdmin && selectedClient && (
+      {/* Current Organization Display for Client Admins (Read-Only) */}
+      {!isSuperAdmin && selectedClient &&
+       availableClients.some(c => c.id === selectedClient.id) && (
         <div className="border-b border-border bg-muted/30 p-4">
+          <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
+            <Building2 className="h-3 w-3" />
+            <span>Your Organization</span>
+          </div>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
               <Building2 className="h-5 w-5 text-primary" />
@@ -104,7 +127,7 @@ export function Sidebar() {
                 {selectedClient.companyName}
               </p>
               <p className="text-xs text-muted-foreground">
-                {selectedClient.plan}
+                {selectedClient.plan} plan
               </p>
             </div>
           </div>

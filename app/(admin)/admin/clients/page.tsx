@@ -1,7 +1,6 @@
-import Link from "next/link"
 import { ClientOnboardingForm } from "@/components/admin/client-onboarding-form"
+import { ClientActions } from "@/components/admin/client-actions"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 import {
   Table,
@@ -11,34 +10,39 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { ArrowRight, Users, Bot } from "lucide-react"
-import {
-  getCrewAssignmentsByClientId,
-  getAdminUsersByClientId,
-} from "@/lib/mock-data/multi-tenant-data"
+import { Users, Bot } from "lucide-react"
 import { format } from "date-fns"
 import type { Client } from "@/types"
+import { db } from "@/db"
+import { member } from "@/db/schema"
+import { getClients, getCrews } from "@/lib/dal"
 
-async function getClients(): Promise<Client[]> {
+async function getClientsWithCounts() {
   try {
-    const response = await fetch('http://localhost:3000/api/clients', {
-      cache: 'no-store',
-    })
+    // Use DAL to fetch data (auth checks handled in DAL)
+    const [allClients, allCrews, allMembers] = await Promise.all([
+      getClients(), // SuperAdmin only
+      getCrews(), // No filter - SuperAdmin sees all
+      db.select().from(member), // Members table - not tenant-specific
+    ]);
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch clients')
+    return {
+      clients: allClients,
+      crews: allCrews,
+      members: allMembers,
     }
-
-    const result = await response.json()
-    return result.data || []
   } catch (error) {
     console.error('Error fetching clients:', error)
-    return []
+    return {
+      clients: [],
+      crews: [],
+      members: [],
+    }
   }
 }
 
 export default async function ClientsPage() {
-  const clients = await getClients()
+  const { clients: allClients, crews: allCrews, members: allMembers } = await getClientsWithCounts()
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -105,16 +109,18 @@ export default async function ClientsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {clients.length === 0 ? (
+            {allClients.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={9} className="text-center text-muted-foreground">
                   No clients found
                 </TableCell>
               </TableRow>
             ) : (
-              clients.map((client) => {
-                const crewCount = getCrewAssignmentsByClientId(client.id).length
-                const userCount = getAdminUsersByClientId(client.id).length
+              allClients.map((client) => {
+                // Count crews for this client
+                const crewCount = allCrews.filter((c) => c.clientId === client.clientCode).length
+                // Count members for this client organization
+                const userCount = allMembers.filter((m) => m.organizationId === client.id).length
 
                 return (
                   <TableRow key={client.id}>
@@ -162,12 +168,11 @@ export default async function ClientsPage() {
                       {format(new Date(client.createdAt), "MMM d, yyyy")}
                     </TableCell>
                     <TableCell className="text-right">
-                      <Link href={`/admin/clients/${client.id}`}>
-                        <Button variant="ghost" size="sm">
-                          View
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </Link>
+                      <ClientActions
+                        client={client}
+                        crewCount={crewCount}
+                        userCount={userCount}
+                      />
                     </TableCell>
                   </TableRow>
                 )

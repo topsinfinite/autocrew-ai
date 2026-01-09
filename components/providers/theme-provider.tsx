@@ -52,6 +52,14 @@ export function ThemeProvider({
     root.setAttribute("data-theme", effectiveTheme);
   }, [effectiveTheme]);
 
+  // Clean up legacy mockUser data from localStorage (one-time cleanup)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Remove old mock user data that was used before Better Auth integration
+      localStorage.removeItem('mockUser');
+    }
+  }, []);
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme, effectiveTheme }}>
       {children}

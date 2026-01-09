@@ -7,7 +7,7 @@ import {
   analyzeSentiment,
   calculateDuration,
   extractCustomerEmail,
-} from '@/lib/utils/message-transformer';
+} from '@/lib/utils';
 
 export interface GetConversationsParams {
   clientId?: string;
@@ -171,6 +171,11 @@ async function queryHistoriesTable(
       throw new Error(`Invalid table name: ${tableName}`);
     }
 
+    console.log(`[Conversations] Querying histories table:`, {
+      tableName,
+      sessionId,
+    });
+
     const result = await client.unsafe(
       `SELECT id, session_id, message, created_at
        FROM ${tableName}
@@ -179,9 +184,33 @@ async function queryHistoriesTable(
       [sessionId]
     );
 
-    return transformHistoriesToTranscript(result as any);
+    console.log(`[Conversations] Query result:`, {
+      tableName,
+      sessionId,
+      rowCount: result.length,
+      firstRow: result[0] || null,
+    });
+
+    if (result.length === 0) {
+      console.warn(`[Conversations] No messages found in ${tableName} for session ${sessionId}`);
+      return [];
+    }
+
+    const transcript = transformHistoriesToTranscript(result as any);
+    console.log(`[Conversations] Transformed transcript:`, {
+      tableName,
+      sessionId,
+      messageCount: transcript.length,
+    });
+
+    return transcript;
   } catch (error) {
-    console.error(`Failed to query ${tableName}:`, error);
+    console.error(`[Conversations] Failed to query ${tableName}:`, error);
+    console.error(`[Conversations] Query details:`, {
+      tableName,
+      sessionId,
+      error: error instanceof Error ? error.message : String(error),
+    });
     return [];
   }
 }
@@ -199,24 +228,40 @@ export async function getConversationsByCrew(crewId: string): Promise<Conversati
  * This should be called periodically or when viewing conversations
  */
 export async function discoverConversations(clientId: string): Promise<void> {
+  console.log(`[Discover] Starting conversation discovery for client:`, clientId);
+
   // Get all crews for this client
   const clientCrews = await db
     .select()
     .from(crews)
     .where(eq(crews.clientId, clientId));
 
-  // Get existing conversation session_ids
+  console.log(`[Discover] Found ${clientCrews.length} crews for client ${clientId}`);
+
+  // Get existing conversation session_ids (query globally since session_id is unique across all clients)
   const existing = await db
+    .select({ sessionId: conversations.sessionId })
+    .from(conversations);
+
+  const existingSessionIds = new Set(existing.map((e) => e.sessionId));
+  console.log(`[Discover] Found ${existingSessionIds.size} existing sessions globally`);
+
+  // Also get client-specific count for logging
+  const clientConversations = await db
     .select({ sessionId: conversations.sessionId })
     .from(conversations)
     .where(eq(conversations.clientId, clientId));
-
-  const existingSessionIds = new Set(existing.map((e) => e.sessionId));
+  console.log(`[Discover] Found ${clientConversations.length} existing conversations for client ${clientId}`);
 
   // Scan each crew's histories table for new sessions
   for (const crew of clientCrews) {
     const config = crew.config as { historiesTableName?: string };
-    if (!config.historiesTableName) continue;
+    if (!config.historiesTableName) {
+      console.log(`[Discover] Crew ${crew.crewCode} has no historiesTableName, skipping`);
+      continue;
+    }
+
+    console.log(`[Discover] Scanning histories table for crew ${crew.crewCode}:`, config.historiesTableName);
 
     try {
       // Validate table name
@@ -230,9 +275,18 @@ export async function discoverConversations(clientId: string): Promise<void> {
         `SELECT DISTINCT session_id FROM ${config.historiesTableName}`
       );
 
+      console.log(`[Discover] Found ${sessions.length} sessions in ${config.historiesTableName}`);
+
+      let newConversationsCount = 0;
+
       // Create conversation records for new sessions
       for (const { session_id } of sessions as any[]) {
-        if (existingSessionIds.has(session_id)) continue;
+        if (existingSessionIds.has(session_id)) {
+          console.log(`[Discover] Session ${session_id} already exists, skipping`);
+          continue;
+        }
+
+        console.log(`[Discover] New session found: ${session_id}, fetching transcript...`);
 
         // Fetch transcript to calculate metadata
         const transcript = await queryHistoriesTable(
@@ -240,28 +294,52 @@ export async function discoverConversations(clientId: string): Promise<void> {
           session_id
         );
 
-        if (transcript.length === 0) continue;
+        if (transcript.length === 0) {
+          console.warn(`[Discover] No transcript for session ${session_id}, skipping`);
+          continue;
+        }
+
+        console.log(`[Discover] Creating conversation record for session ${session_id}`, {
+          messageCount: transcript.length,
+        });
 
         // Calculate metadata
         const sentiment = analyzeSentiment(transcript);
         const duration = calculateDuration(transcript);
         const customerEmail = extractCustomerEmail(transcript);
 
-        // Create conversation record
-        await db.insert(conversations).values({
-          sessionId: session_id,
-          clientId,
-          crewId: crew.id,
-          customerEmail,
-          sentiment,
-          duration,
-          resolved: false,
-        });
+        // Create conversation record (with duplicate handling)
+        try {
+          await db.insert(conversations).values({
+            sessionId: session_id,
+            clientId,
+            crewId: crew.id,
+            customerEmail,
+            sentiment,
+            duration,
+            resolved: false,
+          });
 
-        existingSessionIds.add(session_id);
+          newConversationsCount++;
+          existingSessionIds.add(session_id);
+          console.log(`[Discover] ✓ Created conversation for session ${session_id}`);
+        } catch (insertError: any) {
+          // Handle duplicate session_id gracefully (unique constraint violation)
+          if (insertError?.cause?.code === '23505') {
+            console.log(`[Discover] Session ${session_id} already exists (duplicate detected during insert), skipping`);
+            existingSessionIds.add(session_id);
+            continue;
+          }
+          // Re-throw other errors
+          throw insertError;
+        }
       }
+
+      console.log(`[Discover] Completed scan of ${config.historiesTableName}: ${newConversationsCount} new conversations`);
     } catch (error) {
-      console.error(`Failed to scan ${config.historiesTableName}:`, error);
+      console.error(`[Discover] Failed to scan ${config.historiesTableName}:`, error);
     }
   }
+
+  console.log(`[Discover] Conversation discovery completed for client ${clientId}`);
 }

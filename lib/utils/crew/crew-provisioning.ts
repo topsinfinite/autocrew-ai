@@ -2,7 +2,7 @@ import { db } from '@/db';
 import { crews } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import type { CrewConfig, CrewType, CrewStatus } from '@/types';
-import { generateCrewCode } from './crew-code-generator';
+import { generateCrewCode } from '../generators/crew-code-generator';
 import { generateCrewTableName } from './crew-table-generator';
 import { createVectorTable, createHistoriesTable, dropTable } from './crew-table-creator';
 
@@ -57,7 +57,7 @@ export interface ProvisionCrewResult {
  * @throws Error if provisioning fails
  */
 export async function provisionCrew(input: ProvisionCrewInput): Promise<ProvisionCrewResult> {
-  const { name, clientId, type, webhookUrl, status = 'active' } = input;
+  const { name, clientId, type, webhookUrl, status = 'inactive' } = input;
 
   console.log(`\nProvisioning crew: ${name} (${type}) for client: ${clientId}`);
 

@@ -23,16 +23,24 @@ import {
   DialogFooter,
   DialogDescription,
 } from "@/components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { getCrews, updateCrew } from "@/lib/api/crews";
+import { getCrews, updateCrew, updateCrewConfig } from "@/lib/api/crews";
 import { Crew } from "@/types";
-import { Pencil, Users, Loader2, AlertCircle } from "lucide-react";
+import { Pencil, Users, Loader2, AlertCircle, Mail, Check, Copy, Code2, MessageCircle, Upload } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { useClient } from "@/lib/hooks/use-client";
+import { ActivationWizard } from "@/components/crews/activation-wizard";
+import { KnowledgeBaseManagerDialog } from "@/components/crews/knowledge-base-manager-dialog";
 
 export default function CrewsPage() {
   const { selectedClient } = useClient();
@@ -43,6 +51,14 @@ export default function CrewsPage() {
   const [webhookUrl, setWebhookUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
+  const [supportEmail, setSupportEmail] = useState("");
+  const [supportClientName, setSupportClientName] = useState("");
+  const [isIntegrationOpen, setIsIntegrationOpen] = useState(false);
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
+  const [selectedCrewForWizard, setSelectedCrewForWizard] = useState<Crew | null>(null);
+  const [isKnowledgeBaseOpen, setIsKnowledgeBaseOpen] = useState(false);
+  const [selectedCrewForKB, setSelectedCrewForKB] = useState<Crew | null>(null);
 
   // Fetch crews when client changes
   useEffect(() => {
@@ -78,12 +94,23 @@ export default function CrewsPage() {
   const handleToggleStatus = async (crew: Crew) => {
     const newStatus = crew.status === "active" ? "inactive" : "active";
 
+    // FOR CUSTOMER SUPPORT ACTIVATION: Use wizard
+    if (newStatus === "active" && crew.type === "customer_support") {
+      setSelectedCrewForWizard(crew);
+      setIsWizardOpen(true);
+      return; // Don't proceed with direct toggle
+    }
+
+    // FOR DEACTIVATION or LEAD GEN: Direct toggle
     try {
       const updatedCrew = await updateCrew(crew.id, { status: newStatus });
+      setCrews(crews.map((c) => (c.id === crew.id ? updatedCrew : c)));
 
-      setCrews(
-        crews.map((c) => (c.id === crew.id ? updatedCrew : c))
-      );
+      // If activated, show integration code
+      if (newStatus === "active") {
+        setSelectedCrew(updatedCrew);
+        setIsIntegrationOpen(true);
+      }
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to update crew status"
@@ -129,6 +156,58 @@ export default function CrewsPage() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  // Save support email and client name configuration
+  const handleSaveSupportEmail = async () => {
+    if (!selectedCrew) return;
+
+    if (!supportEmail.trim()) {
+      setError("Support email is required");
+      return;
+    }
+
+    if (!supportClientName.trim()) {
+      setError("Support client name is required");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(supportEmail)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      setError(null);
+
+      const updatedCrew = await updateCrewConfig(
+        selectedCrew.id,
+        supportEmail.trim(),
+        supportClientName.trim()
+      );
+
+      setCrews(crews.map(c => c.id === selectedCrew.id ? updatedCrew : c));
+      setIsConfigOpen(false);
+      setSelectedCrew(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update configuration');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Generate integration code snippet
+  const generateIntegrationCode = (crew: Crew): string => {
+    return `createChat({
+  webhookUrl: '${crew.webhookUrl}',
+  metadata: {
+    client_id: '${crew.clientId}',
+    crew_code: '${crew.crewCode}',
+    environment: 'production'
+  }
+});`;
   };
 
   // Calculate stats
@@ -300,6 +379,50 @@ export default function CrewsPage() {
                       {new Date(crew.createdAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell className="text-right">
+                      {crew.status === "active" && (
+                        <Button
+                          variant="default"
+                          size="sm"
+                          onClick={() => {
+                            setSelectedCrew(crew);
+                            setIsIntegrationOpen(true);
+                          }}
+                          className="mr-2"
+                        >
+                          <Code2 className="h-4 w-4 mr-1" />
+                          Integration
+                        </Button>
+                      )}
+                      {crew.type === "customer_support" && crew.status === "active" && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setSelectedCrewForKB(crew);
+                            setIsKnowledgeBaseOpen(true);
+                          }}
+                          className="mr-2"
+                        >
+                          <Upload className="h-4 w-4 mr-1" />
+                          Documents
+                        </Button>
+                      )}
+                      {crew.type === "customer_support" && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setSelectedCrew(crew);
+                            setSupportEmail(crew.config.metadata?.support_email || "");
+                            setSupportClientName(crew.config.metadata?.support_client_name || "");
+                            setIsConfigOpen(true);
+                          }}
+                          className="mr-2"
+                        >
+                          <Mail className="h-4 w-4 mr-1" />
+                          {crew.config.metadata?.support_email ? "Edit" : "Set"} Support
+                        </Button>
+                      )}
                       <Button
                         variant="ghost"
                         size="sm"
@@ -340,7 +463,7 @@ export default function CrewsPage() {
                 <Label className="text-sm font-medium text-muted-foreground">
                   Crew
                 </Label>
-                <p className="text-sm font-medium">{selectedCrew.name}</p>
+                <p className="text-sm font-medium text-foreground">{selectedCrew.name}</p>
                 <p className="text-xs text-muted-foreground">
                   {selectedCrew.crewCode}
                 </p>
@@ -383,6 +506,274 @@ export default function CrewsPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Configure Support Configuration Dialog */}
+      <Dialog open={isConfigOpen} onOpenChange={setIsConfigOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Configure Support Details</DialogTitle>
+            <DialogDescription>
+              Set the support email and client name for this customer support crew.
+              Both fields are required before the crew can be activated.
+            </DialogDescription>
+          </DialogHeader>
+
+          {error && (
+            <div className="flex items-center gap-3 p-4 bg-destructive/10 rounded-lg">
+              <AlertCircle className="h-5 w-5 text-destructive" />
+              <p className="text-sm text-destructive">{error}</p>
+            </div>
+          )}
+
+          {selectedCrew && (
+            <div className="space-y-4">
+              <div>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Crew
+                </Label>
+                <p className="text-sm font-medium text-foreground">{selectedCrew.name}</p>
+                <p className="text-xs text-muted-foreground">
+                  {selectedCrew.crewCode}
+                </p>
+              </div>
+
+              <div>
+                <Label htmlFor="supportEmail">Support Email *</Label>
+                <Input
+                  id="supportEmail"
+                  type="email"
+                  placeholder="support@company.com"
+                  value={supportEmail}
+                  onChange={(e) => setSupportEmail(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Customer messages will reference this email address
+                </p>
+              </div>
+
+              <div>
+                <Label htmlFor="supportClientName">Support Client Name *</Label>
+                <Input
+                  id="supportClientName"
+                  type="text"
+                  placeholder="ACME Corporation"
+                  value={supportClientName}
+                  onChange={(e) => setSupportClientName(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  The company name shown to customers
+                </p>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsConfigOpen(false);
+                setSelectedCrew(null);
+                setError(null);
+              }}
+              disabled={submitting}
+            >
+              Cancel
+            </Button>
+            <Button onClick={handleSaveSupportEmail} disabled={submitting}>
+              {submitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                "Save Configuration"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Integration Code Dialog - Multi-Channel Support */}
+      <Dialog open={isIntegrationOpen} onOpenChange={setIsIntegrationOpen}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Integration Options</DialogTitle>
+            <DialogDescription>
+              Choose how you want to integrate {selectedCrew?.name} into your channels
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedCrew && (
+            <div className="space-y-6">
+              {/* Status Banner */}
+              <div className="flex items-start gap-3 p-4 bg-green-500/10 dark:bg-green-500/10 border border-green-500/50 dark:border-green-500/30 rounded-lg">
+                <div className="flex-shrink-0 mt-0.5">
+                  <Check className="h-5 w-5 text-green-700 dark:text-green-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-green-800 dark:text-green-400">Crew Active!</p>
+                  <p className="text-sm text-green-700 dark:text-green-400/90 mt-0.5">
+                    {selectedCrew.name} is ready to handle {selectedCrew.type === "customer_support" ? "customer support" : "lead generation"} requests
+                  </p>
+                </div>
+              </div>
+
+              {/* Multi-Channel Tabs */}
+              <Tabs defaultValue="webchat" className="w-full">
+                <TabsList className="grid w-full grid-cols-3 h-auto p-1 bg-slate-100 dark:bg-muted border border-white dark:border-border">
+                  <TabsTrigger
+                    value="webchat"
+                    className="flex items-center gap-2 py-2.5 data-[state=active]:bg-white data-[state=active]:text-slate-900 dark:data-[state=active]:bg-slate-700 dark:data-[state=active]:text-white"
+                  >
+                    <Code2 className="h-4 w-4" />
+                    <span className="hidden sm:inline">Web Chat</span>
+                    <span className="sm:hidden">Web</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="whatsapp"
+                    disabled
+                    className="flex items-center gap-2 py-2.5 data-[state=active]:bg-white data-[state=active]:text-slate-900 dark:data-[state=active]:bg-slate-700 dark:data-[state=active]:text-white"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span className="hidden sm:inline">WhatsApp</span>
+                    <span className="sm:hidden">WA</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="other"
+                    disabled
+                    className="flex items-center gap-2 py-2.5 data-[state=active]:bg-white data-[state=active]:text-slate-900 dark:data-[state=active]:bg-slate-700 dark:data-[state=active]:text-white"
+                  >
+                    <span className="hidden sm:inline">More Channels</span>
+                    <span className="sm:hidden">More</span>
+                  </TabsTrigger>
+                </TabsList>
+
+                {/* Web Chat Integration */}
+                <TabsContent value="webchat" className="space-y-5 mt-6">
+                  {/* Code Section */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm font-semibold">JavaScript Integration Code</Label>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => {
+                          navigator.clipboard.writeText(generateIntegrationCode(selectedCrew));
+                        }}
+                        className="gap-2 bg-slate-800 hover:bg-slate-700 text-white dark:bg-slate-700 dark:hover:bg-slate-600"
+                      >
+                        <Copy className="h-3.5 w-3.5" />
+                        Copy
+                      </Button>
+                    </div>
+                    <div className="relative rounded-lg bg-slate-50 dark:bg-slate-900 border border-white dark:border-slate-800 p-4 overflow-hidden">
+                      <pre className="text-sm text-slate-900 dark:text-slate-50 overflow-x-auto">
+                        <code>{generateIntegrationCode(selectedCrew)}</code>
+                      </pre>
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-muted-foreground">
+                      Add this code to your website&apos;s HTML to enable the chat widget
+                    </p>
+                  </div>
+
+                  {/* Integration Details */}
+                  <div className="space-y-3">
+                    <Label className="text-sm font-semibold">Integration Details</Label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="p-3 bg-slate-50 dark:bg-muted border border-white dark:border-border rounded-lg">
+                        <p className="text-xs text-slate-600 dark:text-muted-foreground mb-1.5">Crew Code</p>
+                        <code className="text-sm font-mono font-semibold text-slate-900 dark:text-foreground break-all">
+                          {selectedCrew.crewCode}
+                        </code>
+                      </div>
+                      <div className="p-3 bg-slate-50 dark:bg-muted border border-white dark:border-border rounded-lg">
+                        <p className="text-xs text-slate-600 dark:text-muted-foreground mb-1.5">Client ID</p>
+                        <code className="text-sm font-mono font-semibold text-slate-900 dark:text-foreground break-all">
+                          {selectedCrew.clientId}
+                        </code>
+                      </div>
+                      <div className="col-span-1 sm:col-span-2 p-3 bg-slate-50 dark:bg-muted border border-white dark:border-border rounded-lg">
+                        <p className="text-xs text-slate-600 dark:text-muted-foreground mb-1.5">Webhook URL</p>
+                        <code className="text-xs font-mono text-slate-900 dark:text-foreground break-all">
+                          {selectedCrew.webhookUrl}
+                        </code>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* WhatsApp Integration (Coming Soon) */}
+                <TabsContent value="whatsapp" className="mt-6">
+                  <div className="flex flex-col items-center justify-center py-12 text-center">
+                    <div className="rounded-full bg-muted p-4 mb-4">
+                      <MessageCircle className="h-8 w-8 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2">WhatsApp Integration</h3>
+                    <p className="text-muted-foreground text-sm max-w-md">
+                      Connect your support crew to WhatsApp Business API.
+                      This feature is coming soon!
+                    </p>
+                  </div>
+                </TabsContent>
+
+                {/* Other Channels (Coming Soon) */}
+                <TabsContent value="other" className="mt-6">
+                  <div className="flex flex-col items-center justify-center py-12 text-center">
+                    <div className="rounded-full bg-muted p-4 mb-4">
+                      <Code2 className="h-8 w-8 text-muted-foreground" />
+                    </div>
+                    <h3 className="font-semibold text-lg mb-2">More Integration Options</h3>
+                    <p className="text-muted-foreground text-sm max-w-md">
+                      Additional channels like Slack, Teams, and custom integrations coming soon!
+                    </p>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+          )}
+
+          <DialogFooter className="mt-6">
+            <Button
+              onClick={() => setIsIntegrationOpen(false)}
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground"
+            >
+              Done
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Activation Wizard for Customer Support Crews */}
+      {selectedCrewForWizard && (
+        <ActivationWizard
+          crew={selectedCrewForWizard}
+          isOpen={isWizardOpen}
+          onClose={() => {
+            setIsWizardOpen(false);
+            setSelectedCrewForWizard(null);
+          }}
+          onActivationComplete={(updatedCrew) => {
+            setCrews(crews.map((c) => (c.id === updatedCrew.id ? updatedCrew : c)));
+            setIsWizardOpen(false);
+            setSelectedCrewForWizard(null);
+            // Optionally show integration dialog after activation
+            setSelectedCrew(updatedCrew);
+            setIsIntegrationOpen(true);
+          }}
+        />
+      )}
+
+      {/* Knowledge Base Manager Dialog */}
+      {selectedCrewForKB && (
+        <KnowledgeBaseManagerDialog
+          crew={selectedCrewForKB}
+          isOpen={isKnowledgeBaseOpen}
+          onClose={() => {
+            setIsKnowledgeBaseOpen(false);
+            setSelectedCrewForKB(null);
+          }}
+        />
+      )}
     </div>
   );
 }

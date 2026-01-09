@@ -1,42 +1,34 @@
-"use client"
-
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
 import { AdminSidebar } from "@/components/layout/admin-sidebar"
+import { verifyAuth } from "@/lib/dal"
+import { redirect } from "next/navigation"
 
-export default function AdminLayout({
+/**
+ * Admin Layout - Server Component
+ *
+ * SECURITY: This layout validates authentication AND authorization server-side.
+ * The proxy.ts file only does cookie checking. Real role verification happens here.
+ *
+ * Authorization Flow:
+ * 1. Proxy checks cookie existence
+ * 2. This component verifies session validity
+ * 3. This component checks super_admin role
+ * 4. Non-SuperAdmin users are redirected to /dashboard
+ *
+ * @see CODE_REVIEW_REPORT.md for security rationale
+ */
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const router = useRouter()
+  // Verify authentication (redirects to /login if not authenticated)
+  const session = await verifyAuth();
 
-  useEffect(() => {
-    // Check if user is authenticated and has super_admin role
-    const checkAuth = () => {
-      const mockUser = localStorage.getItem("mockUser")
-
-      if (!mockUser) {
-        // Not logged in, redirect to login
-        router.push("/login")
-        return
-      }
-
-      try {
-        const user = JSON.parse(mockUser)
-        if (user.role !== "super_admin") {
-          // Not a super admin, redirect to dashboard
-          router.push("/dashboard")
-          return
-        }
-      } catch (error) {
-        // Invalid user data, redirect to login
-        router.push("/login")
-      }
-    }
-
-    checkAuth()
-  }, [router])
+  // Verify SuperAdmin role
+  if (session.user.role !== 'super_admin') {
+    // Not a SuperAdmin - redirect to their dashboard
+    redirect('/dashboard');
+  }
 
   return (
     <div className="flex h-screen bg-background">

@@ -1,0 +1,1 @@
+ALTER TABLE "crews" ALTER COLUMN "status" SET DEFAULT 'inactive';

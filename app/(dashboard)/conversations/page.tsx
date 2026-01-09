@@ -28,8 +28,10 @@ import { getConversations, getConversationById } from "@/lib/api/conversations";
 import { getCrews } from "@/lib/api/crews";
 import { useClient } from "@/lib/hooks/use-client";
 import { Conversation, Crew } from "@/types";
-import { Eye, Search, MessageSquare, Loader2 } from "lucide-react";
+import { Eye, Search, MessageSquare, Loader2, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
+import { DateRangePicker } from "@/components/date-range-picker";
+import { DateRange } from "react-day-picker";
 
 export default function ConversationsPage() {
   const { selectedClient } = useClient();
@@ -42,17 +44,32 @@ export default function ConversationsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch conversations and crews on mount or when client changes
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const itemsPerPage = 10;
+
+  // Date filter state
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
+
+  // Fetch conversations and crews on mount or when filters/pagination change
   useEffect(() => {
     async function fetchData() {
       try {
         setLoading(true);
         setError(null);
 
+        // Calculate offset for pagination
+        const offset = (currentPage - 1) * itemsPerPage;
+
         // Fetch conversations and crews in parallel
-        const [{ conversations: conversationsData }, crewsData] = await Promise.all([
+        const [{ conversations: conversationsData, count }, crewsData] = await Promise.all([
           getConversations({
             clientId: selectedClient?.clientCode,
+            fromDate: dateRange?.from,
+            toDate: dateRange?.to,
+            limit: itemsPerPage,
+            offset,
           }),
           getCrews({
             clientId: selectedClient?.clientCode,
@@ -60,6 +77,7 @@ export default function ConversationsPage() {
         ]);
 
         setConversations(conversationsData);
+        setTotalCount(count);
         setCrews(crewsData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load conversations');
@@ -70,9 +88,17 @@ export default function ConversationsPage() {
     }
 
     fetchData();
-  }, [selectedClient]);
+  }, [selectedClient, currentPage, dateRange]);
+
+  // Reset to page 1 when date filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [dateRange]);
 
   const filteredConversations = conversations.filter((conv) => {
+    // If no search query, show all conversations
+    if (!searchQuery.trim()) return true;
+
     const searchLower = searchQuery.toLowerCase();
     return (
       conv.metadata.customerName?.toLowerCase().includes(searchLower) ||
@@ -130,9 +156,9 @@ export default function ConversationsPage() {
         </Card>
       )}
 
-      {/* Search */}
+      {/* Filters */}
       {!loading && !error && (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -141,6 +167,22 @@ export default function ConversationsPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-8"
             />
+          </div>
+          <div className="flex items-center gap-2">
+            <DateRangePicker
+              date={dateRange}
+              onDateChange={setDateRange}
+            />
+            {dateRange && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setDateRange(undefined)}
+                className="h-10 w-10"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            )}
           </div>
         </div>
       )}
@@ -161,7 +203,7 @@ export default function ConversationsPage() {
       ) : !loading && !error ? (
         <Card>
           <CardHeader>
-            <CardTitle>All Conversations ({filteredConversations.length})</CardTitle>
+            <CardTitle>All Conversations ({totalCount})</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
@@ -243,6 +285,71 @@ export default function ConversationsPage() {
               ))}
             </TableBody>
           </Table>
+
+          {/* Pagination */}
+          {totalCount > itemsPerPage && (
+            <div className="flex items-center justify-between border-t border-border px-6 py-4">
+              <div className="text-sm text-muted-foreground">
+                Showing {Math.min((currentPage - 1) * itemsPerPage + 1, totalCount)} to{' '}
+                {Math.min(currentPage * itemsPerPage, totalCount)} of {totalCount} conversations
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="gap-1"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  Previous
+                </Button>
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: Math.ceil(totalCount / itemsPerPage) }, (_, i) => i + 1)
+                    .filter(page => {
+                      // Show first page, last page, current page, and pages around current
+                      const totalPages = Math.ceil(totalCount / itemsPerPage);
+                      return (
+                        page === 1 ||
+                        page === totalPages ||
+                        Math.abs(page - currentPage) <= 1
+                      );
+                    })
+                    .map((page, index, array) => {
+                      // Add ellipsis if there's a gap
+                      const prevPage = array[index - 1];
+                      const showEllipsis = prevPage && page - prevPage > 1;
+
+                      return (
+                        <div key={page} className="flex items-center">
+                          {showEllipsis && (
+                            <span className="px-2 text-muted-foreground">...</span>
+                          )}
+                          <Button
+                            variant={currentPage === page ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setCurrentPage(page)}
+                            className="min-w-[2.5rem]"
+                          >
+                            {page}
+                          </Button>
+                        </div>
+                      );
+                    })}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={currentPage >= Math.ceil(totalCount / itemsPerPage)}
+                  className="gap-1"
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
       ) : null}
@@ -265,7 +372,7 @@ export default function ConversationsPage() {
                   <h3 className="text-sm font-medium text-muted-foreground">
                     Customer
                   </h3>
-                  <p className="text-sm">
+                  <p className="text-sm font-medium text-foreground">
                     {selectedConversation.metadata.customerName || "Anonymous"}
                   </p>
                   <p className="text-sm text-muted-foreground">
@@ -276,7 +383,7 @@ export default function ConversationsPage() {
                   <h3 className="text-sm font-medium text-muted-foreground">
                     Crew
                   </h3>
-                  <p className="text-sm">
+                  <p className="text-sm font-medium text-foreground">
                     {getCrewName(selectedConversation.crewId)}
                   </p>
                 </div>
@@ -284,7 +391,7 @@ export default function ConversationsPage() {
                   <h3 className="text-sm font-medium text-muted-foreground">
                     Date & Time
                   </h3>
-                  <p className="text-sm">
+                  <p className="text-sm text-foreground">
                     {new Date(
                       selectedConversation.createdAt
                     ).toLocaleString()}
@@ -294,7 +401,7 @@ export default function ConversationsPage() {
                   <h3 className="text-sm font-medium text-muted-foreground">
                     Duration
                   </h3>
-                  <p className="text-sm">
+                  <p className="text-sm text-foreground">
                     {selectedConversation.metadata.duration
                       ? `${Math.floor(
                           selectedConversation.metadata.duration / 60
@@ -351,7 +458,7 @@ export default function ConversationsPage() {
                         <div
                           className={`max-w-[80%] rounded-lg p-3 ${
                             message.role === "user"
-                              ? "bg-muted"
+                              ? "bg-muted text-foreground"
                               : "bg-primary text-primary-foreground"
                           }`}
                         >

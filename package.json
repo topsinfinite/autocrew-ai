@@ -1,21 +1,38 @@
 {
   "name": "autocrew-saas",
   "version": "1.0.0",
-  "description": "",
+  "description": "B2B digital labor platform for managing Agentic Crews powered by n8n workflows",
   "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "validate": "npm run typecheck && npm run lint && npm run format:check",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --maxWorkers=2",
+    "check-env": "tsx scripts/check-env.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx db/migrate.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "tsx db/seed.ts"
+    "db:seed": "tsx db/seed.ts",
+    "db:reset": "tsx scripts/reset-db.ts",
+    "db:cleanup": "tsx scripts/cleanup-orphaned-tables.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "AutoCrew Team",
   "license": "ISC",
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -31,9 +48,12 @@
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^25.0.3",
+    "@types/node-cron": "^3.0.11",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.23",
+    "bcrypt": "^6.0.0",
+    "better-auth": "^1.4.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -44,6 +64,8 @@
     "eslint-config-next": "^16.1.1",
     "lucide-react": "^0.562.0",
     "next": "^16.1.1",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.12",
     "pgvector": "^0.2.1",
     "postcss": "^8.5.6",
     "postgres": "^3.4.7",
@@ -58,7 +80,16 @@
     "zod": "^4.2.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/bcrypt": "^6.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/nodemailer": "^7.0.4",
     "drizzle-kit": "^0.31.8",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.21.0"
   }
 }

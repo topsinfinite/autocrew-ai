@@ -22,6 +22,34 @@
       "when": 1767301766306,
       "tag": "0002_adorable_vapor",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1767362493994,
+      "tag": "0003_add_better_auth",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1767382807669,
+      "tag": "0004_eager_mister_sinister",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1767470582701,
+      "tag": "0005_steep_revanche",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1767748084419,
+      "tag": "0006_empty_harry_osborn",
+      "breakpoints": true
     }
   ]
 }

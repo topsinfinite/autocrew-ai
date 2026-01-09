@@ -2,16 +2,38 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { clients } from '@/db/schema';
 import { insertClientSchema } from '@/db/schema';
-import { generateClientCode } from '@/lib/utils/client-code-generator';
+import { generateClientCode } from '@/lib/utils/generators/client-code-generator';
+import { generateSlug, generateUniqueSlug } from '@/lib/utils';
 import { eq, and, desc, asc } from 'drizzle-orm';
+import { nanoid } from 'nanoid';
+import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
 
 /**
  * GET /api/clients
  * List all clients with optional filtering and sorting
+ *
+ * Authorization:
+ * - SuperAdmin: Can view all clients
+ * - Client Admin: Forbidden (403)
+ *
  * Query params: status, plan, sortBy, order
  */
 export async function GET(request: NextRequest) {
   try {
+    // Require authentication
+    await requireAuth();
+
+    // Only SuperAdmin can list all clients
+    if (!await isSuperAdmin()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Forbidden - SuperAdmin access required',
+        },
+        { status: 403 }
+      );
+    }
+
     const searchParams = request.nextUrl.searchParams;
     const status = searchParams.get('status');
     const plan = searchParams.get('plan');
@@ -65,9 +87,27 @@ export async function GET(request: NextRequest) {
 /**
  * POST /api/clients
  * Create a new client
+ *
+ * Authorization:
+ * - SuperAdmin: Can create clients
+ * - Client Admin: Forbidden (403)
  */
 export async function POST(request: NextRequest) {
   try {
+    // Require authentication
+    await requireAuth();
+
+    // Only SuperAdmin can create clients
+    if (!await isSuperAdmin()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Forbidden - SuperAdmin access required',
+        },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json();
 
     // Validate request body
@@ -86,8 +126,22 @@ export async function POST(request: NextRequest) {
 
     const data = validation.data;
 
+    // Auto-generate ID if not provided (using nanoid like Better Auth)
+    const id = data.id || `org_${nanoid(16)}`;
+
     // Auto-generate client code if not provided
     const clientCode = data.clientCode || await generateClientCode(data.companyName);
+
+    // Auto-generate slug if not provided
+    const baseSlug = data.slug || generateSlug(data.companyName);
+    const slug = await generateUniqueSlug(baseSlug, async (slugToCheck) => {
+      const existing = await db
+        .select()
+        .from(clients)
+        .where(eq(clients.slug, slugToCheck))
+        .limit(1);
+      return existing.length > 0;
+    });
 
     // Insert client
     try {
@@ -95,7 +149,9 @@ export async function POST(request: NextRequest) {
         .insert(clients)
         .values({
           ...data,
+          id,
           clientCode,
+          slug,
           status: data.status || 'trial',
         })
         .returning();

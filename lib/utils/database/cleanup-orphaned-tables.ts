@@ -1,7 +1,7 @@
 import { db } from '@/db';
 import { crews } from '@/db/schema';
 import { sql } from 'drizzle-orm';
-import { dropTable } from './crew-table-creator';
+import { dropTable } from '../crew/crew-table-creator';
 
 /**
  * Orphaned table information

@@ -299,6 +299,9 @@ export function AdminCrewsClient({
                       >
                         {crew.status}
                       </Badge>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Managed by client admin
+                      </p>
                     </TableCell>
                     <TableCell className="max-w-xs truncate">
                       <code className="text-xs bg-muted px-2 py-1 rounded">
@@ -360,7 +363,7 @@ export function AdminCrewsClient({
                   {clients.map((client) => (
                     <SelectItem key={client.id} value={client.clientCode}>
                       <div>
-                        <div className="font-medium">{client.companyName}</div>
+                        <div className="font-medium text-foreground">{client.companyName}</div>
                         <div className="text-xs text-muted-foreground">
                           {client.clientCode}
                         </div>
@@ -438,12 +441,12 @@ export function AdminCrewsClient({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="inactive">Inactive</SelectItem>
+                  <SelectItem value="active">Active (Testing Only)</SelectItem>
+                  <SelectItem value="inactive">Inactive (Recommended)</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground mt-1">
-                Crew can be activated/deactivated later by the client admin
+                Set to 'Active' only for testing. Client admins will activate crews after configuration.
               </p>
             </div>
           </div>
@@ -485,10 +488,10 @@ export function AdminCrewsClient({
           )}
 
           {selectedCrew && (
-            <div className="flex items-center gap-3 p-4 bg-muted rounded-lg">
+            <div className="flex items-center gap-3 p-4 bg-muted border border-white dark:border-border rounded-lg">
               <AlertCircle className="h-5 w-5 text-destructive" />
               <div>
-                <p className="font-medium">{selectedCrew.name}</p>
+                <p className="font-medium text-foreground">{selectedCrew.name}</p>
                 <p className="text-sm text-muted-foreground">
                   {selectedCrew.crewCode} •{" "}
                   {getClientName(selectedCrew.clientId)}

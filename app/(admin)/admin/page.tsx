@@ -4,24 +4,41 @@ import { ClientOverviewCard } from "@/components/admin/client-overview-card"
 import { ClientOnboardingForm } from "@/components/admin/client-onboarding-form"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
-import {
-  mockClients,
-  mockAdminUsers,
-  mockCrewAssignments,
-  getCrewAssignmentsByClientId,
-  getAdminUsersByClientId,
-} from "@/lib/mock-data/multi-tenant-data"
-import { dummyConversations } from "@/lib/dummy-data"
+import { db } from "@/db"
+import { member } from "@/db/schema"
+import { getClients, getCrews, getUsers, getConversations } from "@/lib/dal"
+import type { Client } from "@/types"
 
-export default function AdminDashboardPage() {
-  const totalClients = mockClients.length
-  const activeClients = mockClients.filter((c) => c.status === "active").length
-  const totalCrews = mockCrewAssignments.length
-  const totalUsers = mockAdminUsers.filter((u) => u.role === "client_admin").length
+async function getDashboardData() {
+  // Use DAL to fetch data (auth checks handled in DAL)
+  const [allClients, allCrews, allUsers, allConversations, allMembers] = await Promise.all([
+    getClients(), // SuperAdmin only
+    getCrews(), // No filter - SuperAdmin sees all
+    getUsers(), // SuperAdmin only
+    getConversations(), // No filter - SuperAdmin sees all
+    db.select().from(member), // Members table - not tenant-specific
+  ]);
+
+  return {
+    clients: allClients,
+    crews: allCrews,
+    users: allUsers.filter((u) => u.role === 'client_admin'),
+    conversations: allConversations,
+    members: allMembers,
+  }
+}
+
+export default async function AdminDashboardPage() {
+  const { clients: allClients, crews: allCrews, users: allUsers, conversations: allConversations, members: allMembers } = await getDashboardData()
+
+  const totalClients = allClients.length
+  const activeClients = allClients.filter((c) => c.status === "active").length
+  const totalCrews = allCrews.length
+  const totalUsers = allUsers.length
 
   // Get recent clients (last 3)
-  const recentClients = [...mockClients]
-    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+  const recentClients = [...allClients]
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, 3)
 
   return (
@@ -62,11 +79,14 @@ export default function AdminDashboardPage() {
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {recentClients.map((client) => {
-            const crewAssignments = getCrewAssignmentsByClientId(client.id)
-            const users = getAdminUsersByClientId(client.id)
-            const conversations = dummyConversations.filter(
-              (c) => c.clientId === client.id
-            )
+            // Count crews for this client
+            const clientCrews = allCrews.filter((c) => c.clientId === client.clientCode)
+
+            // Count users (members) for this client organization
+            const clientMembers = allMembers.filter((m) => m.organizationId === client.id)
+
+            // Count conversations for this client
+            const clientConversations = allConversations.filter((c) => c.clientId === client.clientCode)
 
             return (
               <ClientOverviewCard
@@ -77,9 +97,9 @@ export default function AdminDashboardPage() {
                 companyName={client.companyName}
                 plan={client.plan}
                 status={client.status}
-                crewsCount={crewAssignments.length}
-                usersCount={users.length}
-                conversationsCount={conversations.length}
+                crewsCount={clientCrews.length}
+                usersCount={clientMembers.length}
+                conversationsCount={clientConversations.length}
               />
             )
           })}

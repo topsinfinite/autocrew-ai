@@ -12,30 +12,37 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { ArrowLeft, Bot, Users, TrendingUp, Calendar } from "lucide-react"
-import {
-  getCrewAssignmentsByClientId,
-  getAdminUsersByClientId,
-} from "@/lib/mock-data/multi-tenant-data"
-import { dummyCrews, dummyConversations } from "@/lib/dummy-data"
 import { format } from "date-fns"
 import type { Client } from "@/types"
+import { db } from "@/db"
+import { member } from "@/db/schema"
+import { eq } from "drizzle-orm"
+import { getClient, getCrews, getOrganizationUsers, getConversations } from "@/lib/dal"
 
-async function getClient(id: string): Promise<Client | null> {
+async function getClientWithData(id: string) {
   try {
-    const response = await fetch(`http://localhost:3000/api/clients/${id}`, {
-      cache: 'no-store',
-    })
+    // Use DAL to fetch client (auth check handled in DAL)
+    const client = await getClient(id)
 
-    if (response.status === 404) {
+    if (!client) {
       return null
     }
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch client')
-    }
+    // Use DAL to fetch related data (auth checks handled in DAL)
+    const [clientCrews, users, clientConversations, clientMembers] = await Promise.all([
+      getCrews({ clientId: id }), // Filtered by clientId
+      getOrganizationUsers(id), // Users for this organization
+      getConversations({ clientId: id }), // Filtered by clientId
+      db.select().from(member).where(eq(member.organizationId, id)), // Members table
+    ]);
 
-    const result = await response.json()
-    return result.data || null
+    return {
+      client,
+      crews: clientCrews,
+      members: clientMembers,
+      users: users,
+      conversations: clientConversations,
+    }
   } catch (error) {
     console.error('Error fetching client:', error)
     return null
@@ -48,20 +55,13 @@ export default async function ClientDetailsPage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-  const client = await getClient(id)
+  const data = await getClientWithData(id)
 
-  if (!client) {
+  if (!data) {
     notFound()
   }
 
-  const crewAssignments = getCrewAssignmentsByClientId(client.id)
-  const users = getAdminUsersByClientId(client.id)
-  const clientCrews = dummyCrews.filter((crew) =>
-    crewAssignments.some((a) => a.crewId === crew.id)
-  )
-  const conversations = dummyConversations.filter(
-    (c) => c.clientId === client.id
-  )
+  const { client, crews: clientCrews, members, users: memberUsers, conversations: clientConversations } = data
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -147,7 +147,7 @@ export default async function ClientDetailsPage({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-foreground">
-              {users.length}
+              {members.length}
             </div>
             <p className="text-xs text-muted-foreground">Client admins</p>
           </CardContent>
@@ -161,7 +161,7 @@ export default async function ClientDetailsPage({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-foreground">
-              {conversations.length}
+              {clientConversations.length}
             </div>
             <p className="text-xs text-muted-foreground">Total handled</p>
           </CardContent>
@@ -346,7 +346,7 @@ export default async function ClientDetailsPage({
             <CardTitle>Client Admin Users</CardTitle>
           </CardHeader>
           <CardContent>
-            {users.length > 0 ? (
+            {memberUsers.length > 0 ? (
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -357,17 +357,17 @@ export default async function ClientDetailsPage({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {users.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.name}</TableCell>
+                  {memberUsers.map((u) => (
+                    <TableRow key={u.id}>
+                      <TableCell className="font-medium">{u.name}</TableCell>
                       <TableCell className="text-muted-foreground">
-                        {user.email}
+                        {u.email}
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline">{user.role}</Badge>
+                        <Badge variant="outline">{u.role}</Badge>
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {format(user.createdAt, "MMM d, yyyy")}
+                        {format(new Date(u.createdAt), "MMM d, yyyy")}
                       </TableCell>
                     </TableRow>
                   ))}

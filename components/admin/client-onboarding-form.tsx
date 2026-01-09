@@ -163,7 +163,7 @@ export function ClientOnboardingForm() {
                   id="phone"
                   type="tel"
                   placeholder="+1-555-0123"
-                  value={formData.phone}
+                  value={formData.phone ?? ""}
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
@@ -181,7 +181,7 @@ export function ClientOnboardingForm() {
                 <Input
                   id="address"
                   placeholder="123 Business Street"
-                  value={formData.address}
+                  value={formData.address ?? ""}
                   onChange={(e) =>
                     setFormData({ ...formData, address: e.target.value })
                   }
@@ -193,7 +193,7 @@ export function ClientOnboardingForm() {
                   <Input
                     id="city"
                     placeholder="San Francisco"
-                    value={formData.city}
+                    value={formData.city ?? ""}
                     onChange={(e) =>
                       setFormData({ ...formData, city: e.target.value })
                     }
@@ -204,7 +204,7 @@ export function ClientOnboardingForm() {
                   <Input
                     id="country"
                     placeholder="USA"
-                    value={formData.country}
+                    value={formData.country ?? ""}
                     onChange={(e) =>
                       setFormData({ ...formData, country: e.target.value })
                     }

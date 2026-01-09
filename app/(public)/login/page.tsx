@@ -2,32 +2,45 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Zap } from "lucide-react";
+import { Zap, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/lib/hooks/use-auth";
-import { mockClients } from "@/lib/mock-data/multi-tenant-data";
+import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login } = useAuth();
-  const [selectedRole, setSelectedRole] = useState<"super_admin" | "client_admin">("client_admin");
-  const [selectedClientId, setSelectedClientId] = useState(mockClients[0].id);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = () => {
-    if (selectedRole === "super_admin") {
-      login("super_admin", undefined, {
-        email: "superadmin@autocrew.com",
-        name: "Super Admin",
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const { data, error: authError } = await authClient.signIn.email({
+        email,
+        password,
       });
-      router.push("/admin");
-    } else {
-      const client = mockClients.find(c => c.id === selectedClientId);
-      // Use clientCode instead of id for database compatibility
-      login("client_admin", client?.clientCode, {
-        email: `admin@${client?.companyName.toLowerCase().replace(/\s+/g, '')}.com`,
-        name: `${client?.companyName} Admin`,
-      });
-      router.push("/dashboard");
+
+      if (authError) {
+        setError(authError.message || "Invalid email or password");
+        setIsLoading(false);
+        return;
+      }
+
+      if (data) {
+        // Redirect based on user role
+        const user = data.user as any;
+        const redirectUrl = user?.role === "super_admin" ? "/admin" : "/dashboard";
+        router.push(redirectUrl);
+        router.refresh(); // Clear Next.js cache for protected routes
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+      setIsLoading(false);
     }
   };
 
@@ -36,12 +49,12 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <div className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
               <Zap className="h-7 w-7 text-primary-foreground" />
             </div>
             <span className="text-3xl font-bold">AutoCrew</span>
-          </div>
+          </Link>
         </div>
 
         {/* Card */}
@@ -50,112 +63,88 @@ export default function LoginPage() {
             Welcome Back
           </h1>
           <p className="text-center text-muted-foreground mb-8">
-            Select your role to continue
+            Sign in to your account to continue
           </p>
 
-          {/* Role Selection */}
-          <div className="space-y-6">
+          {/* Error Alert */}
+          {error && (
+            <div className="mb-6 p-4 rounded-lg bg-destructive/10 border border-destructive/20 flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-sm text-destructive font-medium">
+                  {error}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Login Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium mb-3">
-                Login As
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
+                Email Address
               </label>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setSelectedRole("client_admin")}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    selectedRole === "client_admin"
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
-                  }`}
-                >
-                  <div className="font-semibold">Client Admin</div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    Manage your organization
-                  </div>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setSelectedRole("super_admin")}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    selectedRole === "super_admin"
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
-                  }`}
-                >
-                  <div className="font-semibold">SuperAdmin</div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    Manage all clients
-                  </div>
-                </button>
-              </div>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                required
+                disabled={isLoading}
+                className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              />
             </div>
 
-            {/* Client Selection (only for client_admin) */}
-            {selectedRole === "client_admin" && (
-              <div>
-                <label htmlFor="client" className="block text-sm font-medium mb-2">
-                  Select Organization
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label htmlFor="password" className="block text-sm font-medium">
+                  Password
                 </label>
-                <select
-                  id="client"
-                  value={selectedClientId}
-                  onChange={(e) => setSelectedClientId(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                <Link
+                  href="/forgot-password"
+                  className="text-sm text-primary hover:underline"
                 >
-                  {mockClients.map((client) => (
-                    <option key={client.id} value={client.id}>
-                      {client.companyName} - {client.plan}
-                    </option>
-                  ))}
-                </select>
+                  Forgot password?
+                </Link>
               </div>
-            )}
-
-            {/* Mock Email Display */}
-            <div className="bg-muted/50 rounded-lg p-4 border border-border">
-              <div className="text-xs text-muted-foreground mb-1">Mock Login Details</div>
-              <div className="text-sm font-mono">
-                {selectedRole === "super_admin" ? (
-                  <>
-                    <div>Email: superadmin@autocrew.com</div>
-                    <div>Role: Super Administrator</div>
-                  </>
-                ) : (
-                  <>
-                    <div>
-                      Email: admin@{mockClients.find(c => c.id === selectedClientId)?.companyName.toLowerCase().replace(/\s+/g, '')}.com
-                    </div>
-                    <div>Role: Client Administrator</div>
-                    <div>Organization: {mockClients.find(c => c.id === selectedClientId)?.companyName}</div>
-                  </>
-                )}
-              </div>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+                disabled={isLoading}
+                className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              />
             </div>
 
-            {/* Login Button */}
+            {/* Sign In Button */}
             <Button
-              onClick={handleLogin}
+              type="submit"
               size="lg"
               className="w-full"
+              disabled={isLoading}
             >
-              Continue to Dashboard
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                "Sign In"
+              )}
             </Button>
-
-            {/* Info */}
-            <p className="text-xs text-center text-muted-foreground">
-              This is a mock login. No password required.
-            </p>
-          </div>
+          </form>
         </div>
 
         {/* Footer Links */}
         <div className="mt-6 text-center text-sm text-muted-foreground">
-          Don't have an account?{" "}
-          <a href="/contact" className="text-primary hover:underline">
-            Contact Sales
-          </a>
+          Need access?{" "}
+          <Link href="/contact-support" className="text-primary hover:underline">
+            Contact support
+          </Link>
         </div>
       </div>
     </div>

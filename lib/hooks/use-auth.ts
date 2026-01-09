@@ -1,48 +1,101 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useLocalStorage } from "./use-local-storage";
-import type { AdminUser } from "@/types";
+import { useSession, signOut } from "@/lib/auth-client";
 
-export interface MockUser {
+/**
+ * Better Auth Integration Hook
+ *
+ * This hook wraps Better Auth's useSession to provide a consistent interface
+ * for authentication state and actions throughout the application.
+ *
+ * Features:
+ * - Session management with Better Auth
+ * - Role-based access control (SuperAdmin vs ClientAdmin)
+ * - Organization/client context from active organization
+ */
+
+export interface AuthUser {
   id: string;
   email: string;
   name: string;
   role: "super_admin" | "client_admin" | "viewer";
   clientId?: string;
+  emailVerified: boolean;
+  image?: string | null;
 }
 
-export function useAuth() {
-  const [user, setUser] = useLocalStorage<MockUser | null>("mockUser", null);
-  const [isLoading, setIsLoading] = useState(true);
+export interface UseAuthReturn {
+  user: AuthUser | null;
+  isLoggedIn: boolean;
+  isLoading: boolean;
+  isSuperAdmin: boolean;
+  isClientAdmin: boolean;
+  logout: () => Promise<void>;
+  // Session data from Better Auth
+  session: ReturnType<typeof useSession>['data'];
+}
 
-  useEffect(() => {
-    // Simulate loading state
-    setIsLoading(false);
-  }, []);
+/**
+ * useAuth Hook
+ *
+ * Provides authentication state and actions using Better Auth
+ *
+ * @example
+ * ```tsx
+ * function ProfilePage() {
+ *   const { user, isLoggedIn, isSuperAdmin, logout } = useAuth();
+ *
+ *   if (!isLoggedIn) {
+ *     return <div>Please log in</div>;
+ *   }
+ *
+ *   return (
+ *     <div>
+ *       <h1>Welcome {user.name}</h1>
+ *       {isSuperAdmin && <AdminPanel />}
+ *       <button onClick={logout}>Logout</button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
+export function useAuth(): UseAuthReturn {
+  const { data: session, isPending } = useSession();
 
-  const login = (
-    role: "super_admin" | "client_admin" | "viewer",
-    clientId?: string,
-    userData?: { email: string; name: string }
-  ) => {
-    const mockUser: MockUser = {
-      id: role === "super_admin" ? "super-admin-1" : `admin-${clientId}`,
-      email: userData?.email || `${role}@autocrew.com`,
-      name: userData?.name || role.replace("_", " ").toUpperCase(),
-      role,
-      clientId: role === "super_admin" ? undefined : clientId,
-    };
-    setUser(mockUser);
-  };
+  // Transform Better Auth session to AuthUser
+  const user: AuthUser | null = session
+    ? {
+        id: session.user.id,
+        email: session.user.email,
+        name: session.user.name,
+        emailVerified: session.user.emailVerified,
+        image: session.user.image,
+        // Get role from Better Auth user
+        // @ts-ignore - Better Auth additionalFields typing
+        role: session.user.role || "client_admin",
+        // Get clientId from active organization
+        clientId: session.session.activeOrganizationId || undefined,
+      }
+    : null;
 
-  const logout = () => {
-    setUser(null);
-  };
+  const isLoggedIn = !!session;
+  const isLoading = isPending;
 
-  const isLoggedIn = !!user;
+  // Check role from user object
   const isSuperAdmin = user?.role === "super_admin";
-  const isClientAdmin = user?.role === "client_admin";
+  const isClientAdmin = isLoggedIn && user?.role === "client_admin";
+
+  const handleLogout = async () => {
+    // Clear localStorage to prevent stale data in next session
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('activeOrganization');
+      console.log('[useAuth] Cleared localStorage on logout');
+    }
+
+    await signOut();
+    // Redirect to login page after signout
+    window.location.href = '/login';
+  };
 
   return {
     user,
@@ -50,7 +103,7 @@ export function useAuth() {
     isLoading,
     isSuperAdmin,
     isClientAdmin,
-    login,
-    logout,
+    logout: handleLogout,
+    session,
   };
 }

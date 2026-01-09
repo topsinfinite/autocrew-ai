@@ -12,7 +12,7 @@ interface HistoriesRow {
   id: number;
   session_id: string;
   message: N8nMessage;
-  created_at: Date;
+  created_at: Date | string;
 }
 
 /**
@@ -37,7 +37,13 @@ export function transformHistoriesToTranscript(
   rows: HistoriesRow[]
 ): ConversationMessage[] {
   return rows
-    .map((row) => transformN8nMessage(row.message, row.created_at))
+    .map((row) => {
+      // Convert string timestamp to Date if needed
+      const timestamp = typeof row.created_at === 'string'
+        ? new Date(row.created_at)
+        : row.created_at;
+      return transformN8nMessage(row.message, timestamp);
+    })
     .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
 }
 
