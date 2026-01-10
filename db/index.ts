@@ -3,8 +3,8 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as schema from './schema';
 
-// Load environment variables from .env
-//config({ path: '.env.local' });
+// Load environment variables from .env.local (seed scripts need this)
+config({ path: '.env.local' });
 
 const connectionString = process.env.POSTGRES_URL!;
 

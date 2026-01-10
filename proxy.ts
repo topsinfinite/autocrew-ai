@@ -101,9 +101,10 @@ export async function proxy(request: NextRequest) {
   const isPublicRoute = matchesRoute(pathname, PUBLIC_ROUTES);
   const isAdminRoute = matchesRoute(pathname, ADMIN_ROUTES);
 
-  // Clone request headers and add request ID
+  // Clone request headers and add request ID + pathname
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-request-id', requestId);
+  requestHeaders.set('x-pathname', pathname);
 
   // ========================================
   // 1. Public Route Logic
@@ -111,7 +112,9 @@ export async function proxy(request: NextRequest) {
   if (isPublicRoute) {
     // If user has a session cookie and trying to access login/signup, redirect
     // Note: We don't validate the cookie - Server Components will do that
-    if (hasSessionCookie && (pathname === "/login" || pathname === "/signup")) {
+    // IMPORTANT: Don't redirect if there's a callbackUrl (indicates failed auth attempt with stale cookie)
+    const hasCallbackUrl = request.nextUrl.searchParams.has("callbackUrl");
+    if (hasSessionCookie && (pathname === "/login" || pathname === "/signup") && !hasCallbackUrl) {
       // We can't determine role here, so redirect to dashboard
       // If they're SuperAdmin, the dashboard layout will redirect to /admin
       const response = NextResponse.redirect(new URL("/dashboard", request.url));

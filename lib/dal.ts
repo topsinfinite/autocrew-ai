@@ -41,12 +41,18 @@ export interface SessionWithClient extends Session {
  * @returns SessionWithClient
  */
 export const verifyAuth = cache(async (): Promise<SessionWithClient> => {
+  const requestHeaders = await headers();
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: requestHeaders,
   });
 
   if (!session) {
-    redirect('/login');
+    // Get the current pathname from headers to use as callbackUrl
+    // This prevents infinite redirect loop with proxy.ts
+    const pathname = requestHeaders.get('x-pathname') ||
+                     requestHeaders.get('x-invoke-path') ||
+                     new URL(requestHeaders.get('referer') || '/dashboard', 'http://localhost').pathname;
+    redirect(`/login?callbackUrl=${encodeURIComponent(pathname)}`);
   }
 
   return session as SessionWithClient;

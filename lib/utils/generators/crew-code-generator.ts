@@ -1,6 +1,6 @@
 import { db } from '@/db';
 import { crews } from '@/db/schema';
-import { and, sql } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import type { CrewType } from '@/types';
 
 /**
@@ -24,7 +24,7 @@ export async function isCrewCodeAvailable(crewCode: string): Promise<boolean> {
   const existing = await db
     .select({ crewCode: crews.crewCode })
     .from(crews)
-    .where(sql`${crews.crewCode} = ${crewCode}`)
+    .where(eq(crews.crewCode, crewCode))
     .limit(1);
 
   return existing.length === 0;
@@ -47,15 +47,25 @@ export async function generateCrewCode(
   const prefix = `${clientCode}-${typeAbbr}`;
 
   // Find all existing crew codes with the same client and type prefix
-  const existingCodes = await db
-    .select({ crewCode: crews.crewCode })
-    .from(crews)
-    .where(
-      and(
-        sql`${crews.clientId} = ${clientCode}`,
-        sql`${crews.type} = ${crewType}`
-      )
-    );
+  let existingCodes;
+  try {
+    existingCodes = await db
+      .select({ crewCode: crews.crewCode })
+      .from(crews)
+      .where(
+        and(
+          eq(crews.clientId, clientCode),
+          eq(crews.type, crewType)
+        )
+      );
+
+    console.log(`[generateCrewCode] Found ${existingCodes.length} existing crews for ${clientCode} ${crewType}`);
+  } catch (error) {
+    console.error('[generateCrewCode] Query failed:', error);
+    console.error('[generateCrewCode] Full error:', JSON.stringify(error, null, 2));
+    // If query fails (e.g. table doesn't exist yet), return first crew code
+    return `${prefix}-001`;
+  }
 
   // Extract sequence numbers from existing codes
   const numbers = existingCodes

@@ -1,23 +1,14 @@
 import { config } from 'dotenv';
-import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
+
+// IMPORTANT: Load environment variables BEFORE importing anything that uses them
+// The db/index.ts relies on process.env.POSTGRES_URL being set
+config({ path: '.env.local' });
+
 import { clients, crews, conversations, user, member } from './schema';
-import * as schema from './schema';
 import { provisionCrew } from '../lib/utils/crew';
 import { sql } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
-
-// Load environment variables from .env.local
-config({ path: '.env.local' });
-
-// Create database connection
-const connectionString = process.env.POSTGRES_URL!;
-const client = postgres(connectionString, {
-  max: 10,
-  idle_timeout: 20,
-  connect_timeout: 10,
-});
-const db = drizzle(client, { schema });
+import { db, client } from './index';
 
 const seed = async () => {
   console.log('Starting database seeding...\n');

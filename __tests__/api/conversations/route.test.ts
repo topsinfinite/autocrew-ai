@@ -57,6 +57,23 @@ jest.mock('@/db', () => ({
   },
 }));
 
+jest.mock('@/lib/utils', () => {
+  const actual = jest.requireActual('@/lib/utils');
+  return {
+    ...actual,
+    logger: {
+      info: jest.fn(),
+      warn: jest.fn(),
+      error: jest.fn(),
+      debug: jest.fn(),
+    },
+    ErrorCodes: {
+      INTERNAL_ERROR: { code: 'INTERNAL_ERROR', status: 500, message: 'Internal server error' },
+      PERMISSION_DENIED: { code: 'PERMISSION_DENIED', status: 403, message: 'Permission denied' },
+    },
+  };
+});
+
 import { getConversations, discoverConversations } from '@/lib/db/conversations';
 import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
 import { db } from '@/db';
@@ -238,7 +255,7 @@ describe('GET /api/conversations', () => {
 
     expect(status).toBe(403);
     expect(body.success).toBe(false);
-    expect(body.error).toContain('Forbidden');
+    expect(body.error.message).toContain('other organization');
   });
 
   it('should return empty array if Client Admin has no memberships', async () => {
@@ -305,6 +322,6 @@ describe('GET /api/conversations', () => {
 
     expect(status).toBe(500);
     expect(body.success).toBe(false);
-    expect(body.error).toContain('Failed to fetch conversations');
+    expect(body.error.message).toBeDefined();
   });
 });

@@ -78,3 +78,40 @@ export const mockAuthHelpers = {
   isSuperAdmin: jest.fn(),
   getSession: jest.fn(),
 };
+
+/**
+ * Mock ErrorCodes for API route tests
+ * Must match the structure in lib/errors/error-codes.ts
+ */
+export const mockErrorCodes = {
+  INTERNAL_ERROR: {
+    code: 'INTERNAL_ERROR',
+    status: 500,
+    message: 'Internal server error',
+  },
+  PERMISSION_SUPER_ADMIN_REQUIRED: {
+    code: 'PERMISSION_SUPER_ADMIN_REQUIRED',
+    status: 403,
+    message: 'SuperAdmin access required',
+  },
+  VALIDATION_INVALID_INPUT: {
+    code: 'VALIDATION_INVALID_INPUT',
+    status: 400,
+    message: 'Invalid input data',
+  },
+  CLIENT_NOT_FOUND: {
+    code: 'CLIENT_NOT_FOUND',
+    status: 404,
+    message: 'Client not found',
+  },
+  USER_ALREADY_EXISTS: {
+    code: 'USER_ALREADY_EXISTS',
+    status: 409,
+    message: 'A user with this email already exists',
+  },
+  CLIENT_ALREADY_EXISTS: {
+    code: 'CLIENT_ALREADY_EXISTS',
+    status: 409,
+    message: 'A client with this code already exists',
+  },
+};

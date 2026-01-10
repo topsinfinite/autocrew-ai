@@ -4,6 +4,11 @@
  * Tests for the reusable empty state component.
  */
 
+// Mock the utils to avoid loading server-side code
+jest.mock('@/lib/utils', () => ({
+  cn: jest.fn((...args) => args.filter(Boolean).join(' ')),
+}));
+
 import { render, screen } from '@testing-library/react';
 import { EmptyState } from '@/components/empty-state';
 import { FileText } from 'lucide-react';

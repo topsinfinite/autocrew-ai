@@ -1,6 +1,6 @@
 import { db } from '@/db';
 import { clients } from '@/db/schema';
-import { like, sql } from 'drizzle-orm';
+import { eq, like } from 'drizzle-orm';
 
 /**
  * Extract prefix from company name
@@ -34,7 +34,7 @@ export async function isClientCodeAvailable(clientCode: string): Promise<boolean
   const existing = await db
     .select({ clientCode: clients.clientCode })
     .from(clients)
-    .where(sql`${clients.clientCode} = ${clientCode}`)
+    .where(eq(clients.clientCode, clientCode))
     .limit(1);
 
   return existing.length === 0;
