@@ -19,8 +19,8 @@ export interface OrphanedTable {
  * 1. It matches the crew table naming pattern
  * 2. It's not listed in any crew's config.vectorTableName or config.historiesTableName
  *
- * Pattern: {client_code}_{crew_type}_{table_type}_{sequence}
- * Examples: acme_001_support_vector_001, acme_001_support_histories_001
+ * Pattern: __{client_code}_{crew_type}_{table_type}_{sequence}
+ * Examples: __acme_001_support_vector_001, __acme_001_support_histories_001
  *
  * @returns Array of orphaned table information
  */
@@ -33,7 +33,7 @@ export async function findOrphanedTables(): Promise<OrphanedTable[]> {
       SELECT table_name
       FROM information_schema.tables
       WHERE table_schema = 'public'
-      AND table_name ~ '^[a-z0-9]+_[0-9]+_(support|leadgen)_(vector|histories)_[0-9]{3}$'
+      AND table_name ~ '^__[a-z0-9]+_[0-9]+_(support|leadgen)_(vector|histories)_[0-9]{3}$'
       ORDER BY table_name
     `);
 
@@ -153,7 +153,7 @@ export async function getCrewTableStats(): Promise<{
     SELECT table_name
     FROM information_schema.tables
     WHERE table_schema = 'public'
-    AND table_name ~ '^[a-z0-9]+_[0-9]+_(support|leadgen)_(vector|histories)_[0-9]{3}$'
+    AND table_name ~ '^__[a-z0-9]+_[0-9]+_(support|leadgen)_(vector|histories)_[0-9]{3}$'
   `);
 
   const allCrewTables = result as unknown as { table_name: string }[];

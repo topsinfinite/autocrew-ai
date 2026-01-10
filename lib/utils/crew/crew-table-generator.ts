@@ -39,21 +39,21 @@ export function sanitizeTableName(tableName: string): string {
     throw new Error(`Table name exceeds PostgreSQL limit of 63 characters: ${tableName}`);
   }
 
-  // Validate pattern: lowercase alphanumeric with underscores
-  const validPattern = /^[a-z0-9_]+$/;
+  // Validate pattern: starts with __, then lowercase alphanumeric with underscores
+  const validPattern = /^__[a-z0-9_]+$/;
   if (!validPattern.test(tableName)) {
     throw new Error(
-      `Invalid table name format: ${tableName}. Must contain only lowercase letters, numbers, and underscores.`
+      `Invalid table name format: ${tableName}. Must start with __ and contain only lowercase letters, numbers, and underscores.`
     );
   }
 
   // Additional safety check for expected format
-  // Pattern: {client_code}_{crew_type}_{table_type}_{sequence}
-  const expectedPattern = /^[a-z0-9]+_[0-9]+_(support|leadgen)_(vector|histories)_[0-9]{3}$/;
+  // Pattern: __{client_code}_{crew_type}_{table_type}_{sequence}
+  const expectedPattern = /^__[a-z0-9]+_[0-9]+_(support|leadgen)_(vector|histories)_[0-9]{3}$/;
   if (!expectedPattern.test(tableName)) {
     throw new Error(
       `Table name doesn't match expected format: ${tableName}. ` +
-        `Expected: {client_code}_{crew_type}_{table_type}_{sequence}`
+        `Expected: __{client_code}_{crew_type}_{table_type}_{sequence}`
     );
   }
 
@@ -77,12 +77,12 @@ export async function tableExists(tableName: string): Promise<boolean> {
 
 /**
  * Generate unique table names for a crew
- * Format: {client_code}_{crew_type}_{table_type}_{sequence}
+ * Format: __{client_code}_{crew_type}_{table_type}_{sequence}
  * Examples:
- * - "acme_001_support_vector_001"
- * - "acme_001_support_histories_001"
- * - "acme_001_support_vector_002" (second crew)
- * - "techstart_001_support_vector_001"
+ * - "__acme_001_support_vector_001"
+ * - "__acme_001_support_histories_001"
+ * - "__acme_001_support_vector_002" (second crew)
+ * - "__techstart_001_support_vector_001"
  *
  * @param clientCode - Client code (e.g., "ACME-001")
  * @param crewType - Crew type
@@ -96,7 +96,7 @@ export async function generateCrewTableName(
 ): Promise<string> {
   const normalizedClient = normalizeClientCode(clientCode);
   const typeShort = getCrewTypeShortName(crewType);
-  const basePrefix = `${normalizedClient}_${typeShort}_${tableType}`;
+  const basePrefix = `__${normalizedClient}_${typeShort}_${tableType}`;
 
   // Find all existing crews with the same client and type to get the sequence
   const existingCrews = await db
