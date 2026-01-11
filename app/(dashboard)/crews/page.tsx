@@ -54,6 +54,7 @@ export default function CrewsPage() {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [supportEmail, setSupportEmail] = useState("");
   const [supportClientName, setSupportClientName] = useState("");
+  const [allowedDomain, setAllowedDomain] = useState("");
   const [isIntegrationOpen, setIsIntegrationOpen] = useState(false);
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [selectedCrewForWizard, setSelectedCrewForWizard] = useState<Crew | null>(null);
@@ -158,7 +159,7 @@ export default function CrewsPage() {
     }
   };
 
-  // Save support email and client name configuration
+  // Save support email, client name, and allowed domain configuration
   const handleSaveSupportEmail = async () => {
     if (!selectedCrew) return;
 
@@ -172,9 +173,20 @@ export default function CrewsPage() {
       return;
     }
 
+    if (!allowedDomain.trim()) {
+      setError("Allowed domain is required");
+      return;
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(supportEmail)) {
       setError("Please enter a valid email address");
+      return;
+    }
+
+    const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$/;
+    if (!domainRegex.test(allowedDomain.trim())) {
+      setError("Please enter a valid domain (e.g., example.com)");
       return;
     }
 
@@ -185,7 +197,8 @@ export default function CrewsPage() {
       const updatedCrew = await updateCrewConfig(
         selectedCrew.id,
         supportEmail.trim(),
-        supportClientName.trim()
+        supportClientName.trim(),
+        allowedDomain.trim()
       );
 
       setCrews(crews.map(c => c.id === selectedCrew.id ? updatedCrew : c));
@@ -415,6 +428,7 @@ export default function CrewsPage() {
                             setSelectedCrew(crew);
                             setSupportEmail(crew.config.metadata?.support_email || "");
                             setSupportClientName(crew.config.metadata?.support_client_name || "");
+                            setAllowedDomain(crew.config.metadata?.allowed_domain || "");
                             setIsConfigOpen(true);
                           }}
                           className="mr-2"
@@ -513,8 +527,8 @@ export default function CrewsPage() {
           <DialogHeader>
             <DialogTitle>Configure Support Details</DialogTitle>
             <DialogDescription>
-              Set the support email and client name for this customer support crew.
-              Both fields are required before the crew can be activated.
+              Set the support email, client name, and allowed domain for this customer support crew.
+              All fields are required before the crew can be activated.
             </DialogDescription>
           </DialogHeader>
 
@@ -562,6 +576,20 @@ export default function CrewsPage() {
                 />
                 <p className="text-xs text-muted-foreground mt-1">
                   The company name shown to customers
+                </p>
+              </div>
+
+              <div>
+                <Label htmlFor="allowedDomain">Allowed Domain *</Label>
+                <Input
+                  id="allowedDomain"
+                  type="text"
+                  placeholder="example.com"
+                  value={allowedDomain}
+                  onChange={(e) => setAllowedDomain(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Domain allowed to embed the chatbot widget
                 </p>
               </div>
             </div>

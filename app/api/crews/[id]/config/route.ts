@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createHash } from 'crypto';
 import { db } from '@/db';
 import { crews, clients, member } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
@@ -7,8 +8,18 @@ import type { CrewConfig } from '@/types';
 import { logger, successResponse, errorResponse, ErrorCodes, sanitizePII } from '@/lib/utils';
 
 /**
+ * Generate SHA-256 hash of crew code and allowed domain
+ * Used for origin validation in n8n chat trigger
+ */
+function generateOriginHash(crewCode: string, allowedDomain: string): string {
+  return createHash('sha256')
+    .update(`${crewCode}:${allowedDomain}`)
+    .digest('hex');
+}
+
+/**
  * PATCH /api/crews/[id]/config
- * Update crew configuration (support_email and support_client_name)
+ * Update crew configuration (support_email, support_client_name, allowed_domain)
  *
  * Authorization:
  * - SuperAdmin: Can update any crew's configuration
@@ -18,7 +29,10 @@ import { logger, successResponse, errorResponse, ErrorCodes, sanitizePII } from 
  * {
  *   supportEmail: string
  *   supportClientName: string
+ *   allowedDomain: string
  * }
+ *
+ * The API generates a SHA-256 hash of crewCode:allowedDomain for origin validation
  */
 export async function PATCH(
   request: NextRequest,
@@ -32,13 +46,14 @@ export async function PATCH(
     const session = await requireAuth();
     const { id } = await params;
     const body = await request.json();
-    const { supportEmail, supportClientName } = body;
+    const { supportEmail, supportClientName, allowedDomain } = body;
 
     await logger.info('Update crew config request received', {
       requestId,
       crewId: id,
       userId: session.user.id,
       supportEmail: sanitizePII({ email: supportEmail }).email,
+      allowedDomain,
     });
 
     // Validate email format
@@ -71,6 +86,25 @@ export async function PATCH(
           code: 'VALIDATION_FAILED',
           status: 400,
           message: 'Support client name is required',
+        },
+        null,
+        requestId
+      );
+    }
+
+    // Validate allowed domain
+    const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$/;
+    if (!allowedDomain || !domainRegex.test(allowedDomain.trim())) {
+      await logger.warn('Update crew config failed - invalid allowed domain', {
+        requestId,
+        crewId: id,
+        allowedDomain,
+      });
+      return errorResponse(
+        {
+          code: 'VALIDATION_FAILED',
+          status: 400,
+          message: 'Valid allowed domain is required (e.g., example.com)',
         },
         null,
         requestId
@@ -125,12 +159,18 @@ export async function PATCH(
     const supportConfigured = true; // Support is now configured
     const activationReady = documentsUploaded && supportConfigured;
 
+    // Generate origin hash for n8n validation
+    const trimmedDomain = allowedDomain.trim().toLowerCase();
+    const originHash = generateOriginHash(crew.crewCode, trimmedDomain);
+
     const updatedConfig: CrewConfig = {
       ...currentConfig,
       metadata: {
         ...currentConfig.metadata,
         support_email: supportEmail,
-        support_client_name: supportClientName.trim()
+        support_client_name: supportClientName.trim(),
+        allowed_domain: trimmedDomain,
+        origin_hash: originHash,
       },
       activationState: {
         documentsUploaded,
@@ -155,6 +195,8 @@ export async function PATCH(
       crewCode: crew.crewCode,
       supportEmail: sanitizePII({ email: supportEmail }).email,
       supportClientName,
+      allowedDomain: trimmedDomain,
+      originHashGenerated: true,
       duration,
       operation: 'update_crew_config',
     });

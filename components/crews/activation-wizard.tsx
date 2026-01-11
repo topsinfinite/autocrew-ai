@@ -43,6 +43,9 @@ export function ActivationWizard({
   const [supportClientName, setSupportClientName] = useState(
     crew.config.metadata?.support_client_name || ''
   );
+  const [allowedDomain, setAllowedDomain] = useState(
+    crew.config.metadata?.allowed_domain || ''
+  );
   const [isActivating, setIsActivating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -124,25 +127,32 @@ export function ActivationWizard({
     return emailRegex.test(email);
   };
 
+  const validateDomain = (domain: string): boolean => {
+    // Allow domain names like example.com, sub.example.com, localhost
+    const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$/;
+    return domain.trim() !== '' && domainRegex.test(domain.trim());
+  };
+
   const canProceedFromStep2 = (): boolean => {
     return (
       supportEmail.trim() !== '' &&
       validateEmail(supportEmail) &&
-      supportClientName.trim() !== ''
+      supportClientName.trim() !== '' &&
+      validateDomain(allowedDomain)
     );
   };
 
   const handleConfigureSupportAndContinue = async () => {
     if (!canProceedFromStep2()) {
-      setError('Please provide a valid support email and client name');
+      setError('Please provide a valid support email, client name, and allowed domain');
       return;
     }
 
     setError(null);
 
     try {
-      // Update crew config with support details
-      await updateCrewConfig(crew.id, supportEmail, supportClientName);
+      // Update crew config with support details and allowed domain
+      await updateCrewConfig(crew.id, supportEmail, supportClientName, allowedDomain);
       handleNext();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save configuration');
@@ -284,6 +294,22 @@ export function ActivationWizard({
                   Display name for your support service
                 </p>
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="allowed-domain">
+                  Allowed Domain <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="allowed-domain"
+                  type="text"
+                  placeholder="example.com"
+                  value={allowedDomain}
+                  onChange={(e) => setAllowedDomain(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Domain allowed to embed the chatbot widget (e.g., example.com, app.example.com)
+                </p>
+              </div>
             </div>
 
             <div className="flex justify-between gap-2 pt-4 border-t">
@@ -379,6 +405,10 @@ export function ActivationWizard({
                   <p>
                     <span className="text-muted-foreground">Client Name:</span>{' '}
                     <span className="font-medium">{supportClientName}</span>
+                  </p>
+                  <p>
+                    <span className="text-muted-foreground">Allowed Domain:</span>{' '}
+                    <span className="font-medium">{allowedDomain}</span>
                   </p>
                 </div>
               </div>
