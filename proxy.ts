@@ -95,7 +95,10 @@ export async function proxy(request: NextRequest) {
   }
 
   // Only check for cookie existence - NO VALIDATION
-  const sessionCookie = request.cookies.get("better-auth.session_token");
+  // In production with HTTPS, Better Auth prefixes cookies with __Secure-
+  const sessionCookie =
+    request.cookies.get("__Secure-better-auth.session_token") ||
+    request.cookies.get("better-auth.session_token");
   const hasSessionCookie = !!sessionCookie;
 
   const isPublicRoute = matchesRoute(pathname, PUBLIC_ROUTES);
