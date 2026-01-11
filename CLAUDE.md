@@ -302,6 +302,7 @@ describe('generateSlug', () => {
 4. **Avoid implementation details**: Test behavior, not implementation
 5. **Keep tests focused**: One concept per test case
 6. **Use descriptive test names**: "should [expected behavior] when [condition]"
+7. **Use proxy.ts for middleware**: In Next.js 16+, the middleware.ts file has been renamed to proxy.ts to emphasize its intended use case as a lightweight request interceptor. 
 
 ### Current Test Coverage
 

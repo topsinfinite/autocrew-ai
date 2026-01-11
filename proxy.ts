@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /**
- * Next.js Middleware
+ * Next.js 16 Proxy (formerly Middleware)
  *
  * IMPORTANT SECURITY NOTE:
- * This middleware ONLY checks for cookie existence and performs coarse-grained routing.
+ * This proxy ONLY checks for cookie existence and performs coarse-grained routing.
  * It does NOT validate sessions or make database calls.
  *
- * Per Next.js and Better Auth best practices:
- * - Middleware should be lightweight and fast
+ * Per Next.js 16 and Better Auth best practices:
+ * - Proxy should be lightweight and fast
  * - Session validation happens in Server Components/API Routes via DAL
  * - This implements the "defense in depth" pattern
  *
@@ -66,7 +66,7 @@ function getOrCreateRequestId(request: NextRequest): string {
 }
 
 /**
- * Middleware function - lightweight route protection + request correlation
+ * Proxy function - lightweight route protection + request correlation
  *
  * This ONLY checks for:
  * 1. Cookie existence (not validity!)
@@ -81,7 +81,7 @@ function getOrCreateRequestId(request: NextRequest): string {
  *
  * Real authentication happens in Server Components via lib/dal.ts
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Generate or extract request ID for correlation logging
@@ -163,8 +163,8 @@ export async function middleware(request: NextRequest) {
 }
 
 /**
- * Middleware configuration
- * Specifies which routes the middleware should run on
+ * Proxy configuration
+ * Specifies which routes the proxy should run on
  */
 export const config = {
   matcher: [
