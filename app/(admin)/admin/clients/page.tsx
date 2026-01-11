@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { ClientOnboardingForm } from "@/components/admin/client-onboarding-form"
 import { ClientActions } from "@/components/admin/client-actions"
 import { Badge } from "@/components/ui/badge"
@@ -12,7 +14,6 @@ import {
 } from "@/components/ui/table"
 import { Users, Bot } from "lucide-react"
 import { format } from "date-fns"
-import type { Client } from "@/types"
 import { db } from "@/db"
 import { member } from "@/db/schema"
 import { getClients, getCrews } from "@/lib/dal"

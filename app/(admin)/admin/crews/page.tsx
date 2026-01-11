@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getCrews, getClients } from "@/lib/dal";
 import { AdminCrewsClient } from "./crews-client";
 import type { Crew, Client, CrewConfig } from "@/types";

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
@@ -13,7 +15,6 @@ import {
 } from "@/components/ui/table"
 import { ArrowLeft, Bot, Users, TrendingUp, Calendar } from "lucide-react"
 import { format } from "date-fns"
-import type { Client } from "@/types"
 import { db } from "@/db"
 import { member } from "@/db/schema"
 import { eq } from "drizzle-orm"

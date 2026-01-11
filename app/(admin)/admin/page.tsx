@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Link from "next/link"
 import { AdminStatsGrid } from "@/components/admin/admin-stats-grid"
 import { ClientOverviewCard } from "@/components/admin/client-overview-card"
@@ -7,7 +9,6 @@ import { ArrowRight } from "lucide-react"
 import { db } from "@/db"
 import { member } from "@/db/schema"
 import { getClients, getCrews, getUsers, getConversations } from "@/lib/dal"
-import type { Client } from "@/types"
 
 async function getDashboardData() {
   // Use DAL to fetch data (auth checks handled in DAL)
