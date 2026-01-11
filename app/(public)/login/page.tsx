@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Zap, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 
-export default function LoginPage() {
-  const router = useRouter();
+function LoginForm() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -32,13 +33,28 @@ export default function LoginPage() {
       }
 
       if (data) {
-        // Redirect based on user role
-        const user = data.user as any;
-        const redirectUrl = user?.role === "super_admin" ? "/admin" : "/dashboard";
-        router.push(redirectUrl);
-        router.refresh(); // Clear Next.js cache for protected routes
+        // Determine redirect URL
+        // 1. Use callbackUrl if provided
+        // 2. Otherwise, redirect based on user role
+        const user = data.user as { role?: string };
+        let redirectUrl = "/dashboard";
+
+        if (callbackUrl) {
+          // Use the callback URL from query params
+          redirectUrl = callbackUrl;
+        } else if (user?.role === "super_admin") {
+          redirectUrl = "/admin";
+        }
+
+        // Use hard redirect for reliability in production
+        window.location.href = redirectUrl;
+      } else {
+        // No data returned - unexpected state
+        setError("Login failed. Please try again.");
+        setIsLoading(false);
       }
     } catch (err) {
+      console.error("Login error:", err);
       setError("An unexpected error occurred. Please try again.");
       setIsLoading(false);
     }
@@ -148,5 +164,34 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Loading fallback for Suspense
+function LoginFormFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center py-20 px-4">
+      <div className="w-full max-w-md">
+        <div className="flex justify-center mb-8">
+          <div className="flex items-center space-x-2">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
+              <Zap className="h-7 w-7 text-primary-foreground" />
+            </div>
+            <span className="text-3xl font-bold">AutoCrew</span>
+          </div>
+        </div>
+        <div className="bg-card border border-border rounded-xl p-8 shadow-lg flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoginFormFallback />}>
+      <LoginForm />
+    </Suspense>
   );
 }
