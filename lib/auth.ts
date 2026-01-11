@@ -5,13 +5,27 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { sendEmail, generatePasswordResetEmail, generateMagicLinkEmail } from "@/lib/email/mailer";
 
+// Determine base URL for Better Auth
+const baseURL = process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
 export const auth = betterAuth({
+  baseURL,
+
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
       ...schema,
     },
   }),
+
+  // Advanced settings for production cookie handling
+  advanced: {
+    cookiePrefix: "better-auth",
+    useSecureCookies: process.env.NODE_ENV === "production",
+    crossSubDomainCookies: {
+      enabled: false, // Set to true if using subdomains
+    },
+  },
 
   user: {
     additionalFields: {
