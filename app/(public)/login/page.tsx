@@ -19,26 +19,57 @@ export default function LoginPage() {
     setError(null);
     setIsLoading(true);
 
+    console.log("[LOGIN] Starting sign-in attempt...");
+    console.log("[LOGIN] Email:", email);
+    console.log("[LOGIN] Auth client baseURL:", process.env.NEXT_PUBLIC_APP_URL);
+
     try {
+      console.log("[LOGIN] Calling authClient.signIn.email...");
+      const startTime = Date.now();
+
       const { data, error: authError } = await authClient.signIn.email({
         email,
         password,
       });
 
+      const duration = Date.now() - startTime;
+      console.log("[LOGIN] Sign-in response received in", duration, "ms");
+      console.log("[LOGIN] Response data:", JSON.stringify(data, null, 2));
+      console.log("[LOGIN] Response error:", authError);
+
       if (authError) {
+        console.error("[LOGIN] Auth error:", authError);
         setError(authError.message || "Invalid email or password");
         setIsLoading(false);
         return;
       }
 
       if (data) {
+        console.log("[LOGIN] Sign-in successful!");
+        console.log("[LOGIN] Full response data:", JSON.stringify(data, null, 2));
+        console.log("[LOGIN] User data:", JSON.stringify(data.user, null, 2));
+
         // Redirect based on user role
         const user = data.user as any;
         const redirectUrl = user?.role === "super_admin" ? "/admin" : "/dashboard";
+        console.log("[LOGIN] User role:", user?.role);
+        console.log("[LOGIN] Redirect URL:", redirectUrl);
+        console.log("[LOGIN] Calling router.push...");
+
         router.push(redirectUrl);
+        console.log("[LOGIN] router.push called, now calling router.refresh...");
         router.refresh(); // Clear Next.js cache for protected routes
+        console.log("[LOGIN] router.refresh called");
+      } else {
+        console.warn("[LOGIN] No data returned from sign-in");
+        setError("Login failed - no data returned");
+        setIsLoading(false);
       }
     } catch (err) {
+      console.error("[LOGIN] Exception caught:", err);
+      console.error("[LOGIN] Error type:", typeof err);
+      console.error("[LOGIN] Error message:", err instanceof Error ? err.message : String(err));
+      console.error("[LOGIN] Error stack:", err instanceof Error ? err.stack : "N/A");
       setError("An unexpected error occurred. Please try again.");
       setIsLoading(false);
     }
