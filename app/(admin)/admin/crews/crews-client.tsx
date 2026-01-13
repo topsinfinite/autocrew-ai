@@ -36,7 +36,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createCrew, deleteCrew } from "@/lib/api/crews";
 import { Crew, CrewType, CrewStatus, NewCrewInput, Client } from "@/types";
-import { Plus, Trash2, AlertCircle, Users } from "lucide-react";
+import { Plus, Trash2, AlertCircle, Users, Link, Settings, Loader2 } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 
 interface AdminCrewsClientProps {
@@ -330,196 +330,305 @@ export function AdminCrewsClient({
 
       {/* Create Crew Dialog */}
       <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Create New Crew</DialogTitle>
-            <DialogDescription>
-              Configure a new AI agent crew and assign it to a client. Database
-              tables will be created automatically for customer support crews.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="max-w-2xl p-0">
+          {/* Elegant Header with Gradient */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50">
+            <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
+            <DialogHeader className="relative">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
+                  <Users className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <DialogTitle className="text-xl font-semibold">Create New Crew</DialogTitle>
+                  <DialogDescription className="text-sm mt-0.5">
+                    Configure a new AI agent crew for a client
+                  </DialogDescription>
+                </div>
+              </div>
+            </DialogHeader>
+          </div>
 
-          {error && (
-            <div className="flex items-center gap-3 p-4 bg-destructive/10 rounded-lg">
-              <AlertCircle className="h-5 w-5 text-destructive" />
-              <p className="text-sm text-destructive">{error}</p>
-            </div>
-          )}
+          <div className="p-6 space-y-6">
+            {error && (
+              <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-xl">
+                <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
+                <p className="text-sm text-destructive">{error}</p>
+              </div>
+            )}
 
-          <div className="space-y-4">
-            {/* Client Selector */}
-            <div>
-              <Label htmlFor="client">Client *</Label>
-              <Select
-                value={formData.clientId}
-                onValueChange={(value) =>
-                  setFormData({ ...formData, clientId: value })
-                }
-              >
-                <SelectTrigger id="client">
-                  <SelectValue placeholder="Select a client" />
-                </SelectTrigger>
-                <SelectContent>
-                  {clients.map((client) => (
-                    <SelectItem key={client.id} value={client.clientCode}>
-                      <div>
-                        <div className="font-medium text-foreground">{client.companyName}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {client.clientCode}
+            {/* Client Selection */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 pb-2 border-b border-border">
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <Users className="h-4 w-4 text-primary" />
+                </div>
+                <h4 className="font-semibold text-foreground">Client & Crew Details</h4>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="client" className="text-sm font-medium">
+                  Client <span className="text-destructive">*</span>
+                </Label>
+                <Select
+                  value={formData.clientId}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, clientId: value })
+                  }
+                >
+                  <SelectTrigger id="client" className="h-10">
+                    <SelectValue placeholder="Select a client" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {clients.map((client) => (
+                      <SelectItem key={client.id} value={client.clientCode}>
+                        <div>
+                          <div className="font-medium text-foreground">{client.companyName}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {client.clientCode}
+                          </div>
                         </div>
-                      </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-sm font-medium">
+                  Crew Name <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="name"
+                  placeholder="e.g., ACME Customer Support Crew"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="h-10"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="type" className="text-sm font-medium">
+                  Crew Type <span className="text-destructive">*</span>
+                </Label>
+                <Select
+                  value={formData.type}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, type: value as CrewType })
+                  }
+                >
+                  <SelectTrigger id="type" className="h-10">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="customer_support">
+                      Customer Support
                     </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                    <SelectItem value="lead_generation">
+                      Lead Generation
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  {formData.type === "customer_support"
+                    ? "Creates vector and histories tables for conversation storage"
+                    : "No database tables created for lead generation crews"}
+                </p>
+              </div>
             </div>
 
-            {/* Crew Name */}
-            <div>
-              <Label htmlFor="name">Crew Name *</Label>
-              <Input
-                id="name"
-                placeholder="e.g., ACME Customer Support Crew"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-              />
-            </div>
+            {/* Webhook Configuration */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 pb-2 border-b border-border">
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <Link className="h-4 w-4 text-primary" />
+                </div>
+                <h4 className="font-semibold text-foreground">Webhook Configuration</h4>
+              </div>
 
-            {/* Crew Type */}
-            <div>
-              <Label htmlFor="type">Crew Type *</Label>
-              <Select
-                value={formData.type}
-                onValueChange={(value) =>
-                  setFormData({ ...formData, type: value as CrewType })
-                }
-              >
-                <SelectTrigger id="type">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="customer_support">
-                    Customer Support
-                  </SelectItem>
-                  <SelectItem value="lead_generation">
-                    Lead Generation
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-xs text-muted-foreground mt-1">
-                {formData.type === "customer_support"
-                  ? "Creates vector and histories tables for conversation storage"
-                  : "No database tables created for lead generation crews"}
-              </p>
-            </div>
-
-            {/* Webhook URL */}
-            <div>
-              <Label htmlFor="webhookUrl">n8n Webhook URL *</Label>
-              <Input
-                id="webhookUrl"
-                placeholder="https://n8n.example.com/webhook/..."
-                value={formData.webhookUrl}
-                onChange={(e) =>
-                  setFormData({ ...formData, webhookUrl: e.target.value })
-                }
-              />
+              <div className="space-y-2">
+                <Label htmlFor="webhookUrl" className="text-sm font-medium">
+                  n8n Webhook URL <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="webhookUrl"
+                  placeholder="https://n8n.example.com/webhook/..."
+                  value={formData.webhookUrl}
+                  onChange={(e) =>
+                    setFormData({ ...formData, webhookUrl: e.target.value })
+                  }
+                  className="h-10 font-mono text-sm"
+                />
+              </div>
             </div>
 
             {/* Initial Status */}
-            <div>
-              <Label htmlFor="status">Initial Status</Label>
-              <Select
-                value={formData.status}
-                onValueChange={(value) =>
-                  setFormData({ ...formData, status: value as CrewStatus })
-                }
-              >
-                <SelectTrigger id="status">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="active">Active (Testing Only)</SelectItem>
-                  <SelectItem value="inactive">Inactive (Recommended)</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-xs text-muted-foreground mt-1">
-                Set to 'Active' only for testing. Client admins will activate crews after configuration.
-              </p>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 pb-2 border-b border-border">
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <Settings className="h-4 w-4 text-primary" />
+                </div>
+                <h4 className="font-semibold text-foreground">Initial Status</h4>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="status" className="text-sm font-medium">Status</Label>
+                <Select
+                  value={formData.status}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, status: value as CrewStatus })
+                  }
+                >
+                  <SelectTrigger id="status" className="h-10">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="active">Active (Testing Only)</SelectItem>
+                    <SelectItem value="inactive">Inactive (Recommended)</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  Set to &apos;Active&apos; only for testing. Client admins will activate crews after configuration.
+                </p>
+              </div>
             </div>
           </div>
 
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setIsCreateOpen(false);
-                resetForm();
-              }}
-              disabled={submitting}
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleCreate} disabled={submitting}>
-              {submitting ? "Creating..." : "Create Crew"}
-            </Button>
-          </DialogFooter>
+          {/* Footer */}
+          <div className="px-6 py-4 bg-muted/30 border-t border-border/50">
+            <div className="flex items-center justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsCreateOpen(false);
+                  resetForm();
+                }}
+                disabled={submitting}
+              >
+                Cancel
+              </Button>
+              <Button onClick={handleCreate} disabled={submitting} className="gap-2">
+                {submitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Creating...
+                  </>
+                ) : (
+                  <>
+                    <Plus className="h-4 w-4" />
+                    Create Crew
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Delete Crew</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to delete this crew? This will also drop
-              any associated database tables. This action cannot be undone.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="sm:max-w-[500px] p-0">
+          {/* Elegant Header with Destructive Gradient */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-destructive/10 via-destructive/5 to-transparent dark:from-destructive/20 dark:via-destructive/10 px-6 pt-6 pb-4 border-b border-border/50">
+            <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
+            <DialogHeader className="relative">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-destructive/10 ring-1 ring-destructive/20">
+                  <Trash2 className="h-5 w-5 text-destructive" />
+                </div>
+                <div>
+                  <DialogTitle className="text-xl font-semibold">Delete Crew</DialogTitle>
+                  <DialogDescription className="text-sm mt-0.5">
+                    This action cannot be undone
+                  </DialogDescription>
+                </div>
+              </div>
+            </DialogHeader>
+          </div>
 
-          {error && (
-            <div className="flex items-center gap-3 p-4 bg-destructive/10 rounded-lg">
-              <AlertCircle className="h-5 w-5 text-destructive" />
-              <p className="text-sm text-destructive">{error}</p>
-            </div>
-          )}
+          <div className="p-6 space-y-6">
+            {error && (
+              <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-xl">
+                <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
+                <p className="text-sm text-destructive">{error}</p>
+              </div>
+            )}
 
-          {selectedCrew && (
-            <div className="flex items-center gap-3 p-4 bg-muted border border-white dark:border-border rounded-lg">
-              <AlertCircle className="h-5 w-5 text-destructive" />
-              <div>
-                <p className="font-medium text-foreground">{selectedCrew.name}</p>
-                <p className="text-sm text-muted-foreground">
-                  {selectedCrew.crewCode} •{" "}
-                  {getClientName(selectedCrew.clientId)}
-                </p>
+            {selectedCrew && (
+              <div className="p-4 bg-muted/50 border border-border rounded-xl">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-destructive/10">
+                    <Users className="h-5 w-5 text-destructive" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-foreground">{selectedCrew.name}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">
+                      {selectedCrew.crewCode} • {getClientName(selectedCrew.clientId)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Warning */}
+            <div className="p-4 bg-destructive/5 border border-destructive/20 rounded-xl">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <p className="text-sm text-destructive font-medium">
+                    This will permanently delete:
+                  </p>
+                  <ul className="text-sm text-destructive/80 space-y-1">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-destructive/60" />
+                      The crew configuration
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-destructive/60" />
+                      Associated database tables (vector & histories)
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-          )}
+          </div>
 
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setIsDeleteOpen(false);
-                setSelectedCrew(null);
-                setError(null);
-              }}
-              disabled={submitting}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleDelete}
-              disabled={submitting}
-            >
-              {submitting ? "Deleting..." : "Delete Crew"}
-            </Button>
-          </DialogFooter>
+          {/* Footer */}
+          <div className="px-6 py-4 bg-muted/30 border-t border-border/50">
+            <div className="flex items-center justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsDeleteOpen(false);
+                  setSelectedCrew(null);
+                  setError(null);
+                }}
+                disabled={submitting}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={handleDelete}
+                disabled={submitting}
+                className="gap-2"
+              >
+                {submitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="h-4 w-4" />
+                    Delete Crew
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
 

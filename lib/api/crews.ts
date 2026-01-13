@@ -1,4 +1,4 @@
-import type { Crew, NewCrewInput, CrewType, CrewStatus } from '@/types';
+import type { Crew, NewCrewInput, CrewType, CrewStatus, WidgetSettings } from '@/types';
 import type { ApiResponse } from '@/types/api';
 
 /**
@@ -156,6 +156,33 @@ export async function updateCrewConfig(
 
   if (!response.ok || !result.success || !result.data) {
     throw new Error(result.error || 'Failed to update crew configuration');
+  }
+
+  return result.data;
+}
+
+/**
+ * Update crew widget settings
+ * @param id - Crew ID
+ * @param widgetSettings - Widget customization settings
+ * @returns Promise<Crew>
+ */
+export async function updateCrewWidgetSettings(
+  id: string,
+  widgetSettings: WidgetSettings
+): Promise<Crew> {
+  const response = await fetch(`${API_BASE}/${id}/config`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ widgetSettings }),
+  });
+
+  const result: ApiResponse<Crew> = await response.json();
+
+  if (!response.ok || !result.success || !result.data) {
+    throw new Error(result.error || 'Failed to update widget settings');
   }
 
   return result.data;

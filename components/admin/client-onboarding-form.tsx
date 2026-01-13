@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Plus } from "lucide-react"
+import { Plus, Building2, User, MapPin, CreditCard, AlertCircle, Loader2 } from "lucide-react"
 import { createClient } from "@/lib/api/clients"
 import type { NewClientInput } from "@/types"
 
@@ -93,22 +93,45 @@ export function ClientOnboardingForm() {
           Onboard Client
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Onboard New Client</DialogTitle>
-          <DialogDescription>
-            Add a new client organization to the AutoCrew platform.
-          </DialogDescription>
-        </DialogHeader>
+      <DialogContent className="sm:max-w-[650px] max-h-[90vh] overflow-y-auto p-0">
+        {/* Elegant Header with Gradient */}
+        <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50">
+          <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
+          <DialogHeader className="relative">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
+                <Building2 className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <DialogTitle className="text-xl font-semibold">Onboard New Client</DialogTitle>
+                <DialogDescription className="text-sm mt-0.5">
+                  Add a new client organization to the AutoCrew platform
+                </DialogDescription>
+              </div>
+            </div>
+          </DialogHeader>
+        </div>
+
         <form onSubmit={handleSubmit}>
-          <div className="grid gap-6 py-4">
+          <div className="p-6 space-y-6">
+            {/* Error Display */}
+            {error && (
+              <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-xl">
+                <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
+                <p className="text-sm text-destructive">{error}</p>
+              </div>
+            )}
+
             {/* Section 1: Company Information */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-muted-foreground">
-                Company Information
-              </h3>
-              <div className="grid gap-2">
-                <Label htmlFor="companyName">
+              <div className="flex items-center gap-2 pb-2 border-b border-border">
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <Building2 className="h-4 w-4 text-primary" />
+                </div>
+                <h4 className="font-semibold text-foreground">Company Information</h4>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="companyName" className="text-sm font-medium">
                   Company Name <span className="text-destructive">*</span>
                 </Label>
                 <Input
@@ -119,17 +142,21 @@ export function ClientOnboardingForm() {
                     setFormData({ ...formData, companyName: e.target.value })
                   }
                   required
+                  className="h-10"
                 />
               </div>
             </div>
 
             {/* Section 2: Contact Information */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-muted-foreground">
-                Contact Information
-              </h3>
-              <div className="grid gap-2">
-                <Label htmlFor="contactPersonName">
+              <div className="flex items-center gap-2 pb-2 border-b border-border">
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <User className="h-4 w-4 text-primary" />
+                </div>
+                <h4 className="font-semibold text-foreground">Contact Information</h4>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="contactPersonName" className="text-sm font-medium">
                   Contact Person Name <span className="text-destructive">*</span>
                 </Label>
                 <Input
@@ -140,10 +167,11 @@ export function ClientOnboardingForm() {
                     setFormData({ ...formData, contactPersonName: e.target.value })
                   }
                   required
+                  className="h-10"
                 />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="contactEmail">
+              <div className="space-y-2">
+                <Label htmlFor="contactEmail" className="text-sm font-medium">
                   Contact Email <span className="text-destructive">*</span>
                 </Label>
                 <Input
@@ -155,10 +183,11 @@ export function ClientOnboardingForm() {
                     setFormData({ ...formData, contactEmail: e.target.value })
                   }
                   required
+                  className="h-10"
                 />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="phone">Phone (Optional)</Label>
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="text-sm font-medium">Phone</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -167,17 +196,23 @@ export function ClientOnboardingForm() {
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
+                  className="h-10"
                 />
+                <p className="text-xs text-muted-foreground">Optional</p>
               </div>
             </div>
 
             {/* Section 3: Address Information */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-muted-foreground">
-                Address Information (Optional)
-              </h3>
-              <div className="grid gap-2">
-                <Label htmlFor="address">Address</Label>
+              <div className="flex items-center gap-2 pb-2 border-b border-border">
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <MapPin className="h-4 w-4 text-primary" />
+                </div>
+                <h4 className="font-semibold text-foreground">Address Information</h4>
+                <span className="text-xs text-muted-foreground">(Optional)</span>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="address" className="text-sm font-medium">Address</Label>
                 <Input
                   id="address"
                   placeholder="123 Business Street"
@@ -185,11 +220,12 @@ export function ClientOnboardingForm() {
                   onChange={(e) =>
                     setFormData({ ...formData, address: e.target.value })
                   }
+                  className="h-10"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="city">City</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="city" className="text-sm font-medium">City</Label>
                   <Input
                     id="city"
                     placeholder="San Francisco"
@@ -197,10 +233,11 @@ export function ClientOnboardingForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, city: e.target.value })
                     }
+                    className="h-10"
                   />
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="country">Country</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="country" className="text-sm font-medium">Country</Label>
                   <Input
                     id="country"
                     placeholder="USA"
@@ -208,6 +245,7 @@ export function ClientOnboardingForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, country: e.target.value })
                     }
+                    className="h-10"
                   />
                 </div>
               </div>
@@ -215,11 +253,14 @@ export function ClientOnboardingForm() {
 
             {/* Section 4: Plan Selection */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-muted-foreground">
-                Plan Selection
-              </h3>
-              <div className="grid gap-2">
-                <Label htmlFor="plan">
+              <div className="flex items-center gap-2 pb-2 border-b border-border">
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <CreditCard className="h-4 w-4 text-primary" />
+                </div>
+                <h4 className="font-semibold text-foreground">Plan Selection</h4>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="plan" className="text-sm font-medium">
                   Subscription Plan <span className="text-destructive">*</span>
                 </Label>
                 <Select
@@ -229,7 +270,7 @@ export function ClientOnboardingForm() {
                   }
                   required
                 >
-                  <SelectTrigger id="plan">
+                  <SelectTrigger id="plan" className="h-10">
                     <SelectValue placeholder="Select a plan" />
                   </SelectTrigger>
                   <SelectContent>
@@ -240,28 +281,34 @@ export function ClientOnboardingForm() {
                 </Select>
               </div>
             </div>
-
-            {/* Error Display */}
-            {error && (
-              <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
-                {error}
-              </div>
-            )}
           </div>
 
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setOpen(false)}
-              disabled={isSubmitting}
-            >
-              Cancel
-            </Button>
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Creating..." : "Create Client"}
-            </Button>
-          </DialogFooter>
+          {/* Footer */}
+          <div className="px-6 py-4 bg-muted/30 border-t border-border/50">
+            <div className="flex items-center justify-end gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setOpen(false)}
+                disabled={isSubmitting}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" disabled={isSubmitting} className="gap-2">
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Creating...
+                  </>
+                ) : (
+                  <>
+                    <Plus className="h-4 w-4" />
+                    Create Client
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

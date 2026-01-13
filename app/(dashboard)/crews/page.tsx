@@ -34,13 +34,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { getCrews, updateCrew, updateCrewConfig } from "@/lib/api/crews";
-import { Crew } from "@/types";
-import { Pencil, Users, Loader2, AlertCircle, Mail, Check, Copy, Code2, MessageCircle, Upload } from "lucide-react";
+import { getCrews, updateCrew, updateCrewConfig, updateCrewWidgetSettings } from "@/lib/api/crews";
+import { Crew, WidgetSettings } from "@/types";
+import { Pencil, Users, Loader2, AlertCircle, Mail, Check, Copy, Code2, MessageCircle, Upload, Settings2, Globe, Sparkles, Zap, CheckCircle2, ExternalLink, Link } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { useClient } from "@/lib/hooks/use-client";
 import { ActivationWizard } from "@/components/crews/activation-wizard";
 import { KnowledgeBaseManagerDialog } from "@/components/crews/knowledge-base-manager-dialog";
+import { WidgetCustomizationForm } from "@/components/crews/widget-customization-form";
+import { WordPressIntegration } from "@/components/crews/wordpress-integration";
+import { WIDGET_DEFAULTS, WIDGET_SCRIPT_URL } from "@/lib/constants";
 
 export default function CrewsPage() {
   const { selectedClient } = useClient();
@@ -60,6 +63,12 @@ export default function CrewsPage() {
   const [selectedCrewForWizard, setSelectedCrewForWizard] = useState<Crew | null>(null);
   const [isKnowledgeBaseOpen, setIsKnowledgeBaseOpen] = useState(false);
   const [selectedCrewForKB, setSelectedCrewForKB] = useState<Crew | null>(null);
+
+  // Widget customization state
+  const [widgetSettings, setWidgetSettings] = useState<WidgetSettings>({});
+  const [widgetSaving, setWidgetSaving] = useState(false);
+  const [widgetError, setWidgetError] = useState<string | null>(null);
+  const [codeCopied, setCodeCopied] = useState(false);
 
   // Fetch crews when client changes
   useEffect(() => {
@@ -211,16 +220,61 @@ export default function CrewsPage() {
     }
   };
 
-  // Generate integration code snippet
-  const generateIntegrationCode = (crew: Crew): string => {
-    return `createChat({
-  webhookUrl: '${crew.webhookUrl}',
-  metadata: {
-    client_id: '${crew.clientId}',
-    crew_code: '${crew.crewCode}',
-    environment: 'production'
-  }
-});`;
+  // Generate integration code snippet with widget settings
+  const generateIntegrationCode = (crew: Crew, settings: WidgetSettings): string => {
+    const config = {
+      webhookUrl: crew.webhookUrl,
+      crewCode: crew.crewCode,
+      clientId: crew.clientId,
+      primaryColor: settings.primaryColor || WIDGET_DEFAULTS.PRIMARY_COLOR,
+      position: settings.position || WIDGET_DEFAULTS.POSITION,
+      theme: settings.theme || WIDGET_DEFAULTS.THEME,
+      title: settings.widgetTitle || WIDGET_DEFAULTS.TITLE,
+      subtitle: settings.widgetSubtitle || WIDGET_DEFAULTS.SUBTITLE,
+      welcomeMessage: settings.welcomeMessage || WIDGET_DEFAULTS.WELCOME_MESSAGE,
+      firstLaunchAction: settings.firstLaunchAction || WIDGET_DEFAULTS.FIRST_LAUNCH_ACTION,
+      greetingDelay: settings.greetingDelay || WIDGET_DEFAULTS.GREETING_DELAY,
+    };
+
+    return `<!-- AutoCrew Chat Widget -->
+<script>
+  window.AutoCrewConfig = ${JSON.stringify(config, null, 4).replace(/\n/g, '\n  ')};
+</script>
+<script src="${WIDGET_SCRIPT_URL}" async></script>`;
+  };
+
+  // Handle copy integration code
+  const handleCopyCode = async (crew: Crew) => {
+    const code = generateIntegrationCode(crew, widgetSettings);
+    await navigator.clipboard.writeText(code);
+    setCodeCopied(true);
+    setTimeout(() => setCodeCopied(false), 2000);
+  };
+
+  // Handle save widget settings
+  const handleSaveWidgetSettings = async () => {
+    if (!selectedCrew) return;
+
+    try {
+      setWidgetSaving(true);
+      setWidgetError(null);
+
+      const updatedCrew = await updateCrewWidgetSettings(selectedCrew.id, widgetSettings);
+      setCrews(crews.map((c) => (c.id === updatedCrew.id ? updatedCrew : c)));
+      setSelectedCrew(updatedCrew);
+    } catch (err) {
+      setWidgetError(err instanceof Error ? err.message : "Failed to save widget settings");
+    } finally {
+      setWidgetSaving(false);
+    }
+  };
+
+  // Load widget settings when opening integration dialog
+  const openIntegrationDialog = (crew: Crew) => {
+    setSelectedCrew(crew);
+    setWidgetSettings(crew.config.widgetSettings || {});
+    setWidgetError(null);
+    setIsIntegrationOpen(true);
   };
 
   // Calculate stats
@@ -396,10 +450,7 @@ export default function CrewsPage() {
                         <Button
                           variant="default"
                           size="sm"
-                          onClick={() => {
-                            setSelectedCrew(crew);
-                            setIsIntegrationOpen(true);
-                          }}
+                          onClick={() => openIntegrationDialog(crew)}
                           className="mr-2"
                         >
                           <Code2 className="h-4 w-4 mr-1" />
@@ -456,318 +507,479 @@ export default function CrewsPage() {
 
       {/* Edit Webhook URL Dialog */}
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Webhook URL</DialogTitle>
-            <DialogDescription>
-              Update the n8n webhook URL for this crew
-            </DialogDescription>
-          </DialogHeader>
-
-          {error && (
-            <div className="flex items-center gap-3 p-4 bg-destructive/10 rounded-lg">
-              <AlertCircle className="h-5 w-5 text-destructive" />
-              <p className="text-sm text-destructive">{error}</p>
-            </div>
-          )}
-
-          {selectedCrew && (
-            <div className="space-y-4">
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground">
-                  Crew
-                </Label>
-                <p className="text-sm font-medium text-foreground">{selectedCrew.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  {selectedCrew.crewCode}
-                </p>
+        <DialogContent className="sm:max-w-[550px] p-0">
+          {/* Elegant Header with Gradient */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50">
+            <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
+            <DialogHeader className="relative">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
+                  <Link className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <DialogTitle className="text-xl font-semibold">Edit Webhook URL</DialogTitle>
+                  <DialogDescription className="text-sm mt-0.5">
+                    Update the n8n webhook URL for this crew
+                  </DialogDescription>
+                </div>
               </div>
+            </DialogHeader>
+          </div>
 
-              <div>
-                <Label htmlFor="webhookUrl">Webhook URL</Label>
-                <Input
-                  id="webhookUrl"
-                  placeholder="https://n8n.example.com/webhook/..."
-                  value={webhookUrl}
-                  onChange={(e) => setWebhookUrl(e.target.value)}
-                />
+          <div className="p-6 space-y-6">
+            {error && (
+              <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-xl">
+                <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
+                <p className="text-sm text-destructive">{error}</p>
               </div>
-            </div>
-          )}
+            )}
 
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setIsEditOpen(false);
-                setSelectedCrew(null);
-                setError(null);
-              }}
-              disabled={submitting}
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleSaveWebhook} disabled={submitting}>
-              {submitting ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Saving...
-                </>
-              ) : (
-                "Save Changes"
-              )}
-            </Button>
-          </DialogFooter>
+            {selectedCrew && (
+              <div className="space-y-6">
+                {/* Crew Info */}
+                <div className="p-4 bg-muted/50 border border-border rounded-xl">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">Selected Crew</p>
+                  <p className="font-semibold text-foreground">{selectedCrew.name}</p>
+                  <code className="text-xs text-muted-foreground font-mono">
+                    {selectedCrew.crewCode}
+                  </code>
+                </div>
+
+                {/* Webhook URL Input */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 pb-2 border-b border-border">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <Link className="h-4 w-4 text-primary" />
+                    </div>
+                    <h4 className="font-semibold text-foreground">Webhook Configuration</h4>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="webhookUrl" className="text-sm font-medium">
+                      Webhook URL <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="webhookUrl"
+                      placeholder="https://n8n.example.com/webhook/..."
+                      value={webhookUrl}
+                      onChange={(e) => setWebhookUrl(e.target.value)}
+                      className="h-10 font-mono text-sm"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      The n8n webhook endpoint for this crew&apos;s workflow
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="px-6 py-4 bg-muted/30 border-t border-border/50">
+            <div className="flex items-center justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsEditOpen(false);
+                  setSelectedCrew(null);
+                  setError(null);
+                }}
+                disabled={submitting}
+              >
+                Cancel
+              </Button>
+              <Button onClick={handleSaveWebhook} disabled={submitting} className="gap-2">
+                {submitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Save Changes
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
 
       {/* Configure Support Configuration Dialog */}
       <Dialog open={isConfigOpen} onOpenChange={setIsConfigOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Configure Support Details</DialogTitle>
-            <DialogDescription>
-              Set the support email, client name, and allowed domain for this customer support crew.
-              All fields are required before the crew can be activated.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="sm:max-w-[550px] p-0">
+          {/* Elegant Header with Gradient */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50">
+            <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
+            <DialogHeader className="relative">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
+                  <Settings2 className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <DialogTitle className="text-xl font-semibold">Configure Support Details</DialogTitle>
+                  <DialogDescription className="text-sm mt-0.5">
+                    All fields required before crew activation
+                  </DialogDescription>
+                </div>
+              </div>
+            </DialogHeader>
+          </div>
 
-          {error && (
-            <div className="flex items-center gap-3 p-4 bg-destructive/10 rounded-lg">
-              <AlertCircle className="h-5 w-5 text-destructive" />
-              <p className="text-sm text-destructive">{error}</p>
+          <div className="p-6 space-y-6">
+            {error && (
+              <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-xl">
+                <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
+                <p className="text-sm text-destructive">{error}</p>
+              </div>
+            )}
+
+            {selectedCrew && (
+              <div className="space-y-6">
+                {/* Crew Info */}
+                <div className="p-4 bg-muted/50 border border-border rounded-xl">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">Selected Crew</p>
+                  <p className="font-semibold text-foreground">{selectedCrew.name}</p>
+                  <code className="text-xs text-muted-foreground font-mono">
+                    {selectedCrew.crewCode}
+                  </code>
+                </div>
+
+                {/* Support Configuration */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 pb-2 border-b border-border">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <Mail className="h-4 w-4 text-primary" />
+                    </div>
+                    <h4 className="font-semibold text-foreground">Support Configuration</h4>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="supportEmail" className="text-sm font-medium">
+                      Support Email <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="supportEmail"
+                      type="email"
+                      placeholder="support@company.com"
+                      value={supportEmail}
+                      onChange={(e) => setSupportEmail(e.target.value)}
+                      className="h-10"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Customer messages will reference this email address
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="supportClientName" className="text-sm font-medium">
+                      Support Client Name <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="supportClientName"
+                      type="text"
+                      placeholder="ACME Corporation"
+                      value={supportClientName}
+                      onChange={(e) => setSupportClientName(e.target.value)}
+                      className="h-10"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      The company name shown to customers
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="allowedDomain" className="text-sm font-medium">
+                      Allowed Domain <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="allowedDomain"
+                      type="text"
+                      placeholder="example.com"
+                      value={allowedDomain}
+                      onChange={(e) => setAllowedDomain(e.target.value)}
+                      className="h-10"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Domain allowed to embed the chatbot widget
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="px-6 py-4 bg-muted/30 border-t border-border/50">
+            <div className="flex items-center justify-end gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsConfigOpen(false);
+                  setSelectedCrew(null);
+                  setError(null);
+                }}
+                disabled={submitting}
+              >
+                Cancel
+              </Button>
+              <Button onClick={handleSaveSupportEmail} disabled={submitting} className="gap-2">
+                {submitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Save Configuration
+                  </>
+                )}
+              </Button>
             </div>
-          )}
-
-          {selectedCrew && (
-            <div className="space-y-4">
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground">
-                  Crew
-                </Label>
-                <p className="text-sm font-medium text-foreground">{selectedCrew.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  {selectedCrew.crewCode}
-                </p>
-              </div>
-
-              <div>
-                <Label htmlFor="supportEmail">Support Email *</Label>
-                <Input
-                  id="supportEmail"
-                  type="email"
-                  placeholder="support@company.com"
-                  value={supportEmail}
-                  onChange={(e) => setSupportEmail(e.target.value)}
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Customer messages will reference this email address
-                </p>
-              </div>
-
-              <div>
-                <Label htmlFor="supportClientName">Support Client Name *</Label>
-                <Input
-                  id="supportClientName"
-                  type="text"
-                  placeholder="ACME Corporation"
-                  value={supportClientName}
-                  onChange={(e) => setSupportClientName(e.target.value)}
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  The company name shown to customers
-                </p>
-              </div>
-
-              <div>
-                <Label htmlFor="allowedDomain">Allowed Domain *</Label>
-                <Input
-                  id="allowedDomain"
-                  type="text"
-                  placeholder="example.com"
-                  value={allowedDomain}
-                  onChange={(e) => setAllowedDomain(e.target.value)}
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Domain allowed to embed the chatbot widget
-                </p>
-              </div>
-            </div>
-          )}
-
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setIsConfigOpen(false);
-                setSelectedCrew(null);
-                setError(null);
-              }}
-              disabled={submitting}
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleSaveSupportEmail} disabled={submitting}>
-              {submitting ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Saving...
-                </>
-              ) : (
-                "Save Configuration"
-              )}
-            </Button>
-          </DialogFooter>
+          </div>
         </DialogContent>
       </Dialog>
 
       {/* Integration Code Dialog - Multi-Channel Support */}
       <Dialog open={isIntegrationOpen} onOpenChange={setIsIntegrationOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Integration Options</DialogTitle>
-            <DialogDescription>
-              Choose how you want to integrate {selectedCrew?.name} into your channels
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+          {/* Elegant Header with Gradient */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50">
+            <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
+            <DialogHeader className="relative">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
+                  <Zap className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <DialogTitle className="text-xl font-semibold">Integration Center</DialogTitle>
+                  <DialogDescription className="text-sm mt-0.5">
+                    Deploy {selectedCrew?.name} across your channels
+                  </DialogDescription>
+                </div>
+              </div>
+            </DialogHeader>
+          </div>
 
           {selectedCrew && (
-            <div className="space-y-6">
-              {/* Status Banner */}
-              <div className="flex items-start gap-3 p-4 bg-green-500/10 dark:bg-green-500/10 border border-green-500/50 dark:border-green-500/30 rounded-lg">
-                <div className="flex-shrink-0 mt-0.5">
-                  <Check className="h-5 w-5 text-green-700 dark:text-green-400" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-green-800 dark:text-green-400">Crew Active!</p>
-                  <p className="text-sm text-green-700 dark:text-green-400/90 mt-0.5">
-                    {selectedCrew.name} is ready to handle {selectedCrew.type === "customer_support" ? "customer support" : "lead generation"} requests
-                  </p>
+            <div className="p-6 space-y-6">
+              {/* Status Banner - More Elegant */}
+              <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-emerald-500/10 via-emerald-500/5 to-transparent dark:from-emerald-500/20 dark:via-emerald-500/10 border border-emerald-500/20 p-4">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 ring-1 ring-emerald-500/30">
+                    <CheckCircle2 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-emerald-700 dark:text-emerald-400">Crew Active & Ready</h3>
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 ring-1 ring-emerald-500/30">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        Live
+                      </span>
+                    </div>
+                    <p className="text-sm text-emerald-600/80 dark:text-emerald-400/80 mt-0.5">
+                      {selectedCrew.name} is handling {selectedCrew.type === "customer_support" ? "customer support" : "lead generation"} requests
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Multi-Channel Tabs */}
+              {/* Multi-Channel Tabs - Enhanced Design */}
               <Tabs defaultValue="webchat" className="w-full">
-                <TabsList className="grid w-full grid-cols-3 h-auto p-1 bg-slate-100 dark:bg-muted border border-white dark:border-border">
+                <TabsList className="grid w-full grid-cols-4 h-auto p-1.5 bg-muted/50 dark:bg-muted/30 rounded-xl border border-border/50">
                   <TabsTrigger
                     value="webchat"
-                    className="flex items-center gap-2 py-2.5 data-[state=active]:bg-white data-[state=active]:text-slate-900 dark:data-[state=active]:bg-slate-700 dark:data-[state=active]:text-white"
+                    className="flex items-center gap-2 py-3 px-4 rounded-lg font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm data-[state=active]:ring-1 data-[state=active]:ring-border/50"
                   >
-                    <Code2 className="h-4 w-4" />
+                    <Globe className="h-4 w-4" />
                     <span className="hidden sm:inline">Web Chat</span>
                     <span className="sm:hidden">Web</span>
                   </TabsTrigger>
                   <TabsTrigger
+                    value="wordpress"
+                    className="flex items-center gap-2 py-3 px-4 rounded-lg font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm data-[state=active]:ring-1 data-[state=active]:ring-border/50"
+                  >
+                    <Code2 className="h-4 w-4" />
+                    <span className="hidden sm:inline">WordPress</span>
+                    <span className="sm:hidden">WP</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="customize"
+                    className="flex items-center gap-2 py-3 px-4 rounded-lg font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm data-[state=active]:ring-1 data-[state=active]:ring-border/50"
+                  >
+                    <Sparkles className="h-4 w-4" />
+                    <span className="hidden sm:inline">Customize</span>
+                    <span className="sm:hidden">Style</span>
+                  </TabsTrigger>
+                  <TabsTrigger
                     value="whatsapp"
                     disabled
-                    className="flex items-center gap-2 py-2.5 data-[state=active]:bg-white data-[state=active]:text-slate-900 dark:data-[state=active]:bg-slate-700 dark:data-[state=active]:text-white"
+                    className="flex items-center gap-2 py-3 px-4 rounded-lg font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm data-[state=active]:ring-1 data-[state=active]:ring-border/50 disabled:opacity-50"
                   >
                     <MessageCircle className="h-4 w-4" />
                     <span className="hidden sm:inline">WhatsApp</span>
                     <span className="sm:hidden">WA</span>
                   </TabsTrigger>
-                  <TabsTrigger
-                    value="other"
-                    disabled
-                    className="flex items-center gap-2 py-2.5 data-[state=active]:bg-white data-[state=active]:text-slate-900 dark:data-[state=active]:bg-slate-700 dark:data-[state=active]:text-white"
-                  >
-                    <span className="hidden sm:inline">More Channels</span>
-                    <span className="sm:hidden">More</span>
-                  </TabsTrigger>
                 </TabsList>
 
-                {/* Web Chat Integration */}
-                <TabsContent value="webchat" className="space-y-5 mt-6">
+                {/* Web Chat Integration - Enhanced */}
+                <TabsContent value="webchat" className="space-y-6 mt-6">
                   {/* Code Section */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label className="text-sm font-semibold">JavaScript Integration Code</Label>
+                      <div className="flex items-center gap-2">
+                        <Code2 className="h-4 w-4 text-muted-foreground" />
+                        <Label className="text-sm font-semibold">JavaScript Integration Code</Label>
+                      </div>
                       <Button
                         variant="secondary"
                         size="sm"
-                        onClick={() => {
-                          navigator.clipboard.writeText(generateIntegrationCode(selectedCrew));
-                        }}
-                        className="gap-2 bg-slate-800 hover:bg-slate-700 text-white dark:bg-slate-700 dark:hover:bg-slate-600"
+                        onClick={() => handleCopyCode(selectedCrew)}
+                        className="gap-2 h-8 px-3 text-xs font-medium transition-all"
                       >
-                        <Copy className="h-3.5 w-3.5" />
-                        Copy
+                        {codeCopied ? (
+                          <>
+                            <Check className="h-3.5 w-3.5 text-emerald-500" />
+                            <span className="text-emerald-600 dark:text-emerald-400">Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-3.5 w-3.5" />
+                            Copy Code
+                          </>
+                        )}
                       </Button>
                     </div>
-                    <div className="relative rounded-lg bg-slate-50 dark:bg-slate-900 border border-white dark:border-slate-800 p-4 overflow-hidden">
-                      <pre className="text-sm text-slate-900 dark:text-slate-50 overflow-x-auto">
-                        <code>{generateIntegrationCode(selectedCrew)}</code>
-                      </pre>
+                    <div className="relative group">
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="relative rounded-xl bg-slate-950 dark:bg-slate-900/80 border border-slate-800/50 overflow-hidden">
+                        <div className="flex items-center justify-between px-4 py-2 bg-slate-900/50 border-b border-slate-800/50">
+                          <div className="flex items-center gap-2">
+                            <div className="flex gap-1.5">
+                              <div className="h-3 w-3 rounded-full bg-red-500/80" />
+                              <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                              <div className="h-3 w-3 rounded-full bg-green-500/80" />
+                            </div>
+                            <span className="text-xs text-slate-500 ml-2 font-mono">index.html</span>
+                          </div>
+                        </div>
+                        <pre className="p-4 text-sm text-slate-300 overflow-x-auto">
+                          <code className="font-mono text-[13px] leading-relaxed">{generateIntegrationCode(selectedCrew, widgetSettings)}</code>
+                        </pre>
+                      </div>
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-muted-foreground">
-                      Add this code to your website&apos;s HTML to enable the chat widget
+                    <p className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      Add this code to your website&apos;s HTML before the closing &lt;/body&gt; tag
                     </p>
                   </div>
 
-                  {/* Integration Details */}
+                  {/* Integration Details - Card Grid */}
                   <div className="space-y-3">
-                    <Label className="text-sm font-semibold">Integration Details</Label>
+                    <div className="flex items-center gap-2">
+                      <Settings2 className="h-4 w-4 text-muted-foreground" />
+                      <Label className="text-sm font-semibold">Configuration Details</Label>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="p-3 bg-slate-50 dark:bg-muted border border-white dark:border-border rounded-lg">
-                        <p className="text-xs text-slate-600 dark:text-muted-foreground mb-1.5">Crew Code</p>
-                        <code className="text-sm font-mono font-semibold text-slate-900 dark:text-foreground break-all">
-                          {selectedCrew.crewCode}
-                        </code>
+                      <div className="group relative p-4 rounded-xl bg-muted/30 border border-border/50 hover:border-primary/30 transition-colors">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5">Crew Code</p>
+                            <code className="text-sm font-mono font-semibold text-foreground break-all">
+                              {selectedCrew.crewCode}
+                            </code>
+                          </div>
+                          <div className="p-1.5 rounded-lg bg-primary/10">
+                            <Code2 className="h-3.5 w-3.5 text-primary" />
+                          </div>
+                        </div>
                       </div>
-                      <div className="p-3 bg-slate-50 dark:bg-muted border border-white dark:border-border rounded-lg">
-                        <p className="text-xs text-slate-600 dark:text-muted-foreground mb-1.5">Client ID</p>
-                        <code className="text-sm font-mono font-semibold text-slate-900 dark:text-foreground break-all">
-                          {selectedCrew.clientId}
-                        </code>
+                      <div className="group relative p-4 rounded-xl bg-muted/30 border border-border/50 hover:border-primary/30 transition-colors">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5">Client ID</p>
+                            <code className="text-sm font-mono font-semibold text-foreground break-all">
+                              {selectedCrew.clientId}
+                            </code>
+                          </div>
+                          <div className="p-1.5 rounded-lg bg-primary/10">
+                            <Users className="h-3.5 w-3.5 text-primary" />
+                          </div>
+                        </div>
                       </div>
-                      <div className="col-span-1 sm:col-span-2 p-3 bg-slate-50 dark:bg-muted border border-white dark:border-border rounded-lg">
-                        <p className="text-xs text-slate-600 dark:text-muted-foreground mb-1.5">Webhook URL</p>
-                        <code className="text-xs font-mono text-slate-900 dark:text-foreground break-all">
-                          {selectedCrew.webhookUrl}
-                        </code>
+                      <div className="col-span-1 sm:col-span-2 group relative p-4 rounded-xl bg-muted/30 border border-border/50 hover:border-primary/30 transition-colors">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5">Webhook URL</p>
+                            <code className="text-xs font-mono text-foreground break-all leading-relaxed">
+                              {selectedCrew.webhookUrl}
+                            </code>
+                          </div>
+                          <div className="p-1.5 rounded-lg bg-primary/10 flex-shrink-0">
+                            <Zap className="h-3.5 w-3.5 text-primary" />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </TabsContent>
 
-                {/* WhatsApp Integration (Coming Soon) */}
+                {/* WordPress Integration */}
+                <TabsContent value="wordpress" className="mt-6">
+                  <WordPressIntegration
+                    crew={selectedCrew}
+                    widgetSettings={widgetSettings}
+                  />
+                </TabsContent>
+
+                {/* Customize Widget */}
+                <TabsContent value="customize" className="mt-6">
+                  <WidgetCustomizationForm
+                    settings={widgetSettings}
+                    onSettingsChange={setWidgetSettings}
+                    onSave={handleSaveWidgetSettings}
+                    isSaving={widgetSaving}
+                    error={widgetError}
+                  />
+                </TabsContent>
+
+                {/* WhatsApp Integration (Coming Soon) - Enhanced */}
                 <TabsContent value="whatsapp" className="mt-6">
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="rounded-full bg-muted p-4 mb-4">
-                      <MessageCircle className="h-8 w-8 text-muted-foreground" />
+                  <div className="relative flex flex-col items-center justify-center py-16 text-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-muted/30 to-transparent rounded-xl" />
+                    <div className="relative">
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-green-500/20 to-green-600/10 ring-1 ring-green-500/20 mb-6">
+                        <MessageCircle className="h-10 w-10 text-green-600 dark:text-green-400" />
+                      </div>
+                      <h3 className="font-semibold text-xl mb-2">WhatsApp Integration</h3>
+                      <p className="text-muted-foreground text-sm max-w-md mb-6">
+                        Connect your support crew to WhatsApp Business API for seamless customer communication.
+                      </p>
+                      <Badge variant="secondary" className="px-4 py-1.5 text-xs font-medium">
+                        Coming Soon
+                      </Badge>
                     </div>
-                    <h3 className="font-semibold text-lg mb-2">WhatsApp Integration</h3>
-                    <p className="text-muted-foreground text-sm max-w-md">
-                      Connect your support crew to WhatsApp Business API.
-                      This feature is coming soon!
-                    </p>
-                  </div>
-                </TabsContent>
-
-                {/* Other Channels (Coming Soon) */}
-                <TabsContent value="other" className="mt-6">
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="rounded-full bg-muted p-4 mb-4">
-                      <Code2 className="h-8 w-8 text-muted-foreground" />
-                    </div>
-                    <h3 className="font-semibold text-lg mb-2">More Integration Options</h3>
-                    <p className="text-muted-foreground text-sm max-w-md">
-                      Additional channels like Slack, Teams, and custom integrations coming soon!
-                    </p>
                   </div>
                 </TabsContent>
               </Tabs>
             </div>
           )}
 
-          <DialogFooter className="mt-6">
-            <Button
-              onClick={() => setIsIntegrationOpen(false)}
-              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              Done
-            </Button>
-          </DialogFooter>
+          {/* Footer */}
+          <div className="px-6 py-4 bg-muted/30 border-t border-border/50">
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-muted-foreground">
+                Need help? Check our <a href="#" className="text-primary hover:underline">integration docs</a>
+              </p>
+              <Button
+                onClick={() => setIsIntegrationOpen(false)}
+                className="px-6"
+              >
+                Done
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
 
@@ -784,9 +996,8 @@ export default function CrewsPage() {
             setCrews(crews.map((c) => (c.id === updatedCrew.id ? updatedCrew : c)));
             setIsWizardOpen(false);
             setSelectedCrewForWizard(null);
-            // Optionally show integration dialog after activation
-            setSelectedCrew(updatedCrew);
-            setIsIntegrationOpen(true);
+            // Show integration dialog after activation
+            openIntegrationDialog(updatedCrew);
           }}
         />
       )}

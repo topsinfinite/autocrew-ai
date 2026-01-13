@@ -1,10 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { createHash } from 'crypto';
 import { db } from '@/db';
 import { crews, clients, member } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { requireAuth, isSuperAdmin } from '@/lib/auth/session-helpers';
 import type { CrewConfig } from '@/types';
+import { widgetSettingsSchema } from '@/lib/validations/crew.schema';
 import { logger, successResponse, errorResponse, ErrorCodes, sanitizePII } from '@/lib/utils';
 
 /**
@@ -19,7 +20,7 @@ function generateOriginHash(crewCode: string, allowedDomain: string): string {
 
 /**
  * PATCH /api/crews/[id]/config
- * Update crew configuration (support_email, support_client_name, allowed_domain)
+ * Update crew configuration (support settings and/or widget settings)
  *
  * Authorization:
  * - SuperAdmin: Can update any crew's configuration
@@ -27,9 +28,22 @@ function generateOriginHash(crewCode: string, allowedDomain: string): string {
  *
  * Request body:
  * {
- *   supportEmail: string
- *   supportClientName: string
- *   allowedDomain: string
+ *   // Support configuration (all required if any provided)
+ *   supportEmail?: string
+ *   supportClientName?: string
+ *   allowedDomain?: string
+ *
+ *   // Widget customization (all optional)
+ *   widgetSettings?: {
+ *     primaryColor?: string      // Hex color e.g., "#0891b2"
+ *     position?: 'bottom-right' | 'bottom-left'
+ *     theme?: 'light' | 'dark' | 'auto'
+ *     widgetTitle?: string
+ *     widgetSubtitle?: string
+ *     welcomeMessage?: string
+ *     firstLaunchAction?: 'none' | 'auto-open' | 'show-greeting'
+ *     greetingDelay?: number
+ *   }
  * }
  *
  * The API generates a SHA-256 hash of crewCode:allowedDomain for origin validation
@@ -46,65 +60,106 @@ export async function PATCH(
     const session = await requireAuth();
     const { id } = await params;
     const body = await request.json();
-    const { supportEmail, supportClientName, allowedDomain } = body;
+    const { supportEmail, supportClientName, allowedDomain, widgetSettings } = body;
+
+    // Check if support config is being updated
+    const isUpdatingSupportConfig = supportEmail || supportClientName || allowedDomain;
 
     await logger.info('Update crew config request received', {
       requestId,
       crewId: id,
       userId: session.user.id,
-      supportEmail: sanitizePII({ email: supportEmail }).email,
+      supportEmail: supportEmail ? sanitizePII({ email: supportEmail }).email : undefined,
       allowedDomain,
+      hasWidgetSettings: !!widgetSettings,
     });
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!supportEmail || !emailRegex.test(supportEmail)) {
-      await logger.warn('Update crew config failed - invalid email', {
-        requestId,
-        crewId: id,
-        supportEmail: sanitizePII({ email: supportEmail }).email,
-      });
-      return errorResponse(
-        {
-          code: 'VALIDATION_FAILED',
-          status: 400,
-          message: 'Valid support email is required',
-        },
-        null,
-        requestId
-      );
+    // Validate support config if any support field is provided
+    if (isUpdatingSupportConfig) {
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!supportEmail || !emailRegex.test(supportEmail)) {
+        await logger.warn('Update crew config failed - invalid email', {
+          requestId,
+          crewId: id,
+          supportEmail: supportEmail ? sanitizePII({ email: supportEmail }).email : undefined,
+        });
+        return errorResponse(
+          {
+            code: 'VALIDATION_FAILED',
+            status: 400,
+            message: 'Valid support email is required',
+          },
+          null,
+          requestId
+        );
+      }
+
+      // Validate client name
+      if (!supportClientName || supportClientName.trim().length === 0) {
+        await logger.warn('Update crew config failed - missing client name', {
+          requestId,
+          crewId: id,
+        });
+        return errorResponse(
+          {
+            code: 'VALIDATION_FAILED',
+            status: 400,
+            message: 'Support client name is required',
+          },
+          null,
+          requestId
+        );
+      }
+
+      // Validate allowed domain
+      const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$/;
+      if (!allowedDomain || !domainRegex.test(allowedDomain.trim())) {
+        await logger.warn('Update crew config failed - invalid allowed domain', {
+          requestId,
+          crewId: id,
+          allowedDomain,
+        });
+        return errorResponse(
+          {
+            code: 'VALIDATION_FAILED',
+            status: 400,
+            message: 'Valid allowed domain is required (e.g., example.com)',
+          },
+          null,
+          requestId
+        );
+      }
     }
 
-    // Validate client name
-    if (!supportClientName || supportClientName.trim().length === 0) {
-      await logger.warn('Update crew config failed - missing client name', {
-        requestId,
-        crewId: id,
-      });
-      return errorResponse(
-        {
-          code: 'VALIDATION_FAILED',
-          status: 400,
-          message: 'Support client name is required',
-        },
-        null,
-        requestId
-      );
+    // Validate widget settings if provided
+    if (widgetSettings) {
+      const widgetValidation = widgetSettingsSchema.safeParse(widgetSettings);
+      if (!widgetValidation.success) {
+        await logger.warn('Update crew config failed - invalid widget settings', {
+          requestId,
+          crewId: id,
+          errors: widgetValidation.error.issues,
+        });
+        return errorResponse(
+          {
+            code: 'VALIDATION_FAILED',
+            status: 400,
+            message: widgetValidation.error.issues[0]?.message || 'Invalid widget settings',
+          },
+          null,
+          requestId
+        );
+      }
     }
 
-    // Validate allowed domain
-    const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$/;
-    if (!allowedDomain || !domainRegex.test(allowedDomain.trim())) {
-      await logger.warn('Update crew config failed - invalid allowed domain', {
-        requestId,
-        crewId: id,
-        allowedDomain,
-      });
+    // Ensure at least one type of update is being made
+    if (!isUpdatingSupportConfig && !widgetSettings) {
       return errorResponse(
         {
           code: 'VALIDATION_FAILED',
           status: 400,
-          message: 'Valid allowed domain is required (e.g., example.com)',
+          message: 'No configuration provided to update',
         },
         null,
         requestId
@@ -153,31 +208,41 @@ export async function PATCH(
       }
     }
 
-    // Update config with metadata and activation state
+    // Build updated config
     const currentConfig = crew.config as CrewConfig;
-    const documentsUploaded = currentConfig.activationState?.documentsUploaded ?? false;
-    const supportConfigured = true; // Support is now configured
-    const activationReady = documentsUploaded && supportConfigured;
+    const updatedConfig: CrewConfig = { ...currentConfig };
 
-    // Generate origin hash for n8n validation
-    const trimmedDomain = allowedDomain.trim().toLowerCase();
-    const originHash = generateOriginHash(crew.crewCode, trimmedDomain);
+    // Update support config if provided
+    if (isUpdatingSupportConfig) {
+      const documentsUploaded = currentConfig.activationState?.documentsUploaded ?? false;
+      const supportConfigured = true; // Support is now configured
+      const activationReady = documentsUploaded && supportConfigured;
 
-    const updatedConfig: CrewConfig = {
-      ...currentConfig,
-      metadata: {
+      // Generate origin hash for n8n validation
+      const trimmedDomain = allowedDomain.trim().toLowerCase();
+      const originHash = generateOriginHash(crew.crewCode, trimmedDomain);
+
+      updatedConfig.metadata = {
         ...currentConfig.metadata,
         support_email: supportEmail,
         support_client_name: supportClientName.trim(),
         allowed_domain: trimmedDomain,
         origin_hash: originHash,
-      },
-      activationState: {
+      };
+      updatedConfig.activationState = {
         documentsUploaded,
         supportConfigured,
-        activationReady
-      }
-    };
+        activationReady,
+      };
+    }
+
+    // Update widget settings if provided
+    if (widgetSettings) {
+      updatedConfig.widgetSettings = {
+        ...currentConfig.widgetSettings,
+        ...widgetSettings,
+      };
+    }
 
     const [updatedCrew] = await db
       .update(crews)
@@ -193,19 +258,21 @@ export async function PATCH(
       requestId,
       crewId: id,
       crewCode: crew.crewCode,
-      supportEmail: sanitizePII({ email: supportEmail }).email,
-      supportClientName,
-      allowedDomain: trimmedDomain,
-      originHashGenerated: true,
+      supportEmail: supportEmail ? sanitizePII({ email: supportEmail }).email : undefined,
+      supportClientName: supportClientName || undefined,
+      allowedDomain: allowedDomain ? allowedDomain.trim().toLowerCase() : undefined,
+      hasWidgetSettings: !!widgetSettings,
       duration,
       operation: 'update_crew_config',
     });
 
-    return successResponse(
-      updatedCrew,
-      'Support configuration updated successfully',
-      requestId
-    );
+    const message = isUpdatingSupportConfig && widgetSettings
+      ? 'Configuration updated successfully'
+      : isUpdatingSupportConfig
+      ? 'Support configuration updated successfully'
+      : 'Widget settings updated successfully';
+
+    return successResponse(updatedCrew, message, requestId);
   } catch (error) {
     const duration = Date.now() - startTime;
     await logger.error(

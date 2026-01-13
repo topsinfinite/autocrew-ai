@@ -139,6 +139,40 @@ export const CREW_STATUS_LABELS = {
 } as const;
 
 // ============================================================================
+// WIDGET CONFIGURATION
+// ============================================================================
+
+export const WIDGET_DEFAULTS = {
+  PRIMARY_COLOR: '#0891b2',
+  POSITION: 'bottom-right' as const,
+  THEME: 'auto' as const,
+  FIRST_LAUNCH_ACTION: 'none' as const,
+  GREETING_DELAY: 3000,
+  TITLE: 'Chat with us',
+  SUBTITLE: '',
+  WELCOME_MESSAGE: 'Hi! How can I help you today?',
+} as const;
+
+export const WIDGET_SCRIPT_URL = 'https://widget.autocrew.ai/widget.js';
+
+export const WIDGET_POSITIONS = {
+  BOTTOM_RIGHT: 'bottom-right',
+  BOTTOM_LEFT: 'bottom-left',
+} as const;
+
+export const WIDGET_THEMES = {
+  LIGHT: 'light',
+  DARK: 'dark',
+  AUTO: 'auto',
+} as const;
+
+export const FIRST_LAUNCH_ACTIONS = {
+  NONE: 'none',
+  AUTO_OPEN: 'auto-open',
+  SHOW_GREETING: 'show-greeting',
+} as const;
+
+// ============================================================================
 // CLIENT PLANS & STATUS
 // ============================================================================
 
@@ -339,3 +373,6 @@ export type ClientStatus = typeof CLIENT_STATUS[keyof typeof CLIENT_STATUS];
 export type ConversationSentiment = typeof CONVERSATION_SENTIMENT[keyof typeof CONVERSATION_SENTIMENT];
 export type LeadStatus = typeof LEAD_STATUS[keyof typeof LEAD_STATUS];
 export type DocumentStatus = typeof DOCUMENT_STATUS[keyof typeof DOCUMENT_STATUS];
+export type WidgetPosition = typeof WIDGET_POSITIONS[keyof typeof WIDGET_POSITIONS];
+export type WidgetTheme = typeof WIDGET_THEMES[keyof typeof WIDGET_THEMES];
+export type FirstLaunchAction = typeof FIRST_LAUNCH_ACTIONS[keyof typeof FIRST_LAUNCH_ACTIONS];

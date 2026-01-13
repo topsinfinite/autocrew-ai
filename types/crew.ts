@@ -3,6 +3,27 @@
 export type CrewType = "customer_support" | "lead_generation";
 export type CrewStatus = "active" | "inactive" | "error";
 
+// Widget customization types
+export type WidgetPosition = "bottom-right" | "bottom-left";
+export type WidgetTheme = "light" | "dark" | "auto";
+export type FirstLaunchAction = "none" | "auto-open" | "show-greeting";
+
+export interface WidgetSettings {
+  // Appearance
+  primaryColor?: string; // Hex color e.g., "#0891b2"
+  position?: WidgetPosition; // Default: 'bottom-right'
+  theme?: WidgetTheme; // Default: 'auto'
+
+  // Branding
+  widgetTitle?: string; // e.g., "Chat with us"
+  widgetSubtitle?: string; // e.g., "We reply within minutes"
+
+  // Behavior
+  welcomeMessage?: string; // First message from bot
+  firstLaunchAction?: FirstLaunchAction; // Default: 'none'
+  greetingDelay?: number; // ms before showing greeting bubble
+}
+
 // Activation wizard step state
 export interface CrewActivationState {
   documentsUploaded: boolean;
@@ -20,6 +41,7 @@ export interface CrewConfig {
     origin_hash?: string;
     [key: string]: unknown;
   };
+  widgetSettings?: WidgetSettings;
   activationState?: CrewActivationState;
 }
 

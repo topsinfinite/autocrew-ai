@@ -28,7 +28,7 @@ import { getConversations, getConversationById } from "@/lib/api/conversations";
 import { getCrews } from "@/lib/api/crews";
 import { useClient } from "@/lib/hooks/use-client";
 import { Conversation, Crew } from "@/types";
-import { Eye, Search, MessageSquare, Loader2, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Eye, Search, MessageSquare, Loader2, ChevronLeft, ChevronRight, X, User, Users, Clock, Info } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { DateRangePicker } from "@/components/date-range-picker";
 import { DateRange } from "react-day-picker";
@@ -359,53 +359,69 @@ export default function ConversationsPage() {
         open={!!selectedConversation}
         onOpenChange={() => setSelectedConversation(null)}
       >
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Conversation Details</DialogTitle>
-          </DialogHeader>
+        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto p-0">
+          {/* Elegant Header with Gradient */}
+          <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50">
+            <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
+            <DialogHeader className="relative">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
+                  <MessageSquare className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <DialogTitle className="text-xl font-semibold">Conversation Details</DialogTitle>
+                  {selectedConversation && (
+                    <p className="text-sm text-muted-foreground mt-0.5">
+                      {selectedConversation.metadata.customerName || "Anonymous"} • {new Date(selectedConversation.createdAt).toLocaleDateString()}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </DialogHeader>
+          </div>
 
           {selectedConversation && (
-            <div className="space-y-6">
-              {/* Metadata */}
+            <div className="p-6 space-y-6">
+              {/* Metadata Grid */}
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    Customer
-                  </h3>
-                  <p className="text-sm font-medium text-foreground">
+                <div className="p-4 bg-muted/30 border border-border rounded-xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <User className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Customer</span>
+                  </div>
+                  <p className="font-semibold text-foreground">
                     {selectedConversation.metadata.customerName || "Anonymous"}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     {selectedConversation.metadata.customerEmail || "N/A"}
                   </p>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    Crew
-                  </h3>
-                  <p className="text-sm font-medium text-foreground">
+                <div className="p-4 bg-muted/30 border border-border rounded-xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Users className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Crew</span>
+                  </div>
+                  <p className="font-semibold text-foreground">
                     {getCrewName(selectedConversation.crewId)}
                   </p>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    Date & Time
-                  </h3>
-                  <p className="text-sm text-foreground">
-                    {new Date(
-                      selectedConversation.createdAt
-                    ).toLocaleString()}
+                <div className="p-4 bg-muted/30 border border-border rounded-xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Clock className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Date & Time</span>
+                  </div>
+                  <p className="text-foreground">
+                    {new Date(selectedConversation.createdAt).toLocaleString()}
                   </p>
                 </div>
-                <div>
-                  <h3 className="text-sm font-medium text-muted-foreground">
-                    Duration
-                  </h3>
-                  <p className="text-sm text-foreground">
+                <div className="p-4 bg-muted/30 border border-border rounded-xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Info className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Duration</span>
+                  </div>
+                  <p className="text-foreground">
                     {selectedConversation.metadata.duration
-                      ? `${Math.floor(
-                          selectedConversation.metadata.duration / 60
-                        )}m ${selectedConversation.metadata.duration % 60}s`
+                      ? `${Math.floor(selectedConversation.metadata.duration / 60)}m ${selectedConversation.metadata.duration % 60}s`
                       : "N/A"}
                   </p>
                 </div>
@@ -434,20 +450,25 @@ export default function ConversationsPage() {
               </div>
 
               {/* Transcript */}
-              <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-3">
-                  Conversation Transcript
-                </h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 pb-2 border-b border-border">
+                  <div className="p-1.5 rounded-lg bg-primary/10">
+                    <MessageSquare className="h-4 w-4 text-primary" />
+                  </div>
+                  <h4 className="font-semibold text-foreground">Conversation Transcript</h4>
+                </div>
+
                 {loadingTranscript ? (
-                  <div className="flex items-center justify-center py-8">
-                    <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                  <div className="flex items-center justify-center py-12">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   </div>
                 ) : selectedConversation.transcript.length === 0 ? (
-                  <p className="text-sm text-muted-foreground text-center py-8">
-                    No transcript available
-                  </p>
+                  <div className="text-center py-12">
+                    <MessageSquare className="h-12 w-12 text-muted-foreground/50 mx-auto mb-3" />
+                    <p className="text-sm text-muted-foreground">No transcript available</p>
+                  </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
                     {selectedConversation.transcript.map((message, index) => (
                       <div
                         key={index}
@@ -456,17 +477,17 @@ export default function ConversationsPage() {
                         }`}
                       >
                         <div
-                          className={`max-w-[80%] rounded-lg p-3 ${
+                          className={`max-w-[80%] rounded-xl p-4 ${
                             message.role === "user"
-                              ? "bg-muted text-foreground"
+                              ? "bg-muted/50 border border-border text-foreground"
                               : "bg-primary text-primary-foreground"
                           }`}
                         >
-                          <div className="text-xs font-medium mb-1">
+                          <div className="text-xs font-semibold mb-1.5 opacity-80">
                             {message.role === "user" ? "Customer" : "Assistant"}
                           </div>
-                          <p className="text-sm">{message.content}</p>
-                          <div className="text-xs opacity-70 mt-1">
+                          <p className="text-sm leading-relaxed">{message.content}</p>
+                          <div className="text-xs opacity-60 mt-2">
                             {new Date(message.timestamp).toLocaleTimeString()}
                           </div>
                         </div>
@@ -477,6 +498,15 @@ export default function ConversationsPage() {
               </div>
             </div>
           )}
+
+          {/* Footer */}
+          <div className="px-6 py-4 bg-muted/30 border-t border-border/50">
+            <div className="flex items-center justify-end">
+              <Button onClick={() => setSelectedConversation(null)} className="px-6">
+                Close
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

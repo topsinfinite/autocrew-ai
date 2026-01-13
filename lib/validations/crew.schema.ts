@@ -15,6 +15,35 @@ export const crewActivationStateSchema = z.object({
   activationReady: z.boolean().default(false),
 });
 
+// Widget settings validation schema
+export const widgetSettingsSchema = z.object({
+  // Appearance
+  primaryColor: z
+    .string()
+    .regex(/^#[0-9A-Fa-f]{6}$/, 'Must be a valid hex color (e.g., #0891b2)')
+    .optional(),
+  position: z.enum(['bottom-right', 'bottom-left']).optional(),
+  theme: z.enum(['light', 'dark', 'auto']).optional(),
+
+  // Branding
+  widgetTitle: z
+    .string()
+    .max(50, 'Title must be 50 characters or less')
+    .optional(),
+  widgetSubtitle: z
+    .string()
+    .max(100, 'Subtitle must be 100 characters or less')
+    .optional(),
+
+  // Behavior
+  welcomeMessage: z
+    .string()
+    .max(500, 'Welcome message must be 500 characters or less')
+    .optional(),
+  firstLaunchAction: z.enum(['none', 'auto-open', 'show-greeting']).optional(),
+  greetingDelay: z.number().int().min(0).max(30000).optional(),
+});
+
 // Crew configuration schema
 export const crewConfigSchema = z.object({
   vectorTableName: z.string().optional(),
@@ -23,6 +52,7 @@ export const crewConfigSchema = z.object({
     support_email: z.string().email().optional(),
     support_client_name: z.string().optional(),
   }).passthrough().optional(), // Allow additional metadata fields
+  widgetSettings: widgetSettingsSchema.optional(),
   activationState: crewActivationStateSchema.optional(),
 });
 
@@ -88,3 +118,4 @@ export type ToggleCrewStatusInput = z.infer<typeof toggleCrewStatusSchema>;
 export type CrewFilterInput = z.infer<typeof crewFilterSchema>;
 export type CrewConfig = z.infer<typeof crewConfigSchema>;
 export type CrewActivationState = z.infer<typeof crewActivationStateSchema>;
+export type WidgetSettingsInput = z.infer<typeof widgetSettingsSchema>;

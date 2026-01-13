@@ -358,7 +358,7 @@ describe('POST /api/admin/create-client-admin', () => {
     });
 
     // Mock email failure
-    (auth.api.requestPasswordReset as jest.Mock).mockRejectedValue(
+    (auth.api.requestPasswordReset as unknown as jest.Mock).mockRejectedValue(
       new Error('Email service error')
     );
 
