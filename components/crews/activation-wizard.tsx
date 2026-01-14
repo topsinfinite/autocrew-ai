@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, AlertCircle, CheckCircle, RefreshCw, Rocket, Upload, Mail, Settings, Globe, FileText } from 'lucide-react';
+import { Loader2, AlertCircle, CheckCircle, RefreshCw, Rocket, Upload, Mail, Settings, Globe, FileText, Bot } from 'lucide-react';
 import { WizardStepper } from './wizard-stepper';
 import { KnowledgeBaseUpload } from './knowledge-base-upload';
 import { KnowledgeBaseList } from './knowledge-base-list';
@@ -42,6 +42,9 @@ export function ActivationWizard({
   );
   const [supportClientName, setSupportClientName] = useState(
     crew.config.metadata?.support_client_name || ''
+  );
+  const [agentName, setAgentName] = useState(
+    crew.config.metadata?.agent_name || ''
   );
   const [allowedDomain, setAllowedDomain] = useState(
     crew.config.metadata?.allowed_domain || ''
@@ -138,13 +141,15 @@ export function ActivationWizard({
       supportEmail.trim() !== '' &&
       validateEmail(supportEmail) &&
       supportClientName.trim() !== '' &&
+      agentName.trim().length >= 2 &&
+      agentName.trim().length <= 50 &&
       validateDomain(allowedDomain)
     );
   };
 
   const handleConfigureSupportAndContinue = async () => {
     if (!canProceedFromStep2()) {
-      setError('Please provide a valid support email, client name, and allowed domain');
+      setError('Please provide a valid support email, client name, agent name, and allowed domain');
       return;
     }
 
@@ -152,7 +157,7 @@ export function ActivationWizard({
 
     try {
       // Update crew config with support details and allowed domain
-      await updateCrewConfig(crew.id, supportEmail, supportClientName, allowedDomain);
+      await updateCrewConfig(crew.id, supportEmail, supportClientName, agentName, allowedDomain);
       handleNext();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save configuration');
@@ -332,6 +337,27 @@ export function ActivationWizard({
                 </div>
 
                 <div className="space-y-2">
+                  <Label htmlFor="agent-name" className="text-sm font-medium">
+                    Agent Name <span className="text-destructive">*</span>
+                  </Label>
+                  <div className="relative">
+                    <Bot className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="agent-name"
+                      type="text"
+                      placeholder="Sarah"
+                      value={agentName}
+                      onChange={(e) => setAgentName(e.target.value)}
+                      className="h-10 pl-10"
+                      maxLength={50}
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Name displayed for the AI support agent (2-50 characters)
+                  </p>
+                </div>
+
+                <div className="space-y-2">
                   <Label htmlFor="allowed-domain" className="text-sm font-medium">
                     Allowed Domain <span className="text-destructive">*</span>
                   </Label>
@@ -452,6 +478,10 @@ export function ActivationWizard({
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Client Name:</span>
                       <span className="font-medium">{supportClientName}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Agent Name:</span>
+                      <span className="font-medium">{agentName}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Allowed Domain:</span>

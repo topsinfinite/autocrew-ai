@@ -6,7 +6,7 @@
  */
 
 import { z } from 'zod';
-import { sentimentEnum } from '@/db/schema';
+import { sentimentEnum, conversationStatusEnum } from '@/db/schema';
 
 // Conversation message schema
 export const conversationMessageSchema = z.object({
@@ -35,6 +35,7 @@ export const createConversationSchema = z.object({
     .optional()
     .nullable(),
   sentiment: z.enum(sentimentEnum.enumValues).optional().nullable(),
+  status: z.enum(conversationStatusEnum.enumValues).optional().default('pending'),
   resolved: z.boolean().optional().default(false),
   duration: z.number()
     .int('Duration must be an integer')
@@ -54,6 +55,7 @@ export const updateConversationSchema = z.object({
     .email('Valid email address required')
     .optional(),
   sentiment: z.enum(sentimentEnum.enumValues).optional(),
+  status: z.enum(conversationStatusEnum.enumValues).optional(),
   resolved: z.boolean().optional(),
   duration: z.number()
     .int('Duration must be an integer')
@@ -66,13 +68,14 @@ export const conversationFilterSchema = z.object({
   crewId: z.string().uuid('Invalid crew ID').optional(),
   clientId: z.string().optional(),
   sentiment: z.enum(sentimentEnum.enumValues).optional(),
+  status: z.enum(conversationStatusEnum.enumValues).optional(),
   resolved: z.coerce.boolean().optional(),
   startDate: z.coerce.date().optional(),
   endDate: z.coerce.date().optional(),
   search: z.string().optional(), // For searching by customer name or email
   limit: z.coerce.number().int().min(1).max(100).default(20),
   offset: z.coerce.number().int().min(0).default(0),
-  sortBy: z.enum(['createdAt', 'duration', 'sentiment']).optional().default('createdAt'),
+  sortBy: z.enum(['createdAt', 'duration', 'sentiment', 'status']).optional().default('createdAt'),
   sortOrder: z.enum(['asc', 'desc']).optional().default('desc'),
 }).refine(
   (data) => {

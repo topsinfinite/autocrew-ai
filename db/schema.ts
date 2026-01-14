@@ -8,6 +8,7 @@ export const statusEnum = pgEnum('status', ['active', 'inactive', 'trial']);
 export const crewTypeEnum = pgEnum('crew_type', ['customer_support', 'lead_generation']);
 export const crewStatusEnum = pgEnum('crew_status', ['active', 'inactive', 'error']);
 export const sentimentEnum = pgEnum('sentiment', ['positive', 'neutral', 'negative']);
+export const conversationStatusEnum = pgEnum('conversation_status', ['pending', 'completed']);
 export const userRoleEnum = pgEnum('user_role', ['super_admin', 'client_admin', 'viewer']);
 
 // Better Auth: User table
@@ -274,6 +275,7 @@ export const conversations = pgTable(
     customerName: text('customer_name'),
     customerEmail: text('customer_email'),
     sentiment: sentimentEnum('sentiment'),
+    status: conversationStatusEnum('status').notNull().default('pending'),
     resolved: boolean('resolved').default(false),
     duration: integer('duration'),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -285,6 +287,7 @@ export const conversations = pgTable(
     crewIdIdx: index('conversation_crew_id_idx').on(table.crewId),
     createdAtIdx: index('conversation_created_at_idx').on(table.createdAt),
     sentimentIdx: index('conversation_sentiment_idx').on(table.sentiment),
+    statusIdx: index('conversation_status_idx').on(table.status),
   })
 );
 

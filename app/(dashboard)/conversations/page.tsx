@@ -359,7 +359,7 @@ export default function ConversationsPage() {
         open={!!selectedConversation}
         onOpenChange={() => setSelectedConversation(null)}
       >
-        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto p-0">
+        <DialogContent className="max-w-3xl w-[95vw] max-h-[85vh] overflow-y-auto overflow-x-hidden p-0">
           {/* Elegant Header with Gradient */}
           <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50">
             <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
@@ -381,42 +381,42 @@ export default function ConversationsPage() {
           </div>
 
           {selectedConversation && (
-            <div className="p-6 space-y-6">
+            <div className="p-6 space-y-6 overflow-hidden">
               {/* Metadata Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-muted/30 border border-border rounded-xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 bg-muted/30 border border-border rounded-xl overflow-hidden">
                   <div className="flex items-center gap-2 mb-2">
-                    <User className="h-4 w-4 text-primary" />
+                    <User className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Customer</span>
                   </div>
-                  <p className="font-semibold text-foreground">
+                  <p className="font-semibold text-foreground truncate">
                     {selectedConversation.metadata.customerName || "Anonymous"}
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground truncate">
                     {selectedConversation.metadata.customerEmail || "N/A"}
                   </p>
                 </div>
-                <div className="p-4 bg-muted/30 border border-border rounded-xl">
+                <div className="p-4 bg-muted/30 border border-border rounded-xl overflow-hidden">
                   <div className="flex items-center gap-2 mb-2">
-                    <Users className="h-4 w-4 text-primary" />
+                    <Users className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Crew</span>
                   </div>
-                  <p className="font-semibold text-foreground">
+                  <p className="font-semibold text-foreground truncate">
                     {getCrewName(selectedConversation.crewId)}
                   </p>
                 </div>
-                <div className="p-4 bg-muted/30 border border-border rounded-xl">
+                <div className="p-4 bg-muted/30 border border-border rounded-xl overflow-hidden">
                   <div className="flex items-center gap-2 mb-2">
-                    <Clock className="h-4 w-4 text-primary" />
+                    <Clock className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Date & Time</span>
                   </div>
                   <p className="text-foreground">
                     {new Date(selectedConversation.createdAt).toLocaleString()}
                   </p>
                 </div>
-                <div className="p-4 bg-muted/30 border border-border rounded-xl">
+                <div className="p-4 bg-muted/30 border border-border rounded-xl overflow-hidden">
                   <div className="flex items-center gap-2 mb-2">
-                    <Info className="h-4 w-4 text-primary" />
+                    <Info className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Duration</span>
                   </div>
                   <p className="text-foreground">
@@ -428,7 +428,7 @@ export default function ConversationsPage() {
               </div>
 
               {/* Status Badges */}
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {selectedConversation.metadata.sentiment && (
                   <Badge
                     variant={
@@ -452,7 +452,7 @@ export default function ConversationsPage() {
               {/* Transcript */}
               <div className="space-y-4">
                 <div className="flex items-center gap-2 pb-2 border-b border-border">
-                  <div className="p-1.5 rounded-lg bg-primary/10">
+                  <div className="p-1.5 rounded-lg bg-primary/10 flex-shrink-0">
                     <MessageSquare className="h-4 w-4 text-primary" />
                   </div>
                   <h4 className="font-semibold text-foreground">Conversation Transcript</h4>
@@ -468,7 +468,7 @@ export default function ConversationsPage() {
                     <p className="text-sm text-muted-foreground">No transcript available</p>
                   </div>
                 ) : (
-                  <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                  <div className="space-y-4 max-h-[400px] overflow-y-auto">
                     {selectedConversation.transcript.map((message, index) => (
                       <div
                         key={index}
@@ -477,7 +477,7 @@ export default function ConversationsPage() {
                         }`}
                       >
                         <div
-                          className={`max-w-[80%] rounded-xl p-4 ${
+                          className={`max-w-[85%] rounded-xl p-4 ${
                             message.role === "user"
                               ? "bg-muted/50 border border-border text-foreground"
                               : "bg-primary text-primary-foreground"
@@ -486,7 +486,7 @@ export default function ConversationsPage() {
                           <div className="text-xs font-semibold mb-1.5 opacity-80">
                             {message.role === "user" ? "Customer" : "Assistant"}
                           </div>
-                          <p className="text-sm leading-relaxed">{message.content}</p>
+                          <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">{message.content}</p>
                           <div className="text-xs opacity-60 mt-2">
                             {new Date(message.timestamp).toLocaleTimeString()}
                           </div>

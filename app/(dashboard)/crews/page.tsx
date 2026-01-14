@@ -36,7 +36,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { getCrews, updateCrew, updateCrewConfig, updateCrewWidgetSettings } from "@/lib/api/crews";
 import { Crew, WidgetSettings } from "@/types";
-import { Pencil, Users, Loader2, AlertCircle, Mail, Check, Copy, Code2, MessageCircle, Upload, Settings2, Globe, Sparkles, Zap, CheckCircle2, ExternalLink, Link } from "lucide-react";
+import { Pencil, Users, Loader2, AlertCircle, Mail, Check, Copy, Code2, MessageCircle, Upload, Settings2, Globe, Sparkles, Zap, CheckCircle2, ExternalLink, Link, Bot } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { useClient } from "@/lib/hooks/use-client";
 import { ActivationWizard } from "@/components/crews/activation-wizard";
@@ -57,6 +57,7 @@ export default function CrewsPage() {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [supportEmail, setSupportEmail] = useState("");
   const [supportClientName, setSupportClientName] = useState("");
+  const [agentName, setAgentName] = useState("");
   const [allowedDomain, setAllowedDomain] = useState("");
   const [isIntegrationOpen, setIsIntegrationOpen] = useState(false);
   const [isWizardOpen, setIsWizardOpen] = useState(false);
@@ -168,7 +169,7 @@ export default function CrewsPage() {
     }
   };
 
-  // Save support email, client name, and allowed domain configuration
+  // Save support email, client name, agent name, and allowed domain configuration
   const handleSaveSupportEmail = async () => {
     if (!selectedCrew) return;
 
@@ -179,6 +180,16 @@ export default function CrewsPage() {
 
     if (!supportClientName.trim()) {
       setError("Support client name is required");
+      return;
+    }
+
+    if (!agentName.trim() || agentName.trim().length < 2) {
+      setError("Agent name is required (at least 2 characters)");
+      return;
+    }
+
+    if (agentName.trim().length > 50) {
+      setError("Agent name must be at most 50 characters");
       return;
     }
 
@@ -207,6 +218,7 @@ export default function CrewsPage() {
         selectedCrew.id,
         supportEmail.trim(),
         supportClientName.trim(),
+        agentName.trim(),
         allowedDomain.trim()
       );
 
@@ -479,6 +491,7 @@ export default function CrewsPage() {
                             setSelectedCrew(crew);
                             setSupportEmail(crew.config.metadata?.support_email || "");
                             setSupportClientName(crew.config.metadata?.support_client_name || "");
+                            setAgentName(crew.config.metadata?.agent_name || "");
                             setAllowedDomain(crew.config.metadata?.allowed_domain || "");
                             setIsConfigOpen(true);
                           }}
@@ -685,6 +698,27 @@ export default function CrewsPage() {
                     />
                     <p className="text-xs text-muted-foreground">
                       The company name shown to customers
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="agentName" className="text-sm font-medium">
+                      Agent Name <span className="text-destructive">*</span>
+                    </Label>
+                    <div className="relative">
+                      <Bot className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="agentName"
+                        type="text"
+                        placeholder="Sarah"
+                        value={agentName}
+                        onChange={(e) => setAgentName(e.target.value)}
+                        className="h-10 pl-10"
+                        maxLength={50}
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Name displayed for the AI support agent (2-50 characters)
                     </p>
                   </div>
 

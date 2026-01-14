@@ -60,10 +60,10 @@ export async function PATCH(
     const session = await requireAuth();
     const { id } = await params;
     const body = await request.json();
-    const { supportEmail, supportClientName, allowedDomain, widgetSettings } = body;
+    const { supportEmail, supportClientName, agentName, allowedDomain, widgetSettings } = body;
 
     // Check if support config is being updated
-    const isUpdatingSupportConfig = supportEmail || supportClientName || allowedDomain;
+    const isUpdatingSupportConfig = supportEmail || supportClientName || agentName || allowedDomain;
 
     await logger.info('Update crew config request received', {
       requestId,
@@ -106,6 +106,39 @@ export async function PATCH(
             code: 'VALIDATION_FAILED',
             status: 400,
             message: 'Support client name is required',
+          },
+          null,
+          requestId
+        );
+      }
+
+      // Validate agent name
+      if (!agentName || agentName.trim().length < 2) {
+        await logger.warn('Update crew config failed - invalid agent name', {
+          requestId,
+          crewId: id,
+        });
+        return errorResponse(
+          {
+            code: 'VALIDATION_FAILED',
+            status: 400,
+            message: 'Agent name is required (at least 2 characters)',
+          },
+          null,
+          requestId
+        );
+      }
+
+      if (agentName.trim().length > 50) {
+        await logger.warn('Update crew config failed - agent name too long', {
+          requestId,
+          crewId: id,
+        });
+        return errorResponse(
+          {
+            code: 'VALIDATION_FAILED',
+            status: 400,
+            message: 'Agent name must be at most 50 characters',
           },
           null,
           requestId
@@ -226,6 +259,7 @@ export async function PATCH(
         ...currentConfig.metadata,
         support_email: supportEmail,
         support_client_name: supportClientName.trim(),
+        agent_name: agentName.trim(),
         allowed_domain: trimmedDomain,
         origin_hash: originHash,
       };
@@ -260,6 +294,7 @@ export async function PATCH(
       crewCode: crew.crewCode,
       supportEmail: supportEmail ? sanitizePII({ email: supportEmail }).email : undefined,
       supportClientName: supportClientName || undefined,
+      agentName: agentName || undefined,
       allowedDomain: allowedDomain ? allowedDomain.trim().toLowerCase() : undefined,
       hasWidgetSettings: !!widgetSettings,
       duration,

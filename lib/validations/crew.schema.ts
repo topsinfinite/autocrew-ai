@@ -51,6 +51,7 @@ export const crewConfigSchema = z.object({
   metadata: z.object({
     support_email: z.string().email().optional(),
     support_client_name: z.string().optional(),
+    agent_name: z.string().optional(),
   }).passthrough().optional(), // Allow additional metadata fields
   widgetSettings: widgetSettingsSchema.optional(),
   activationState: crewActivationStateSchema.optional(),
@@ -91,6 +92,9 @@ export const updateCrewSupportConfigSchema = z.object({
   supportClientName: z.string()
     .min(2, 'Client name must be at least 2 characters')
     .max(100, 'Client name must be at most 100 characters'),
+  agentName: z.string()
+    .min(2, 'Agent name must be at least 2 characters')
+    .max(50, 'Agent name must be at most 50 characters'),
 });
 
 // Activate/deactivate crew schema

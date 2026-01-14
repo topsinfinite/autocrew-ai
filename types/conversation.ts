@@ -6,6 +6,8 @@ export interface ConversationMessage {
   timestamp: Date;
 }
 
+export type ConversationStatus = "pending" | "completed";
+
 export interface Conversation {
   id: string;
   clientId: string; // Multi-tenant support
@@ -16,6 +18,7 @@ export interface Conversation {
     customerName?: string;
     customerEmail?: string;
     sentiment?: "positive" | "neutral" | "negative";
+    status?: ConversationStatus;
     resolved?: boolean;
     duration?: number; // in seconds
   };

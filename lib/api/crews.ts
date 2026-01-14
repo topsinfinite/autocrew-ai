@@ -131,10 +131,11 @@ export async function updateCrew(
 }
 
 /**
- * Update crew configuration (support_email, support_client_name, allowed_domain)
+ * Update crew configuration (support_email, support_client_name, agent_name, allowed_domain)
  * @param id - Crew ID
  * @param supportEmail - Support email address
  * @param supportClientName - Support client name
+ * @param agentName - AI agent display name
  * @param allowedDomain - Allowed domain for chatbot embedding
  * @returns Promise<Crew>
  */
@@ -142,6 +143,7 @@ export async function updateCrewConfig(
   id: string,
   supportEmail: string,
   supportClientName: string,
+  agentName: string,
   allowedDomain: string
 ): Promise<Crew> {
   const response = await fetch(`${API_BASE}/${id}/config`, {
@@ -149,7 +151,7 @@ export async function updateCrewConfig(
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ supportEmail, supportClientName, allowedDomain }),
+    body: JSON.stringify({ supportEmail, supportClientName, agentName, allowedDomain }),
   });
 
   const result: ApiResponse<Crew> = await response.json();

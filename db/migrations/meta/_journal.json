@@ -50,6 +50,13 @@
       "when": 1767748084419,
       "tag": "0006_empty_harry_osborn",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1768321251206,
+      "tag": "0007_furry_king_bedlam",
+      "breakpoints": true
     }
   ]
 }

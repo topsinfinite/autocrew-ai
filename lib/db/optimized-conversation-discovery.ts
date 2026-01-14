@@ -309,13 +309,14 @@ export async function discoverCrewConversationsOptimized(
           const sentiment = analyzeSentiment(transcript);
           const customerEmail = extractCustomerEmail(transcript);
 
-          // Insert conversation record
+          // Insert conversation record with 'pending' status
           await db.insert(conversations).values({
             sessionId,
             clientId,
             crewId,
             customerEmail,
             sentiment,
+            status: 'pending',
             duration,
             resolved: false,
           });
@@ -326,6 +327,7 @@ export async function discoverCrewConversationsOptimized(
             sessionId,
             crewId,
             clientId,
+            status: 'pending',
             operation: 'discover_crew_conversations_optimized',
           });
         } catch (error: any) {
@@ -343,6 +345,29 @@ export async function discoverCrewConversationsOptimized(
           }
         }
       }
+    }
+
+    // Step 5: Mark all pending conversations as completed for this crew
+    // This indicates all session IDs in the history table have been processed
+    if (newCount > 0) {
+      const completedResult = await db
+        .update(conversations)
+        .set({
+          status: 'completed',
+          updatedAt: new Date(),
+        })
+        .where(
+          and(
+            eq(conversations.crewId, crewId),
+            eq(conversations.status, 'pending')
+          )
+        );
+
+      await logger.info('Marked pending conversations as completed', {
+        crewId,
+        conversationsCompleted: newCount,
+        operation: 'discover_crew_conversations_optimized',
+      });
     }
 
     await logger.info('Optimized crew discovery completed', {

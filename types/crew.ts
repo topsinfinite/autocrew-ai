@@ -37,6 +37,7 @@ export interface CrewConfig {
   metadata?: {
     support_email?: string;
     support_client_name?: string;
+    agent_name?: string;
     allowed_domain?: string;
     origin_hash?: string;
     [key: string]: unknown;
