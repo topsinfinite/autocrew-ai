@@ -22,12 +22,17 @@ import { getClient, getCrews, getOrganizationUsers, getConversations } from "@/l
 
 async function getClientWithData(id: string) {
   try {
+    console.log(`[ClientDetails] Fetching client with ID: ${id}`);
+
     // Use DAL to fetch client (auth check handled in DAL)
     const client = await getClient(id)
 
     if (!client) {
+      console.log(`[ClientDetails] Client not found for ID: ${id}`);
       return null
     }
+
+    console.log(`[ClientDetails] Client found: ${client.companyName} (${client.clientCode})`);
 
     // Use DAL to fetch related data (auth checks handled in DAL)
     const [clientCrews, users, clientConversations, clientMembers] = await Promise.all([
@@ -45,7 +50,7 @@ async function getClientWithData(id: string) {
       conversations: clientConversations,
     }
   } catch (error) {
-    console.error('Error fetching client:', error)
+    console.error(`[ClientDetails] Error fetching client with ID ${id}:`, error)
     return null
   }
 }
