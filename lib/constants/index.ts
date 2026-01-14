@@ -153,7 +153,7 @@ export const WIDGET_DEFAULTS = {
   WELCOME_MESSAGE: 'Hi! How can I help you today?',
 } as const;
 
-export const WIDGET_SCRIPT_URL = 'https://widget.autocrew.ai/widget.js';
+export const WIDGET_SCRIPT_URL = 'https://autocrew-saas.vercel.app/widget.js';
 
 export const WIDGET_POSITIONS = {
   BOTTOM_RIGHT: 'bottom-right',

@@ -14,7 +14,7 @@ Add this code to your website before the closing `</body>` tag:
     clientId: 'YOUR_CLIENT_ID',
   };
 </script>
-<script src="https://widget.autocrew.ai/widget.js" async></script>
+<script src="https://autocrew-saas.vercel.app/widget.js" async></script>
 ```
 
 ## Configuration Options
@@ -82,7 +82,7 @@ metadata: {
     greetingDelay: 3000,
   };
 </script>
-<script src="https://widget.autocrew.ai/widget.js" async></script>
+<script src="https://autocrew-saas.vercel.app/widget.js" async></script>
 ```
 
 ## Development
