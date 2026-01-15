@@ -10,7 +10,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "npm run db:migrate && next build",
+    "build": "npm run db:migrate && npm run widget:build && next build",
+    "widget:build": "cd widget && npm install && npm run build && cp dist/widget.js ../public/widget.js",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
