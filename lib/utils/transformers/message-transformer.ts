@@ -16,6 +16,35 @@ interface HistoriesRow {
 }
 
 /**
+ * Patterns that indicate a tool calling message (internal AI operations)
+ * These should be filtered out from user-visible transcripts
+ */
+const TOOL_CALL_PATTERNS = [
+  /^Calling Knowledge Base with input/i,
+  /^\[?\{"response":\[?\{"type":"text","text":"\{\\"pageContent/,
+  /^Calling tool:/i,
+  /^Tool response:/i,
+  /^\[?\{"tool_calls":/,
+  /^I need to search/i,
+  /^Let me search/i,
+  /^Searching the knowledge base/i,
+  /^\[Used tools: Tool/i,
+];
+
+/**
+ * Check if a message is a tool calling message (internal AI operation)
+ * These messages should be filtered out from user-visible transcripts
+ */
+export function isToolCallMessage(content: string): boolean {
+  if (!content || typeof content !== 'string') return false;
+
+  const trimmedContent = content.trim();
+
+  // Check against known tool call patterns
+  return TOOL_CALL_PATTERNS.some(pattern => pattern.test(trimmedContent));
+}
+
+/**
  * Transform n8n message to ConversationMessage
  * Maps: 'human' -> 'user', 'ai' -> 'assistant'
  */
@@ -32,11 +61,19 @@ export function transformN8nMessage(
 
 /**
  * Transform histories rows to transcript
+ * Filters out tool calling messages (internal AI operations)
  */
 export function transformHistoriesToTranscript(
   rows: HistoriesRow[]
 ): ConversationMessage[] {
   return rows
+    .filter((row) => {
+      // Filter out tool calling messages
+      if (row.message?.content && isToolCallMessage(row.message.content)) {
+        return false;
+      }
+      return true;
+    })
     .map((row) => {
       // Convert string timestamp to Date if needed
       const timestamp = typeof row.created_at === 'string'
