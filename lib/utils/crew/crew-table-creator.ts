@@ -100,21 +100,45 @@ export async function createHistoriesTable(tableName: string): Promise<void> {
 
 /**
  * Drop a table with safety checks
- * - Validates table name matches expected pattern
+ * - Validates table name for SQL injection prevention
  * - Uses CASCADE to drop dependent objects
  * - Logs the operation
  *
- * Safety: Only drops tables matching the crew table naming pattern
+ * Safety: Only drops tables matching crew table patterns
+ * Supports both old format (no prefix) and new format (__ prefix)
  */
 export async function dropTable(tableName: string): Promise<void> {
   try {
-    // Validate table name to prevent SQL injection
-    const sanitized = sanitizeTableName(tableName);
+    // Basic validation to prevent SQL injection
+    if (!tableName || typeof tableName !== 'string') {
+      console.error(`Invalid table name: ${tableName}`);
+      return;
+    }
+
+    // Check max length (PostgreSQL limit: 63 characters)
+    if (tableName.length > 63) {
+      console.error(`Table name exceeds PostgreSQL limit: ${tableName}`);
+      return;
+    }
+
+    // Only allow alphanumeric and underscores (basic SQL injection prevention)
+    // Supports both old format (no prefix) and new format (__ prefix)
+    const safePattern = /^_?_?[a-z0-9_]+$/;
+    if (!safePattern.test(tableName)) {
+      console.error(`Invalid characters in table name: ${tableName}`);
+      return;
+    }
+
+    // Must contain crew table identifiers (vector or histories) to prevent accidental drops
+    if (!tableName.includes('vector') && !tableName.includes('histories')) {
+      console.error(`Refusing to drop non-crew table: ${tableName}`);
+      return;
+    }
 
     // Drop table with CASCADE to remove indexes and constraints
-    await db.execute(sql.raw(`DROP TABLE IF EXISTS ${sanitized} CASCADE`));
+    await db.execute(sql.raw(`DROP TABLE IF EXISTS "${tableName}" CASCADE`));
 
-    console.log(`✓ Dropped table: ${sanitized}`);
+    console.log(`✓ Dropped table: ${tableName}`);
   } catch (error) {
     // Log error but don't throw - allow cleanup to continue
     console.error(`Failed to drop table ${tableName}:`, error);
