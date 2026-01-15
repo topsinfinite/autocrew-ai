@@ -330,9 +330,9 @@ export function AdminCrewsClient({
 
       {/* Create Crew Dialog */}
       <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-        <DialogContent className="max-w-2xl p-0">
+        <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col p-0">
           {/* Elegant Header with Gradient */}
-          <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50">
+          <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 px-6 pt-6 pb-4 border-b border-border/50 flex-shrink-0">
             <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,transparent,white)]" />
             <DialogHeader className="relative">
               <div className="flex items-center gap-3">
@@ -349,7 +349,7 @@ export function AdminCrewsClient({
             </DialogHeader>
           </div>
 
-          <div className="p-6 space-y-6">
+          <div className="p-6 space-y-6 overflow-y-auto flex-1">
             {error && (
               <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-xl">
                 <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0" />
@@ -497,7 +497,7 @@ export function AdminCrewsClient({
           </div>
 
           {/* Footer */}
-          <div className="px-6 py-4 bg-muted/30 border-t border-border/50">
+          <div className="px-6 py-4 bg-muted/30 border-t border-border/50 flex-shrink-0">
             <div className="flex items-center justify-end gap-3">
               <Button
                 variant="outline"
