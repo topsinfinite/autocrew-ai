@@ -2,7 +2,7 @@
  * Main AutoCrew Widget Class
  */
 
-import type { AutoCrewConfig, WidgetState, Message, ChatMetadata } from './types';
+import type { AutoCrewConfig, WidgetState, Message, ChatMetadata, SuggestedAction } from './types';
 import { WIDGET_DEFAULTS } from './types';
 import { generateStyles } from './styles';
 import { createChatButton, updateChatButton } from './components/chat-button';
@@ -10,10 +10,12 @@ import { createChatWindow, updateChatWindow, ChatWindowElements } from './compon
 import { renderMessages, appendMessage } from './components/message-bubble';
 import { showTypingIndicator, hideTypingIndicator } from './components/typing-indicator';
 import { createGreetingBubble, removeGreetingBubble } from './components/greeting-bubble';
+import { createSuggestedActions, SuggestedActionsElements } from './components/suggested-actions';
 import { sendMessageWithRetry } from './services/api';
 import {
   getOrCreateSession,
   addMessageToSession,
+  clearSession,
   isFirstVisit,
   markAsVisited,
 } from './services/storage';
@@ -21,9 +23,11 @@ import { generateMessageId } from './utils/session';
 import { scrollToBottom } from './utils/dom';
 
 export class AutoCrewWidget {
-  private config: Required<Omit<AutoCrewConfig, 'metadata' | 'agentName'>> & {
+  private config: Required<Omit<AutoCrewConfig, 'metadata' | 'agentName' | 'suggestedActions' | 'disclaimer'>> & {
     metadata: ChatMetadata;
     agentName: string;
+    suggestedActions: SuggestedAction[];
+    disclaimer: string;
   };
   private container: HTMLElement;
   private shadowRoot: ShadowRoot;
@@ -34,6 +38,8 @@ export class AutoCrewWidget {
   private windowElements: ChatWindowElements | null = null;
   private greetingBubble: HTMLElement | null = null;
   private typingIndicator: HTMLElement | null = null;
+  private suggestedActionsEl: SuggestedActionsElements | null = null;
+  private hasInteracted: boolean = false;
 
   constructor(config: AutoCrewConfig) {
     // Build metadata (use provided or generate from crewCode/clientId)
@@ -61,6 +67,8 @@ export class AutoCrewWidget {
       welcomeMessage: config.welcomeMessage || WIDGET_DEFAULTS.WELCOME_MESSAGE,
       firstLaunchAction: config.firstLaunchAction || WIDGET_DEFAULTS.FIRST_LAUNCH_ACTION,
       greetingDelay: config.greetingDelay ?? WIDGET_DEFAULTS.GREETING_DELAY,
+      suggestedActions: config.suggestedActions || WIDGET_DEFAULTS.SUGGESTED_ACTIONS,
+      disclaimer: config.disclaimer || WIDGET_DEFAULTS.DISCLAIMER,
     };
 
     // Load or create session
@@ -117,6 +125,7 @@ export class AutoCrewWidget {
       {
         onClose: () => this.close(),
         onSend: (message) => this.handleSendMessage(message),
+        onNewChat: () => this.handleNewChat(),
       }
     );
 
@@ -134,6 +143,24 @@ export class AutoCrewWidget {
 
     // Render existing messages
     renderMessages(this.windowElements.messagesContainer, this.state.messages);
+
+    // Create suggested actions if configured and no previous interaction
+    if (this.config.suggestedActions.length > 0 && !this.hasInteracted) {
+      this.suggestedActionsEl = createSuggestedActions(
+        this.config.suggestedActions,
+        {
+          onActionClick: (action) => this.handleActionClick(action),
+        }
+      );
+      this.windowElements.actionsContainer.appendChild(this.suggestedActionsEl.container);
+    }
+
+    // Add disclaimer if configured
+    if (this.config.disclaimer) {
+      const disclaimerText = document.createElement('p');
+      disclaimerText.textContent = this.config.disclaimer;
+      this.windowElements.disclaimerContainer.appendChild(disclaimerText);
+    }
 
     // Append to shadow DOM
     this.shadowRoot.appendChild(this.button);
@@ -274,10 +301,79 @@ export class AutoCrewWidget {
   }
 
   /**
+   * Handle suggested action click
+   */
+  private handleActionClick(action: SuggestedAction): void {
+    // Hide actions after click
+    this.hideSuggestedActions();
+    // Send the action's message
+    this.handleSendMessage(action.message);
+  }
+
+  /**
+   * Hide suggested actions
+   */
+  private hideSuggestedActions(): void {
+    if (this.suggestedActionsEl) {
+      this.suggestedActionsEl.hide();
+      this.hasInteracted = true;
+    }
+  }
+
+  /**
+   * Handle starting a new chat (clear history and reset)
+   */
+  private handleNewChat(): void {
+    // Clear stored session
+    clearSession(this.config.crewCode);
+
+    // Reset state
+    this.state.messages = [];
+    this.state.sessionId = getOrCreateSession(this.config.crewCode).sessionId;
+    this.hasInteracted = false;
+
+    // Re-add welcome message
+    if (this.config.welcomeMessage) {
+      const welcomeMessage: Message = {
+        id: generateMessageId(),
+        role: 'assistant',
+        content: this.config.welcomeMessage,
+        timestamp: Date.now(),
+      };
+      this.state.messages.push(welcomeMessage);
+      addMessageToSession(this.config.crewCode, welcomeMessage);
+    }
+
+    // Re-render messages (clears old, shows welcome)
+    if (this.windowElements) {
+      this.windowElements.messagesContainer.innerHTML = '';
+      renderMessages(this.windowElements.messagesContainer, this.state.messages);
+
+      // Clear and re-show suggested actions if configured
+      this.windowElements.actionsContainer.innerHTML = '';
+      if (this.config.suggestedActions.length > 0) {
+        this.suggestedActionsEl = createSuggestedActions(
+          this.config.suggestedActions,
+          {
+            onActionClick: (action) => this.handleActionClick(action),
+          }
+        );
+        this.windowElements.actionsContainer.appendChild(this.suggestedActionsEl.container);
+      }
+
+      // Scroll to top
+      this.windowElements.messagesContainer.scrollTop = 0;
+    }
+  }
+
+  /**
    * Handle sending a message
    */
   private async handleSendMessage(content: string): Promise<void> {
     if (!content.trim() || this.state.isLoading) return;
+
+    // Hide suggested actions after first user message
+    this.hideSuggestedActions();
 
     // Add user message
     const userMessage: Message = {

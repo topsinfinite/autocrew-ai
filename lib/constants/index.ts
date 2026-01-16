@@ -151,6 +151,10 @@ export const WIDGET_DEFAULTS = {
   TITLE: 'Chat with us',
   SUBTITLE: '',
   WELCOME_MESSAGE: 'Hi! How can I help you today?',
+  SUGGESTED_ACTIONS: [] as { label: string; message: string }[],
+  MAX_SUGGESTED_ACTIONS: 4,
+  DISCLAIMER: '',
+  DEFAULT_DISCLAIMER: 'Responses are AI-generated and should be verified. Conversations may be recorded for quality and training purposes.',
 } as const;
 
 export const WIDGET_SCRIPT_URL = 'https://autocrew-saas.vercel.app/widget.js';

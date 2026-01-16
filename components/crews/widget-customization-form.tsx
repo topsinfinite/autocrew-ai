@@ -18,8 +18,12 @@ import {
   Type,
   Sparkles,
   Save,
+  Zap,
+  Plus,
+  Trash2,
+  ShieldAlert,
 } from "lucide-react";
-import type { WidgetSettings } from "@/types";
+import type { WidgetSettings, SuggestedAction } from "@/types";
 import { WIDGET_DEFAULTS } from "@/lib/constants";
 import { WidgetPreview } from "./widget-preview";
 
@@ -258,6 +262,140 @@ export function WidgetCustomizationForm({
               </div>
             </div>
           )}
+        </div>
+
+        {/* Quick Actions Section */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 pb-2 border-b border-border">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <Zap className="h-4 w-4 text-primary" />
+            </div>
+            <h4 className="font-semibold text-foreground">Quick Actions</h4>
+          </div>
+
+          <p className="text-xs text-muted-foreground">
+            Add buttons that appear when the chat opens. Clicking sends the
+            associated message automatically.
+          </p>
+
+          {/* Existing Actions */}
+          <div className="space-y-3">
+            {(settings.suggestedActions || []).map((action, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-2 p-3 bg-muted/50 rounded-lg border border-border"
+              >
+                <div className="flex-1 space-y-2">
+                  <Input
+                    value={action.label}
+                    onChange={(e) => {
+                      const newActions = [...(settings.suggestedActions || [])];
+                      newActions[index] = { ...action, label: e.target.value };
+                      updateSetting("suggestedActions", newActions);
+                    }}
+                    placeholder="Button label"
+                    maxLength={30}
+                    className="h-9 text-sm"
+                  />
+                  <Input
+                    value={action.message}
+                    onChange={(e) => {
+                      const newActions = [...(settings.suggestedActions || [])];
+                      newActions[index] = { ...action, message: e.target.value };
+                      updateSetting("suggestedActions", newActions);
+                    }}
+                    placeholder="Message to send"
+                    maxLength={200}
+                    className="h-9 text-sm"
+                  />
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 text-muted-foreground hover:text-destructive"
+                  onClick={() => {
+                    const newActions = (settings.suggestedActions || []).filter(
+                      (_, i) => i !== index
+                    );
+                    updateSetting("suggestedActions", newActions);
+                  }}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+
+          {/* Add Action Button */}
+          {(settings.suggestedActions?.length || 0) <
+            WIDGET_DEFAULTS.MAX_SUGGESTED_ACTIONS && (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full gap-2"
+              onClick={() => {
+                const newAction: SuggestedAction = { label: "", message: "" };
+                const newActions = [...(settings.suggestedActions || []), newAction];
+                updateSetting("suggestedActions", newActions);
+              }}
+            >
+              <Plus className="h-4 w-4" />
+              Add Quick Action
+            </Button>
+          )}
+
+          {(settings.suggestedActions?.length || 0) >=
+            WIDGET_DEFAULTS.MAX_SUGGESTED_ACTIONS && (
+            <p className="text-xs text-muted-foreground text-center">
+              Maximum {WIDGET_DEFAULTS.MAX_SUGGESTED_ACTIONS} quick actions
+              allowed
+            </p>
+          )}
+        </div>
+
+        {/* Disclaimer Section */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 pb-2 border-b border-border">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <ShieldAlert className="h-4 w-4 text-primary" />
+            </div>
+            <h4 className="font-semibold text-foreground">Disclaimer</h4>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="disclaimer" className="text-sm font-medium">
+              Disclaimer Text
+            </Label>
+            <Textarea
+              id="disclaimer"
+              value={settings.disclaimer || ""}
+              onChange={(e) => updateSetting("disclaimer", e.target.value)}
+              placeholder={WIDGET_DEFAULTS.DEFAULT_DISCLAIMER}
+              maxLength={300}
+              rows={3}
+              className="resize-none text-sm"
+            />
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-muted-foreground">
+                Shown above the input field. Leave empty to hide.
+              </p>
+              {!settings.disclaimer && (
+                <Button
+                  type="button"
+                  variant="link"
+                  size="sm"
+                  className="h-auto p-0 text-xs"
+                  onClick={() =>
+                    updateSetting("disclaimer", WIDGET_DEFAULTS.DEFAULT_DISCLAIMER)
+                  }
+                >
+                  Use default
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Save Button */}

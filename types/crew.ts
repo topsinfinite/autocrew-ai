@@ -8,6 +8,12 @@ export type WidgetPosition = "bottom-right" | "bottom-left";
 export type WidgetTheme = "light" | "dark" | "auto";
 export type FirstLaunchAction = "none" | "auto-open" | "show-greeting";
 
+// Suggested action for quick actions in chat widget
+export interface SuggestedAction {
+  label: string;   // Button text displayed to user
+  message: string; // Message sent when button is clicked
+}
+
 export interface WidgetSettings {
   // Appearance
   primaryColor?: string; // Hex color e.g., "#0891b2"
@@ -22,6 +28,12 @@ export interface WidgetSettings {
   welcomeMessage?: string; // First message from bot
   firstLaunchAction?: FirstLaunchAction; // Default: 'none'
   greetingDelay?: number; // ms before showing greeting bubble
+
+  // Quick actions
+  suggestedActions?: SuggestedAction[]; // Quick action buttons shown on first open
+
+  // Disclaimer
+  disclaimer?: string; // Disclaimer text shown above input
 }
 
 // Activation wizard step state
