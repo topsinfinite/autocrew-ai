@@ -18,14 +18,24 @@ const SEND_ICON = `
   </svg>
 `;
 
+// New chat icon SVG (refresh/restart)
+const NEW_CHAT_ICON = `
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+  </svg>
+`;
+
 export interface ChatWindowCallbacks {
   onClose: () => void;
   onSend: (message: string) => void;
+  onNewChat: () => void;
 }
 
 export interface ChatWindowElements {
   window: HTMLElement;
   messagesContainer: HTMLElement;
+  actionsContainer: HTMLElement;
+  disclaimerContainer: HTMLElement;
   input: HTMLTextAreaElement;
   sendButton: HTMLButtonElement;
 }
@@ -53,6 +63,17 @@ export function createChatWindow(
     headerContent.appendChild(subtitleEl);
   }
 
+  // Header buttons container
+  const headerButtons = createElement('div', { className: 'ac-header-buttons' });
+
+  const newChatBtn = createElement('button', {
+    className: 'ac-new-chat-btn',
+    'aria-label': 'Start new chat',
+    title: 'Start new chat',
+  });
+  newChatBtn.innerHTML = NEW_CHAT_ICON;
+  newChatBtn.addEventListener('click', callbacks.onNewChat);
+
   const closeBtn = createElement('button', {
     className: 'ac-close-btn',
     'aria-label': 'Close chat',
@@ -60,8 +81,11 @@ export function createChatWindow(
   closeBtn.innerHTML = CLOSE_ICON;
   closeBtn.addEventListener('click', callbacks.onClose);
 
+  headerButtons.appendChild(newChatBtn);
+  headerButtons.appendChild(closeBtn);
+
   header.appendChild(headerContent);
-  header.appendChild(closeBtn);
+  header.appendChild(headerButtons);
 
   // Messages container
   const messagesContainer = createElement('div', {
@@ -69,6 +93,16 @@ export function createChatWindow(
     role: 'log',
     'aria-live': 'polite',
     'aria-label': 'Chat messages',
+  });
+
+  // Actions container (for suggested action buttons)
+  const actionsContainer = createElement('div', {
+    className: 'ac-actions-wrapper',
+  });
+
+  // Disclaimer container
+  const disclaimerContainer = createElement('div', {
+    className: 'ac-disclaimer',
   });
 
   // Input area
@@ -123,6 +157,8 @@ export function createChatWindow(
   // Assemble window
   windowEl.appendChild(header);
   windowEl.appendChild(messagesContainer);
+  windowEl.appendChild(actionsContainer);
+  windowEl.appendChild(disclaimerContainer);
   windowEl.appendChild(inputArea);
 
   // Handle Escape key
@@ -135,6 +171,8 @@ export function createChatWindow(
   return {
     window: windowEl,
     messagesContainer,
+    actionsContainer,
+    disclaimerContainer,
     input: input as HTMLTextAreaElement,
     sendButton: sendButton,
   };

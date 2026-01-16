@@ -138,6 +138,13 @@ export function generateStyles(
       margin: 0;
     }
 
+    .ac-header-buttons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ac-new-chat-btn,
     .ac-close-btn {
       background: transparent;
       border: none;
@@ -150,14 +157,21 @@ export function generateStyles(
       transition: background 0.2s ease;
     }
 
+    .ac-new-chat-btn:hover,
     .ac-close-btn:hover {
       background: rgba(255, 255, 255, 0.2);
     }
 
+    .ac-new-chat-btn svg,
     .ac-close-btn svg {
       width: 20px;
       height: 20px;
       fill: var(--ac-primary-text);
+    }
+
+    .ac-new-chat-btn svg {
+      width: 18px;
+      height: 18px;
     }
 
     /* Messages Area */
@@ -256,6 +270,68 @@ export function generateStyles(
     @keyframes typingBounce {
       0%, 60%, 100% { transform: translateY(0); }
       30% { transform: translateY(-6px); }
+    }
+
+    /* Actions Wrapper */
+    .ac-actions-wrapper {
+      flex-shrink: 0;
+    }
+
+    /* Suggested Actions */
+    .ac-suggested-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--ac-bg-secondary);
+      border-top: 1px solid var(--ac-border);
+    }
+
+    .ac-action-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--ac-border);
+      background: var(--ac-bg);
+      color: var(--ac-text);
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .ac-action-btn:hover {
+      border-color: var(--ac-primary);
+      color: var(--ac-primary);
+      background: var(--ac-bg);
+    }
+
+    .ac-action-btn:focus {
+      outline: 2px solid var(--ac-primary);
+      outline-offset: 2px;
+    }
+
+    .ac-action-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Disclaimer */
+    .ac-disclaimer {
+      padding: 8px 16px;
+      background: var(--ac-bg-secondary);
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .ac-disclaimer:empty {
+      display: none;
+    }
+
+    .ac-disclaimer p {
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--ac-text-muted);
+      margin: 0;
     }
 
     /* Input Area */

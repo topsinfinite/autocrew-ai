@@ -56,6 +56,11 @@
     <h2>Test Scenarios</h2>
     <ul>
       <li>Click the chat button to open/close the widget</li>
+      <li><strong>Quick Actions:</strong> Verify action buttons appear below welcome message</li>
+      <li><strong>Quick Actions:</strong> Click an action button - it should send the message and hide buttons</li>
+      <li><strong>New Chat:</strong> Click the refresh icon in header to start a new chat</li>
+      <li><strong>Session:</strong> Close browser and reopen within 4 hours - chat should persist</li>
+      <li>Check the disclaimer text appears above the input field</li>
       <li>Try sending a message (will show error without valid webhook)</li>
       <li>Check the greeting bubble behavior (refresh with different <code>firstLaunchAction</code>)</li>
       <li>Test keyboard navigation (Tab, Escape)</li>
@@ -78,6 +83,8 @@
       <li><code>position</code>: "bottom-left" or "bottom-right"</li>
       <li><code>theme</code>: "light", "dark", or "auto"</li>
       <li><code>firstLaunchAction</code>: "none", "auto-open", or "show-greeting"</li>
+      <li><code>suggestedActions</code>: Array of {label, message} for quick action buttons (max 4)</li>
+      <li><code>disclaimer</code>: Text shown above input field (leave empty to hide)</li>
     </ul>
   </div>
 
@@ -88,14 +95,6 @@
       webhookUrl: 'http://localhost:5678/webhook/a99cff22-936a-4c82-90e1-f24a34ea8e6d/chat',
       crewCode: 'HARVEST-001-SUP-001',
       clientId: 'HARVEST-001',
-
-      // n8n Chat Trigger metadata (optional - auto-generated if not provided)
-      // metadata: {
-      //   client_id: 'HARVEST-001',
-      //   crew_code: 'HARVEST-001-SUP-001',
-      //   agent_name: 'Lora',
-      //   environment: 'production'
-      // },
 
       // Appearance
       primaryColor: '#0891b2',
@@ -110,6 +109,17 @@
       // Behavior
       firstLaunchAction: 'show-greeting',
       greetingDelay: 2000,
+
+      // Quick Actions (shown on first open)
+      suggestedActions: [
+        { label: 'What can you help with?', message: 'What can you help me with?' },
+        { label: 'Pricing info', message: 'Tell me about your pricing plans' },
+        { label: 'Book a demo', message: 'I would like to book a demo' },
+        { label: 'Contact support', message: 'I need to speak with a human' },
+      ],
+
+      // Disclaimer
+      disclaimer: 'Responses are AI-generated and should be verified. Conversations may be recorded for quality purposes.',
     };
 
     // Display config on page

@@ -10,6 +10,14 @@ export interface ChatMetadata {
 }
 
 /**
+ * Suggested action button configuration
+ */
+export interface SuggestedAction {
+  label: string;   // Button text displayed to user
+  message: string; // Message sent when button is clicked
+}
+
+/**
  * AutoCrew Widget Configuration
  * Read from window.AutoCrewConfig
  */
@@ -36,6 +44,12 @@ export interface AutoCrewConfig {
   // Behavior (optional)
   firstLaunchAction?: FirstLaunchAction;
   greetingDelay?: number;
+
+  // Quick actions (optional)
+  suggestedActions?: SuggestedAction[];
+
+  // Disclaimer (optional)
+  disclaimer?: string;
 }
 
 export type WidgetPosition = 'bottom-right' | 'bottom-left';
@@ -102,7 +116,9 @@ export const WIDGET_DEFAULTS = {
   WELCOME_MESSAGE: 'Hi! How can I help you today?',
   FIRST_LAUNCH_ACTION: 'none' as FirstLaunchAction,
   GREETING_DELAY: 3000,
-  SESSION_MAX_AGE: 24 * 60 * 60 * 1000, // 24 hours
+  SUGGESTED_ACTIONS: [] as SuggestedAction[],
+  DISCLAIMER: '',
+  SESSION_MAX_AGE: 4 * 60 * 60 * 1000, // 4 hours
   MESSAGE_DEBOUNCE: 500,
 } as const;
 

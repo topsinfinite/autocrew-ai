@@ -30,7 +30,7 @@ export function WordPressIntegration({
 
   // Generate the JavaScript config object
   const generateConfigObject = () => {
-    const config = {
+    const config: Record<string, unknown> = {
       webhookUrl: crew.webhookUrl,
       crewCode: crew.crewCode,
       clientId: crew.clientId,
@@ -44,6 +44,21 @@ export function WordPressIntegration({
       greetingDelay: widgetSettings.greetingDelay || WIDGET_DEFAULTS.GREETING_DELAY,
     };
 
+    // Add suggested actions if configured
+    if (widgetSettings.suggestedActions && widgetSettings.suggestedActions.length > 0) {
+      const validActions = widgetSettings.suggestedActions.filter(
+        (a) => a.label.trim() && a.message.trim()
+      );
+      if (validActions.length > 0) {
+        config.suggestedActions = validActions;
+      }
+    }
+
+    // Add disclaimer if configured
+    if (widgetSettings.disclaimer) {
+      config.disclaimer = widgetSettings.disclaimer;
+    }
+
     return JSON.stringify(config, null, 4);
   };
 
@@ -56,6 +71,20 @@ export function WordPressIntegration({
   window.AutoCrewConfig = ${generateConfigObject().replace(/\n/g, '\n  ')};
 </script>
 <script src="${WIDGET_SCRIPT_URL}" async></script>`;
+
+  // Generate suggested actions PHP array
+  const generateSuggestedActionsPHP = () => {
+    if (!widgetSettings.suggestedActions || widgetSettings.suggestedActions.length === 0) {
+      return null;
+    }
+    const validActions = widgetSettings.suggestedActions.filter(
+      (a) => a.label.trim() && a.message.trim()
+    );
+    if (validActions.length === 0) return null;
+    return JSON.stringify(validActions);
+  };
+
+  const suggestedActionsPHP = generateSuggestedActionsPHP();
 
   // Theme method code (PHP)
   const themeCode = `<?php
@@ -77,7 +106,9 @@ function autocrew_enqueue_widget() {
         subtitle: <?php echo json_encode('${widgetSettings.widgetSubtitle || WIDGET_DEFAULTS.SUBTITLE}'); ?>,
         welcomeMessage: <?php echo json_encode('${widgetSettings.welcomeMessage || WIDGET_DEFAULTS.WELCOME_MESSAGE}'); ?>,
         firstLaunchAction: '${widgetSettings.firstLaunchAction || WIDGET_DEFAULTS.FIRST_LAUNCH_ACTION}',
-        greetingDelay: ${widgetSettings.greetingDelay || WIDGET_DEFAULTS.GREETING_DELAY}
+        greetingDelay: ${widgetSettings.greetingDelay || WIDGET_DEFAULTS.GREETING_DELAY}${suggestedActionsPHP ? `,
+        suggestedActions: ${suggestedActionsPHP}` : ''}${widgetSettings.disclaimer ? `,
+        disclaimer: <?php echo json_encode('${widgetSettings.disclaimer}'); ?>` : ''}
       };
     </script>
     <script src="${WIDGET_SCRIPT_URL}" async></script>

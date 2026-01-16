@@ -234,7 +234,7 @@ export default function CrewsPage() {
 
   // Generate integration code snippet with widget settings
   const generateIntegrationCode = (crew: Crew, settings: WidgetSettings): string => {
-    const config = {
+    const config: Record<string, unknown> = {
       webhookUrl: crew.webhookUrl,
       crewCode: crew.crewCode,
       clientId: crew.clientId,
@@ -247,6 +247,21 @@ export default function CrewsPage() {
       firstLaunchAction: settings.firstLaunchAction || WIDGET_DEFAULTS.FIRST_LAUNCH_ACTION,
       greetingDelay: settings.greetingDelay || WIDGET_DEFAULTS.GREETING_DELAY,
     };
+
+    // Add suggested actions if configured (filter out empty ones)
+    if (settings.suggestedActions && settings.suggestedActions.length > 0) {
+      const validActions = settings.suggestedActions.filter(
+        (a) => a.label.trim() && a.message.trim()
+      );
+      if (validActions.length > 0) {
+        config.suggestedActions = validActions;
+      }
+    }
+
+    // Add disclaimer if configured
+    if (settings.disclaimer) {
+      config.disclaimer = settings.disclaimer;
+    }
 
     return `<!-- AutoCrew Chat Widget -->
 <script>

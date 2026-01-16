@@ -19,6 +19,8 @@ export function WidgetPreview({ settings, crewName }: WidgetPreviewProps) {
       welcomeMessage: settings.welcomeMessage || WIDGET_DEFAULTS.WELCOME_MESSAGE,
       position: settings.position || WIDGET_DEFAULTS.POSITION,
       theme: settings.theme || WIDGET_DEFAULTS.THEME,
+      suggestedActions: settings.suggestedActions || [],
+      disclaimer: settings.disclaimer || "",
     }),
     [settings]
   );
@@ -130,6 +132,28 @@ export function WidgetPreview({ settings, crewName }: WidgetPreviewProps) {
                   </div>
                 </div>
 
+                {/* Quick Actions */}
+                {config.suggestedActions.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {config.suggestedActions
+                      .filter((a) => a.label.trim())
+                      .slice(0, 4)
+                      .map((action, idx) => (
+                        <button
+                          key={idx}
+                          className="px-2.5 py-1 text-[10px] rounded-full transition-colors"
+                          style={{
+                            backgroundColor: themeColors.bg,
+                            color: themeColors.text,
+                            border: `1px solid ${themeColors.border}`,
+                          }}
+                        >
+                          {action.label}
+                        </button>
+                      ))}
+                  </div>
+                )}
+
                 {/* User Message */}
                 <div className="flex justify-end">
                   <div
@@ -140,6 +164,21 @@ export function WidgetPreview({ settings, crewName }: WidgetPreviewProps) {
                   </div>
                 </div>
               </div>
+
+              {/* Disclaimer */}
+              {config.disclaimer && (
+                <div
+                  className="px-3 py-2 text-center"
+                  style={{ backgroundColor: themeColors.bgSecondary }}
+                >
+                  <p
+                    className="text-[9px] leading-tight"
+                    style={{ color: themeColors.textMuted }}
+                  >
+                    {config.disclaimer}
+                  </p>
+                </div>
+              )}
 
               {/* Input */}
               <div
