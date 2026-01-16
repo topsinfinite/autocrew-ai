@@ -900,9 +900,13 @@ export default function CrewsPage() {
                         )}
                       </Button>
                     </div>
-                    <div className="relative group">
+                    <div
+                      className="relative group cursor-pointer"
+                      onClick={() => handleCopyCode(selectedCrew)}
+                      title="Click to copy"
+                    >
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="relative rounded-xl bg-slate-950 dark:bg-slate-900/80 border border-slate-800/50 overflow-hidden">
+                      <div className="relative rounded-xl bg-slate-950 dark:bg-slate-900/80 border border-slate-800/50 overflow-hidden group-hover:border-primary/30 transition-colors">
                         <div className="flex items-center justify-between px-4 py-2 bg-slate-900/50 border-b border-slate-800/50">
                           <div className="flex items-center gap-2">
                             <div className="flex gap-1.5">
@@ -912,6 +916,10 @@ export default function CrewsPage() {
                             </div>
                             <span className="text-xs text-slate-500 ml-2 font-mono">index.html</span>
                           </div>
+                          <span className="text-xs text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                            <Copy className="h-3 w-3" />
+                            Click to copy
+                          </span>
                         </div>
                         <pre className="p-4 text-sm text-slate-300 overflow-x-auto">
                           <code className="font-mono text-[13px] leading-relaxed">{generateIntegrationCode(selectedCrew, widgetSettings)}</code>
