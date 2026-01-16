@@ -921,7 +921,7 @@ export default function CrewsPage() {
                             Click to copy
                           </span>
                         </div>
-                        <pre className="p-4 text-sm text-slate-300 overflow-x-auto">
+                        <pre className="p-4 text-sm text-slate-300 whitespace-pre-wrap break-words">
                           <code className="font-mono text-[13px] leading-relaxed">{generateIntegrationCode(selectedCrew, widgetSettings)}</code>
                         </pre>
                       </div>
