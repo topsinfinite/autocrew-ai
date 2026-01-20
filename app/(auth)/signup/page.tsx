@@ -20,12 +20,14 @@ export default function SignUpPage() {
 
         {/* Logo Area */}
         <div className="z-10 flex gap-2 relative items-center">
-          <div className="h-8 w-8 rounded-lg flex items-center justify-center border bg-white/5 text-white border-white/10">
-            <Bot className="h-4 w-4" />
-          </div>
-          <span className="text-lg font-semibold tracking-tight font-space-grotesk text-white">
-            AutoCrew
-          </span>
+          <Link href="/" className="flex items-center gap-2">
+            <div className="h-8 w-8 rounded-lg flex items-center justify-center border bg-white/5 text-white border-white/10">
+              <Bot className="h-4 w-4" />
+            </div>
+            <span className="text-lg font-semibold tracking-tight font-space-grotesk text-white">
+              AutoCrew
+            </span>
+          </Link>
         </div>
 
         {/* Middle Art Element (Abstract Dashboard Preview) */}
@@ -55,14 +57,14 @@ export default function SignUpPage() {
       <div className="flex flex-col lg:p-12 p-6 overflow-y-auto custom-scrollbar bg-[#03060e] relative items-center justify-center">
         {/* Mobile Logo (hidden on desktop) */}
         <div className="absolute top-0 right-0 p-6 lg:hidden">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-lg flex items-center justify-center border bg-white/5 text-white border-white/10">
               <Bot className="h-4 w-4" />
             </div>
             <span className="text-lg font-semibold tracking-tight font-space-grotesk text-white">
               AutoCrew
             </span>
-          </div>
+          </Link>
         </div>
 
         <div className="max-w-xl w-full">
