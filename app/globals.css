@@ -1,39 +1,42 @@
+/* Premium Typography - Outfit for body, DM Serif Display for headlines */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap');
+
 @import "tailwindcss";
 @import "react-day-picker/style.css";
 
-/* Dark Mode Primary Theme - Professional & Industrious */
+/* Dark Mode Primary Theme - Premium & Sophisticated */
 :root {
-  /* Dark backgrounds - Professional slate tones */
-  --background: 222 47% 11%;
-  --foreground: 210 40% 98%;
+  /* Deep premium black backgrounds */
+  --background: 0 0% 3%;
+  --foreground: 0 0% 98%;
 
-  /* Cards with subtle elevation */
-  --card: 222 47% 14%;
-  --card-foreground: 210 40% 98%;
+  /* Cards with glass effect base */
+  --card: 0 0% 6%;
+  --card-foreground: 0 0% 98%;
 
-  /* Popovers and dialogs - Dark background for excellent visibility */
-  --popover: 222 47% 14%;
-  --popover-foreground: 210 40% 98%;
+  /* Popovers and dialogs */
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 98%;
 
-  /* Cyan/Teal - Primary accent for CTAs and important actions */
-  --primary: 185 80% 50%;
+  /* Warm Coral accent - premium feel */
+  --primary: 12 100% 64%;
   --primary-foreground: 0 0% 100%;
 
-  /* Cyber Blue - Secondary accent for information and status */
-  --secondary: 199 89% 48%;
+  /* Cool Blue - secondary accent */
+  --secondary: 217 91% 60%;
   --secondary-foreground: 0 0% 100%;
 
-  /* Muted elements - Subtle backgrounds */
-  --muted: 222 47% 20%;
-  --muted-foreground: 215 20.2% 65.1%;
+  /* Muted elements - Subtle gray */
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 55%;
 
   /* Interactive accent states */
-  --accent: 199 89% 48%;
+  --accent: 12 100% 64%;
   --accent-foreground: 0 0% 100%;
 
-  /* Destructive actions - Muted red */
+  /* Destructive actions */
   --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
+  --destructive-foreground: 0 0% 98%;
 
   /* Success indicators */
   --success: 142 71% 45%;
@@ -43,50 +46,54 @@
   --warning: 38 92% 50%;
   --warning-foreground: 0 0% 100%;
 
-  /* Borders and inputs - Subtle contrast */
-  --border: 222 47% 22%;
-  --input: 222 47% 22%;
-  --ring: 185 80% 50%;
+  /* Borders and inputs - Very subtle */
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 12 100% 64%;
 
   /* Border radius for modern feel */
   --radius: 0.75rem;
 
-  /* Chart colors - Cyber aesthetic */
-  --chart-1: 185 80% 50%;
-  --chart-2: 199 89% 48%;
+  /* Chart colors */
+  --chart-1: 12 100% 64%;
+  --chart-2: 217 91% 60%;
   --chart-3: 142 71% 45%;
   --chart-4: 280 65% 60%;
   --chart-5: 38 92% 50%;
+
+  /* Premium font families */
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-display: 'DM Serif Display', Georgia, serif;
 }
 
 /* Light Mode Theme */
 :root[data-theme="light"] {
-  /* Light backgrounds */
+  /* Clean white backgrounds */
   --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  --foreground: 0 0% 8%;
 
   /* Cards with subtle elevation */
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card-foreground: 0 0% 8%;
 
   /* Popovers and dialogs */
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
+  --popover-foreground: 0 0% 8%;
 
-  /* Cyan/Teal - Keep same for consistency */
-  --primary: 185 75% 45%;
+  /* Warm Coral - consistent with dark mode */
+  --primary: 12 100% 58%;
   --primary-foreground: 0 0% 100%;
 
-  /* Cyber Blue - Keep same for consistency */
-  --secondary: 199 89% 48%;
+  /* Cool Blue - secondary */
+  --secondary: 217 91% 55%;
   --secondary-foreground: 0 0% 100%;
 
   /* Muted elements */
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 20.2% 35%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
 
   /* Interactive accent states */
-  --accent: 199 89% 48%;
+  --accent: 12 100% 58%;
   --accent-foreground: 0 0% 100%;
 
   /* Destructive actions */
@@ -102,13 +109,13 @@
   --warning-foreground: 0 0% 100%;
 
   /* Borders and inputs */
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 185 75% 45%;
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 12 100% 58%;
 
-  /* Chart colors - same as dark mode */
-  --chart-1: 185 80% 50%;
-  --chart-2: 199 89% 48%;
+  /* Chart colors */
+  --chart-1: 12 100% 58%;
+  --chart-2: 217 91% 55%;
   --chart-3: 142 71% 45%;
   --chart-4: 280 65% 60%;
   --chart-5: 38 92% 50%;
@@ -117,20 +124,119 @@
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+  font-family: var(--font-sans);
   font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium display typography */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Premium gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle noise texture overlay */
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+}
+
+/* Premium glass card effect */
+.glass-card {
+  background: hsl(var(--card) / 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
+/* Smooth entrance animations */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+}
+
+/* Stagger delays for sequential animations */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* Premium hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px hsl(var(--primary) / 0.15);
+}
+
+/* Glow effect */
+.glow {
+  box-shadow: 0 0 60px -12px hsl(var(--primary) / 0.4);
 }
 
 /* CTA Section theme-specific colors */
 :root {
-  --cta-heading-color: rgb(15 23 42); /* slate-900 for light mode */
-  --cta-text-color: rgb(30 41 59); /* slate-800 for light mode */
-  --cta-features-color: rgb(51 65 85); /* slate-700 for light mode */
+  --cta-heading-color: rgb(255 255 255);
+  --cta-text-color: rgba(255 255 255 / 0.85);
+  --cta-features-color: rgba(255 255 255 / 0.7);
 }
 
-:root[data-theme="dark"] {
-  --cta-heading-color: rgb(255 255 255); /* white for dark mode */
-  --cta-text-color: rgba(255 255 255 / 0.9); /* white/90 for dark mode */
-  --cta-features-color: rgba(255 255 255 / 0.9); /* white/90 for dark mode */
+:root[data-theme="light"] {
+  --cta-heading-color: rgb(8 8 8);
+  --cta-text-color: rgba(8 8 8 / 0.8);
+  --cta-features-color: rgba(8 8 8 / 0.6);
 }
 
 /* Scrollbar styling for dark theme */

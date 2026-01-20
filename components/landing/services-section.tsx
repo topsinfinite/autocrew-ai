@@ -1,4 +1,6 @@
-import { Headphones, Sparkles, Check } from "lucide-react";
+"use client";
+
+import { Headphones, Sparkles, Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { servicesData } from "@/lib/mock-data/landing-data";
 import Link from "next/link";
@@ -11,61 +13,101 @@ const iconMap = {
 
 export function ServicesSection() {
   return (
-    <section className="py-20 md:py-32">
-      <div className="container mx-auto px-4">
+    <section className="relative py-24 md:py-32 overflow-hidden">
+      {/* Subtle radial gradient */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 rounded-full blur-[120px] -z-10" />
+
+      <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            AI Crews for Every Need
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-4">
+            AI Crews
+          </p>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight">
+            Purpose-built for
+            <span className="gradient-text"> every need</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Deploy specialized AI crews designed for customer support and lead generation.
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Deploy specialized AI crews that work around the clock. From customer support
+            to lead generation, we've got you covered.
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {servicesData.map((service, index) => {
             const Icon = iconMap[service.icon as keyof typeof iconMap];
+            const isSupport = service.type === 'Support';
 
             return (
               <div
                 key={index}
-                className="relative bg-card border border-border rounded-2xl p-8 hover:shadow-xl transition-all duration-300 group"
+                className="group relative rounded-3xl overflow-hidden"
               >
-                {/* Badge */}
-                <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-4">
-                  {service.type}
+                {/* Card background with gradient border effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+                <div className="relative h-full p-8 md:p-10 rounded-3xl border border-border/50 bg-card/40 backdrop-blur-sm hover:border-border/80 transition-all duration-500">
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-8">
+                    <div>
+                      {/* Type badge */}
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium mb-4 ${
+                        isSupport
+                          ? 'bg-secondary/10 text-secondary'
+                          : 'bg-primary/10 text-primary'
+                      }`}>
+                        {service.type} Crew
+                      </span>
+
+                      <h3 className="text-2xl md:text-3xl font-semibold mb-3">
+                        {service.title}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed max-w-md">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    {/* Icon */}
+                    <div className={`hidden sm:flex items-center justify-center w-16 h-16 rounded-2xl ${
+                      isSupport
+                        ? 'bg-secondary/10 text-secondary'
+                        : 'bg-primary/10 text-primary'
+                    } group-hover:scale-110 transition-transform duration-300`}>
+                      {Icon && <Icon className="h-8 w-8" strokeWidth={1.5} />}
+                    </div>
+                  </div>
+
+                  {/* Features List */}
+                  <div className="grid sm:grid-cols-2 gap-3 mb-8">
+                    {service.features.map((feature, featureIndex) => (
+                      <div
+                        key={featureIndex}
+                        className="flex items-center gap-3 text-sm"
+                      >
+                        <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                          isSupport
+                            ? 'bg-secondary/10 text-secondary'
+                            : 'bg-primary/10 text-primary'
+                        }`}>
+                          <Check className="h-3 w-3" strokeWidth={2.5} />
+                        </div>
+                        <span className="text-muted-foreground">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <Link href={`/docs/${service.type.toLowerCase()}-crew`}>
+                    <Button
+                      variant="outline"
+                      className="group/btn w-full sm:w-auto rounded-full border-border/60 hover:bg-card hover:border-primary/50"
+                    >
+                      Learn more
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    </Button>
+                  </Link>
                 </div>
-
-                {/* Icon */}
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground mb-4">
-                  {Icon && <Icon className="h-7 w-7" />}
-                </div>
-
-                {/* Content */}
-                <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                <p className="text-muted-foreground mb-6">{service.description}</p>
-
-                {/* Features List */}
-                <ul className="space-y-3 mb-8">
-                  {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start">
-                      <Check className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <Link href={`/docs/${service.type.toLowerCase()}-crew`}>
-                  <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    Learn More
-                  </Button>
-                </Link>
-
-                {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
               </div>
             );
           })}
