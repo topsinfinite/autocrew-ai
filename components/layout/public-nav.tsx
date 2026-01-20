@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { ShineButton } from "@/components/landing/effects";
 import { navLinks } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
 
@@ -16,8 +14,8 @@ export function PublicNav() {
     <header className="fixed top-0 left-0 right-0 z-50 p-4 md:p-6">
       <nav
         className={cn(
-          "max-w-5xl mx-auto rounded-full px-4 md:px-6 py-3",
-          "border border-border/20",
+          "max-w-5xl mx-auto rounded-full px-6 py-3",
+          "border border-white/10",
           "glass-nav",
           "relative overflow-hidden"
         )}
@@ -25,22 +23,19 @@ export function PublicNav() {
         <div className="relative z-10 flex items-center justify-between">
           {/* Logo with status indicator */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-lg font-medium font-display tracking-tight text-foreground/90">
+            <span className="text-lg font-medium font-space tracking-tight text-white/90">
               AutoCrew
             </span>
-            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] animate-pulse" />
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-1 text-sm font-medium text-muted-foreground">
+          <ul className="hidden md:flex items-center gap-1 text-sm font-medium text-white/60">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={cn(
-                    "px-4 py-2 rounded-full transition-colors duration-300",
-                    "hover:text-foreground hover:bg-foreground/5"
-                  )}
+                  className="transition-colors duration-300 font-geist rounded-full py-2 px-4 hover:text-white hover:bg-white/5"
                 >
                   {link.label}
                 </Link>
@@ -52,7 +47,7 @@ export function PublicNav() {
           <div className="flex items-center gap-3">
             {/* Mobile menu button */}
             <button
-              className="inline-flex md:hidden p-2 -mr-2 rounded-full transition-colors text-muted-foreground hover:bg-foreground/10"
+              className="inline-flex md:hidden p-2 -mr-2 rounded-full transition-colors text-white/70 hover:bg-white/10"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -64,28 +59,32 @@ export function PublicNav() {
 
             {/* Sign In button - desktop only */}
             <Link href="/login" className="hidden md:block">
-              <Button
-                variant="ghost"
-                size="sm"
+              <button
                 className={cn(
-                  "text-xs font-medium rounded-full px-5 py-2.5",
-                  "text-muted-foreground hover:text-foreground",
-                  "bg-foreground/5 hover:bg-foreground/10",
-                  "border border-border/20 hover:border-border/40"
+                  "text-xs font-medium font-space rounded-full py-2.5 px-5",
+                  "border text-slate-300 hover:text-white",
+                  "bg-white/5 hover:bg-white/10",
+                  "border-white/10 hover:border-white/20",
+                  "transition-colors"
                 )}
               >
                 Sign In
-              </Button>
+              </button>
             </Link>
 
             {/* Primary CTA - desktop only */}
             <Link href="/signup" className="hidden md:block">
-              <ShineButton
-                size="sm"
-                className="text-xs font-medium rounded-full px-5 py-2.5"
+              <button
+                className={cn(
+                  "shine-button text-xs font-medium text-[#03060e] font-space",
+                  "rounded-full px-5 py-2.5",
+                  "shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]",
+                  "hover:bg-white bg-slate-200",
+                  "transition-colors"
+                )}
               >
                 Start for free
-              </ShineButton>
+              </button>
             </Link>
           </div>
         </div>
@@ -94,7 +93,7 @@ export function PublicNav() {
         <div
           className={cn(
             "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
-            mobileMenuOpen ? "max-h-96 mt-4 pt-4 border-t border-border/20" : "max-h-0"
+            mobileMenuOpen ? "max-h-96 mt-4 pt-4 border-t border-white/10" : "max-h-0"
           )}
         >
           <div className="flex flex-col gap-1">
@@ -102,29 +101,38 @@ export function PublicNav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  "px-4 py-3 text-sm font-medium rounded-lg transition-colors",
-                  "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
-                )}
+                className="px-4 py-3 text-sm font-medium font-geist rounded-lg transition-colors text-white/60 hover:text-white hover:bg-white/5"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-border/20">
+            <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-white/10">
               <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full justify-center font-medium rounded-full"
+                <button
+                  className={cn(
+                    "w-full text-sm font-medium font-space rounded-full py-2.5 px-5",
+                    "border text-slate-300 hover:text-white",
+                    "bg-white/5 hover:bg-white/10",
+                    "border-white/10 hover:border-white/20",
+                    "transition-colors"
+                  )}
                 >
                   Sign In
-                </Button>
+                </button>
               </Link>
               <Link href="/signup" onClick={() => setMobileMenuOpen(false)}>
-                <ShineButton size="sm" className="w-full rounded-full font-medium">
+                <button
+                  className={cn(
+                    "w-full shine-button text-sm font-medium text-[#03060e] font-space",
+                    "rounded-full px-5 py-2.5",
+                    "shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]",
+                    "hover:bg-white bg-slate-200",
+                    "transition-colors"
+                  )}
+                >
                   Start for free
-                </ShineButton>
+                </button>
               </Link>
             </div>
           </div>

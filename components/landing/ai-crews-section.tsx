@@ -5,70 +5,60 @@ import { aiCrewsData } from "@/lib/mock-data/landing-data";
 
 export function AiCrewsSection() {
   return (
-    <section id="solutions" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="solutions" className="z-10 pt-40 pb-40 relative">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wide border border-white/10 bg-white/[0.03] text-white/60 mb-6">
-            AI Crews
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight">
-            Purpose-built AI teams for
-            <span className="block text-white/40">your business needs.</span>
-          </h2>
-        </div>
+        <h2 className="text-3xl md:text-4xl tracking-tight mb-16 text-center font-space-grotesk font-semibold text-white">
+          AI Crews for Every Need
+        </h2>
 
         {/* Crew Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {aiCrewsData.map((crew, index) => (
             <div
               key={index}
-              className="group relative p-8 md:p-10 rounded-3xl border border-white/[0.06] bg-gradient-to-b from-white/[0.05] to-transparent hover:border-[#FF6B35]/30 transition-all duration-500"
+              className="p-8 rounded-3xl bg-linear-to-br from-white/5 to-transparent border border-white/8 relative overflow-hidden group hover:border-[#FF6B35]/30 transition-all duration-300"
             >
-              {/* Badge */}
-              <span className="inline-block px-3 py-1 rounded-full text-[10px] font-medium tracking-wide border border-white/10 bg-white/[0.03] text-white/60 mb-6">
-                {crew.badge}
-              </span>
+              <div className="relative z-10">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#FF6B35]/20 bg-[#FF6B35]/5 text-[#FF6B35] text-xs font-medium mb-6 font-geist">
+                  {crew.badge}
+                </div>
 
-              {/* Title */}
-              <h3 className="text-2xl md:text-3xl font-medium text-white mb-4">
-                {crew.title}
-              </h3>
+                {/* Title */}
+                <h3 className="text-2xl mb-4 font-space-grotesk font-semibold text-white">
+                  {crew.title}
+                </h3>
 
-              {/* Description */}
-              <p className="text-white/50 text-base leading-relaxed mb-8">
-                {crew.description}
-              </p>
+                {/* Description */}
+                <p className="mb-8 leading-relaxed font-geist text-white/60">
+                  {crew.description}
+                </p>
 
-              {/* Features List */}
-              <ul className="space-y-4 mb-8">
-                {crew.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[#FF6B35]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-[#FF6B35]" />
-                    </div>
-                    <span className="text-white/70 text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+                {/* Features List */}
+                <ul className="space-y-4 mb-8">
+                  {crew.features.map((feature, featureIndex) => (
+                    <li
+                      key={featureIndex}
+                      className="flex items-start gap-3 text-sm font-geist text-white/80"
+                    >
+                      <Check className="w-4 h-4 text-[#FF6B35] mt-0.5 shrink-0" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
 
-              {/* CTA Button */}
-              <button
-                disabled={crew.ctaDisabled}
-                className={`
-                  px-6 py-3 rounded-full text-sm font-medium transition-all duration-300
-                  ${
+                {/* CTA Button */}
+                <button
+                  disabled={crew.ctaDisabled}
+                  className={`w-full py-3 rounded-xl border transition-all font-medium font-geist text-white ${
                     crew.ctaDisabled
-                      ? "bg-white/[0.03] border border-white/10 text-white/40 cursor-not-allowed"
-                      : "bg-white/[0.03] border border-white/10 text-white hover:bg-white/[0.08] hover:border-[#FF6B35]/30"
-                  }
-                `}
-              >
-                {crew.ctaText}
-              </button>
-
-              {/* Subtle gradient overlay on hover */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#FF6B35]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                      ? "border-white/8 opacity-50 cursor-not-allowed"
+                      : "bg-white/5 border-white/8 hover:bg-[#FF6B35] hover:border-[#FF6B35] hover:text-black"
+                  }`}
+                >
+                  {crew.ctaText}
+                </button>
+              </div>
             </div>
           ))}
         </div>

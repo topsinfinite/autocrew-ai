@@ -3,74 +3,64 @@
 import { howItWorksData } from "@/lib/mock-data/landing-data";
 
 export function HowItWorks() {
+  const delays = ["0s", "1.5s", "3s", "4.5s"];
+
   return (
-    <section id="how-it-works" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="how-it-works" className="z-10 pt-40 pb-40 relative">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header - Left aligned */}
+        {/* Section Header */}
         <div className="mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wide border border-white/10 bg-white/[0.03] text-white/60 mb-6">
+          <h2 className="text-3xl md:text-4xl tracking-tight mb-4 font-space-grotesk font-semibold text-white">
             How It Works
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight">
-            Get started in
-            <span className="block text-white/40">minutes, not days.</span>
           </h2>
+          <p className="text-lg font-geist text-white/60">
+            Get started with AutoCrew in four simple steps.
+          </p>
         </div>
 
         {/* Steps Grid */}
-        <div className="relative">
-          {/* Traveling Beam Line */}
-          <div className="hidden lg:block absolute top-0 left-0 right-0 h-px bg-white/[0.06]">
-            <div className="beam-travel absolute top-0 left-0 h-full" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          {/* Moving Beam Line */}
+          <div className="hidden lg:block absolute top-[25.5px] left-0 w-full h-px overflow-hidden rounded-full pointer-events-none bg-white/5">
+            <div className="absolute top-0 left-0 w-[300px] h-full bg-linear-to-r from-transparent via-[#FF6B35] to-transparent blur-[1px] animate-beam-travel" />
           </div>
 
-          {/* 4-Column Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
-            {howItWorksData.map((step, index) => {
-              // Animation delays for staggered effect
-              const delays = ["0s", "1.5s", "3s", "4.5s"];
-              const delay = delays[index];
+          {/* Step Cards */}
+          {howItWorksData.map((step, index) => {
+            const delay = delays[index];
 
-              return (
+            return (
+              <div
+                key={index}
+                className="pt-6 relative animate-step-card"
+                style={{ animationDelay: delay }}
+              >
+                {/* Dot Indicator */}
                 <div
-                  key={index}
-                  className="step-card group relative lg:border-r lg:border-white/[0.06] last:border-r-0 lg:px-8 lg:pt-8 lg:pb-4"
+                  className="w-3 h-3 rounded-full ring-4 ring-[#03060e] absolute top-5 left-0 lg:-mt-0.5 z-10 animate-dot-pulse transition-all duration-300 bg-white/10"
+                  style={{ animationDelay: delay }}
+                />
+
+                {/* Step Number */}
+                <div
+                  className="text-7xl font-semibold font-space-grotesk mb-4 animate-num-pulse transition-colors duration-300 text-white/5"
                   style={{ animationDelay: delay }}
                 >
-                  {/* Dot Indicator */}
-                  <div className="hidden lg:block absolute top-0 left-8 -translate-y-1/2">
-                    <div
-                      className="dot-pulse w-3 h-3 rounded-full bg-white/20 border border-white/20"
-                      style={{ animationDelay: delay }}
-                    />
-                  </div>
-
-                  {/* Step Number */}
-                  <div
-                    className="num-pulse text-5xl md:text-6xl font-light text-white/10 mb-4 tabular-nums"
-                    style={{ animationDelay: delay }}
-                  >
-                    {step.number}
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-lg font-medium text-white mb-3 group-hover:text-[#FF6B35] transition-colors duration-300">
-                    {step.title}
-                  </h3>
-                  <p className="text-white/50 text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-
-                  {/* Mobile connector */}
-                  {index < howItWorksData.length - 1 && (
-                    <div className="lg:hidden flex justify-start my-6">
-                      <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent ml-6" />
-                    </div>
-                  )}
+                  {step.number}
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Title */}
+                <h4 className="text-lg font-medium mb-3 font-geist text-white">
+                  {step.title}
+                </h4>
+
+                {/* Description */}
+                <p className="text-sm leading-relaxed font-geist text-white/50">
+                  {step.description}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

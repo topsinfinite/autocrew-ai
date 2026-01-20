@@ -36,29 +36,29 @@ export function DashboardContextPanel() {
   const { leadsChart, activeInstructions, channels, leadInfo, securityStatus } = dashboardMockData;
 
   return (
-    <div className="hidden lg:flex w-[320px] border-r border-border/10 flex-col bg-foreground/[0.01] flex-shrink-0 z-10 backdrop-blur-sm">
+    <div className="hidden lg:flex w-[320px] border-r border-white/5 flex-col bg-white/[0.01] flex-shrink-0 z-10 backdrop-blur-sm">
       {/* Header */}
-      <div className="h-14 border-b border-border/10 flex items-center justify-between px-5">
-        <span className="uppercase text-xs font-medium tracking-wider font-mono text-muted-foreground">
+      <div className="h-14 border-b border-white/5 flex items-center justify-between px-5">
+        <span className="uppercase text-xs font-medium tracking-wider font-space-mono text-slate-400">
           {leadsChart.title}
         </span>
-        <span className="text-xs text-primary font-medium">{leadsChart.change}</span>
+        <span className="text-xs text-[#FF6B35] font-medium">{leadsChart.change}</span>
       </div>
 
       {/* Content */}
-      <div className="overflow-y-auto custom-scrollbar font-mono p-5 space-y-8">
-        {/* Bar Chart */}
+      <div className="overflow-y-auto custom-scrollbar font-space-mono p-5 space-y-8">
+        {/* Bar Chart - matching exact HTML colors */}
         <div className="h-24 w-full flex items-end justify-between gap-1 px-1">
           {leadsChart.bars.map((height, i) => (
             <div
               key={i}
               className={cn(
-                "w-full rounded-sm hover:bg-primary/50 transition-all duration-300",
+                "w-full rounded-sm hover:bg-[#FF6B35]/50 transition-all duration-300",
                 i === 3
-                  ? "bg-primary/80 hover:bg-primary shadow-[0_0_10px_rgba(var(--primary),0.3)]"
+                  ? "bg-[#FF6B35]/80 hover:bg-[#FF6B35] shadow-[0_0_10px_rgba(255,107,53,0.3)]"
                   : i === 4
-                  ? "bg-foreground/40"
-                  : "bg-foreground/5"
+                  ? "bg-white/40"
+                  : "bg-white/5"
               )}
               style={{ height: `${height}%` }}
             />
@@ -66,7 +66,7 @@ export function DashboardContextPanel() {
         </div>
 
         {/* Time Labels */}
-        <div className="flex justify-between text-[10px] -mt-6 text-muted-foreground/60">
+        <div className="flex justify-between text-[10px] -mt-6 text-slate-600">
           <span>00:00</span>
           <span>06:00</span>
           <span>12:00</span>
@@ -75,19 +75,19 @@ export function DashboardContextPanel() {
 
         {/* Active Instructions */}
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-muted-foreground">
+          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-slate-400">
             Active Instructions
           </h3>
           <div className="space-y-3">
             {activeInstructions.map((instruction) => (
               <div
                 key={instruction.number}
-                className="flex gap-3 items-start p-3 rounded-lg border bg-foreground/[0.02] border-border/10"
+                className="flex gap-3 items-start p-3 rounded-lg border bg-white/[0.02] border-white/5"
               >
-                <span className="text-xs font-mono text-primary mt-0.5">
+                <span className="text-xs font-mono text-[#FF6B35] mt-0.5">
                   {instruction.number}
                 </span>
-                <p className="leading-relaxed text-xs font-mono text-foreground/80">
+                <p className="leading-relaxed text-xs font-space-mono text-slate-300">
                   {instruction.text}
                 </p>
               </div>
@@ -97,7 +97,7 @@ export function DashboardContextPanel() {
 
         {/* Connected Channels */}
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-muted-foreground">
+          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-slate-400">
             Connected Channels
           </h3>
           <div className="flex gap-2">
@@ -108,8 +108,8 @@ export function DashboardContextPanel() {
                   key={channel}
                   className={cn(
                     "h-8 w-8 rounded border flex items-center justify-center",
-                    "bg-foreground/5 border-border/20 text-muted-foreground",
-                    "hover:text-primary hover:border-primary/30 transition-all duration-300"
+                    "bg-white/5 border-white/10 text-slate-400",
+                    "hover:text-[#FF6B35] hover:border-[#FF6B35]/30 transition-all duration-300"
                   )}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -121,55 +121,55 @@ export function DashboardContextPanel() {
 
         {/* Lead Info */}
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 text-muted-foreground">
+          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 flex items-center gap-2 text-slate-400">
             <User className="w-3 h-3" />
             Lead Information
           </h3>
-          <div className="border border-border/20 rounded-xl p-4 space-y-4 bg-foreground/5">
+          <div className="border border-white/10 rounded-xl p-4 space-y-4 bg-white/5">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center text-sm font-medium shadow-inner text-primary-foreground">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#FF6B35] to-[#FF6B35]/50 flex items-center justify-center text-sm font-medium shadow-inner text-white">
                 {leadInfo.initials}
               </div>
               <div>
-                <div className="text-sm font-medium text-foreground">{leadInfo.name}</div>
-                <div className="text-[11px] text-primary font-medium">{leadInfo.status}</div>
+                <div className="text-sm font-medium text-white">{leadInfo.name}</div>
+                <div className="text-[11px] text-[#FF6B35] font-medium">{leadInfo.status}</div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-y-3 gap-x-2">
               <div>
-                <div className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">
+                <div className="text-[9px] text-slate-500 uppercase tracking-wider mb-0.5">
                   Role
                 </div>
-                <div className="text-xs text-foreground/80">{leadInfo.role}</div>
+                <div className="text-xs text-slate-300">{leadInfo.role}</div>
               </div>
               <div>
-                <div className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">
+                <div className="text-[9px] text-slate-500 uppercase tracking-wider mb-0.5">
                   Company
                 </div>
-                <div className="text-xs text-foreground/80">{leadInfo.company}</div>
+                <div className="text-xs text-slate-300">{leadInfo.company}</div>
               </div>
               <div>
-                <div className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">
+                <div className="text-[9px] text-slate-500 uppercase tracking-wider mb-0.5">
                   Location
                 </div>
-                <div className="text-xs text-foreground/80">{leadInfo.location}</div>
+                <div className="text-xs text-slate-300">{leadInfo.location}</div>
               </div>
               <div>
-                <div className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">
+                <div className="text-[9px] text-slate-500 uppercase tracking-wider mb-0.5">
                   Industry
                 </div>
-                <div className="text-xs text-foreground/80">{leadInfo.industry}</div>
+                <div className="text-xs text-slate-300">{leadInfo.industry}</div>
               </div>
             </div>
 
             {/* Interest Level */}
             <div>
-              <div className="text-[9px] text-muted-foreground uppercase tracking-wider mb-1">
+              <div className="text-[9px] text-slate-500 uppercase tracking-wider mb-1">
                 Interest Level
               </div>
-              <div className="h-1.5 w-full rounded-full overflow-hidden bg-foreground/10">
+              <div className="h-1.5 w-full rounded-full overflow-hidden bg-white/10">
                 <div
-                  className="h-full bg-primary shadow-[0_0_10px_rgba(var(--primary),0.3)]"
+                  className="h-full bg-[#FF6B35] shadow-[0_0_10px_rgba(255,107,53,0.3)]"
                   style={{ width: `${leadInfo.interestLevel}%` }}
                 />
               </div>
@@ -179,16 +179,16 @@ export function DashboardContextPanel() {
 
         {/* Security Status */}
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-muted-foreground">
+          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-slate-400">
             Security Status
           </h3>
           <div className="space-y-1">
             {securityStatus.map((status, i) => (
-              <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div key={i} className="flex items-center gap-2 text-xs text-slate-400">
                 {status.icon === "ShieldCheck" ? (
-                  <ShieldCheck className="w-3 h-3 text-primary" />
+                  <ShieldCheck className="w-3 h-3 text-[#FF6B35]" />
                 ) : (
-                  <CheckCircle className="w-3 h-3 text-primary" />
+                  <CheckCircle className="w-3 h-3 text-[#FF6B35]" />
                 )}
                 {status.text}
               </div>
@@ -198,14 +198,14 @@ export function DashboardContextPanel() {
 
         {/* Next Actions */}
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-muted-foreground">
+          <h3 className="text-[11px] font-semibold uppercase tracking-widest mb-3 text-slate-400">
             Next Actions
           </h3>
           <div className="flex gap-2 flex-col">
             <button
               className={cn(
                 "w-full py-2 px-3 text-xs border rounded-lg flex items-center justify-between transition-all",
-                "bg-foreground/5 hover:bg-foreground/10 border-border/20 hover:border-primary/20 text-foreground/80"
+                "bg-white/5 hover:bg-white/10 border-white/10 hover:border-[#FF6B35]/20 text-slate-300"
               )}
             >
               Schedule Follow-up
@@ -214,11 +214,11 @@ export function DashboardContextPanel() {
             <button
               className={cn(
                 "w-full py-2 px-3 text-xs border rounded-lg flex items-center justify-between transition-all group",
-                "bg-foreground/5 hover:bg-foreground/10 border-border/20 hover:border-primary/20 text-foreground/80"
+                "bg-white/5 hover:bg-white/10 border-white/10 hover:border-[#FF6B35]/20 text-slate-300"
               )}
             >
               Send Case Study
-              <ArrowRight className="w-3 h-3 group-hover:text-primary transition-colors" />
+              <ArrowRight className="w-3 h-3 group-hover:text-[#FF6B35] transition-colors" />
             </button>
           </div>
         </div>

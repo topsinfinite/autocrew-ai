@@ -105,13 +105,3 @@ export function BackgroundEffects({
     </div>
   );
 }
-
-// Declare global type for Unicorn Studio
-declare global {
-  interface Window {
-    UnicornStudio?: {
-      isInitialized?: boolean;
-      init?: () => void;
-    };
-  }
-}

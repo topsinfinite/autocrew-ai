@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { BorderBeam } from "@/components/landing/effects";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { DashboardContextPanel } from "./dashboard-context-panel";
 import { DashboardChatPanel } from "./dashboard-chat-panel";
@@ -14,12 +13,17 @@ interface DashboardPreviewProps {
 export function DashboardPreview({ className }: DashboardPreviewProps) {
   return (
     <div className={cn("-mb-8 md:px-6 max-w-7xl mx-auto px-4 mt-8", className)}>
-      <BorderBeam containerClassName="w-full rounded-2xl" duration={8}>
+      {/* Border Beam Wrapper */}
+      <div className="relative w-full rounded-2xl p-[1px]">
+        {/* Animated border beam mask */}
+        <div className="border-beam-mask rounded-2xl" />
+
+        {/* Main dashboard container */}
         <div
           className={cn(
-            "relative w-full h-[650px] md:h-[850px] overflow-hidden",
-            "bg-card border border-border/20 rounded-2xl shadow-2xl",
-            "flex font-sans text-foreground/80"
+            "relative w-full h-[850px] overflow-hidden",
+            "bg-[#0A0C14] border border-white/10 rounded-2xl shadow-2xl",
+            "flex font-geist text-slate-300"
           )}
         >
           {/* Far Left Sidebar - System Status */}
@@ -34,7 +38,7 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
           {/* Right Analytics Panel */}
           <DashboardAnalyticsPanel />
         </div>
-      </BorderBeam>
+      </div>
     </div>
   );
 }

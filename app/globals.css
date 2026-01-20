@@ -149,6 +149,23 @@ body {
   font-family: var(--font-mono);
 }
 
+/* Explicit font utility classes for pixel-perfect matching */
+.font-geist {
+  font-family: var(--font-geist-sans), 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.font-space-grotesk {
+  font-family: 'Space Grotesk', var(--font-display), system-ui, sans-serif;
+}
+
+.font-space-mono {
+  font-family: 'Space Mono', var(--font-mono), monospace;
+}
+
+.font-space {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
 /* Premium gradient text */
 .gradient-text {
   background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
@@ -419,6 +436,39 @@ body {
   z-index: 20;
 }
 
+/* Border beam mask wrapper - creates the rotating glow effect */
+.border-beam-mask {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.border-beam-mask::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 70%,
+    #FF6B35 80%,
+    #FF8C5A 85%,
+    #FF6B35 90%,
+    transparent 100%
+  );
+  animation: spin-slow 4s linear infinite;
+}
+
+.border-beam-mask::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: inherit;
+  background: #0A0C14;
+}
+
 /* Shine button effect */
 .shine-button {
   position: relative;
@@ -468,19 +518,19 @@ body {
   scrollbar-width: none;
 }
 
-/* Custom scrollbar for panels */
+/* Custom scrollbar for panels - matching HTML design */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.02);
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground));
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* ============================================
