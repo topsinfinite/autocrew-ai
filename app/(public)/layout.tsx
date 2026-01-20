@@ -1,5 +1,6 @@
 import { PublicNav } from "@/components/layout/public-nav";
 import { PublicFooter } from "@/components/layout/public-footer";
+import { BackgroundEffects } from "@/components/landing/background-effects";
 
 export default function PublicLayout({
   children,
@@ -7,10 +8,16 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <PublicNav />
-      <main className="flex-1">{children}</main>
-      <PublicFooter />
+    <div className="relative min-h-screen flex flex-col">
+      {/* Background effects layer */}
+      <BackgroundEffects />
+
+      {/* Content layer */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <PublicNav />
+        <main className="flex-1">{children}</main>
+        <PublicFooter />
+      </div>
     </div>
   );
 }

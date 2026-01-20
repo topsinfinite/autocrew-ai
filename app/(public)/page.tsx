@@ -1,8 +1,9 @@
 import { HeroSection } from "@/components/landing/hero-section";
 import { FeaturesSection } from "@/components/landing/features-section";
-import { ServicesSection } from "@/components/landing/services-section";
+import { AiCrewsSection } from "@/components/landing/ai-crews-section";
+import { PricingSection } from "@/components/landing/pricing-section";
 import { HowItWorks } from "@/components/landing/how-it-works";
-import { StatsSection } from "@/components/landing/stats-section";
+import { WhyAutocrewSection } from "@/components/landing/why-autocrew-section";
 import { CtaSection } from "@/components/landing/cta-section";
 
 export default function LandingPage() {
@@ -10,9 +11,10 @@ export default function LandingPage() {
     <>
       <HeroSection />
       <FeaturesSection />
-      <ServicesSection />
+      <AiCrewsSection />
+      <PricingSection />
       <HowItWorks />
-      <StatsSection />
+      <WhyAutocrewSection />
       <CtaSection />
     </>
   );
