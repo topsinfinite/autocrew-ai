@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import {
   Users,
@@ -65,9 +65,39 @@ const statusColors: Record<InquiryStatus, string> = {
 type FilterTab = "All" | InquiryChannel;
 const filterTabs: FilterTab[] = ["All", "Chat", "Voice", "Email", "SMS"];
 
+const AUTO_SWITCH_DELAY = 4000;
+
 export function TabInbox() {
   const { inquiries, stats } = dashboardPreviewData.inbox;
   const [activeFilter, setActiveFilter] = useState<FilterTab>("All");
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const advanceTab = useCallback(() => {
+    setActiveFilter((prev) => {
+      const idx = filterTabs.indexOf(prev);
+      return filterTabs[(idx + 1) % filterTabs.length];
+    });
+  }, []);
+
+  const scheduleNext = useCallback(() => {
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(advanceTab, AUTO_SWITCH_DELAY);
+  }, [advanceTab]);
+
+  // Auto-cycle on mount and after each tab change
+  useEffect(() => {
+    scheduleNext();
+    return () => clearTimeout(timeoutRef.current);
+  }, [activeFilter, scheduleNext]);
+
+  const handleTabClick = useCallback(
+    (tab: FilterTab) => {
+      setActiveFilter(tab);
+      // Reset timer so user gets the full delay after clicking
+      scheduleNext();
+    },
+    [scheduleNext],
+  );
 
   const filtered =
     activeFilter === "All"
@@ -104,7 +134,7 @@ export function TabInbox() {
         {filterTabs.map((tab) => (
           <button
             key={tab}
-            onClick={() => setActiveFilter(tab)}
+            onClick={() => handleTabClick(tab)}
             className={cn(
               "font-space-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-md transition-colors",
               tab === activeFilter

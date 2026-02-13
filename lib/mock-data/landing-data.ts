@@ -259,6 +259,7 @@ export const navLinks = [
   { label: "Solutions", href: "/#solutions" },
   { label: "Docs", href: "/docs" },
   { label: "Pricing", href: "/#pricing" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 // Footer Data (simplified - just copyright)
@@ -309,6 +310,7 @@ export interface BarChartDay {
   day: string;
   chatHeight: number;
   voiceHeight: number;
+  emailHeight: number;
 }
 
 export interface ChannelBreakdown {
@@ -321,6 +323,7 @@ export interface TopAgent {
   name: string;
   initial: string;
   avatarColor: string;
+  avatarUrl?: string;
   conversations: number;
 }
 
@@ -503,13 +506,13 @@ export const dashboardPreviewData = {
       { label: "CSAT Score", value: "4.9/5", change: "\u2191 0.2" },
     ] as AnalyticsStat[],
     barChart: [
-      { day: "Mon", chatHeight: 60, voiceHeight: 40 },
-      { day: "Tue", chatHeight: 75, voiceHeight: 35 },
-      { day: "Wed", chatHeight: 55, voiceHeight: 45 },
-      { day: "Thu", chatHeight: 90, voiceHeight: 30 },
-      { day: "Fri", chatHeight: 80, voiceHeight: 38 },
-      { day: "Sat", chatHeight: 45, voiceHeight: 50 },
-      { day: "Sun", chatHeight: 70, voiceHeight: 42 },
+      { day: "Mon", chatHeight: 60, voiceHeight: 40, emailHeight: 25 },
+      { day: "Tue", chatHeight: 75, voiceHeight: 35, emailHeight: 18 },
+      { day: "Wed", chatHeight: 55, voiceHeight: 45, emailHeight: 30 },
+      { day: "Thu", chatHeight: 90, voiceHeight: 30, emailHeight: 22 },
+      { day: "Fri", chatHeight: 80, voiceHeight: 38, emailHeight: 28 },
+      { day: "Sat", chatHeight: 45, voiceHeight: 50, emailHeight: 15 },
+      { day: "Sun", chatHeight: 70, voiceHeight: 42, emailHeight: 20 },
     ] as BarChartDay[],
     channelBreakdown: [
       { channel: "Chat", percentage: 42, color: "#FF6B35" },
@@ -522,18 +525,24 @@ export const dashboardPreviewData = {
         name: "Robin",
         initial: "R",
         avatarColor: "from-[#FF6B35] to-[#FF8C5A]",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face",
         conversations: 847,
       },
       {
         name: "Alex",
         initial: "A",
         avatarColor: "from-blue-500 to-blue-600",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face",
         conversations: 623,
       },
       {
         name: "Sam",
         initial: "S",
         avatarColor: "from-emerald-500 to-emerald-600",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=80&h=80&fit=crop&crop=face",
         conversations: 377,
       },
     ] as TopAgent[],

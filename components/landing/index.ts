@@ -9,6 +9,7 @@
 export * from './ai-crews-section';
 export * from './cta-section';
 export * from './features-section';
+export * from './faq-section';
 export * from './hero-section';
 export * from './how-it-works';
 export * from './pricing-section';
