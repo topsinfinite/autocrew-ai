@@ -6,17 +6,21 @@ import { CircleDot, ArrowRight } from "lucide-react";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { heroData } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/lib/hooks/use-theme";
 
 export function HeroSection() {
+  const { effectiveTheme } = useTheme();
+  const isDark = effectiveTheme === "dark";
+
   return (
     <section className="relative z-10 section-glow-bottom">
       {/* Unicorn Studio Animated Background */}
       <div
         data-us-project="CyihYkcOkCwqGEIyVwWb"
-        className="absolute inset-0 w-full h-full -z-10 overflow-hidden blur-md"
+        className="absolute inset-0 w-full h-full -z-10 overflow-hidden blur-md transition-opacity duration-500"
         style={{
           minHeight: "100vh",
-          opacity: 0.48,
+          opacity: isDark ? 0.48 : 0,
         }}
       />
       <Script

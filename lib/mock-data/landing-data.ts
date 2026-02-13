@@ -8,7 +8,8 @@ export const heroData = {
     prefix: "Deploy intelligent AI crews that",
     accent: "work 24/7",
   },
-  subheadline: "Handle customer support and generate high-quality leads automatically. No code required.",
+  subheadline:
+    "Handle customer support and generate high-quality leads automatically. No code required.",
   primaryCta: {
     text: "Start for free",
     href: "/signup",
@@ -31,32 +32,38 @@ export interface Feature {
 export const featuresData: Feature[] = [
   {
     title: "24/7 Automated Support",
-    description: "AI-powered support crews handle customer inquiries round the clock, providing instant responses and resolutions.",
+    description:
+      "AI-powered support crews handle customer inquiries round the clock, providing instant responses and resolutions.",
     icon: "MessageSquare",
   },
   {
     title: "Intelligent Lead Gen",
-    description: "Automated lead generation crews identify, engage, and qualify potential customers with personalized conversations.",
+    description:
+      "Automated lead generation crews identify, engage, and qualify potential customers with personalized conversations.",
     icon: "Zap",
   },
   {
     title: "Multi-Channel Integration",
-    description: "Seamlessly integrate with your existing tools via n8n webhooks, Slack, email, and more.",
+    description:
+      "Seamlessly integrate with your existing tools via n8n webhooks, Slack, email, and more.",
     icon: "LayoutGrid",
   },
   {
     title: "Real-Time Analytics",
-    description: "Track performance metrics, conversation sentiment, and lead quality with comprehensive dashboards.",
+    description:
+      "Track performance metrics, conversation sentiment, and lead quality with comprehensive dashboards.",
     icon: "TrendingUp",
   },
   {
     title: "Easy Customization",
-    description: "Configure your AI crews with custom prompts, workflows, and integrations without writing code.",
+    description:
+      "Configure your AI crews with custom prompts, workflows, and integrations without writing code.",
     icon: "Settings2",
   },
   {
     title: "Enterprise Security",
-    description: "Bank-level encryption, SOC 2 compliance, and role-based access control to protect your data.",
+    description:
+      "Bank-level encryption, SOC 2 compliance, and role-based access control to protect your data.",
     icon: "ShieldCheck",
   },
 ];
@@ -75,7 +82,8 @@ export const aiCrewsData: AiCrew[] = [
   {
     badge: "Support",
     title: "Support Crew",
-    description: "Automate customer support with AI agents that understand context, resolve issues, and escalate when needed.",
+    description:
+      "Automate customer support with AI agents that understand context, resolve issues, and escalate when needed.",
     features: [
       "Instant response to customer inquiries",
       "Multi-language support capabilities",
@@ -88,7 +96,8 @@ export const aiCrewsData: AiCrew[] = [
   {
     badge: "LeadGen",
     title: "LeadGen Crew",
-    description: "Generate and qualify leads automatically with conversational AI that engages prospects naturally.",
+    description:
+      "Generate and qualify leads automatically with conversational AI that engages prospects naturally.",
     features: [
       "Proactive lead engagement",
       "Intelligent qualification questions",
@@ -154,22 +163,26 @@ export const howItWorksData: Step[] = [
   {
     number: "01",
     title: "Create Your Crew",
-    description: "Set up your AI crew in minutes by defining its purpose, configuring settings, and connecting your tools.",
+    description:
+      "Set up your AI crew in minutes by defining its purpose, configuring settings, and connecting your tools.",
   },
   {
     number: "02",
     title: "Configure & Train",
-    description: "Customize your crew's behavior, add your knowledge base, and set up automation workflows.",
+    description:
+      "Customize your crew's behavior, add your knowledge base, and set up automation workflows.",
   },
   {
     number: "03",
     title: "Deploy & Monitor",
-    description: "Launch your crew and watch it handle conversations. Monitor performance in real-time.",
+    description:
+      "Launch your crew and watch it handle conversations. Monitor performance in real-time.",
   },
   {
     number: "04",
     title: "Optimize & Scale",
-    description: "Use analytics insights to improve performance and scale your operations effortlessly.",
+    description:
+      "Use analytics insights to improve performance and scale your operations effortlessly.",
   },
 ];
 
@@ -183,32 +196,38 @@ export interface WhyFeature {
 export const whyAutocrewData = {
   badge: "Why AutoCrew",
   title: "Engineered for Autonomy & Impact",
-  description: "We don't just automate tasks; we deploy intelligent digital workforces that scale your operations 24/7 without manual intervention.",
+  description:
+    "We don't just automate tasks; we deploy intelligent digital workforces that scale your operations 24/7 without manual intervention.",
   ctaText: "Deploy Your Crew",
   features: [
     {
       title: "Instant Activation",
-      description: "Launch fully trained AI crews in minutes. Our pre-built templates for Support and Sales eliminate setup fatigue.",
+      description:
+        "Launch fully trained AI crews in minutes. Our pre-built templates for Support and Sales eliminate setup fatigue.",
       icon: "Rocket",
     },
     {
       title: "Enterprise Trust",
-      description: "SOC2 Type II compliant infrastructure ensures your customer data remains secure while your AI crews work 24/7.",
+      description:
+        "SOC2 Type II compliant infrastructure ensures your customer data remains secure while your AI crews work 24/7.",
       icon: "ShieldCheck",
     },
     {
       title: "Limitless Scale",
-      description: "Handle spikes in support tickets or lead volume instantly. Your digital workforce scales from zero to thousands automatically.",
+      description:
+        "Handle spikes in support tickets or lead volume instantly. Your digital workforce scales from zero to thousands automatically.",
       icon: "Maximize",
     },
     {
       title: "Native Integration",
-      description: "Native connectors for your favorite tools. Seamlessly integrate with Slack, email, and CRM via webhooks.",
+      description:
+        "Native connectors for your favorite tools. Seamlessly integrate with Slack, email, and CRM via webhooks.",
       icon: "Webhook",
     },
     {
       title: "Smart Handoff",
-      description: "Smooth escalation protocols ensure complex queries reach human experts immediately. AI and humans in perfect harmony.",
+      description:
+        "Smooth escalation protocols ensure complex queries reach human experts immediately. AI and humans in perfect harmony.",
       icon: "Headphones",
     },
   ] as WhyFeature[],
@@ -244,7 +263,7 @@ export const navLinks = [
 
 // Footer Data (simplified - just copyright)
 export const footerData = {
-  copyright: "© 2026 AutoCrew Inc. All rights reserved.",
+  copyright: "© 2026 AutoCrew. All rights reserved.",
 };
 
 // ============================================
@@ -270,6 +289,7 @@ export interface InboxInquiry {
   name: string;
   initials: string;
   avatarColor: string;
+  avatarUrl?: string;
   channel: InquiryChannel;
   status: InquiryStatus;
   isActive: boolean;
@@ -323,29 +343,149 @@ export const dashboardPreviewData = {
       agentName: "Robin",
       agentRole: "Support Agent",
       transcripts: [
-        "\"I can help you reschedule. Let me pull up your account...\"",
-        "\"Your appointment has been moved to March 20th at 10 AM.\"",
-        "\"Is there anything else I can help you with today?\"",
-        "\"I'll send a confirmation email to your address on file.\"",
+        '"I can help you reschedule. Let me pull up your account..."',
+        '"Your appointment has been moved to March 20th at 10 AM."',
+        '"Is there anything else I can help you with today?"',
+        '"I\'ll send a confirmation email to your address on file."',
       ],
     },
     messages: [
-      { id: "m1", sender: "bot", content: "Welcome! I'm Robin, your AI support crew. How can I help you today?", timestamp: "2:12 PM" },
-      { id: "m2", sender: "user", content: "I need to reschedule my appointment for next week", timestamp: "2:12 PM" },
-      { id: "m3", sender: "bot", content: "I found your appointment for March 15th at 10:00 AM. What date and time works better for you?", timestamp: "2:13 PM" },
-      { id: "m4", sender: "user", content: "How about March 20th, same time?", timestamp: "2:13 PM" },
-      { id: "m5", sender: "bot", content: "March 20th at 10:00 AM is available. I've rescheduled your appointment. \u2713", timestamp: "2:14 PM", isVoiceClip: true, voiceDuration: "0:04" },
+      {
+        id: "m1",
+        sender: "bot",
+        content:
+          "Welcome! I'm Robin, your AI support crew. How can I help you today?",
+        timestamp: "2:12 PM",
+      },
+      {
+        id: "m2",
+        sender: "user",
+        content: "I need to reschedule my appointment for next week",
+        timestamp: "2:12 PM",
+      },
+      {
+        id: "m3",
+        sender: "bot",
+        content:
+          "I found your appointment for March 15th at 10:00 AM. What date and time works better for you?",
+        timestamp: "2:13 PM",
+      },
+      {
+        id: "m4",
+        sender: "user",
+        content: "How about March 20th, same time?",
+        timestamp: "2:13 PM",
+      },
+      {
+        id: "m5",
+        sender: "bot",
+        content:
+          "March 20th at 10:00 AM is available. I've rescheduled your appointment. \u2713",
+        timestamp: "2:14 PM",
+        isVoiceClip: true,
+        voiceDuration: "0:04",
+      },
     ] as ChatMessageV2[],
   },
 
   inbox: {
     inquiries: [
-      { id: "i1", name: "Sarah Mitchell", initials: "SM", avatarColor: "from-blue-500 to-blue-600", channel: "Chat", status: "Resolved", isActive: false, timeAgo: "2m ago", preview: "I need to reschedule my appointment for next week, is March 20th available?", agentName: "Robin", agentRole: "Support Agent" },
-      { id: "i2", name: "James Donovan", initials: "JD", avatarColor: "from-purple-500 to-purple-600", channel: "Voice", status: "In Progress", isActive: true, timeAgo: "Active", preview: "Calling about billing discrepancy on last month's invoice #INV-2847...", agentName: "Alex", agentRole: "Billing Agent" },
-      { id: "i3", name: "Lisa Kowalski", initials: "LK", avatarColor: "from-pink-500 to-pink-600", channel: "Email", status: "Awaiting", isActive: false, timeAgo: "18m ago", preview: "RE: Product return request for order #ORD-9821 — damaged on arrival", agentName: "Robin", agentRole: "Support Agent" },
-      { id: "i4", name: "Raj Patel", initials: "RP", avatarColor: "from-amber-500 to-amber-600", channel: "SMS", status: "Resolved", isActive: false, timeAgo: "34m ago", preview: "Can you confirm my subscription renewal date? Account #AC-4421", agentName: "Alex", agentRole: "Billing Agent" },
-      { id: "i5", name: "Maria Chen", initials: "MC", avatarColor: "from-teal-500 to-teal-600", channel: "Chat", status: "Resolved", isActive: false, timeAgo: "1h ago", preview: "How do I integrate AutoCrew with my Salesforce CRM? Need API docs.", agentName: "Robin", agentRole: "Support Agent" },
-      { id: "i6", name: "Tom Walker", initials: "TW", avatarColor: "from-rose-500 to-rose-600", channel: "Voice", status: "Resolved", isActive: false, timeAgo: "2h ago", preview: "Need to upgrade my plan from Starter to Professional — what's the process?", agentName: "Alex", agentRole: "Billing Agent" },
+      {
+        id: "i1",
+        name: "Sarah Mitchell",
+        initials: "SM",
+        avatarColor: "from-blue-500 to-blue-600",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face",
+        channel: "Chat",
+        status: "Resolved",
+        isActive: false,
+        timeAgo: "2m ago",
+        preview:
+          "I need to reschedule my appointment for next week, is March 20th available?",
+        agentName: "Robin",
+        agentRole: "Support Agent",
+      },
+      {
+        id: "i2",
+        name: "James Donovan",
+        initials: "JD",
+        avatarColor: "from-purple-500 to-purple-600",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
+        channel: "Voice",
+        status: "In Progress",
+        isActive: true,
+        timeAgo: "Active",
+        preview:
+          "Calling about billing discrepancy on last month's invoice #INV-2847...",
+        agentName: "Alex",
+        agentRole: "Billing Agent",
+      },
+      {
+        id: "i3",
+        name: "Lisa Kowalski",
+        initials: "LK",
+        avatarColor: "from-pink-500 to-pink-600",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
+        channel: "Email",
+        status: "Awaiting",
+        isActive: false,
+        timeAgo: "18m ago",
+        preview:
+          "RE: Product return request for order #ORD-9821 — damaged on arrival",
+        agentName: "Robin",
+        agentRole: "Support Agent",
+      },
+      {
+        id: "i4",
+        name: "Raj Patel",
+        initials: "RP",
+        avatarColor: "from-amber-500 to-amber-600",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop&crop=face",
+        channel: "SMS",
+        status: "Resolved",
+        isActive: false,
+        timeAgo: "34m ago",
+        preview:
+          "Can you confirm my subscription renewal date? Account #AC-4421",
+        agentName: "Alex",
+        agentRole: "Billing Agent",
+      },
+      {
+        id: "i5",
+        name: "Maria Chen",
+        initials: "MC",
+        avatarColor: "from-teal-500 to-teal-600",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face",
+        channel: "Chat",
+        status: "Resolved",
+        isActive: false,
+        timeAgo: "1h ago",
+        preview:
+          "How do I integrate AutoCrew with my Salesforce CRM? Need API docs.",
+        agentName: "Robin",
+        agentRole: "Support Agent",
+      },
+      {
+        id: "i6",
+        name: "Tom Walker",
+        initials: "TW",
+        avatarColor: "from-rose-500 to-rose-600",
+        avatarUrl:
+          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face",
+        channel: "Voice",
+        status: "Resolved",
+        isActive: false,
+        timeAgo: "2h ago",
+        preview:
+          "Need to upgrade my plan from Starter to Professional — what's the process?",
+        agentName: "Alex",
+        agentRole: "Billing Agent",
+      },
     ] as InboxInquiry[],
     stats: {
       totalInquiries: 6,
@@ -378,9 +518,24 @@ export const dashboardPreviewData = {
       { channel: "SMS", percentage: 11, color: "#8B5CF6" },
     ] as ChannelBreakdown[],
     topAgents: [
-      { name: "Robin", initial: "R", avatarColor: "from-[#FF6B35] to-[#FF8C5A]", conversations: 847 },
-      { name: "Alex", initial: "A", avatarColor: "from-blue-500 to-blue-600", conversations: 623 },
-      { name: "Sam", initial: "S", avatarColor: "from-emerald-500 to-emerald-600", conversations: 377 },
+      {
+        name: "Robin",
+        initial: "R",
+        avatarColor: "from-[#FF6B35] to-[#FF8C5A]",
+        conversations: 847,
+      },
+      {
+        name: "Alex",
+        initial: "A",
+        avatarColor: "from-blue-500 to-blue-600",
+        conversations: 623,
+      },
+      {
+        name: "Sam",
+        initial: "S",
+        avatarColor: "from-emerald-500 to-emerald-600",
+        conversations: 377,
+      },
     ] as TopAgent[],
   },
 
@@ -399,9 +554,21 @@ export const dashboardPreviewData = {
       enabled: true,
     },
     toggles: [
-      { label: "Auto-escalation", description: "Route complex queries to humans", enabled: true },
-      { label: "Sentiment Analysis", description: "Monitor conversation tone", enabled: true },
-      { label: "Lead Scoring", description: "Auto-qualify prospects", enabled: false },
+      {
+        label: "Auto-escalation",
+        description: "Route complex queries to humans",
+        enabled: true,
+      },
+      {
+        label: "Sentiment Analysis",
+        description: "Monitor conversation tone",
+        enabled: true,
+      },
+      {
+        label: "Lead Scoring",
+        description: "Auto-qualify prospects",
+        enabled: false,
+      },
     ] as SettingToggle[],
     integrations: [
       { name: "Slack", icon: "MessageSquare", connected: true },

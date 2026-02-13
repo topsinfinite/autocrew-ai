@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "@/lib/hooks/use-theme";
 
 interface BackgroundEffectsProps {
   className?: string;
@@ -20,6 +21,8 @@ export function BackgroundEffects({
 }: BackgroundEffectsProps) {
   const [unicornLoaded, setUnicornLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { effectiveTheme } = useTheme();
+  const isDark = effectiveTheme === "dark";
 
   // Load Unicorn Studio script if project ID is provided
   useEffect(() => {
@@ -52,9 +55,10 @@ export function BackgroundEffects({
     <div
       ref={containerRef}
       className={cn(
-        "pointer-events-none fixed inset-0 -z-10 overflow-hidden",
+        "pointer-events-none fixed inset-0 -z-10 overflow-hidden transition-opacity duration-500",
         className
       )}
+      style={{ opacity: isDark ? 1 : 0 }}
     >
       {/* Unicorn Studio Animated Background */}
       {unicornStudioProjectId && (
