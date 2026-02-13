@@ -35,7 +35,7 @@ export function HeroSection() {
           <p
             className={cn(
               "inline-flex items-center gap-2 text-xs font-medium text-[#FF6B35] font-geist",
-              "bg-slate-800/50 border border-[#FF6B35]/20 rounded-full",
+              "bg-foreground/10 dark:bg-white/5 border border-[#FF6B35]/20 rounded-full",
               "mb-4 py-1 px-3 backdrop-blur-lg",
               "animate-fade-up opacity-0"
             )}
@@ -48,13 +48,13 @@ export function HeroSection() {
           {/* Main Headline */}
           <h1
             className={cn(
-              "text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight font-space-grotesk text-slate-100",
+              "text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight font-space-grotesk text-foreground",
               "animate-fade-up opacity-0"
             )}
             style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
           >
             {heroData.headline.prefix}{" "}
-            <span className="whitespace-nowrap relative text-white">
+            <span className="whitespace-nowrap relative text-foreground">
               {/* Accent underline */}
               <span className="absolute bottom-1 left-0 w-full h-3 bg-[#FF6B35]/20 -skew-x-6 -z-10" />
               {heroData.headline.accent}
@@ -64,7 +64,7 @@ export function HeroSection() {
           {/* Subheadline */}
           <p
             className={cn(
-              "md:text-xl text-base text-slate-300 font-geist mt-5",
+              "md:text-xl text-base text-muted-foreground font-geist mt-5",
               "animate-fade-up opacity-0"
             )}
             style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
@@ -101,13 +101,13 @@ export function HeroSection() {
                 className={cn(
                   "group flex items-center gap-2 text-base font-medium font-space",
                   "rounded-full py-3 px-8 border",
-                  "text-slate-300 hover:text-white",
-                  "bg-white/5 hover:bg-white/10",
-                  "border-white/10 hover:border-white/20",
+                  "text-muted-foreground hover:text-foreground",
+                  "bg-foreground/[0.05] dark:bg-white/5 hover:bg-foreground/[0.08] dark:hover:bg-white/10",
+                  "border-border hover:border-border",
                   "transition-all duration-300"
                 )}
               >
-                <PlayCircle className="w-5 h-5 text-slate-400 group-hover:text-[#FF6B35] transition-colors" />
+                <PlayCircle className="w-5 h-5 text-muted-foreground group-hover:text-[#FF6B35] transition-colors" />
                 {heroData.secondaryCta.text}
               </button>
             </Link>
@@ -116,7 +116,7 @@ export function HeroSection() {
           {/* Trust Indicator */}
           <div
             className={cn(
-              "flex text-sm mt-6 items-center justify-center text-slate-400",
+              "flex text-sm mt-6 items-center justify-center text-muted-foreground",
               "animate-fade-up opacity-0"
             )}
             style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
@@ -126,12 +126,15 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Dashboard Preview */}
+      {/* Dashboard Preview - forced dark context (product mockup) */}
       <div
         className="animate-scale-in opacity-0"
         style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
+        data-theme="dark"
       >
-        <DashboardPreview />
+        <div className="rounded-2xl overflow-hidden">
+          <DashboardPreview />
+        </div>
       </div>
     </section>
   );

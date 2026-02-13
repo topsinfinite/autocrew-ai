@@ -69,6 +69,15 @@
   /* Glass surface variables */
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-surface: rgba(255, 255, 255, 0.03);
+
+  /* Semantic opacity tokens for theme-aware borders/surfaces */
+  --surface-subtle: rgba(255, 255, 255, 0.02);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --surface-hover: rgba(255, 255, 255, 0.05);
+
+  /* Animation colors (theme-aware) */
+  --animation-dot-idle: rgba(255, 255, 255, 0.1);
+  --animation-num-dim: rgba(255, 255, 255, 0.05);
 }
 
 /* Light Mode Theme */
@@ -128,6 +137,15 @@
   /* Glass surface variables for light mode */
   --glass-border: rgba(0, 0, 0, 0.08);
   --glass-surface: rgba(0, 0, 0, 0.02);
+
+  /* Semantic opacity tokens for light mode */
+  --surface-subtle: rgba(0, 0, 0, 0.02);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --surface-hover: rgba(0, 0, 0, 0.05);
+
+  /* Animation colors for light mode */
+  --animation-dot-idle: rgba(0, 0, 0, 0.08);
+  --animation-num-dim: rgba(0, 0, 0, 0.05);
 }
 
 body {
@@ -196,6 +214,12 @@ body {
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+:root[data-theme="light"] .linear-grid {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
 }
 
 /* Accent glow blur effect */
@@ -375,15 +399,15 @@ body {
   15%, 45% { opacity: 1; transform: translateY(-2px); }
 }
 
-/* Dot pulse animation */
+/* Dot pulse animation - uses theme-aware --animation-dot-idle */
 @keyframes dot-pulse {
-  0%, 100% { background-color: rgba(255, 255, 255, 0.1); box-shadow: none; }
+  0%, 100% { background-color: var(--animation-dot-idle); box-shadow: none; }
   15%, 45% { background-color: #FF6B35; box-shadow: 0 0 10px #FF6B35; }
 }
 
-/* Number pulse animation */
+/* Number pulse animation - uses theme-aware --animation-num-dim */
 @keyframes num-pulse {
-  0%, 100% { color: rgba(255, 255, 255, 0.05); }
+  0%, 100% { color: var(--animation-num-dim); }
   15%, 45% { color: rgba(255, 107, 53, 0.2); }
 }
 
@@ -532,7 +556,7 @@ body {
   position: absolute;
   inset: 2px;
   border-radius: inherit;
-  background: #0A0C14;
+  background: hsl(var(--card));
 }
 
 /* Shine button effect */
@@ -584,19 +608,19 @@ body {
   scrollbar-width: none;
 }
 
-/* Custom scrollbar for panels - matching HTML design */
+/* Custom scrollbar for panels - theme-aware */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface-subtle);
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--border-subtle);
   border-radius: 2px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-hover);
 }
 
 /* ============================================

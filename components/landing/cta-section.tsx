@@ -6,22 +6,22 @@ import { ArrowRight, Mail, Calendar, Bot, Github, Linkedin } from "lucide-react"
 export function CtaSection() {
   return (
     <section className="sm:px-6 sm:mt-10 font-space-grotesk max-w-7xl mt-8 mx-auto mb-16 px-4">
-      <div className="group overflow-hidden sm:p-10 transition-colors duration-500 text-white bg-[#0A0C14] border-white/10 border rounded-[40px] p-6 relative shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+      <div className="group overflow-hidden sm:p-10 transition-colors duration-500 text-card-foreground bg-card border-border border rounded-[40px] p-6 relative shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
         {/* Background Effects */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Subtle top-left light */}
-          <div className="absolute inset-0 bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(255,255,255,0.02),transparent_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(255,255,255,0.02),transparent_100%)] dark:bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(255,255,255,0.02),transparent_100%)]" />
           {/* Burnt Orange Glow bottom-right */}
           <div className="absolute inset-0 bg-[radial-gradient(1000px_800px_at_100%_100%,rgba(255,107,53,0.12),transparent_100%)]" />
           {/* Texture Grid */}
-          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.2]" />
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.2]" />
         </div>
 
         <div className="relative z-10">
           {/* Large Typography Headline */}
           <h2 className="text-[14vw] sm:text-[10vw] lg:text-[8vw] leading-[0.9] font-semibold tracking-tighter font-geist mb-12">
-            <span className="block font-space-grotesk text-white">Ready to build</span>
-            <span className="block text-white/40 transition-colors duration-700 font-space-grotesk">
+            <span className="block font-space-grotesk text-foreground">Ready to build</span>
+            <span className="block text-muted-foreground transition-colors duration-700 font-space-grotesk">
               something extraordinary?
             </span>
           </h2>
@@ -35,9 +35,9 @@ export function CtaSection() {
               </p>
               <a
                 href="mailto:hello@autocrew.com"
-                className="inline-flex items-center gap-3 text-lg sm:text-xl font-medium tracking-tight text-white hover:text-[#FF6B35] transition-colors font-geist group/link"
+                className="inline-flex items-center gap-3 text-lg sm:text-xl font-medium tracking-tight text-foreground hover:text-[#FF6B35] transition-colors font-geist group/link"
               >
-                <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#FF6B35] group-hover/link:bg-[#FF6B35]/10 group-hover/link:border-[#FF6B35]/20 transition-colors">
+                <div className="w-8 h-8 rounded-lg bg-foreground/[0.05] dark:bg-white/5 border border-border flex items-center justify-center text-[#FF6B35] group-hover/link:bg-[#FF6B35]/10 group-hover/link:border-[#FF6B35]/20 transition-colors">
                   <Mail className="w-4 h-4" />
                 </div>
                 <span className="break-all">hello@autocrew.com</span>
@@ -74,12 +74,12 @@ export function CtaSection() {
                 </Link>
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors pl-1 font-geist group/link"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors pl-1 font-geist group/link"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover/link:bg-[#FF6B35] transition-colors" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground group-hover/link:bg-[#FF6B35] transition-colors" />
                   <span>
                     Already a member?{" "}
-                    <span className="text-white group-hover/link:text-[#FF6B35] transition-colors">
+                    <span className="text-foreground group-hover/link:text-[#FF6B35] transition-colors">
                       Sign in
                     </span>
                   </span>
@@ -95,21 +95,21 @@ export function CtaSection() {
               {/* Brand */}
               <div className="flex flex-col max-w-sm gap-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-black">
+                  <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
                     <Bot className="w-5 h-5" strokeWidth={2.5} />
                   </div>
-                  <span className="text-xl font-semibold text-white font-space-grotesk tracking-tight">
+                  <span className="text-xl font-semibold text-foreground font-space-grotesk tracking-tight">
                     AutoCrew
                   </span>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-400 font-geist">
+                <p className="text-sm leading-relaxed text-muted-foreground font-geist">
                   AI-powered automation for modern businesses. Deploy intelligent crews that work
                   24/7 to transform your operations.
                 </p>
                 <div className="flex gap-5">
                   <a
                     href="#"
-                    className="text-slate-400 hover:text-white transition-colors"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                     aria-label="X"
                   >
                     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-current">
@@ -118,14 +118,14 @@ export function CtaSection() {
                   </a>
                   <a
                     href="#"
-                    className="text-slate-400 hover:text-white transition-colors"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                     aria-label="GitHub"
                   >
                     <Github className="w-5 h-5" />
                   </a>
                   <a
                     href="#"
-                    className="text-slate-400 hover:text-white transition-colors"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-5 h-5" />
@@ -137,21 +137,21 @@ export function CtaSection() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16 w-full lg:w-auto">
                 {/* Product */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-white font-space-grotesk">Product</h3>
-                  <div className="flex flex-col gap-3 text-sm text-slate-400 font-geist">
-                    <Link href="/#features" className="hover:text-white transition-colors">
+                  <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Product</h3>
+                  <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
+                    <Link href="/#features" className="hover:text-foreground transition-colors">
                       Features
                     </Link>
-                    <Link href="/#solutions" className="hover:text-white transition-colors">
+                    <Link href="/#solutions" className="hover:text-foreground transition-colors">
                       Support Crew
                     </Link>
-                    <Link href="/#solutions" className="hover:text-white transition-colors">
+                    <Link href="/#solutions" className="hover:text-foreground transition-colors">
                       LeadGen Crew
                     </Link>
-                    <Link href="/#pricing" className="hover:text-white transition-colors">
+                    <Link href="/#pricing" className="hover:text-foreground transition-colors">
                       Pricing
                     </Link>
-                    <Link href="#" className="hover:text-white transition-colors">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       Changelog
                     </Link>
                   </div>
@@ -159,18 +159,18 @@ export function CtaSection() {
 
                 {/* Resources */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-white font-space-grotesk">Resources</h3>
-                  <div className="flex flex-col gap-3 text-sm text-slate-400 font-geist">
-                    <Link href="/docs" className="hover:text-white transition-colors">
+                  <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Resources</h3>
+                  <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
+                    <Link href="/docs" className="hover:text-foreground transition-colors">
                       Documentation
                     </Link>
-                    <Link href="/docs" className="hover:text-white transition-colors">
+                    <Link href="/docs" className="hover:text-foreground transition-colors">
                       Getting Started
                     </Link>
-                    <Link href="/docs" className="hover:text-white transition-colors">
+                    <Link href="/docs" className="hover:text-foreground transition-colors">
                       User Guide
                     </Link>
-                    <Link href="#" className="hover:text-white transition-colors">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       FAQ
                     </Link>
                   </div>
@@ -178,18 +178,18 @@ export function CtaSection() {
 
                 {/* Legal */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-white font-space-grotesk">Legal</h3>
-                  <div className="flex flex-col gap-3 text-sm text-slate-400 font-geist">
-                    <Link href="#" className="hover:text-white transition-colors">
+                  <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Legal</h3>
+                  <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       Privacy Policy
                     </Link>
-                    <Link href="#" className="hover:text-white transition-colors">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       Terms of Service
                     </Link>
-                    <Link href="#" className="hover:text-white transition-colors">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       Security
                     </Link>
-                    <Link href="#" className="hover:text-white transition-colors">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       Compliance
                     </Link>
                   </div>
@@ -197,18 +197,18 @@ export function CtaSection() {
 
                 {/* Company */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-white font-space-grotesk">Company</h3>
-                  <div className="flex flex-col gap-3 text-sm text-slate-400 font-geist">
-                    <Link href="#" className="hover:text-white transition-colors">
+                  <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Company</h3>
+                  <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       About
                     </Link>
-                    <Link href="/contact" className="hover:text-white transition-colors">
+                    <Link href="/contact" className="hover:text-foreground transition-colors">
                       Contact
                     </Link>
-                    <Link href="#" className="hover:text-white transition-colors">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       Blog
                     </Link>
-                    <Link href="#" className="hover:text-white transition-colors">
+                    <Link href="#" className="hover:text-foreground transition-colors">
                       Careers
                     </Link>
                   </div>
@@ -217,15 +217,15 @@ export function CtaSection() {
             </div>
 
             {/* Bottom Section */}
-            <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-4 mt-4">
-              <p className="text-sm text-slate-400 font-geist">
+            <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border gap-4 mt-4">
+              <p className="text-sm text-muted-foreground font-geist">
                 © 2026 AutoCrew. All rights reserved.
               </p>
-              <div className="flex gap-6 text-sm text-slate-400 font-geist">
-                <Link href="#" className="hover:text-white transition-colors">
+              <div className="flex gap-6 text-sm text-muted-foreground font-geist">
+                <Link href="#" className="hover:text-foreground transition-colors">
                   Privacy Policy
                 </Link>
-                <Link href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-foreground transition-colors">
                   Terms of Service
                 </Link>
               </div>

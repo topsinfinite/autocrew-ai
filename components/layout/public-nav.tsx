@@ -15,7 +15,7 @@ export function PublicNav() {
       <nav
         className={cn(
           "max-w-5xl mx-auto rounded-full px-6 py-3",
-          "border border-white/10",
+          "border border-border",
           "glass-nav",
           "relative overflow-hidden"
         )}
@@ -23,19 +23,19 @@ export function PublicNav() {
         <div className="relative z-10 flex items-center justify-between">
           {/* Logo with status indicator */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-lg font-medium font-space tracking-tight text-white/90">
+            <span className="text-lg font-medium font-space tracking-tight text-foreground">
               AutoCrew
             </span>
             <div className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] animate-pulse" />
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-1 text-sm font-medium text-white/60">
+          <ul className="hidden md:flex items-center gap-1 text-sm font-medium text-muted-foreground">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="transition-colors duration-300 font-geist rounded-full py-2 px-4 hover:text-white hover:bg-white/5"
+                  className="transition-colors duration-300 font-geist rounded-full py-2 px-4 hover:text-foreground hover:bg-foreground/[0.05]"
                 >
                   {link.label}
                 </Link>
@@ -47,7 +47,7 @@ export function PublicNav() {
           <div className="flex items-center gap-3">
             {/* Mobile menu button */}
             <button
-              className="inline-flex md:hidden p-2 -mr-2 rounded-full transition-colors text-white/70 hover:bg-white/10"
+              className="inline-flex md:hidden p-2 -mr-2 rounded-full transition-colors text-muted-foreground hover:bg-foreground/[0.08]"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -62,9 +62,9 @@ export function PublicNav() {
               <button
                 className={cn(
                   "text-xs font-medium font-space rounded-full py-2.5 px-5",
-                  "border text-slate-300 hover:text-white",
-                  "bg-white/5 hover:bg-white/10",
-                  "border-white/10 hover:border-white/20",
+                  "border text-muted-foreground hover:text-foreground",
+                  "bg-foreground/[0.05] hover:bg-foreground/[0.08]",
+                  "border-border hover:border-border",
                   "transition-colors"
                 )}
               >
@@ -93,7 +93,7 @@ export function PublicNav() {
         <div
           className={cn(
             "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
-            mobileMenuOpen ? "max-h-96 mt-4 pt-4 border-t border-white/10" : "max-h-0"
+            mobileMenuOpen ? "max-h-96 mt-4 pt-4 border-t border-border" : "max-h-0"
           )}
         >
           <div className="flex flex-col gap-1">
@@ -101,20 +101,20 @@ export function PublicNav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-3 text-sm font-medium font-geist rounded-lg transition-colors text-white/60 hover:text-white hover:bg-white/5"
+                className="px-4 py-3 text-sm font-medium font-geist rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-foreground/[0.05]"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-white/10">
+            <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-border">
               <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
                 <button
                   className={cn(
                     "w-full text-sm font-medium font-space rounded-full py-2.5 px-5",
-                    "border text-slate-300 hover:text-white",
-                    "bg-white/5 hover:bg-white/10",
-                    "border-white/10 hover:border-white/20",
+                    "border text-muted-foreground hover:text-foreground",
+                    "bg-foreground/[0.05] hover:bg-foreground/[0.08]",
+                    "border-border hover:border-border",
                     "transition-colors"
                   )}
                 >
