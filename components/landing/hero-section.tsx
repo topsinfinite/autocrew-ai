@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { CircleDot, PlayCircle } from "lucide-react";
+import { CircleDot, ArrowRight } from "lucide-react";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { heroData } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
@@ -72,43 +72,26 @@ export function HeroSection() {
             {heroData.subheadline}
           </p>
 
-          {/* CTAs */}
+          {/* CTA */}
           <div
             className={cn(
-              "flex flex-col gap-3 sm:flex-row mt-8 items-center justify-center",
+              "flex mt-8 items-center justify-center",
               "animate-fade-up opacity-0"
             )}
             style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
           >
-            {/* Primary CTA - hidden on mobile */}
-            <Link href={heroData.primaryCta.href} className="hidden md:block">
+            <Link href={heroData.primaryCta.href}>
               <button
                 className={cn(
-                  "shine-button text-base font-medium text-[#03060e] font-space",
+                  "group inline-flex items-center gap-2 text-base font-medium text-black font-space",
                   "rounded-full py-3 px-8",
-                  "shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]",
-                  "hover:bg-white bg-slate-200",
-                  "transition-colors"
+                  "bg-[#FF6B35] hover:bg-[#FF6B35]/90",
+                  "shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)]",
+                  "transition-all duration-200"
                 )}
               >
                 {heroData.primaryCta.text}
-              </button>
-            </Link>
-
-            {/* Secondary CTA */}
-            <Link href={heroData.secondaryCta.href}>
-              <button
-                className={cn(
-                  "group flex items-center gap-2 text-base font-medium font-space",
-                  "rounded-full py-3 px-8 border",
-                  "text-muted-foreground hover:text-foreground",
-                  "bg-foreground/[0.05] dark:bg-white/5 hover:bg-foreground/[0.08] dark:hover:bg-white/10",
-                  "border-border hover:border-border",
-                  "transition-all duration-300"
-                )}
-              >
-                <PlayCircle className="w-5 h-5 text-muted-foreground group-hover:text-[#FF6B35] transition-colors" />
-                {heroData.secondaryCta.text}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
             </Link>
           </div>

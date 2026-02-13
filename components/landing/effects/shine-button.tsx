@@ -22,8 +22,7 @@ export const ShineButton = forwardRef<HTMLButtonElement, ShineButtonProps>(
         className={cn(
           "shine-button relative overflow-hidden",
           // Default styling for primary CTA appearance
-          "bg-slate-200 text-slate-900 hover:bg-white",
-          "shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]",
+          "bg-foreground text-background hover:bg-foreground/80",
           "font-medium",
           className
         )}

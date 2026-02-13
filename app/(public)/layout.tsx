@@ -10,7 +10,7 @@ export default function PublicLayout({
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Background effects layer */}
-      <BackgroundEffects />
+      <BackgroundEffects showGrid={false} />
 
       {/* Content layer */}
       <div className="relative z-10 flex flex-col min-h-screen">

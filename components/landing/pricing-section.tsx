@@ -12,11 +12,11 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative z-10 border-t border-gray-200/10 dark:border-white/[0.06] pt-40 pb-40"
+      className="relative z-10 border-t border-border pt-40 pb-40"
     >
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Background Elements */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-gray-400/20 dark:from-white/10 to-transparent" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-border to-transparent" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF6B35]/5 blur-[120px] rounded-full pointer-events-none opacity-50" />
 
         {/* Header */}
@@ -24,13 +24,13 @@ export function PricingSection() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#FF6B35]/20 bg-[#FF6B35]/5 text-[#FF6B35] text-xs font-medium mb-6 font-space">
             {customPricingData.badge}
           </div>
-          <h2 className="text-4xl md:text-5xl tracking-tight mb-6 font-semibold text-gray-900 dark:text-white font-space-grotesk">
+          <h2 className="text-4xl md:text-5xl tracking-tight mb-6 font-semibold text-foreground font-space-grotesk">
             {customPricingData.title}{" "}
-            <span className="text-gray-400 dark:text-white/40">
+            <span className="text-muted-foreground/70">
               {customPricingData.subtitle}
             </span>
           </h2>
-          <p className="text-lg leading-relaxed text-gray-500 dark:text-white/60 font-geist">
+          <p className="text-lg leading-relaxed text-muted-foreground font-geist">
             {customPricingData.description}
           </p>
         </div>
@@ -42,15 +42,15 @@ export function PricingSection() {
             return (
               <div
                 key={index}
-                className="flex flex-col items-center text-center p-8 rounded-2xl bg-gray-50/50 dark:bg-white/[0.02] border border-gray-200 dark:border-white/[0.06] hover:border-[#FF6B35]/30 transition-all duration-300 group"
+                className="flex flex-col items-center text-center p-8 rounded-2xl bg-muted/30 border border-border hover:border-[#FF6B35]/30 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 border border-[#FF6B35]/20 flex items-center justify-center mb-5 group-hover:shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] transition-all">
                   {Icon && <Icon className="w-6 h-6 text-[#FF6B35]" />}
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white font-space-grotesk">
+                <h3 className="text-lg font-semibold mb-2 text-foreground font-space-grotesk">
                   {prop.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-gray-500 dark:text-white/50 font-geist">
+                <p className="text-sm leading-relaxed text-muted-foreground font-geist">
                   {prop.description}
                 </p>
               </div>
@@ -60,7 +60,7 @@ export function PricingSection() {
 
         {/* Trust Signal */}
         <div className="text-center mb-12">
-          <p className="text-sm text-gray-400 dark:text-white/40 font-geist">
+          <p className="text-sm text-muted-foreground/70 font-geist">
             {customPricingData.trustSignal}
           </p>
         </div>
@@ -77,7 +77,7 @@ export function PricingSection() {
           </Link>
           <a
             href={customPricingData.secondaryCta.href}
-            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-white/60 hover:text-[#FF6B35] transition-colors font-geist"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-[#FF6B35] transition-colors font-geist"
           >
             <Mail className="w-4 h-4" />
             {customPricingData.secondaryCta.text}
@@ -86,7 +86,7 @@ export function PricingSection() {
 
         {/* Tagline */}
         <div className="text-center mt-12">
-          <p className="text-xs text-gray-400 dark:text-white/30 font-geist max-w-md mx-auto">
+          <p className="text-xs text-muted-foreground/50 font-geist max-w-md mx-auto">
             {customPricingData.tagline}
           </p>
         </div>

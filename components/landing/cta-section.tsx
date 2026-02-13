@@ -10,11 +10,11 @@ export function CtaSection() {
         {/* Background Effects */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Subtle top-left light */}
-          <div className="absolute inset-0 bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(255,255,255,0.02),transparent_100%)] dark:bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(255,255,255,0.02),transparent_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(0,0,0,0.02),transparent_100%)] dark:bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(255,255,255,0.02),transparent_100%)]" />
           {/* Burnt Orange Glow bottom-right */}
           <div className="absolute inset-0 bg-[radial-gradient(1000px_800px_at_100%_100%,rgba(255,107,53,0.12),transparent_100%)]" />
           {/* Texture Grid */}
-          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.2]" />
+          <div className="absolute inset-0 bg-[radial-gradient(#0000000d_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.2]" />
         </div>
 
         <div className="relative z-10">
@@ -67,7 +67,7 @@ export function CtaSection() {
               <div className="flex flex-col gap-4 w-full sm:w-auto">
                 <Link
                   href="/signup"
-                  className="group/btn inline-flex items-center justify-center gap-2 text-sm font-semibold text-[#03060e] tracking-tight bg-white hover:bg-slate-200 border border-transparent rounded-full px-6 py-3 transition-all duration-200 shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)] font-space"
+                  className="group/btn inline-flex items-center justify-center gap-2 text-sm font-semibold text-black tracking-tight bg-[#FF6B35] hover:bg-[#FF6B35]/90 border border-transparent rounded-full px-6 py-3 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] font-space"
                 >
                   Start for free
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
