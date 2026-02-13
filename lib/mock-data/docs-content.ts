@@ -130,6 +130,25 @@ export const getDocRoutes = (): string[] => {
   return routes
 }
 
+// Get a flat map of route paths to page titles
+export const getDocTitleMap = (): Record<string, string> => {
+  const map: Record<string, string> = {}
+
+  const traverse = (items: DocNavigationItem[]) => {
+    items.forEach((item) => {
+      if (item.href && item.href !== "#") {
+        map[item.href] = item.title
+      }
+      if (item.items) {
+        traverse(item.items)
+      }
+    })
+  }
+
+  traverse(docsNavigation)
+  return map
+}
+
 // Get previous and next routes for navigation
 export const getAdjacentRoutes = (currentPath: string) => {
   const routes = getDocRoutes()

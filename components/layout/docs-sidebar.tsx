@@ -83,12 +83,14 @@ export function DocsSidebar({ className }: DocsSidebarProps) {
   return (
     <>
       {/* Mobile Menu Button */}
-      <div className="lg:hidden fixed top-4 left-4 z-50">
+      <div className="lg:hidden fixed top-24 left-4 z-50">
         <Button
           variant="outline"
           size="icon"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="bg-background"
+          aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? (
             <X className="h-5 w-5" />
@@ -105,7 +107,7 @@ export function DocsSidebar({ className }: DocsSidebarProps) {
             className="lg:hidden fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <aside className="lg:hidden fixed inset-y-0 left-0 z-50 w-64 shrink-0 border-r border-border bg-card p-6">
+          <aside className="lg:hidden fixed inset-y-0 left-0 z-50 w-64 shrink-0 border-r border-border bg-card p-6" role="navigation" aria-label="Documentation navigation">
             {sidebarContent}
           </aside>
         </>

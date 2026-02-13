@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { DocNavigation } from "@/components/docs/doc-navigation"
 import { faqData } from "@/lib/mock-data/docs-content"
 import {
@@ -6,6 +7,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+
+export const metadata: Metadata = {
+  title: "FAQ - AutoCrew Documentation",
+  description:
+    "Frequently asked questions about AutoCrew, AI crews, pricing, and more.",
+}
 
 export default function FAQPage() {
   return (
@@ -87,7 +94,7 @@ export default function FAQPage() {
             Connect with other AutoCrew users and share insights.
           </p>
           <a
-            href="#"
+            href="/contact"
             className="text-sm font-medium text-primary hover:underline"
           >
             Join Community →

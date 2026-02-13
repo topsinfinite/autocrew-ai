@@ -1,7 +1,8 @@
 "use client";
 
-import { Bot, ArrowRight, ArrowLeft, Clock, Building2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, Clock, Building2 } from "lucide-react";
 import Link from "next/link";
+import { Logo } from "@/components/layout";
 
 export default function SignUpPage() {
   return (
@@ -19,14 +20,9 @@ export default function SignUpPage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#FF6B35]/10 blur-[120px] rounded-full opacity-40 pointer-events-none" />
 
         {/* Logo Area */}
-        <div className="z-10 flex gap-2 relative items-center">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg flex items-center justify-center border bg-white/5 text-white border-white/10">
-              <Bot className="h-4 w-4" />
-            </div>
-            <span className="text-lg font-semibold tracking-tight font-space-grotesk text-white">
-              AutoCrew
-            </span>
+        <div className="z-10 relative">
+          <Link href="/">
+            <Logo height={19} className="text-white" />
           </Link>
         </div>
 
@@ -57,13 +53,8 @@ export default function SignUpPage() {
       <div className="flex flex-col lg:p-12 p-6 overflow-y-auto custom-scrollbar bg-[#03060e] relative items-center justify-center">
         {/* Mobile Logo (hidden on desktop) */}
         <div className="absolute top-0 right-0 p-6 lg:hidden">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg flex items-center justify-center border bg-white/5 text-white border-white/10">
-              <Bot className="h-4 w-4" />
-            </div>
-            <span className="text-lg font-semibold tracking-tight font-space-grotesk text-white">
-              AutoCrew
-            </span>
+          <Link href="/">
+            <Logo height={19} className="text-white" />
           </Link>
         </div>
 

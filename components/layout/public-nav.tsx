@@ -6,9 +6,22 @@ import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { navLinks } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/layout/logo";
 
-export function PublicNav() {
+const docsLinks = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "Getting Started", href: "/docs/getting-started" },
+  { label: "FAQ", href: "/docs/faq" },
+];
+
+interface PublicNavProps {
+  variant?: "default" | "docs";
+}
+
+export function PublicNav({ variant = "default" }: PublicNavProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const links = variant === "docs" ? docsLinks : navLinks;
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -32,17 +45,14 @@ export function PublicNav() {
         )}
       >
         <div className="relative z-10 flex items-center justify-between">
-          {/* Logo with status indicator */}
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-lg font-medium font-space tracking-tight text-foreground">
-              AutoCrew
-            </span>
-            <div className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] animate-pulse" />
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <Logo height={19} className="text-foreground" />
           </Link>
 
           {/* Desktop Navigation */}
           <ul className="hidden md:flex items-center gap-1 text-sm font-medium text-muted-foreground">
-            {navLinks.map((link) => (
+            {links.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -141,7 +151,7 @@ export function PublicNav() {
               </button>
             </div>
             <nav className="flex flex-col gap-1">
-              {navLinks.map((link) => (
+              {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}

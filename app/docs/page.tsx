@@ -1,7 +1,14 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { BookOpen, Rocket, Users, HelpCircle, FileText, Zap } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { DocNavigation } from "@/components/docs/doc-navigation"
+
+export const metadata: Metadata = {
+  title: "Documentation - AutoCrew",
+  description:
+    "Learn how to automate your business processes with AI-powered crews that work 24/7 to support your customers and generate leads.",
+}
 
 export default function DocsPage() {
   const sections = [

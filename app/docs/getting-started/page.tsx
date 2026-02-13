@@ -1,7 +1,14 @@
+import type { Metadata } from "next"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { CodeBlock } from "@/components/docs/code-block"
 import { DocNavigation } from "@/components/docs/doc-navigation"
 import { CheckCircle, Info } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Getting Started - AutoCrew Documentation",
+  description:
+    "Quick start guide to set up your first AI crew with AutoCrew.",
+}
 
 export default function GettingStartedPage() {
   return (

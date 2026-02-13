@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { getAdjacentRoutes } from "@/lib/mock-data/docs-content"
+import { getAdjacentRoutes, getDocTitleMap } from "@/lib/mock-data/docs-content"
 import { Button } from "@/components/ui/button"
 
 export function DocNavigation() {
@@ -14,18 +14,8 @@ export function DocNavigation() {
     return null
   }
 
-  const getPageTitle = (path: string) => {
-    const titles: Record<string, string> = {
-      "/docs/getting-started": "Getting Started",
-      "/docs/user-guide": "User Guide",
-      "/docs/support-crew": "Support Crew",
-      "/docs/leadgen-crew": "LeadGen Crew",
-      "/docs/faq": "FAQ",
-      "/docs/privacy": "Privacy Policy",
-      "/docs/terms": "Terms of Service",
-    }
-    return titles[path] || path
-  }
+  const titleMap = getDocTitleMap()
+  const getPageTitle = (path: string) => titleMap[path] || path
 
   return (
     <div className="mt-12 flex items-center justify-between border-t border-border pt-8">

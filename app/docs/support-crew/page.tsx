@@ -1,7 +1,14 @@
+import type { Metadata } from "next"
 import { DocNavigation } from "@/components/docs/doc-navigation"
 import { CodeBlock } from "@/components/docs/code-block"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lightbulb } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Support Crew - AutoCrew Documentation",
+  description:
+    "Learn how AutoCrew's AI-powered Support Crew automates customer support.",
+}
 
 export default function SupportCrewPage() {
   return (

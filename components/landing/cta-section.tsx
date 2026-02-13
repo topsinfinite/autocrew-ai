@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Mail, Calendar, Bot, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Mail, Calendar, Github, Linkedin } from "lucide-react";
+import { Logo } from "@/components/layout";
 
 export function CtaSection() {
   return (
@@ -94,14 +95,7 @@ export function CtaSection() {
             <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-24">
               {/* Brand */}
               <div className="flex flex-col max-w-sm gap-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
-                    <Bot className="w-5 h-5" strokeWidth={2.5} />
-                  </div>
-                  <span className="text-xl font-semibold text-foreground font-space-grotesk tracking-tight">
-                    AutoCrew
-                  </span>
-                </div>
+                <Logo height={22} className="text-foreground" />
                 <p className="text-sm leading-relaxed text-muted-foreground font-geist">
                   AI-powered automation for modern businesses. Deploy intelligent crews that work
                   24/7 to transform your operations.

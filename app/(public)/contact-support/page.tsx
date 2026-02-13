@@ -1,8 +1,9 @@
 "use client";
 
-import { Zap, Mail, MessageSquare, ArrowLeft } from "lucide-react";
+import { Mail, MessageSquare, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Logo } from "@/components/layout";
 
 export default function ContactSupportPage() {
   return (
@@ -10,11 +11,8 @@ export default function ContactSupportPage() {
       <div className="w-full max-w-2xl">
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
-              <Zap className="h-7 w-7 text-primary-foreground" />
-            </div>
-            <span className="text-3xl font-bold">AutoCrew</span>
+          <Link href="/">
+            <Logo height={29} className="text-foreground" />
           </Link>
         </div>
 

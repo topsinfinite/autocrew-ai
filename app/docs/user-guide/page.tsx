@@ -1,6 +1,13 @@
+import type { Metadata } from "next"
 import { DocNavigation } from "@/components/docs/doc-navigation"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Info } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "User Guide - AutoCrew Documentation",
+  description:
+    "Complete guide to using AutoCrew features for AI-powered automation.",
+}
 
 export default function UserGuidePage() {
   return (
