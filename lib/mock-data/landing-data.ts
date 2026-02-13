@@ -101,64 +101,46 @@ export const aiCrewsData: AiCrew[] = [
 ];
 
 // Pricing Section Data
-export interface PricingTier {
-  name: string;
-  price: number;
-  description: string;
-  features: string[];
-  ctaText: string;
-  highlighted?: boolean;
+export interface CustomPricingValueProp {
   icon: string;
+  title: string;
+  description: string;
 }
 
-export const pricingData = {
-  badge: "Flexible Pricing",
+export const customPricingData = {
+  badge: "Custom Pricing",
   title: "Big or Small?",
   subtitle: "We have a plan.",
-  tiers: [
+  description:
+    "Pricing tailored to your business size, industry, and goals. No hidden fees, just transparent solutions that scale with you.",
+  trustSignal: "Trusted by teams from 5 to 500+",
+  valueProps: [
     {
-      name: "Starter",
-      price: 499,
-      description: "Perfect for startups looking to automate core support functions with extraordinary value.",
-      features: [
-        "All templates unlocked",
-        "Unlimited requests",
-        "Basic Project management",
-        "Access to core agents",
-      ],
-      ctaText: "Subscribe",
-      highlighted: false,
+      icon: "Users",
+      title: "Scalable Solutions",
+      description:
+        "From startups to enterprise, our pricing grows with you. Pay for what you use, scale when you need.",
+    },
+    {
+      icon: "Shield",
+      title: "Premium Support",
+      description:
+        "Dedicated onboarding, training, and 24/7 support included in every plan. You're never alone.",
+    },
+    {
       icon: "Zap",
+      title: "Flexible Deployment",
+      description:
+        "Choose the features, crew types, and integrations that match your needs. No bloat, just value.",
     },
-    {
-      name: "Growth",
-      price: 799,
-      description: "Designed for scaling businesses needing advanced agent capabilities and higher throughput.",
-      features: [
-        "All templates unlocked",
-        "Unlimited requests & revisions",
-        "Dedicated Project Manager",
-        "Access to all services",
-      ],
-      ctaText: "Subscribe Now",
-      highlighted: true,
-      icon: "Rocket",
-    },
-    {
-      name: "Premium",
-      price: 1299,
-      description: "The ultimate package for corporate entities requiring premium support and custom API integration.",
-      features: [
-        "All templates unlocked",
-        "Unlimited requests (Priority)",
-        "Senior Project Manager",
-        "Access to all services & API",
-      ],
-      ctaText: "Subscribe",
-      highlighted: false,
-      icon: "Crown",
-    },
-  ] as PricingTier[],
+  ] as CustomPricingValueProp[],
+  primaryCta: { text: "Book a Call", href: "/contact" },
+  secondaryCta: {
+    text: "or email us at hello@autocrew.com",
+    href: "mailto:hello@autocrew.com",
+  },
+  tagline:
+    "Flexible pricing for businesses of all sizes. Let's build a plan together.",
 };
 
 // How It Works Data - 4 Steps
