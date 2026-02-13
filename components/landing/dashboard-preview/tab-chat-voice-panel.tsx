@@ -41,108 +41,175 @@ export function TabChatVoicePanel() {
   const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
   const seconds = String(elapsed % 60).padStart(2, "0");
 
-  return (
-    <div
-      className="w-full sm:w-[280px] lg:w-[320px] flex flex-col items-center justify-center relative p-6 flex-shrink-0"
-      style={{
-        background: "linear-gradient(180deg, rgba(255,107,53,0.06) 0%, rgba(0,0,0,0) 100%)",
-      }}
+  const muteButton = (
+    <button
+      onClick={() => setIsMuted((prev) => !prev)}
+      className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border ${
+        isMuted
+          ? "bg-white/[0.04] hover:bg-white/[0.08] border-white/[0.05]"
+          : "bg-primary/10 hover:bg-primary/20 border-primary/20"
+      }`}
+      aria-label={isMuted ? "Unmute speaker" : "Mute speaker"}
     >
-      {/* Live indicator */}
-      <div className="absolute top-5 left-5 flex items-center gap-2">
-        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-        <span className="font-space-mono text-[10px] text-neutral-600 uppercase tracking-wider">
-          Live
-        </span>
-      </div>
-
-      {/* Crew name */}
-      <div className="absolute top-5 right-5">
-        <span className="font-space-mono text-[10px] text-neutral-600 uppercase tracking-wider">
-          {voicePanel.crewName}
-        </span>
-      </div>
-
-      {/* Animated avatar */}
-      <div className="relative mb-6 mt-8">
-        <div className="w-20 h-20 bg-gradient-to-br from-[#FF6B35] to-[#FF4444] flex items-center justify-center shadow-xl shadow-[#FF6B35]/25 animate-morph-blob">
-          <Activity className="w-7 h-7 text-white" />
-        </div>
-
-        {/* Pulse rings */}
-        <div className="absolute inset-0 rounded-full border border-[#FF6B35]/20 animate-pulse-ring" />
-        <div
-          className="absolute inset-0 rounded-full border border-[#FF6B35]/10 animate-pulse-ring"
-          style={{ animationDelay: "0.8s" }}
+      {isMuted ? (
+        <VolumeX className="w-4 h-4 text-white/50" />
+      ) : (
+        <Volume2
+          className={`w-4 h-4 ${ttsLoading ? "text-primary/70 animate-pulse" : "text-primary"}`}
         />
+      )}
+    </button>
+  );
 
-        {/* Green status dot */}
-        <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-400 border-2 border-[#0A0C14] flex items-center justify-center">
-          <div className="w-1.5 h-1.5 rounded-full bg-white" />
+  return (
+    <>
+      {/* ===== Mobile compact layout (< sm) ===== */}
+      <div
+        className="sm:hidden flex flex-col gap-3 p-3 sticky top-0 z-10 backdrop-blur-md"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,107,53,0.06) 0%, rgba(10,12,20,0.95) 100%)",
+        }}
+      >
+        {/* Top row: avatar + info + controls */}
+        <div className="flex items-center gap-3">
+          {/* Compact avatar */}
+          <div className="relative flex-shrink-0">
+            <div className="w-11 h-11 bg-gradient-to-br from-[#FF6B35] to-[#FF4444] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/25">
+              <Activity className="w-5 h-5 text-white" />
+            </div>
+            <div className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-[1.5px] border-[#0A0C14] flex items-center justify-center">
+              <div className="w-1 h-1 rounded-full bg-white" />
+            </div>
+          </div>
+
+          {/* Info */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <p className="text-xs font-medium text-white truncate">AutoCrew is speaking</p>
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-space-mono text-[10px] text-neutral-500 truncate">
+                {voicePanel.agentName} &middot; {voicePanel.agentRole}
+              </span>
+              <span className="font-space-mono text-[10px] text-neutral-600 flex-shrink-0">
+                {minutes}:{seconds}
+              </span>
+            </div>
+          </div>
+
+          {/* Compact controls */}
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            <button className="w-7 h-7 rounded-full bg-white/[0.04] flex items-center justify-center border border-white/[0.05]">
+              <Mic className="w-3 h-3 text-white/50" />
+            </button>
+            <button className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/15">
+              <PhoneOff className="w-3.5 h-3.5 text-red-400" />
+            </button>
+            {muteButton}
+          </div>
+        </div>
+
+        {/* Transcript bar */}
+        <div className="bg-white/[0.02] border border-white/[0.04] rounded-lg px-3 py-2">
+          <div className="flex items-center gap-2">
+            <span className="font-space-mono text-[9px] text-neutral-600 uppercase tracking-wider flex-shrink-0">
+              Live
+            </span>
+            <p className="text-xs text-neutral-300 truncate">
+              {voicePanel.transcripts[transcriptIndex]}
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Agent info */}
-      <p className="text-sm font-medium text-white mb-1">AutoCrew is speaking</p>
-      <span className="font-space-mono text-xs text-neutral-500 mb-1">
-        {voicePanel.agentName} &middot; {voicePanel.agentRole}
-      </span>
-      <span className="font-space-mono text-[11px] text-neutral-600">
-        {minutes}:{seconds}
-      </span>
+      {/* ===== Desktop/tablet full layout (sm+) ===== */}
+      <div
+        className="hidden sm:flex w-[280px] lg:w-[320px] flex-col items-center justify-center relative p-6 flex-shrink-0"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,107,53,0.06) 0%, rgba(0,0,0,0) 100%)",
+        }}
+      >
+        {/* Live indicator */}
+        <div className="absolute top-5 left-5 flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-space-mono text-[10px] text-neutral-600 uppercase tracking-wider">
+            Live
+          </span>
+        </div>
 
-      {/* Audio waveform */}
-      <div className="flex items-center gap-[2px] h-10 mt-5">
-        {waveBars.map((bar, i) => (
+        {/* Crew name */}
+        <div className="absolute top-5 right-5">
+          <span className="font-space-mono text-[10px] text-neutral-600 uppercase tracking-wider">
+            {voicePanel.crewName}
+          </span>
+        </div>
+
+        {/* Animated avatar */}
+        <div className="relative mb-6 mt-8">
+          <div className="w-20 h-20 bg-gradient-to-br from-[#FF6B35] to-[#FF4444] flex items-center justify-center shadow-xl shadow-[#FF6B35]/25 animate-morph-blob">
+            <Activity className="w-7 h-7 text-white" />
+          </div>
+
+          {/* Pulse rings */}
+          <div className="absolute inset-0 rounded-full border border-[#FF6B35]/20 animate-pulse-ring" />
           <div
-            key={i}
-            className="w-[2.5px] rounded-full bg-[#FF6B35]/40 animate-wave-bar"
-            style={{
-              ["--wave-height" as string]: `${bar.height}%`,
-              ["--wave-duration" as string]: `${bar.duration}s`,
-              ["--wave-delay" as string]: `${bar.delay}s`,
-              height: `${bar.height}%`,
-            }}
+            className="absolute inset-0 rounded-full border border-[#FF6B35]/10 animate-pulse-ring"
+            style={{ animationDelay: "0.8s" }}
           />
-        ))}
-      </div>
 
-      {/* Live transcript */}
-      <div className="bg-white/[0.02] border border-white/[0.04] rounded-xl px-4 py-3 w-full mt-5">
-        <p className="font-space-mono text-xs text-neutral-500 mb-1.5 uppercase tracking-wider">
-          Live transcript
-        </p>
-        <p className="text-sm text-neutral-300 leading-relaxed">
-          {voicePanel.transcripts[transcriptIndex]}
-        </p>
-      </div>
+          {/* Green status dot */}
+          <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-400 border-2 border-[#0A0C14] flex items-center justify-center">
+            <div className="w-1.5 h-1.5 rounded-full bg-white" />
+          </div>
+        </div>
 
-      {/* Control buttons */}
-      <div className="flex items-center gap-3 mt-5">
-        <button className="w-9 h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.05]">
-          <Mic className="w-4 h-4 text-white/50" />
-        </button>
-        <button className="w-11 h-11 rounded-full bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center transition-colors border border-red-500/15">
-          <PhoneOff className="w-[18px] h-[18px] text-red-400" />
-        </button>
-        <button
-          onClick={() => setIsMuted((prev) => !prev)}
-          className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border ${
-            isMuted
-              ? "bg-white/[0.04] hover:bg-white/[0.08] border-white/[0.05]"
-              : "bg-primary/10 hover:bg-primary/20 border-primary/20"
-          }`}
-          aria-label={isMuted ? "Unmute speaker" : "Mute speaker"}
-        >
-          {isMuted ? (
-            <VolumeX className="w-4 h-4 text-white/50" />
-          ) : (
-            <Volume2
-              className={`w-4 h-4 ${ttsLoading ? "text-primary/70 animate-pulse" : "text-primary"}`}
+        {/* Agent info */}
+        <p className="text-sm font-medium text-white mb-1">AutoCrew is speaking</p>
+        <span className="font-space-mono text-xs text-neutral-500 mb-1">
+          {voicePanel.agentName} &middot; {voicePanel.agentRole}
+        </span>
+        <span className="font-space-mono text-[11px] text-neutral-600">
+          {minutes}:{seconds}
+        </span>
+
+        {/* Audio waveform */}
+        <div className="flex items-center gap-[2px] h-10 mt-5">
+          {waveBars.map((bar, i) => (
+            <div
+              key={i}
+              className="w-[2.5px] rounded-full bg-[#FF6B35]/40 animate-wave-bar"
+              style={{
+                ["--wave-height" as string]: `${bar.height}%`,
+                ["--wave-duration" as string]: `${bar.duration}s`,
+                ["--wave-delay" as string]: `${bar.delay}s`,
+                height: `${bar.height}%`,
+              }}
             />
-          )}
-        </button>
+          ))}
+        </div>
+
+        {/* Live transcript */}
+        <div className="bg-white/[0.02] border border-white/[0.04] rounded-xl px-4 py-3 w-full mt-5">
+          <p className="font-space-mono text-xs text-neutral-500 mb-1.5 uppercase tracking-wider">
+            Live transcript
+          </p>
+          <p className="text-sm text-neutral-300 leading-relaxed">
+            {voicePanel.transcripts[transcriptIndex]}
+          </p>
+        </div>
+
+        {/* Control buttons */}
+        <div className="flex items-center gap-3 mt-5">
+          <button className="w-9 h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.05]">
+            <Mic className="w-4 h-4 text-white/50" />
+          </button>
+          <button className="w-11 h-11 rounded-full bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center transition-colors border border-red-500/15">
+            <PhoneOff className="w-[18px] h-[18px] text-red-400" />
+          </button>
+          {muteButton}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

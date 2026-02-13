@@ -40,7 +40,7 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
           <BrowserChrome />
 
           {/* Main content area */}
-          <div className="flex flex-col lg:flex-row flex-1">
+          <div className="flex flex-col lg:flex-row flex-1 min-h-0">
             {/* Icon Sidebar */}
             <IconSidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
