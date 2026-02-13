@@ -56,19 +56,19 @@ export function FeaturesSection() {
         {/* Grid Section */}
         <div className="relative rounded-3xl overflow-visible">
           {/* Grid Lines & Beams Background */}
-          <div className="absolute inset-0 z-0 pointer-events-none rounded-3xl overflow-hidden border border-border">
+          <div className="absolute inset-0 z-0 pointer-events-none rounded-3xl overflow-hidden border border-foreground/[0.08] dark:border-border shadow-sm dark:shadow-none">
             {/* Vertical Lines */}
-            <div className="absolute left-1/3 top-0 w-px h-full bg-foreground/[0.05] dark:bg-white/[0.05] hidden md:block">
+            <div className="absolute left-1/3 top-0 w-px h-full bg-foreground/[0.08] dark:bg-white/[0.05] hidden md:block">
               <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-transparent via-[#FF6B35]/50 to-transparent animate-beam-v" />
             </div>
-            <div className="absolute right-1/3 top-0 w-px h-full bg-foreground/[0.05] dark:bg-white/[0.05] hidden md:block">
+            <div className="absolute right-1/3 top-0 w-px h-full bg-foreground/[0.08] dark:bg-white/[0.05] hidden md:block">
               <div
                 className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-transparent via-[#FF6B35]/50 to-transparent animate-beam-v"
                 style={{ animationDelay: "2s" }}
               />
             </div>
             {/* Horizontal Lines */}
-            <div className="absolute top-1/2 left-0 w-full h-px bg-foreground/[0.05] dark:bg-white/[0.05] hidden md:block">
+            <div className="absolute top-1/2 left-0 w-full h-px bg-foreground/[0.08] dark:bg-white/[0.05] hidden md:block">
               <div
                 className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-transparent via-[#FF6B35]/50 to-transparent animate-beam-h"
                 style={{ animationDuration: "5s" }}
@@ -77,7 +77,7 @@ export function FeaturesSection() {
           </div>
 
           {/* Cards Container */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-foreground/[0.02] dark:bg-white/[0.02] backdrop-blur-sm rounded-3xl overflow-hidden relative z-10 divide-y md:divide-y-0 md:divide-x divide-foreground/[0.05] dark:divide-white/[0.05]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-foreground/[0.03] dark:bg-white/[0.02] backdrop-blur-sm rounded-3xl overflow-hidden relative z-10 divide-y md:divide-y-0 md:divide-x divide-foreground/[0.08] dark:divide-white/[0.05]">
             {featuresData.map((feature, index) => {
               const Icon = iconMap[feature.icon as keyof typeof iconMap];
               const isFirstRow = index < 3;
@@ -87,15 +87,15 @@ export function FeaturesSection() {
                 <div
                   key={index}
                   className={cn(
-                    "group relative p-8 md:p-10 bg-foreground/[0.02] dark:bg-white/[0.02] hover:bg-foreground/[0.04] dark:hover:bg-white/[0.04] transition-colors duration-500",
+                    "group relative p-8 md:p-10 bg-foreground/[0.03] dark:bg-white/[0.02] hover:bg-foreground/[0.06] dark:hover:bg-white/[0.04] transition-colors duration-500",
                     // Mobile: all cards have bottom border except last
-                    "border-b md:border-b-0 border-foreground/[0.05] dark:border-white/[0.05]",
+                    "border-b md:border-b-0 border-foreground/[0.08] dark:border-white/[0.05]",
                     // Last card in mobile: no bottom border
                     index === featuresData.length - 1 && "border-b-0",
                     // Desktop second row: top border
-                    isSecondRow && "lg:border-t border-foreground/[0.05] dark:border-white/[0.05]",
+                    isSecondRow && "lg:border-t border-foreground/[0.08] dark:border-white/[0.05]",
                     // Tablet: border adjustments
-                    index >= 2 && "md:border-t border-foreground/[0.05] dark:border-white/[0.05]"
+                    index >= 2 && "md:border-t border-foreground/[0.08] dark:border-white/[0.05]"
                   )}
                 >
                   <div className="relative z-10">

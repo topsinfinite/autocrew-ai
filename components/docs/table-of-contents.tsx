@@ -65,9 +65,9 @@ export function TableOfContents({ className }: TableOfContentsProps) {
         </h4>
         <nav>
           <ul className="space-y-2">
-            {toc.map((item) => (
+            {toc.map((item, i) => (
               <li
-                key={item.id}
+                key={item.id || `toc-${i}`}
                 className={cn(
                   item.level === 3 && "ml-4"
                 )}
