@@ -1,16 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { DashboardSidebar } from "./dashboard-sidebar";
-import { DashboardContextPanel } from "./dashboard-context-panel";
-import { DashboardChatPanel } from "./dashboard-chat-panel";
-import { DashboardAnalyticsPanel } from "./dashboard-analytics-panel";
+import type { DashboardTabId } from "@/lib/mock-data/landing-data";
+import { BrowserChrome } from "./browser-chrome";
+import { IconSidebar } from "./icon-sidebar";
+import { TabChat } from "./tab-chat";
+import { TabInbox } from "./tab-inbox";
+import { TabAnalytics } from "./tab-analytics";
+import { TabSettings } from "./tab-settings";
 
 interface DashboardPreviewProps {
   className?: string;
 }
 
 export function DashboardPreview({ className }: DashboardPreviewProps) {
+  const [activeTab, setActiveTab] = useState<DashboardTabId>("chat");
+
   return (
     <div className={cn("-mb-8 md:px-6 max-w-7xl mx-auto px-4 mt-8", className)}>
       {/* Border Beam Wrapper */}
@@ -22,28 +28,32 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
         <div
           className={cn(
             "relative w-full h-[850px] overflow-hidden",
-            "bg-[#0A0C14] border border-white/10 rounded-2xl shadow-2xl",
-            "flex font-geist text-slate-300"
+            "bg-[#0A0C14] border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/60",
+            "flex flex-col font-geist text-slate-300"
           )}
+          style={{
+            background:
+              "linear-gradient(145deg, rgba(20,20,20,0.98), rgba(8,8,8,0.99))",
+          }}
         >
-          {/* Far Left Sidebar - System Status */}
-          <DashboardSidebar />
+          {/* Browser Chrome */}
+          <BrowserChrome />
 
-          {/* Left Context Panel - Leads & Instructions */}
-          <DashboardContextPanel />
+          {/* Main content area */}
+          <div className="flex flex-col lg:flex-row flex-1">
+            {/* Icon Sidebar */}
+            <IconSidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
-          {/* Main Chat Area */}
-          <DashboardChatPanel />
-
-          {/* Right Analytics Panel */}
-          <DashboardAnalyticsPanel />
+            {/* Tab Content */}
+            <div className="flex-1 flex flex-col min-h-0">
+              {activeTab === "chat" && <TabChat />}
+              {activeTab === "inbox" && <TabInbox />}
+              {activeTab === "analytics" && <TabAnalytics />}
+              {activeTab === "settings" && <TabSettings />}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
-export { DashboardSidebar } from "./dashboard-sidebar";
-export { DashboardContextPanel } from "./dashboard-context-panel";
-export { DashboardChatPanel } from "./dashboard-chat-panel";
-export { DashboardAnalyticsPanel } from "./dashboard-analytics-panel";

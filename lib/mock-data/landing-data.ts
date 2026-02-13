@@ -265,114 +265,167 @@ export const footerData = {
   copyright: "© 2026 AutoCrew Inc. All rights reserved.",
 };
 
-// Dashboard Preview Mock Data (kept for hero section)
-export interface ChatMessage {
+// ============================================
+// Dashboard Preview V2 Mock Data
+// ============================================
+
+export type DashboardTabId = "chat" | "inbox" | "analytics" | "settings";
+
+export type InquiryChannel = "Chat" | "Voice" | "Email" | "SMS";
+export type InquiryStatus = "Resolved" | "In Progress" | "Awaiting";
+
+export interface ChatMessageV2 {
   id: string;
-  type: "user" | "bot";
+  sender: "bot" | "user";
   content: string;
   timestamp: string;
+  isVoiceClip?: boolean;
+  voiceDuration?: string;
 }
 
-export interface LeadInfo {
+export interface InboxInquiry {
+  id: string;
   name: string;
   initials: string;
-  status: string;
-  role: string;
-  company: string;
-  location: string;
-  industry: string;
-  interestLevel: number;
+  avatarColor: string;
+  channel: InquiryChannel;
+  status: InquiryStatus;
+  isActive: boolean;
+  timeAgo: string;
+  preview: string;
+  agentName: string;
+  agentRole: string;
 }
 
-export interface ActiveInstruction {
-  number: string;
-  text: string;
-}
-
-export interface Metric {
+export interface AnalyticsStat {
   label: string;
   value: string;
-  highlighted?: boolean;
+  change: string;
 }
 
-export interface CrewConfig {
+export interface BarChartDay {
+  day: string;
+  chatHeight: number;
+  voiceHeight: number;
+}
+
+export interface ChannelBreakdown {
+  channel: string;
+  percentage: number;
+  color: string;
+}
+
+export interface TopAgent {
   name: string;
-  status: "active" | "inactive";
+  initial: string;
+  avatarColor: string;
+  conversations: number;
 }
 
-export const dashboardMockData = {
-  systemStatus: {
-    cpuUsage: 75,
-    isOnline: true,
+export interface SettingToggle {
+  label: string;
+  description: string;
+  enabled: boolean;
+}
+
+export interface IntegrationItem {
+  name: string;
+  icon: string;
+  connected: boolean;
+}
+
+export const dashboardPreviewData = {
+  chat: {
+    voicePanel: {
+      crewName: "Support Crew",
+      agentName: "Robin",
+      agentRole: "Support Agent",
+      transcripts: [
+        "\"I can help you reschedule. Let me pull up your account...\"",
+        "\"Your appointment has been moved to March 20th at 10 AM.\"",
+        "\"Is there anything else I can help you with today?\"",
+        "\"I'll send a confirmation email to your address on file.\"",
+      ],
+    },
+    messages: [
+      { id: "m1", sender: "bot", content: "Welcome! I'm Robin, your AI support crew. How can I help you today?", timestamp: "2:12 PM" },
+      { id: "m2", sender: "user", content: "I need to reschedule my appointment for next week", timestamp: "2:12 PM" },
+      { id: "m3", sender: "bot", content: "I found your appointment for March 15th at 10:00 AM. What date and time works better for you?", timestamp: "2:13 PM" },
+      { id: "m4", sender: "user", content: "How about March 20th, same time?", timestamp: "2:13 PM" },
+      { id: "m5", sender: "bot", content: "March 20th at 10:00 AM is available. I've rescheduled your appointment. \u2713", timestamp: "2:14 PM", isVoiceClip: true, voiceDuration: "0:04" },
+    ] as ChatMessageV2[],
   },
-  leadsChart: {
-    title: "Inbound Leads (24h)",
-    change: "+12%",
-    bars: [30, 50, 40, 70, 60, 45, 80, 55, 35, 65],
+
+  inbox: {
+    inquiries: [
+      { id: "i1", name: "Sarah Mitchell", initials: "SM", avatarColor: "from-blue-500 to-blue-600", channel: "Chat", status: "Resolved", isActive: false, timeAgo: "2m ago", preview: "I need to reschedule my appointment for next week, is March 20th available?", agentName: "Robin", agentRole: "Support Agent" },
+      { id: "i2", name: "James Donovan", initials: "JD", avatarColor: "from-purple-500 to-purple-600", channel: "Voice", status: "In Progress", isActive: true, timeAgo: "Active", preview: "Calling about billing discrepancy on last month's invoice #INV-2847...", agentName: "Alex", agentRole: "Billing Agent" },
+      { id: "i3", name: "Lisa Kowalski", initials: "LK", avatarColor: "from-pink-500 to-pink-600", channel: "Email", status: "Awaiting", isActive: false, timeAgo: "18m ago", preview: "RE: Product return request for order #ORD-9821 — damaged on arrival", agentName: "Robin", agentRole: "Support Agent" },
+      { id: "i4", name: "Raj Patel", initials: "RP", avatarColor: "from-amber-500 to-amber-600", channel: "SMS", status: "Resolved", isActive: false, timeAgo: "34m ago", preview: "Can you confirm my subscription renewal date? Account #AC-4421", agentName: "Alex", agentRole: "Billing Agent" },
+      { id: "i5", name: "Maria Chen", initials: "MC", avatarColor: "from-teal-500 to-teal-600", channel: "Chat", status: "Resolved", isActive: false, timeAgo: "1h ago", preview: "How do I integrate AutoCrew with my Salesforce CRM? Need API docs.", agentName: "Robin", agentRole: "Support Agent" },
+      { id: "i6", name: "Tom Walker", initials: "TW", avatarColor: "from-rose-500 to-rose-600", channel: "Voice", status: "Resolved", isActive: false, timeAgo: "2h ago", preview: "Need to upgrade my plan from Starter to Professional — what's the process?", agentName: "Alex", agentRole: "Billing Agent" },
+    ] as InboxInquiry[],
+    stats: {
+      totalInquiries: 6,
+      activeCount: 1,
+      avgResponse: "12s",
+      csat: "98.2%",
+    },
   },
-  activeInstructions: [
-    { number: "01", text: "Prioritize lead qualification for enterprise clients" },
-    { number: "02", text: "Offer demo scheduling if Interest > 80%" },
-    { number: "03", text: "Escalate technical queries to Human Support" },
-  ] as ActiveInstruction[],
-  channels: ["MessageSquare", "Mail", "Globe", "Slack"],
-  leadInfo: {
-    name: "John Doe",
-    initials: "JD",
-    status: "Interested (High)",
-    role: "CTO",
-    company: "Acme Corp",
-    location: "New York, USA",
-    industry: "SaaS",
-    interestLevel: 85,
-  } as LeadInfo,
-  securityStatus: [
-    { text: "Enterprise Encryption Active", icon: "ShieldCheck" },
-    { text: "SOC 2 Compliant", icon: "CheckCircle" },
-  ],
-  chatMessages: [
-    {
-      id: "msg-1",
-      type: "user",
-      content: "How can AutoCrew help automate my customer support?",
-      timestamp: "10:23 AM",
-    },
-    {
-      id: "msg-2",
-      type: "bot",
-      content: "Our Support Crew is designed to handle customer inquiries 24/7. It provides instant responses and resolutions, ensuring your customers are always taken care of without delay. It features multi-language support, sentiment analysis, and seamless handoff to human agents when needed.",
-      timestamp: "10:23 AM",
-    },
-    {
-      id: "msg-3",
-      type: "user",
-      content: "That sounds great. What about lead generation?",
-      timestamp: "10:24 AM",
-    },
-    {
-      id: "msg-4",
-      type: "bot",
-      content: "Our LeadGen Crew automates lead qualification by engaging prospects with personalized conversations. It identifies high-quality leads, schedules appointments, and integrates directly with your CRM. Would you like to deploy a LeadGen Crew now?",
-      timestamp: "10:24 AM",
-    },
-  ] as ChatMessage[],
-  quickActions: ["Inquiry", "Response", "Follow-up"],
+
   analytics: {
-    sparklineTitle: "Active Conversations",
-    metrics: [
-      { label: "Uptime Reliability", value: "99.99%", highlighted: true },
-      { label: "Response Time", value: "< 150ms", highlighted: false },
-      { label: "Conversations Handled", value: "12,450", highlighted: false },
-    ] as Metric[],
-    crewConfig: [
-      { name: "Support Crew", status: "active" },
-      { name: "LeadGen Crew", status: "active" },
-    ] as CrewConfig[],
-    toneOfVoice: "Professional",
-    satisfactionScore: 4.9,
-    configOptions: [
-      { label: "Configure Custom Prompts", icon: "ChevronRight" },
-      { label: "Manage Knowledge Base", icon: "ChevronRight" },
-    ],
+    stats: [
+      { label: "Total Conversations", value: "1,847", change: "\u2191 12.3%" },
+      { label: "Avg Response", value: "8.2s", change: "\u2191 24.1%" },
+      { label: "Resolution Rate", value: "94.7%", change: "\u2191 3.2%" },
+      { label: "CSAT Score", value: "4.9/5", change: "\u2191 0.2" },
+    ] as AnalyticsStat[],
+    barChart: [
+      { day: "Mon", chatHeight: 60, voiceHeight: 40 },
+      { day: "Tue", chatHeight: 75, voiceHeight: 35 },
+      { day: "Wed", chatHeight: 55, voiceHeight: 45 },
+      { day: "Thu", chatHeight: 90, voiceHeight: 30 },
+      { day: "Fri", chatHeight: 80, voiceHeight: 38 },
+      { day: "Sat", chatHeight: 45, voiceHeight: 50 },
+      { day: "Sun", chatHeight: 70, voiceHeight: 42 },
+    ] as BarChartDay[],
+    channelBreakdown: [
+      { channel: "Chat", percentage: 42, color: "#FF6B35" },
+      { channel: "Voice", percentage: 28, color: "#10B981" },
+      { channel: "Email", percentage: 19, color: "#0EA5E9" },
+      { channel: "SMS", percentage: 11, color: "#8B5CF6" },
+    ] as ChannelBreakdown[],
+    topAgents: [
+      { name: "Robin", initial: "R", avatarColor: "from-[#FF6B35] to-[#FF8C5A]", conversations: 847 },
+      { name: "Alex", initial: "A", avatarColor: "from-blue-500 to-blue-600", conversations: 623 },
+      { name: "Sam", initial: "S", avatarColor: "from-emerald-500 to-emerald-600", conversations: 377 },
+    ] as TopAgent[],
+  },
+
+  settings: {
+    crewConfig: {
+      name: "Support Crew",
+      type: "Customer Support",
+      status: "active" as const,
+      model: "GPT-4o",
+      temperature: 0.7,
+    },
+    voiceSettings: {
+      provider: "ElevenLabs",
+      voice: "Robin — Warm Professional",
+      speed: 1.0,
+      enabled: true,
+    },
+    toggles: [
+      { label: "Auto-escalation", description: "Route complex queries to humans", enabled: true },
+      { label: "Sentiment Analysis", description: "Monitor conversation tone", enabled: true },
+      { label: "Lead Scoring", description: "Auto-qualify prospects", enabled: false },
+    ] as SettingToggle[],
+    integrations: [
+      { name: "Slack", icon: "MessageSquare", connected: true },
+      { name: "Email", icon: "Mail", connected: true },
+      { name: "CRM", icon: "Database", connected: false },
+      { name: "Webhooks", icon: "Webhook", connected: true },
+    ] as IntegrationItem[],
   },
 };
