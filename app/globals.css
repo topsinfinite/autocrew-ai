@@ -202,6 +202,10 @@
   --animation-num-glow: rgba(255, 107, 53, 0.08);
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
@@ -252,12 +256,18 @@ body {
 
 /* Linear grid overlay with radial mask */
 .grid-overlay {
-  background-size: 60px 60px;
+  background-size: 40px 40px;
   background-image:
     linear-gradient(to right, var(--glass-border) 1px, transparent 1px),
     linear-gradient(to bottom, var(--glass-border) 1px, transparent 1px);
   mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 40%, transparent 100%);
+}
+
+@media (min-width: 640px) {
+  .grid-overlay {
+    background-size: 60px 60px;
+  }
 }
 
 /* Linear grid for auth pages - smaller grid with center radial mask */
@@ -310,8 +320,8 @@ body {
   top: -80px;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 300px;
+  width: min(800px, 100vw);
+  height: 200px;
   background: radial-gradient(
     ellipse 100% 100% at 50% 0%,
     var(--section-glow) 0%,
@@ -319,6 +329,12 @@ body {
   );
   pointer-events: none;
   z-index: 0;
+}
+
+@media (min-width: 640px) {
+  .section-glow-top::before {
+    height: 300px;
+  }
 }
 
 /* Bottom glow - radial gradient bridging to next section */
@@ -331,8 +347,8 @@ body {
   bottom: -80px;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 300px;
+  width: min(800px, 100vw);
+  height: 200px;
   background: radial-gradient(
     ellipse 100% 100% at 50% 100%,
     var(--section-glow) 0%,
@@ -340,6 +356,12 @@ body {
   );
   pointer-events: none;
   z-index: 0;
+}
+
+@media (min-width: 640px) {
+  .section-glow-bottom::after {
+    height: 300px;
+  }
 }
 
 /* Center glow - wider subtle glow around section heading area */
@@ -352,8 +374,8 @@ body {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 1000px;
-  height: 400px;
+  width: min(1000px, 100vw);
+  height: 250px;
   background: radial-gradient(
     ellipse 80% 60% at 50% 30%,
     var(--section-glow-strong) 0%,
@@ -361,6 +383,12 @@ body {
   );
   pointer-events: none;
   z-index: 0;
+}
+
+@media (min-width: 640px) {
+  .section-glow-center::before {
+    height: 400px;
+  }
 }
 
 /* Gradient divider - replaces hard border-t with a soft gradient line */

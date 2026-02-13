@@ -14,8 +14,8 @@ const iconMap = {
 
 export function WhyAutocrewSection() {
   return (
-    <section className="z-10 pt-32 pb-32 relative section-divider section-glow-center">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section className="z-10 pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32 relative section-divider section-glow-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
           {/* Left Content */}
           <div className="lg:col-span-5">
@@ -24,7 +24,7 @@ export function WhyAutocrewSection() {
               {whyAutocrewData.badge}
             </div>
 
-            <h2 className="md:text-5xl text-4xl font-semibold text-foreground tracking-tight mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight mb-6">
               {whyAutocrewData.title}
             </h2>
 
@@ -39,7 +39,7 @@ export function WhyAutocrewSection() {
           </div>
 
           {/* Right Grid */}
-          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 sm:gap-x-12 sm:gap-y-16">
             {whyAutocrewData.features.map((feature, index) => {
               const Icon = iconMap[feature.icon as keyof typeof iconMap];
 

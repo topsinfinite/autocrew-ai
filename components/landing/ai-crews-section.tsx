@@ -7,19 +7,19 @@ export function AiCrewsSection() {
   return (
     <section
       id="solutions"
-      className="z-10 pt-32 pb-32 relative section-glow-center section-glow-bottom"
+      className="z-10 pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32 relative section-glow-center section-glow-bottom"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl tracking-tight mb-16 text-center font-space-grotesk font-semibold text-foreground">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <h2 className="text-3xl md:text-4xl tracking-tight mb-10 sm:mb-16 text-center font-space-grotesk font-semibold text-foreground">
           AI Crews for Every Need
         </h2>
 
         {/* Crew Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8">
           {aiCrewsData.map((crew, index) => (
             <div
               key={index}
-              className="p-8 rounded-3xl bg-linear-to-br from-foreground/[0.05] dark:from-white/5 to-transparent bg-white/[0.02] border border-white/[0.06] shadow-lg shadow-black/20 relative overflow-hidden group hover:border-[#FF6B35]/30 transition-all duration-300"
+              className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-linear-to-br from-foreground/[0.05] dark:from-white/5 to-transparent bg-white/[0.02] border border-white/[0.06] shadow-lg shadow-black/20 relative overflow-hidden group hover:border-[#FF6B35]/30 transition-all duration-300"
             >
               <div className="relative z-10">
                 {/* Badge */}

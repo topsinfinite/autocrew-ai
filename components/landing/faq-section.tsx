@@ -16,9 +16,9 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="relative z-10 section-divider section-glow-center pt-32 pb-32"
+      className="relative z-10 section-divider section-glow-center pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32"
     >
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#FF6B35]/20 bg-[#FF6B35]/5 text-[#FF6B35] text-xs font-medium mb-6 font-space">
@@ -26,7 +26,7 @@ export function FaqSection() {
               Frequently Asked Questions
             </div>
 
-            <h2 className="text-4xl md:text-5xl tracking-tight mb-6 font-semibold text-foreground font-space-grotesk">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight mb-6 font-semibold text-foreground font-space-grotesk">
               Answers Before You Commit
             </h2>
 

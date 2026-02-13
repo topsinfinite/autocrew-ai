@@ -6,7 +6,7 @@ import { Logo } from "@/components/layout";
 
 export function CtaSection() {
   return (
-    <section className="sm:px-6 sm:mt-20 font-space-grotesk max-w-7xl mt-16 mx-auto mb-16 px-4">
+    <section className="sm:px-6 font-space-grotesk max-w-7xl mt-10 sm:mt-20 mx-auto mb-10 sm:mb-16 px-4">
       <div className="group overflow-hidden sm:p-10 transition-colors duration-500 text-card-foreground bg-card border-border border rounded-[40px] p-6 relative shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
         {/* Background Effects */}
         <div className="absolute inset-0 pointer-events-none">
@@ -20,7 +20,7 @@ export function CtaSection() {
 
         <div className="relative z-10">
           {/* Large Typography Headline */}
-          <h2 className="text-[14vw] sm:text-[10vw] lg:text-[8vw] leading-[0.9] font-semibold tracking-tighter font-geist mb-12">
+          <h2 className="text-[11vw] sm:text-[10vw] lg:text-[8vw] leading-[0.9] font-semibold tracking-tighter font-geist mb-8 sm:mb-12">
             <span className="block font-space-grotesk text-foreground">Ready to build</span>
             <span className="block text-muted-foreground transition-colors duration-700 font-space-grotesk">
               something extraordinary?
@@ -28,7 +28,7 @@ export function CtaSection() {
           </h2>
 
           {/* Contact Grid */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
             {/* Email */}
             <div className="flex flex-col items-start">
               <p className="uppercase text-xs font-semibold text-[#FF6B35] tracking-wider font-space mb-3">
@@ -90,9 +90,9 @@ export function CtaSection() {
           </div>
 
           {/* Footer Section */}
-          <div className="flex flex-col gap-12 mt-16 w-full">
+          <div className="flex flex-col gap-8 sm:gap-12 mt-10 sm:mt-16 w-full">
             {/* Top Section */}
-            <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-24">
+            <div className="flex flex-col lg:flex-row justify-between gap-8 sm:gap-12 lg:gap-24">
               {/* Brand */}
               <div className="flex flex-col max-w-sm gap-6">
                 <Logo height={22} className="text-foreground" />
@@ -128,7 +128,7 @@ export function CtaSection() {
               </div>
 
               {/* Navigation Columns */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16 w-full lg:w-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-16 w-full lg:w-auto">
                 {/* Product */}
                 <div className="flex flex-col gap-4">
                   <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Product</h3>

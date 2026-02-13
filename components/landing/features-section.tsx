@@ -23,10 +23,10 @@ const iconMap = {
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="z-10 pt-32 pb-32 relative section-glow-top">
-      <div className="max-w-7xl mx-auto px-6 relative z-10 font-sans">
+    <section id="features" className="z-10 pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32 relative section-glow-top">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 font-sans">
         {/* Header Section */}
-        <div className="text-center max-w-2xl mx-auto mb-20 relative">
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20 relative">
           {/* Vertical line decoration */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent to-transparent -translate-y-full via-foreground/10" />
 
@@ -39,7 +39,7 @@ export function FeaturesSection() {
           </div>
 
           {/* Heading */}
-          <h2 className="text-4xl md:text-5xl tracking-tight mb-6 font-space-grotesk font-semibold text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight mb-6 font-space-grotesk font-semibold text-foreground">
             Powerful Features for{" "}
             <span className="font-semibold font-space-grotesk text-foreground">
               Modern Businesses

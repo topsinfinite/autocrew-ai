@@ -7,8 +7,8 @@ export function HowItWorks() {
   const delays = ["0s", "1.5s", "3s", "4.5s"];
 
   return (
-    <section id="how-it-works" className="z-10 pt-32 pb-32 relative section-glow-top">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="how-it-works" className="z-10 pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32 relative section-glow-top">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="mb-16">
           <h2 className="text-3xl md:text-4xl tracking-tight mb-4 font-space-grotesk font-semibold text-foreground">
@@ -75,7 +75,7 @@ export function HowItWorks() {
                     <div className="w-20 h-20 rounded-full blur-xl bg-[var(--animation-num-glow)]" />
                   </div>
                   <div
-                    className="relative text-7xl md:text-8xl font-semibold font-space-grotesk animate-num-pulse transition-colors duration-300 text-foreground/[0.05] dark:text-white/5"
+                    className="relative text-5xl sm:text-7xl md:text-8xl font-semibold font-space-grotesk animate-num-pulse transition-colors duration-300 text-foreground/[0.05] dark:text-white/5"
                     style={{ animationDelay: delay }}
                   >
                     {step.number}

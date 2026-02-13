@@ -27,7 +27,7 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
         {/* Main dashboard container */}
         <div
           className={cn(
-            "relative w-full h-[850px] overflow-hidden",
+            "relative w-full h-[500px] sm:h-[650px] md:h-[750px] lg:h-[850px] overflow-hidden",
             "bg-[#0A0C14] border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/60",
             "flex flex-col font-geist text-slate-300"
           )}

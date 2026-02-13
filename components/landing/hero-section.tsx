@@ -33,8 +33,8 @@ export function HeroSection() {
           }
         }}
       />
-      <div className="md:px-6 md:pt-16 max-w-7xl mx-auto pt-16 px-4 pb-8">
-        <div className="text-center max-w-3xl mt-20 mx-auto">
+      <div className="md:px-6 md:pt-16 max-w-7xl mx-auto pt-12 px-4 pb-8">
+        <div className="text-center max-w-3xl mt-14 sm:mt-20 mx-auto">
           {/* Announcement Badge */}
           <p
             className={cn(
