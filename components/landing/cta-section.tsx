@@ -5,7 +5,7 @@ import { ArrowRight, Mail, Calendar, Bot, Github, Linkedin } from "lucide-react"
 
 export function CtaSection() {
   return (
-    <section className="sm:px-6 sm:mt-10 font-space-grotesk max-w-7xl mt-8 mx-auto mb-16 px-4">
+    <section className="sm:px-6 sm:mt-20 font-space-grotesk max-w-7xl mt-16 mx-auto mb-16 px-4">
       <div className="group overflow-hidden sm:p-10 transition-colors duration-500 text-card-foreground bg-card border-border border rounded-[40px] p-6 relative shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
         {/* Background Effects */}
         <div className="absolute inset-0 pointer-events-none">

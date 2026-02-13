@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 export function HeroSection() {
   return (
-    <section className="relative z-10">
+    <section className="relative z-10 section-glow-bottom">
       {/* Unicorn Studio Animated Background */}
       <div
         data-us-project="CyihYkcOkCwqGEIyVwWb"

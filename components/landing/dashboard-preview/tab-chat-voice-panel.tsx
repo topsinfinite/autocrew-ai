@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Activity, Mic, PhoneOff, Volume2 } from "lucide-react";
+import { Activity, Mic, PhoneOff, Volume2, VolumeX } from "lucide-react";
 import { dashboardPreviewData } from "@/lib/mock-data/landing-data";
+import { useTTSAudio } from "@/lib/hooks/use-tts-audio";
 
 // Deterministic waveform bar parameters (avoid Math.random for SSR)
 const waveBars = Array.from({ length: 24 }, (_, i) => ({
@@ -15,6 +16,13 @@ export function TabChatVoicePanel() {
   const { voicePanel } = dashboardPreviewData.chat;
   const [elapsed, setElapsed] = useState(134); // Start at 2:14
   const [transcriptIndex, setTranscriptIndex] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
+
+  const currentTranscript = voicePanel.transcripts[transcriptIndex];
+  const { isLoading: ttsLoading } = useTTSAudio({
+    enabled: !isMuted,
+    text: currentTranscript,
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -117,8 +125,22 @@ export function TabChatVoicePanel() {
         <button className="w-11 h-11 rounded-full bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center transition-colors border border-red-500/15">
           <PhoneOff className="w-[18px] h-[18px] text-red-400" />
         </button>
-        <button className="w-9 h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.05]">
-          <Volume2 className="w-4 h-4 text-white/50" />
+        <button
+          onClick={() => setIsMuted((prev) => !prev)}
+          className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border ${
+            isMuted
+              ? "bg-white/[0.04] hover:bg-white/[0.08] border-white/[0.05]"
+              : "bg-primary/10 hover:bg-primary/20 border-primary/20"
+          }`}
+          aria-label={isMuted ? "Unmute speaker" : "Mute speaker"}
+        >
+          {isMuted ? (
+            <VolumeX className="w-4 h-4 text-white/50" />
+          ) : (
+            <Volume2
+              className={`w-4 h-4 ${ttsLoading ? "text-primary/70 animate-pulse" : "text-primary"}`}
+            />
+          )}
         </button>
       </div>
     </div>

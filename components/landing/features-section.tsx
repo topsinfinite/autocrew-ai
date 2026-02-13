@@ -23,7 +23,7 @@ const iconMap = {
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="z-10 py-24 relative">
+    <section id="features" className="z-10 pt-32 pb-32 relative section-glow-top">
       <div className="max-w-7xl mx-auto px-6 relative z-10 font-sans">
         {/* Header Section */}
         <div className="text-center max-w-2xl mx-auto mb-20 relative">

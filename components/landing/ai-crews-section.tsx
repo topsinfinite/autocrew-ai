@@ -5,7 +5,10 @@ import { aiCrewsData } from "@/lib/mock-data/landing-data";
 
 export function AiCrewsSection() {
   return (
-    <section id="solutions" className="z-10 pt-40 pb-40 relative">
+    <section
+      id="solutions"
+      className="z-10 pt-32 pb-32 relative section-glow-center section-glow-bottom"
+    >
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl tracking-tight mb-16 text-center font-space-grotesk font-semibold text-foreground">
           AI Crews for Every Need

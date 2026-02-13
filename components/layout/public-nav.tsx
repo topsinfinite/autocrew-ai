@@ -26,7 +26,7 @@ export function PublicNav() {
       <nav
         className={cn(
           "max-w-5xl mx-auto rounded-full px-6 py-3",
-          "border border-border",
+          "border",
           "glass-nav",
           "relative overflow-hidden"
         )}
@@ -122,7 +122,7 @@ export function PublicNav() {
           />
           <div
             className={cn(
-              "relative z-10 mx-4 mt-4 rounded-2xl border border-border glass-nav p-6",
+              "relative z-10 mx-4 mt-4 rounded-2xl border glass-nav p-6",
               "animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200"
             )}
             onClick={(e) => e.stopPropagation()}

@@ -14,7 +14,7 @@ const iconMap = {
 
 export function WhyAutocrewSection() {
   return (
-    <section className="border-t border-border z-10 pt-40 pb-40 relative">
+    <section className="z-10 pt-32 pb-32 relative section-divider section-glow-center">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
           {/* Left Content */}

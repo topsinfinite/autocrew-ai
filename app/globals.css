@@ -119,9 +119,14 @@
   --border-subtle: rgba(255, 255, 255, 0.08);
   --surface-hover: rgba(255, 255, 255, 0.05);
 
+  /* Section transition glow colors */
+  --section-glow: rgba(255, 107, 53, 0.04);
+  --section-glow-strong: rgba(255, 107, 53, 0.06);
+
   /* Animation colors (theme-aware) */
   --animation-dot-idle: rgba(255, 255, 255, 0.1);
   --animation-num-dim: rgba(255, 255, 255, 0.05);
+  --animation-num-glow: rgba(255, 107, 53, 0.12);
 }
 
 /* Light Mode Theme */
@@ -187,9 +192,14 @@
   --border-subtle: rgba(0, 0, 0, 0.08);
   --surface-hover: rgba(0, 0, 0, 0.05);
 
+  /* Section transition glow colors - slightly higher opacity on white */
+  --section-glow: rgba(255, 107, 53, 0.05);
+  --section-glow-strong: rgba(255, 107, 53, 0.08);
+
   /* Animation colors for light mode */
   --animation-dot-idle: rgba(0, 0, 0, 0.08);
   --animation-num-dim: rgba(0, 0, 0, 0.05);
+  --animation-num-glow: rgba(255, 107, 53, 0.08);
 }
 
 body {
@@ -286,6 +296,97 @@ body {
   pointer-events: none;
 }
 
+/* ============================================
+   SECTION TRANSITION EFFECTS
+   ============================================ */
+
+/* Top glow - radial gradient bridging from previous section */
+.section-glow-top {
+  position: relative;
+}
+.section-glow-top::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 300px;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 0%,
+    var(--section-glow) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Bottom glow - radial gradient bridging to next section */
+.section-glow-bottom {
+  position: relative;
+}
+.section-glow-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 300px;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 100%,
+    var(--section-glow) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Center glow - wider subtle glow around section heading area */
+.section-glow-center {
+  position: relative;
+}
+.section-glow-center::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 30%,
+    var(--section-glow-strong) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Gradient divider - replaces hard border-t with a soft gradient line */
+.section-divider {
+  position: relative;
+}
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-subtle) 20%,
+    hsl(var(--primary) / 0.15) 50%,
+    var(--border-subtle) 80%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
 /* Premium glass card effect */
 .glass-card {
   background: hsl(var(--card) / 0.5);
@@ -299,6 +400,7 @@ body {
   background: linear-gradient(180deg, rgba(14, 16, 26, 0.55), rgba(14, 16, 26, 0.35));
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border-color: var(--glass-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
@@ -446,7 +548,7 @@ body {
 /* Dot pulse animation - uses theme-aware --animation-dot-idle */
 @keyframes dot-pulse {
   0%, 100% { background-color: var(--animation-dot-idle); box-shadow: none; }
-  15%, 45% { background-color: #FF6B35; box-shadow: 0 0 10px #FF6B35; }
+  15%, 45% { background-color: #FF6B35; box-shadow: 0 0 14px rgba(255, 107, 53, 0.8); }
 }
 
 /* Number pulse animation - uses theme-aware --animation-num-dim */
@@ -487,6 +589,38 @@ body {
 
 .animate-sonar {
   animation: sonar-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Dot glow ring - radiating ring behind enlarged dot */
+@keyframes dot-glow-ring {
+  0%, 100% { background-color: transparent; transform: scale(0.8); opacity: 0; }
+  15%, 45% { background-color: rgba(255, 107, 53, 0.15); transform: scale(1); opacity: 1; }
+}
+
+.animate-dot-glow-ring {
+  animation: dot-glow-ring 6s ease-in-out infinite;
+}
+
+/* Number background glow - subtle radial glow behind step numbers */
+@keyframes num-glow {
+  0%, 100% { opacity: 0; }
+  15%, 45% { opacity: 1; }
+}
+
+.animate-num-glow {
+  animation: num-glow 6s ease-in-out infinite;
+}
+
+/* Vertical beam travel for mobile/tablet timeline */
+@keyframes beam-vertical {
+  0% { top: -20%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.animate-beam-vertical {
+  animation: beam-vertical 6s linear infinite;
 }
 
 /* ============================================
@@ -727,7 +861,14 @@ body {
   .animate-pulse-ring,
   .animate-wave-bar,
   .animate-dot-bounce,
-  .animate-fade-in-up {
+  .animate-fade-in-up,
+  .animate-beam-travel,
+  .animate-step-card,
+  .animate-dot-pulse,
+  .animate-num-pulse,
+  .animate-dot-glow-ring,
+  .animate-num-glow,
+  .animate-beam-vertical {
     animation: none;
     opacity: 1;
     transform: none;

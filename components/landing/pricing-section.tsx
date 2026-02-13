@@ -12,7 +12,7 @@ export function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative z-10 border-t border-border pt-40 pb-40"
+      className="relative z-10 section-divider section-glow-center pt-32 pb-32"
     >
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Background Elements */}
