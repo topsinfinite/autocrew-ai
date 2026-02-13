@@ -4,7 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { DashboardTabId } from "@/lib/mock-data/landing-data";
 import { BrowserChrome } from "./browser-chrome";
-import { IconSidebar } from "./icon-sidebar";
+import { IconSidebar, MobileTabBar } from "./icon-sidebar";
 import { TabChat } from "./tab-chat";
 import { TabInbox } from "./tab-inbox";
 import { TabAnalytics } from "./tab-analytics";
@@ -52,6 +52,9 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
               {activeTab === "settings" && <TabSettings />}
             </div>
           </div>
+
+          {/* Mobile Tab Bar */}
+          <MobileTabBar activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
       </div>
     </div>

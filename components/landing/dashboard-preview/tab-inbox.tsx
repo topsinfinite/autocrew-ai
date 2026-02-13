@@ -106,7 +106,7 @@ export function TabInbox() {
   const activeCount = filtered.filter((i) => i.isActive).length;
 
   return (
-    <div className="flex-1 flex flex-col animate-fade-in-up">
+    <div className="flex-1 flex flex-col min-h-0 animate-fade-in-up">
       {/* Header */}
       <div className="px-5 py-4 border-b border-white/[0.05] flex items-center justify-between">
         <div className="flex items-center gap-2">
