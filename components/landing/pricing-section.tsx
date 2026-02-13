@@ -42,17 +42,19 @@ export function PricingSection() {
             return (
               <div
                 key={index}
-                className="flex flex-col items-center text-center p-8 rounded-2xl bg-muted/30 border border-border hover:border-[#FF6B35]/30 transition-all duration-300 group"
+                className="rounded-2xl bg-gradient-to-b from-white/10 to-transparent p-[1px] group"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 border border-[#FF6B35]/20 flex items-center justify-center mb-5 group-hover:shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] transition-all">
-                  {Icon && <Icon className="w-6 h-6 text-[#FF6B35]" />}
+                <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-background h-full transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 border border-[#FF6B35]/20 flex items-center justify-center mb-5 group-hover:shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] transition-all">
+                    {Icon && <Icon className="w-6 h-6 text-[#FF6B35]" />}
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2 text-foreground font-space-grotesk">
+                    {prop.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground font-geist">
+                    {prop.description}
+                  </p>
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-foreground font-space-grotesk">
-                  {prop.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground font-geist">
-                  {prop.description}
-                </p>
               </div>
             );
           })}

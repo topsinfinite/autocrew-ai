@@ -18,7 +18,7 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
   const [activeTab, setActiveTab] = useState<DashboardTabId>("chat");
 
   return (
-    <div className={cn("-mb-8 md:px-6 max-w-7xl mx-auto px-4 mt-8", className)}>
+    <div className={cn("md:px-6 max-w-7xl mx-auto px-4 mt-8", className)}>
       {/* Border Beam Wrapper */}
       <div className="relative w-full rounded-2xl p-[1px]">
         {/* Animated border beam mask */}

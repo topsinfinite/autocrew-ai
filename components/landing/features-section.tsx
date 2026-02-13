@@ -87,7 +87,7 @@ export function FeaturesSection() {
                 <div
                   key={index}
                   className={cn(
-                    "group relative p-8 md:p-10 hover:bg-foreground/[0.02] dark:hover:bg-white/[0.02] transition-colors duration-500",
+                    "group relative p-8 md:p-10 bg-foreground/[0.02] dark:bg-white/[0.02] hover:bg-foreground/[0.04] dark:hover:bg-white/[0.04] transition-colors duration-500",
                     // Mobile: all cards have bottom border except last
                     "border-b md:border-b-0 border-foreground/[0.05] dark:border-white/[0.05]",
                     // Last card in mobile: no bottom border

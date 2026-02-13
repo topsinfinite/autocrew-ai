@@ -115,7 +115,7 @@ export function HeroSection() {
         style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
         data-theme="dark"
       >
-        <div className="rounded-2xl overflow-hidden">
+        <div>
           <DashboardPreview />
         </div>
       </div>

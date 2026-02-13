@@ -16,7 +16,7 @@ export function AiCrewsSection() {
           {aiCrewsData.map((crew, index) => (
             <div
               key={index}
-              className="p-8 rounded-3xl bg-linear-to-br from-foreground/[0.05] dark:from-white/5 to-transparent border border-border relative overflow-hidden group hover:border-[#FF6B35]/30 transition-all duration-300"
+              className="p-8 rounded-3xl bg-linear-to-br from-foreground/[0.05] dark:from-white/5 to-transparent bg-white/[0.02] border border-white/[0.06] shadow-lg shadow-black/20 relative overflow-hidden group hover:border-[#FF6B35]/30 transition-all duration-300"
             >
               <div className="relative z-10">
                 {/* Badge */}
@@ -52,8 +52,8 @@ export function AiCrewsSection() {
                   disabled={crew.ctaDisabled}
                   className={`w-full py-3 rounded-xl border transition-all font-medium font-geist text-foreground ${
                     crew.ctaDisabled
-                      ? "border-border opacity-50 cursor-not-allowed"
-                      : "bg-foreground/[0.05] dark:bg-white/5 border-border hover:bg-[#FF6B35] hover:border-[#FF6B35] hover:text-primary-foreground"
+                      ? "border-transparent bg-white/[0.04] opacity-50 cursor-not-allowed"
+                      : "border-transparent bg-white/[0.05] hover:bg-[#FF6B35] hover:text-primary-foreground"
                   }`}
                 >
                   {crew.ctaText}
