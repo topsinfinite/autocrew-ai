@@ -22,9 +22,16 @@ async function main() {
     .png()
     .toBuffer();
 
+  const ogImage = await sharp({
+    create: { width: 1200, height: 630, channels: 3, background: color },
+  })
+    .png()
+    .toBuffer();
+
   writeFileSync(join(appDir, 'icon.png'), icon48);
   writeFileSync(join(appDir, 'apple-icon.png'), apple180);
-  console.log('Created app/icon.png (48x48) and app/apple-icon.png (180x180)');
+  writeFileSync(join(appDir, 'opengraph-image.png'), ogImage);
+  console.log('Created app/icon.png (48x48), app/apple-icon.png (180x180), app/opengraph-image.png (1200x630)');
 }
 
 main().catch((e) => {

@@ -5,6 +5,10 @@
 // ============================================================================
 // APPLICATION CONFIGURATION
 // ============================================================================
+//
+// NEXT_PUBLIC_APP_URL: Set in production to your canonical site URL (e.g. https://autocrew.ai).
+// Used for sitemap, robots.txt, Open Graph, and absolute URLs. Defaults to http://localhost:3000.
+//
 
 export const APP_CONFIG = {
   name: 'AutoCrew',
