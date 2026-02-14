@@ -21,7 +21,7 @@ export function TabChatVoicePanel() {
   const currentTranscript = voicePanel.transcripts[transcriptIndex];
   const { isLoading: ttsLoading } = useTTSAudio({
     enabled: !isMuted,
-    text: currentTranscript,
+    src: `/audio/tts-${transcriptIndex}.mp3`,
   });
 
   useEffect(() => {
