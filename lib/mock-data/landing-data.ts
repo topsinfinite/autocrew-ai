@@ -345,6 +345,8 @@ export const dashboardPreviewData = {
       crewName: "Support Crew",
       agentName: "Robin",
       agentRole: "Support Agent",
+      avatarUrl:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop&crop=face",
       transcripts: [
         '"I can help you reschedule. Let me pull up your account..."',
         '"Your appointment has been moved to March 20th at 10 AM."',
@@ -526,7 +528,7 @@ export const dashboardPreviewData = {
         initial: "R",
         avatarColor: "from-[#FF6B35] to-[#FF8C5A]",
         avatarUrl:
-          "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face",
+          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face",
         conversations: 847,
       },
       {

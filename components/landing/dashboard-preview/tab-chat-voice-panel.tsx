@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Activity, Mic, PhoneOff, Volume2, VolumeX } from "lucide-react";
 import { dashboardPreviewData } from "@/lib/mock-data/landing-data";
 import { useTTSAudio } from "@/lib/hooks/use-tts-audio";
@@ -74,9 +75,19 @@ export function TabChatVoicePanel() {
         <div className="flex items-center gap-3">
           {/* Compact avatar */}
           <div className="relative flex-shrink-0">
-            <div className="w-11 h-11 bg-gradient-to-br from-[#FF6B35] to-[#FF4444] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/25">
-              <Activity className="w-5 h-5 text-white" />
-            </div>
+            {voicePanel.avatarUrl ? (
+              <Image
+                src={voicePanel.avatarUrl}
+                alt={voicePanel.agentName}
+                width={44}
+                height={44}
+                className="w-11 h-11 rounded-xl object-cover shadow-lg shadow-[#FF6B35]/25"
+              />
+            ) : (
+              <div className="w-11 h-11 bg-gradient-to-br from-[#FF6B35] to-[#FF4444] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/25">
+                <Activity className="w-5 h-5 text-white" />
+              </div>
+            )}
             <div className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-[1.5px] border-[#0A0C14] flex items-center justify-center">
               <div className="w-1 h-1 rounded-full bg-white" />
             </div>
@@ -147,8 +158,20 @@ export function TabChatVoicePanel() {
 
         {/* Animated avatar */}
         <div className="relative mb-6 mt-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-[#FF6B35] to-[#FF4444] flex items-center justify-center shadow-xl shadow-[#FF6B35]/25 animate-morph-blob">
-            <Activity className="w-7 h-7 text-white" />
+          <div className="w-20 h-20 overflow-hidden shadow-xl shadow-[#FF6B35]/25 animate-morph-blob">
+            {voicePanel.avatarUrl ? (
+              <Image
+                src={voicePanel.avatarUrl}
+                alt={voicePanel.agentName}
+                width={80}
+                height={80}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-[#FF6B35] to-[#FF4444] flex items-center justify-center">
+                <Activity className="w-7 h-7 text-white" />
+              </div>
+            )}
           </div>
 
           {/* Pulse rings */}
