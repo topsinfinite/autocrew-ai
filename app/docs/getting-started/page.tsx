@@ -5,9 +5,9 @@ import { DocNavigation } from "@/components/docs/doc-navigation"
 import { CheckCircle, Info } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Getting Started - AutoCrew Documentation",
+  title: "Getting Started",
   description:
-    "Quick start guide to set up your first AI crew with AutoCrew.",
+    "Quick start guide to set up your first AI crew with AutoCrew. Create crews, connect tools, and go live in minutes.",
 }
 
 export default function GettingStartedPage() {

@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { DocNavigation } from "@/components/docs/doc-navigation"
 
 export const metadata: Metadata = {
-  title: "Terms of Service - AutoCrew",
+  title: "Terms of Service",
   description:
-    "Terms governing your access to and use of AutoCrew's platform and services.",
+    "Terms governing your access to and use of AutoCrew's platform and services. Please read before using our product.",
 }
 
 export default function TermsPage() {

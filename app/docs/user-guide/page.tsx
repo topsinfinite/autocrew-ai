@@ -4,9 +4,9 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Info } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "User Guide - AutoCrew Documentation",
+  title: "User Guide",
   description:
-    "Complete guide to using AutoCrew features for AI-powered automation.",
+    "Complete guide to AutoCrew features. Maximize your AI crews—dashboard, analytics, conversations, and workflows.",
 }
 
 export default function UserGuidePage() {

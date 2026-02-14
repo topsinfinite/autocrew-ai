@@ -5,9 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { DocNavigation } from "@/components/docs/doc-navigation"
 
 export const metadata: Metadata = {
-  title: "Documentation - AutoCrew",
+  title: "Documentation",
   description:
-    "Learn how to automate your business processes with AI-powered crews that work 24/7 to support your customers and generate leads.",
+    "Learn how to automate your business with AI-powered crews that work 24/7 to support customers and generate leads.",
 }
 
 export default function DocsPage() {

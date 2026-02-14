@@ -5,9 +5,9 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lightbulb } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Support Crew - AutoCrew Documentation",
+  title: "Support Crew",
   description:
-    "Learn how AutoCrew's AI-powered Support Crew automates customer support.",
+    "AI-powered customer support that works 24/7. Handle inquiries, resolve issues, escalate when needed. Learn how it works.",
 }
 
 export default function SupportCrewPage() {

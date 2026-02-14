@@ -9,84 +9,61 @@ interface UseTTSAudioOptions {
 
 export function useTTSAudio({ enabled, text }: UseTTSAudioOptions) {
   const [isLoading, setIsLoading] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const cacheRef = useRef<Map<string, string>>(new Map());
-  const enabledRef = useRef(enabled);
-
-  // Keep ref in sync so callbacks see latest value
-  useEffect(() => {
-    enabledRef.current = enabled;
-  }, [enabled]);
-
-  const fetchAudio = useCallback(
-    async (textToSpeak: string): Promise<string | null> => {
-      const cached = cacheRef.current.get(textToSpeak);
-      if (cached) return cached;
-
-      setIsLoading(true);
-      try {
-        const response = await fetch("/api/tts", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: textToSpeak }),
-        });
-
-        if (!response.ok) return null;
-
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        cacheRef.current.set(textToSpeak, url);
-        return url;
-      } catch {
-        return null;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [],
-  );
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   const stopAudio = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
     }
+    utteranceRef.current = null;
   }, []);
 
-  // Play when text changes and enabled, or stop when disabled
   useEffect(() => {
     if (!enabled) {
       stopAudio();
       return;
     }
 
-    let cancelled = false;
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
 
-    async function play() {
-      stopAudio();
-      const url = await fetchAudio(text);
-      if (cancelled || !url || !enabledRef.current) return;
+    // Strip surrounding quotes from transcript strings
+    const cleanText = text.replace(/^"|"$/g, "");
+    if (!cleanText) return;
 
-      if (!audioRef.current) {
-        audioRef.current = new Audio();
-      }
-      audioRef.current.src = url;
-      audioRef.current.play().catch(() => {});
-    }
+    stopAudio();
+    setIsLoading(true);
 
-    play();
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 0.95;
+    utterance.pitch = 1.0;
+
+    // Try to pick a female English voice for consistency
+    const voices = speechSynthesis.getVoices();
+    const preferred = voices.find(
+      (v) =>
+        v.lang.startsWith("en") &&
+        (v.name.includes("Samantha") ||
+          v.name.includes("Karen") ||
+          v.name.includes("Female")),
+    );
+    if (preferred) utterance.voice = preferred;
+
+    utterance.onstart = () => setIsLoading(false);
+    utterance.onend = () => setIsLoading(false);
+    utterance.onerror = () => setIsLoading(false);
+
+    utteranceRef.current = utterance;
+    speechSynthesis.speak(utterance);
 
     return () => {
-      cancelled = true;
+      stopAudio();
     };
-  }, [text, enabled, fetchAudio, stopAudio]);
+  }, [text, enabled, stopAudio]);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
       stopAudio();
-      cacheRef.current.forEach((url) => URL.revokeObjectURL(url));
-      cacheRef.current.clear();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Target, Users, Rocket, Heart } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Learn about AutoCrew's mission to make AI automation accessible to every business. Our values, vision, and the story behind our platform.",
+};
 
 export default function AboutPage() {
   return (

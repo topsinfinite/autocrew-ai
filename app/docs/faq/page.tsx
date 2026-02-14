@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
-  title: "FAQ - AutoCrew Documentation",
+  title: "FAQ",
   description:
-    "Frequently asked questions about AutoCrew, AI crews, pricing, and more.",
+    "Frequently asked questions about AutoCrew, AI crews, pricing, integrations, and support. Find answers fast.",
 }
 
 export default function FAQPage() {

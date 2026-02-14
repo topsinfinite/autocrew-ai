@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { DocNavigation } from "@/components/docs/doc-navigation"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - AutoCrew",
+  title: "Privacy Policy",
   description:
-    "How AutoCrew collects, uses, and protects your personal information.",
+    "How AutoCrew collects, uses, and protects your personal information. Read our full privacy policy and data practices.",
 }
 
 export default function PrivacyPage() {
