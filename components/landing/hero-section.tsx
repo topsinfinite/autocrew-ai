@@ -74,8 +74,8 @@ export function HeroSection() {
             )}
             style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
           >
-            {heroData.headline.prefix}{" "}
-            <span className="whitespace-nowrap relative text-foreground inline-block">
+            <span className="block">{heroData.headline.prefix}</span>
+            <span className="whitespace-nowrap relative block">
               {/* Accent underline/highlight */}
               <span className="absolute bottom-2 left-0 w-full h-4 bg-[#FF6B35]/10 -skew-x-6 -z-10 rounded-sm" />
               <span className="text-[#FF6B35]">{heroData.headline.accent}</span>

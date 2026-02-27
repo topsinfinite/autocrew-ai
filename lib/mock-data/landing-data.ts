@@ -5,8 +5,8 @@ export const heroData = {
     icon: "ShieldCheck",
   },
   headline: {
-    prefix: "AI-Powered Voice Agents for",
-    accent: "Healthcare & Businesses",
+    prefix: "AI-Powered Voice Agents",
+    accent: "for Healthcare & Businesses",
   },
   subheadline:
     "Deploy HIPAA-aware healthcare agents and intelligent customer support crews that work 24/7 — accessible via phone calls and web voice widgets.",
