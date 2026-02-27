@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import type { DashboardTabId } from "@/lib/mock-data/landing-data";
 import { BrowserChrome } from "./browser-chrome";
@@ -14,8 +14,32 @@ interface DashboardPreviewProps {
   className?: string;
 }
 
+const TABS: DashboardTabId[] = ["chat", "inbox", "analytics", "settings"];
+const AUTO_NAV_INTERVAL = 10000;
+
 export function DashboardPreview({ className }: DashboardPreviewProps) {
   const [activeTab, setActiveTab] = useState<DashboardTabId>("chat");
+  const [isAutoNavigating, setIsAutoNavigating] = useState(true);
+
+  // Auto-navigation logic
+  useEffect(() => {
+    if (!isAutoNavigating) return;
+
+    const interval = setInterval(() => {
+      setActiveTab((current) => {
+        const currentIndex = TABS.indexOf(current);
+        const nextIndex = (currentIndex + 1) % TABS.length;
+        return TABS[nextIndex];
+      });
+    }, AUTO_NAV_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, [isAutoNavigating]);
+
+  const handleTabChange = (tab: DashboardTabId) => {
+    setActiveTab(tab);
+    setIsAutoNavigating(false); // Stop auto-nav on user interaction
+  };
 
   return (
     <div className={cn("md:px-6 max-w-7xl mx-auto px-4 mt-8", className)}>
@@ -42,7 +66,7 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
           {/* Main content area */}
           <div className="flex flex-col lg:flex-row flex-1 min-h-0">
             {/* Icon Sidebar */}
-            <IconSidebar activeTab={activeTab} onTabChange={setActiveTab} />
+            <IconSidebar activeTab={activeTab} onTabChange={handleTabChange} />
 
             {/* Tab Content */}
             <div className="flex-1 flex flex-col min-h-0">
@@ -54,7 +78,7 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
           </div>
 
           {/* Mobile Tab Bar */}
-          <MobileTabBar activeTab={activeTab} onTabChange={setActiveTab} />
+          <MobileTabBar activeTab={activeTab} onTabChange={handleTabChange} />
         </div>
       </div>
     </div>
