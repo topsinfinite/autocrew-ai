@@ -52,7 +52,7 @@ export default function SignUpPage() {
       {/* Right Column: Request Access Form */}
       <div className="flex flex-col lg:p-12 p-6 overflow-y-auto custom-scrollbar bg-[#03060e] relative items-center justify-center">
         {/* Mobile Logo (hidden on desktop) */}
-        <div className="absolute top-0 right-0 p-6 lg:hidden">
+        <div className="w-full flex justify-end lg:hidden mb-8">
           <Link href="/">
             <Logo height={19} className="text-white" />
           </Link>

@@ -6,7 +6,7 @@ export const heroData = {
   },
   headline: {
     prefix: "AI-Powered Voice Agents for",
-    accent: "Healthcare & Business",
+    accent: "Healthcare & Small Businesses",
   },
   subheadline:
     "Deploy HIPAA-aware healthcare agents and intelligent customer support crews that work 24/7 — accessible via phone calls and web voice widgets.",
