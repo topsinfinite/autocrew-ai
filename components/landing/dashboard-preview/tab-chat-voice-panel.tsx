@@ -13,11 +13,12 @@ const waveBars = Array.from({ length: 24 }, (_, i) => ({
   delay: (i * 0.05).toFixed(2),
 }));
 
-export function TabChatVoicePanel() {
+export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => void }) {
   const { voicePanel } = dashboardPreviewData.chat;
   const [elapsed, setElapsed] = useState(134); // Start at 2:14
   const [transcriptIndex, setTranscriptIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
+  const [showUnmuteTooltip, setShowUnmuteTooltip] = useState(true);
 
   const currentTranscript = voicePanel.transcripts[transcriptIndex];
   const { isLoading: ttsLoading } = useTTSAudio({
@@ -39,27 +40,43 @@ export function TabChatVoicePanel() {
     return () => clearInterval(interval);
   }, [voicePanel.transcripts.length]);
 
+  const toggleMute = () => {
+    setIsMuted((prev) => !prev);
+    setShowUnmuteTooltip(false);
+    onInteraction?.();
+  };
+
   const minutes = String(Math.floor(elapsed / 60)).padStart(2, "0");
   const seconds = String(elapsed % 60).padStart(2, "0");
 
   const muteButton = (
-    <button
-      onClick={() => setIsMuted((prev) => !prev)}
-      className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border ${
-        isMuted
-          ? "bg-white/[0.04] hover:bg-white/[0.08] border-white/[0.05]"
-          : "bg-primary/10 hover:bg-primary/20 border-primary/20"
-      }`}
-      aria-label={isMuted ? "Unmute speaker" : "Mute speaker"}
-    >
-      {isMuted ? (
-        <VolumeX className="w-4 h-4 text-white/50" />
-      ) : (
-        <Volume2
-          className={`w-4 h-4 ${ttsLoading ? "text-primary/70 animate-pulse" : "text-primary"}`}
-        />
+    <div className="relative">
+      {isMuted && showUnmuteTooltip && (
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce z-20 pointer-events-none">
+          <div className="bg-[#FF6B35] text-white text-[10px] font-medium px-2 py-1 rounded shadow-lg whitespace-nowrap">
+            Unmute to hear {voicePanel.agentName}
+          </div>
+          <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-[#FF6B35]" />
+        </div>
       )}
-    </button>
+      <button
+        onClick={toggleMute}
+        className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border ${
+          isMuted
+            ? "bg-white/[0.04] hover:bg-white/[0.08] border-white/[0.05]"
+            : "bg-primary/10 hover:bg-primary/20 border-primary/20"
+        }`}
+        aria-label={isMuted ? "Unmute speaker" : "Mute speaker"}
+      >
+        {isMuted ? (
+          <VolumeX className="w-4 h-4 text-white/50" />
+        ) : (
+          <Volume2
+            className={`w-4 h-4 ${ttsLoading ? "text-primary/70 animate-pulse" : "text-primary"}`}
+          />
+        )}
+      </button>
+    </div>
   );
 
   return (

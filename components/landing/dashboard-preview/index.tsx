@@ -70,7 +70,9 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
 
             {/* Tab Content */}
             <div className="flex-1 flex flex-col min-h-0">
-              {activeTab === "chat" && <TabChat />}
+              {activeTab === "chat" && (
+                <TabChat stopAutoNav={() => setIsAutoNavigating(false)} />
+              )}
               {activeTab === "inbox" && <TabInbox />}
               {activeTab === "analytics" && <TabAnalytics />}
               {activeTab === "settings" && <TabSettings />}

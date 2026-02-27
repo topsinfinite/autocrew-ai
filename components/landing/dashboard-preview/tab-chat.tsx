@@ -1,11 +1,15 @@
 import { TabChatVoicePanel } from "./tab-chat-voice-panel";
 import { TabChatMessages } from "./tab-chat-messages";
 
-export function TabChat() {
+interface TabChatProps {
+  stopAutoNav?: () => void;
+}
+
+export function TabChat({ stopAutoNav }: TabChatProps) {
   return (
     <div className="flex-1 flex flex-col sm:flex-row min-h-0 animate-fade-in-up overflow-y-auto sm:overflow-y-hidden">
       {/* Voice Panel */}
-      <TabChatVoicePanel />
+      <TabChatVoicePanel onInteraction={stopAutoNav} />
 
       {/* Divider */}
       <div className="hidden sm:block w-px bg-white/[0.05]" />
