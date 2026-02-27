@@ -146,7 +146,7 @@ export function HeroSection() {
 
       {/* Dashboard Preview - forced dark context (product mockup) */}
       <div
-        className="animate-scale-in opacity-0 max-w-[1200px] mx-auto px-4 mt-8 mb-[-100px] relative z-20"
+        className="animate-scale-in opacity-0 max-w-[1200px] mx-auto px-4 mt-12 pb-20 relative z-20"
         style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
         data-theme="dark"
       >
