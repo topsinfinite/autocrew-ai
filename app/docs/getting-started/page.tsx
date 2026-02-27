@@ -74,10 +74,10 @@ export default function GettingStartedPage() {
         Navigate to the Crews section and click "Create New Crew". You'll need to:
       </p>
       <ol className="mb-4 list-decimal space-y-2 pl-6 text-muted-foreground">
-        <li>Choose your crew type (Support Crew or LeadGen Crew)</li>
+        <li>Choose your crew type (Healthcare, Support, or LeadGen)</li>
         <li>Give your crew a descriptive name</li>
         <li>Configure the crew's behavior and response style</li>
-        <li>Set up integration channels (email, chat, etc.)</li>
+        <li>Set up integration channels (voice, email, chat, etc.)</li>
       </ol>
 
       <h2 id="step-4-configure-settings" className="mb-4 text-2xl font-semibold text-foreground">
@@ -87,11 +87,19 @@ export default function GettingStartedPage() {
         Customize your crew's behavior to match your business needs:
       </p>
       <div className="mb-8">
+        <h3 className="mb-2 text-lg font-semibold text-foreground">Healthcare Crew Settings</h3>
+        <ul className="mb-4 list-disc space-y-1 pl-6 text-muted-foreground">
+          <li>EHR/FHIR integration parameters</li>
+          <li>Patient identification requirements</li>
+          <li>HIPAA compliance controls</li>
+          <li>Escalation protocols</li>
+        </ul>
+
         <h3 className="mb-2 text-lg font-semibold text-foreground">Support Crew Settings</h3>
         <ul className="mb-4 list-disc space-y-1 pl-6 text-muted-foreground">
           <li>Response tone (Professional, Friendly, Technical)</li>
-          <li>Auto-response triggers and keywords</li>
-          <li>Escalation rules for complex issues</li>
+          <li>Knowledge base RAG sources</li>
+          <li>Smart escalation rules</li>
           <li>Business hours and availability</li>
         </ul>
 
@@ -156,8 +164,9 @@ export default function GettingStartedPage() {
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>Read the complete User Guide for advanced features</li>
-        <li>Learn about Support Crew capabilities in detail</li>
-        <li>Discover how LeadGen Crew can boost your sales</li>
+        <li>Learn about Healthcare Crew capabilities</li>
+        <li>Discover how Support Crew handles complex issues</li>
+        <li>See how LeadGen Crew can boost your sales</li>
         <li>Check the FAQ for common questions and tips</li>
       </ul>
 

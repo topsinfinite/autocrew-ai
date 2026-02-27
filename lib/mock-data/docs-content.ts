@@ -18,6 +18,10 @@ export const docsNavigation: DocNavigationItem[] = [
     href: "#",
     items: [
       {
+        title: "Healthcare Crew",
+        href: "/docs/healthcare-crew",
+      },
+      {
         title: "Support Crew",
         href: "/docs/support-crew",
       },
