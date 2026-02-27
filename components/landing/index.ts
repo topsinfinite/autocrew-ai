@@ -12,5 +12,5 @@ export * from './features-section';
 export * from './faq-section';
 export * from './hero-section';
 export * from './how-it-works';
-export * from './pricing-section';
-export * from './why-autocrew-section';
+export * from './contact-sales-section';
+export * from './stats-section';

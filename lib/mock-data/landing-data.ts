@@ -1,28 +1,58 @@
 // Hero Section Data
 export const heroData = {
   announcement: {
-    text: "AutoCrew 2.0 is live",
-    icon: "CircleDot",
+    text: "HIPAA-Aware AI Voice Agents",
+    icon: "ShieldCheck",
   },
   headline: {
-    prefix: "Deploy intelligent AI crews that",
-    accent: "work 24/7",
+    prefix: "AI-Powered Voice Agents for",
+    accent: "Healthcare & Business",
   },
   subheadline:
-    "Handle customer support and generate high-quality leads automatically. No code required.",
+    "Deploy HIPAA-aware healthcare agents and intelligent customer support crews that work 24/7 — accessible via phone calls and web voice widgets.",
   primaryCta: {
-    text: "Start for free",
+    text: "Get Started Free",
     href: "/signup",
   },
   secondaryCta: {
-    text: "Watch demo",
+    text: "Watch Demo",
     href: "/#demo",
     icon: "PlayCircle",
   },
-  trustText: "Trusted by modern teams of all sizes",
+  trustText: "Trusted by healthcare providers and businesses worldwide",
 };
 
-// Features Data - 6 Features Grid (not bento)
+// Stats Data
+export interface StatItem {
+  value: string;
+  label: string;
+  sublabel: string;
+}
+
+export const statsData: StatItem[] = [
+  {
+    value: "99.9%",
+    label: "Uptime",
+    sublabel: "Enterprise-grade reliability",
+  },
+  {
+    value: "< 2s",
+    label: "Response Time",
+    sublabel: "Lightning-fast AI responses",
+  },
+  {
+    value: "10M+",
+    label: "Conversations",
+    sublabel: "Handled by our AI crews",
+  },
+  {
+    value: "95%",
+    label: "Satisfaction",
+    sublabel: "Customer satisfaction rate",
+  },
+];
+
+// Features Data - 6 Features Grid
 export interface Feature {
   title: string;
   description: string;
@@ -31,40 +61,40 @@ export interface Feature {
 
 export const featuresData: Feature[] = [
   {
-    title: "24/7 Automated Support",
+    title: "HIPAA-Aware Healthcare Agents",
     description:
-      "AI-powered support crews handle customer inquiries round the clock, providing instant responses and resolutions.",
-    icon: "MessageSquare",
+      "AI voice agents with EHR integration, patient identification, and HIPAA-compliant audit trails for secure healthcare workflows.",
+    icon: "Activity",
   },
   {
-    title: "Intelligent Lead Gen",
+    title: "Multi-Channel Voice Access",
     description:
-      "Automated lead generation crews identify, engage, and qualify potential customers with personalized conversations.",
-    icon: "Zap",
+      "Reach your AI agents via phone calls or web voice widgets — same intelligence, multiple touchpoints.",
+    icon: "PhoneCall",
   },
   {
-    title: "Multi-Channel Integration",
+    title: "Knowledge Base RAG",
     description:
-      "Seamlessly integrate with your existing tools via n8n webhooks, Slack, email, and more.",
-    icon: "LayoutGrid",
+      "AI agents search your knowledge base with vector embeddings for accurate, context-aware responses.",
+    icon: "Database",
+  },
+  {
+    title: "Smart Escalation",
+    description:
+      "Automatic escalation to human teams with conversation context, urgency levels, and email notifications.",
+    icon: "UserCheck",
   },
   {
     title: "Real-Time Analytics",
     description:
-      "Track performance metrics, conversation sentiment, and lead quality with comprehensive dashboards.",
-    icon: "TrendingUp",
-  },
-  {
-    title: "Easy Customization",
-    description:
-      "Configure your AI crews with custom prompts, workflows, and integrations without writing code.",
-    icon: "Settings2",
+      "Track performance metrics, conversation sentiment, and agent effectiveness with comprehensive dashboards.",
+    icon: "BarChart3",
   },
   {
     title: "Enterprise Security",
     description:
-      "Bank-level encryption, SOC 2 compliance, and role-based access control to protect your data.",
-    icon: "ShieldCheck",
+      "AES-256-GCM encryption, JWT authentication, multi-tenant isolation, and comprehensive audit logging.",
+    icon: "Shield",
   },
 ];
 
@@ -76,22 +106,39 @@ export interface AiCrew {
   features: string[];
   ctaText: string;
   ctaDisabled?: boolean;
+  ctaHref?: string;
 }
 
 export const aiCrewsData: AiCrew[] = [
   {
-    badge: "Support",
-    title: "Support Crew",
+    badge: "Healthcare",
+    title: "Healthcare Crew",
     description:
-      "Automate customer support with AI agents that understand context, resolve issues, and escalate when needed.",
+      "HIPAA-aware AI voice agents that integrate with your EHR to help patients check appointments, medications, refill status, and more.",
     features: [
-      "Instant response to customer inquiries",
-      "Multi-language support capabilities",
-      "Sentiment analysis and routing",
-      "Seamless handoff to human agents",
+      "EHR/FHIR integration",
+      "Patient identification (MRN, DOB)",
+      "Comprehensive health data queries",
+      "HIPAA-compliant audit trail",
     ],
     ctaText: "Learn More",
     ctaDisabled: false,
+    ctaHref: "/docs/healthcare-crew",
+  },
+  {
+    badge: "Support",
+    title: "Support Crew",
+    description:
+      "AI-powered customer support with voice and chat — agents search your knowledge base and escalate to humans when needed.",
+    features: [
+      "Voice agent via phone & web widget",
+      "Knowledge base RAG search",
+      "Smart escalation with context",
+      "Multi-language support",
+    ],
+    ctaText: "Learn More",
+    ctaDisabled: false,
+    ctaHref: "/docs/support-crew",
   },
   {
     badge: "LeadGen",
@@ -104,52 +151,26 @@ export const aiCrewsData: AiCrew[] = [
       "CRM integration and data sync",
       "Appointment scheduling",
     ],
-    ctaText: "Coming Soon",
-    ctaDisabled: true,
+    ctaText: "Learn More",
+    ctaDisabled: false,
+    ctaHref: "/docs/leadgen-crew",
   },
 ];
 
-// Pricing Section Data
-export interface CustomPricingValueProp {
-  icon: string;
-  title: string;
-  description: string;
-}
-
-export const customPricingData = {
-  badge: "Custom Pricing",
-  title: "Big or Small?",
-  subtitle: "We have a plan.",
+// Contact Sales Data (Replaces Pricing)
+export const contactSalesData = {
+  badge: "Enterprise Ready",
+  title: "Ready to transform your business?",
   description:
-    "Pricing tailored to your business size, industry, and goals. No hidden fees, just transparent solutions that scale with you.",
-  trustSignal: "Trusted by teams from 5 to 500+",
-  valueProps: [
-    {
-      icon: "Users",
-      title: "Scalable Solutions",
-      description:
-        "From startups to enterprise, our pricing grows with you. Pay for what you use, scale when you need.",
-    },
-    {
-      icon: "Shield",
-      title: "Premium Support",
-      description:
-        "Dedicated onboarding, training, and 24/7 support included in every plan. You're never alone.",
-    },
-    {
-      icon: "Zap",
-      title: "Flexible Deployment",
-      description:
-        "Choose the features, crew types, and integrations that match your needs. No bloat, just value.",
-    },
-  ] as CustomPricingValueProp[],
-  primaryCta: { text: "Book a Call", href: "/contact" },
-  secondaryCta: {
-    text: "or email us at hello@autocrew.com",
-    href: "mailto:hello@autocrew.com",
-  },
-  tagline:
-    "Flexible pricing for businesses of all sizes. Let's build a plan together.",
+    "Whether you're a healthcare provider needing HIPAA compliance or a business scaling support, we have a solution for you.",
+  primaryCta: { text: "Contact Sales", href: "/contact" },
+  secondaryCta: { text: "View Documentation", href: "/docs" },
+  features: [
+    "Custom implementation support",
+    "SLA guarantees",
+    "Dedicated success manager",
+    "On-premise deployment options",
+  ],
 };
 
 // How It Works Data - 4 Steps
@@ -187,6 +208,7 @@ export const howItWorksData: Step[] = [
 ];
 
 // Why AutoCrew Section Data
+// NOTE: Replaced by Stats Section in functionality, but keeping data structure if needed for legacy compatibility
 export interface WhyFeature {
   title: string;
   description: string;
@@ -233,23 +255,24 @@ export const whyAutocrewData = {
   ] as WhyFeature[],
 };
 
-// CTA Section Data - Large Typography Design
+// CTA Section Data
 export const ctaData = {
   headline: {
-    line1: "Ready to build",
-    line2: "something extraordinary?",
+    line1: "Ready to Deploy",
+    line2: "AI Voice Agents?",
   },
+  subheadline: "Join healthcare providers and businesses using AutoCrew for HIPAA-aware patient engagement and intelligent customer support.",
   email: {
     label: "SEND US AN EMAIL",
     address: "hello@autocrew.com",
   },
   schedule: {
-    label: "Schedule a Call",
-    ctaText: "Book a Meeting",
+    label: "Schedule a Demo",
+    ctaText: "Book a Demo",
   },
   tryIt: {
     label: "Try AutoCrew",
-    ctaText: "Start for free",
+    ctaText: "Start Free Trial",
   },
 };
 

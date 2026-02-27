@@ -1,24 +1,24 @@
 "use client";
 
 import {
-  MessageSquare,
-  Zap,
-  LayoutGrid,
-  TrendingUp,
-  Settings2,
-  ShieldCheck,
+  Activity,
+  PhoneCall,
+  Database,
+  UserCheck,
+  BarChart3,
+  Shield,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { featuresData } from "@/lib/mock-data/landing-data";
 
 // Icon map to convert string names to components
 const iconMap = {
-  MessageSquare,
-  Zap,
-  LayoutGrid,
-  TrendingUp,
-  Settings2,
-  ShieldCheck,
+  Activity,
+  PhoneCall,
+  Database,
+  UserCheck,
+  BarChart3,
+  Shield,
 };
 
 export function FeaturesSection() {
@@ -49,7 +49,7 @@ export function FeaturesSection() {
           {/* Subheading */}
           <p className="text-lg font-light leading-relaxed font-geist text-muted-foreground">
             Everything you need to automate customer interactions and scale your
-            operations efficiently with our autonomous crews.
+            operations efficiently.
           </p>
         </div>
 
@@ -57,6 +57,9 @@ export function FeaturesSection() {
         <div className="relative rounded-3xl overflow-visible">
           {/* Grid Lines & Beams Background */}
           <div className="absolute inset-0 z-0 pointer-events-none rounded-3xl overflow-hidden border border-foreground/[0.08] dark:border-border shadow-sm dark:shadow-none">
+             {/* Tech Grid Pattern */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,107,53,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,107,53,0.03)_1px,transparent_1px)] bg-[size:32px_32px]" />
+            
             {/* Vertical Lines */}
             <div className="absolute left-1/3 top-0 w-px h-full bg-foreground/[0.08] dark:bg-white/[0.05] hidden md:block">
               <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-transparent via-[#FF6B35]/50 to-transparent animate-beam-v" />

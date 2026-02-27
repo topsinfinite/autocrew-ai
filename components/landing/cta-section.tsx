@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Mail, Calendar, Github, Linkedin } from "lucide-react";
 import { Logo } from "@/components/layout";
+import { ctaData } from "@/lib/mock-data/landing-data";
 
 export function CtaSection() {
   return (
@@ -20,42 +21,46 @@ export function CtaSection() {
 
         <div className="relative z-10">
           {/* Large Typography Headline */}
-          <h2 className="text-[11vw] sm:text-[10vw] lg:text-[8vw] leading-[0.9] font-semibold tracking-tighter font-geist mb-8 sm:mb-12">
-            <span className="block font-space-grotesk text-foreground">Ready to build</span>
+          <h2 className="text-[10vw] sm:text-[9vw] lg:text-[7vw] leading-[0.9] font-semibold tracking-tighter font-geist mb-6 sm:mb-8">
+            <span className="block font-space-grotesk text-foreground">{ctaData.headline.line1}</span>
             <span className="block text-muted-foreground transition-colors duration-700 font-space-grotesk">
-              something extraordinary?
+              {ctaData.headline.line2}
             </span>
           </h2>
+          
+          <p className="text-xl text-muted-foreground font-geist mb-12 max-w-2xl">
+            {ctaData.subheadline}
+          </p>
 
           {/* Contact Grid */}
           <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
             {/* Email */}
             <div className="flex flex-col items-start">
               <p className="uppercase text-xs font-semibold text-[#FF6B35] tracking-wider font-space mb-3">
-                SEND US AN EMAIL
+                {ctaData.email.label}
               </p>
               <a
-                href="mailto:hello@autocrew.com"
+                href={`mailto:${ctaData.email.address}`}
                 className="inline-flex items-center gap-3 text-lg sm:text-xl font-medium tracking-tight text-foreground hover:text-[#FF6B35] transition-colors font-geist group/link"
               >
                 <div className="w-8 h-8 rounded-lg bg-foreground/[0.05] dark:bg-white/5 border border-border flex items-center justify-center text-[#FF6B35] group-hover/link:bg-[#FF6B35]/10 group-hover/link:border-[#FF6B35]/20 transition-colors">
                   <Mail className="w-4 h-4" />
                 </div>
-                <span className="break-all">hello@autocrew.com</span>
+                <span className="break-all">{ctaData.email.address}</span>
               </a>
             </div>
 
             {/* Call */}
             <div className="flex flex-col items-start">
               <p className="text-xs font-semibold uppercase tracking-wider text-[#FF6B35] font-space mb-3">
-                Schedule a Call
+                {ctaData.schedule.label}
               </p>
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-black tracking-tight bg-[#FF6B35] hover:bg-[#FF6B35]/90 border border-transparent rounded-full py-3 px-6 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] group/btn"
               >
                 <Calendar className="w-4 h-4" />
-                <span className="font-space">Book a Meeting</span>
+                <span className="font-space">{ctaData.schedule.ctaText}</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
               </Link>
             </div>
@@ -63,14 +68,14 @@ export function CtaSection() {
             {/* Try AutoCrew */}
             <div className="flex flex-col items-start">
               <p className="text-xs font-semibold uppercase tracking-wider text-[#FF6B35] font-space mb-3">
-                Try AutoCrew
+                {ctaData.tryIt.label}
               </p>
               <div className="flex flex-col gap-4 w-full sm:w-auto">
                 <Link
                   href="/signup"
                   className="group/btn inline-flex items-center justify-center gap-2 text-sm font-semibold text-black tracking-tight bg-[#FF6B35] hover:bg-[#FF6B35]/90 border border-transparent rounded-full px-6 py-3 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] font-space"
                 >
-                  Start for free
+                  {ctaData.tryIt.ctaText}
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
                 </Link>
                 <Link
@@ -142,7 +147,7 @@ export function CtaSection() {
                     <Link href="/#solutions" className="hover:text-foreground transition-colors">
                       LeadGen Crew
                     </Link>
-                    <Link href="/#pricing" className="hover:text-foreground transition-colors">
+                    <Link href="/contact" className="hover:text-foreground transition-colors">
                       Pricing
                     </Link>
                     <Link href="#" className="hover:text-foreground transition-colors">
