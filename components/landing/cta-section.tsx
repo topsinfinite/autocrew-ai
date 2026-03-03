@@ -72,14 +72,14 @@ export function CtaSection() {
               </p>
               <div className="flex flex-col gap-4 w-full sm:w-auto">
                 <Link
-                  href="/signup"
+                  href="https://app.autocrew-ai.com/signup"
                   className="group/btn inline-flex items-center justify-center gap-2 text-sm font-semibold text-black tracking-tight bg-[#FF6B35] hover:bg-[#FF6B35]/90 border border-transparent rounded-full px-6 py-3 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] font-space"
                 >
                   {ctaData.tryIt.ctaText}
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
                 </Link>
                 <Link
-                  href="/login"
+                  href="https://app.autocrew-ai.com/login"
                   className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors pl-1 font-geist group/link"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground group-hover/link:bg-[#FF6B35] transition-colors" />

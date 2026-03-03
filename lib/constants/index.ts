@@ -25,8 +25,8 @@ export const APP_CONFIG = {
 export const ROUTES = {
   // Public routes
   HOME: '/',
-  LOGIN: '/login',
-  SIGNUP: '/signup',
+  LOGIN: 'https://app.autocrew-ai.com/login',
+  SIGNUP: 'https://app.autocrew-ai.com/signup',
   ABOUT: '/about',
   CONTACT: '/contact',
   CONTACT_SUPPORT: '/contact-support',

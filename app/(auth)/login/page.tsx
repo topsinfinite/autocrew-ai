@@ -142,7 +142,7 @@ export default function LoginPage() {
               <p className="text-sm text-slate-500">
                 Don't have an account?{" "}
                 <Link
-                  href="/signup"
+                  href="https://app.autocrew-ai.com/signup"
                   className="text-white font-medium hover:text-[#FF6B35] transition-colors inline-flex items-center gap-1 group"
                 >
                   Request access

@@ -84,7 +84,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             <ThemeToggle />
 
             {/* Sign In button - desktop only */}
-            <Link href="/login" className="hidden md:block">
+            <Link href="https://app.autocrew-ai.com/login" className="hidden md:block">
               <button
                 className={cn(
                   "text-xs font-medium font-space rounded-full py-2.5 px-5",
@@ -99,7 +99,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             </Link>
 
             {/* Primary CTA - desktop only */}
-            <Link href="/signup" className="hidden md:block">
+            <Link href="https://app.autocrew-ai.com/signup" className="hidden md:block">
               <button
                 className={cn(
                   "text-xs font-medium text-black font-space",
@@ -163,7 +163,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
               ))}
             </nav>
             <div className="flex flex-col gap-2 pt-4 mt-4 border-t border-border">
-              <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="https://app.autocrew-ai.com/login" onClick={() => setMobileMenuOpen(false)}>
                 <button
                   type="button"
                   className={cn(
@@ -177,7 +177,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
                   Sign In
                 </button>
               </Link>
-              <Link href="/signup" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="https://app.autocrew-ai.com/signup" onClick={() => setMobileMenuOpen(false)}>
                 <button
                   type="button"
                   className={cn(

@@ -178,7 +178,7 @@ export default function SignUpPage() {
           {/* Footer Link */}
           <div className="mt-8 flex items-center justify-start">
             <Link
-              href="/login"
+              href="https://app.autocrew-ai.com/login"
               className="group flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5 group-hover:-translate-x-1 transition-transform" />

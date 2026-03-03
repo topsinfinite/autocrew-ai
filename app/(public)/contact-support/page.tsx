@@ -100,7 +100,7 @@ export default function ContactSupportPage() {
               className="flex-1"
               asChild
             >
-              <Link href="/login" className="flex items-center justify-center gap-2">
+              <Link href="https://app.autocrew-ai.com/login" className="flex items-center justify-center gap-2">
                 <ArrowLeft className="h-4 w-4" />
                 Back to Login
               </Link>

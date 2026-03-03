@@ -12,7 +12,7 @@ export const heroData = {
     "Deploy HIPAA-aware healthcare agents and intelligent customer support crews that work 24/7 — accessible via phone calls and web voice widgets.",
   primaryCta: {
     text: "Get Started Free",
-    href: "/signup",
+    href: "https://app.autocrew-ai.com/signup",
   },
   secondaryCta: {
     text: "Watch Demo",
