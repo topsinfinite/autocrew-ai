@@ -4,6 +4,20 @@ const nextConfig: NextConfig = {
   // Security: Hide X-Powered-By header
   poweredByHeader: false,
 
+  // Redirect /login and /signup to the app
+  redirects: async () => [
+    {
+      source: '/login',
+      destination: 'https://app.autocrew-ai.com/login',
+      permanent: true,
+    },
+    {
+      source: '/signup',
+      destination: 'https://app.autocrew-ai.com/signup',
+      permanent: true,
+    },
+  ],
+
   // Security headers for production hardening
   headers: async () => [
     {

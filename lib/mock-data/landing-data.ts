@@ -281,7 +281,7 @@ export const navLinks = [
   { label: "Features", href: "/#features" },
   { label: "Solutions", href: "/#solutions" },
   { label: "Docs", href: "/docs" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "Pricing", href: "/#contact-sales" },
   { label: "FAQ", href: "/#faq" },
 ];
 
