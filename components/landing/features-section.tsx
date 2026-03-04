@@ -108,7 +108,7 @@ export function FeaturesSection() {
                           "transition-all duration-300"
                         )}
                       >
-                        {Icon && <Icon className="w-6 h-6" />}
+                        {Icon ? <Icon className="w-6 h-6" /> : null}
                       </div>
                     </div>
 

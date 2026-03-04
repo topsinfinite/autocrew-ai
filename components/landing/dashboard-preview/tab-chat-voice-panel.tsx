@@ -51,14 +51,14 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
 
   const muteButton = (
     <div className="relative">
-      {isMuted && showUnmuteTooltip && (
+      {isMuted && showUnmuteTooltip ? (
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce z-20 pointer-events-none">
           <div className="bg-[#FF6B35] text-white text-[10px] font-medium px-2 py-1 rounded shadow-lg whitespace-nowrap">
             Unmute to hear {voicePanel.agentName}
           </div>
           <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-[#FF6B35]" />
         </div>
-      )}
+      ) : null}
       <button
         onClick={toggleMute}
         className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border ${

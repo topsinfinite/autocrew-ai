@@ -133,7 +133,7 @@ export function TabChatMessages() {
                         {message.voiceDuration}
                       </span>
                     </div>
-                  )}
+                  ) : null}
 
                   <span className="font-space-mono text-[10px] text-neutral-600 mt-1 block ml-1">
                     {message.timestamp}

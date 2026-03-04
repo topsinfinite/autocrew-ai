@@ -4,6 +4,8 @@ import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { APP_CONFIG } from "@/lib/constants";
+import { JsonLd } from "@/components/seo/json-ld";
+import { organizationSchema, websiteSchema } from "@/lib/seo/schemas";
 
 // Display font - Space Grotesk
 const spaceGrotesk = Space_Grotesk({
@@ -42,6 +44,12 @@ export const metadata: Metadata = {
     "AI crews",
     "no code",
     "B2B automation",
+    "HIPAA AI voice agents",
+    "healthcare AI automation",
+    "AI customer support chatbot",
+    "automated lead qualification",
+    "voice AI for healthcare",
+    "AI crew management platform",
   ],
   robots: {
     index: true,
@@ -84,6 +92,14 @@ export default function RootLayout({
         className={`${GeistSans.variable} ${GeistMono.variable} ${spaceGrotesk.variable} ${spaceMono.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-9999 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:outline-none"
+        >
+          Skip to main content
+        </a>
+        <JsonLd data={organizationSchema()} />
+        <JsonLd data={websiteSchema()} />
         <ThemeProvider defaultTheme="dark">
           {children}
         </ThemeProvider>

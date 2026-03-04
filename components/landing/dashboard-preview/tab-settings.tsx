@@ -1,6 +1,13 @@
 import { Settings, Mic, ToggleLeft, ToggleRight, MessageSquare, Mail, Database, Webhook, ChevronRight } from "lucide-react";
 import { dashboardPreviewData } from "@/lib/mock-data/landing-data";
 
+const integrationIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  MessageSquare,
+  Mail,
+  Database,
+  Webhook,
+};
+
 export function TabSettings() {
   const { crewConfig, voiceSettings, toggles, integrations } = dashboardPreviewData.settings;
 
@@ -114,13 +121,7 @@ export function TabSettings() {
           </p>
           <div className="grid grid-cols-2 gap-2">
             {integrations.map((item) => {
-              const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-                MessageSquare,
-                Mail,
-                Database,
-                Webhook,
-              };
-              const Icon = iconMap[item.icon] || MessageSquare;
+              const Icon = integrationIconMap[item.icon] || MessageSquare;
               return (
                 <div
                   key={item.name}

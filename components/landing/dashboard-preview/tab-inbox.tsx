@@ -199,12 +199,11 @@ export function TabInbox() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  {inquiry.isActive && (
+                  {inquiry.isActive ? (
                     <div className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] animate-pulse" />
-                  )}
-                  {!inquiry.isActive && inquiry.status === "Resolved" && (
+                  ) : inquiry.status === "Resolved" ? (
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  )}
+                  ) : null}
                   <span
                     className={cn(
                       "font-space-mono text-[10px]",
