@@ -14,7 +14,7 @@ export default function PrivacyPage() {
         Privacy Policy
       </h1>
       <p className="mb-2 text-sm text-muted-foreground">
-        Last Updated: December 29, 2024
+        Last Updated: March 4, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
         This Privacy Policy describes how AutoCrew collects, uses, and protects your
@@ -96,6 +96,69 @@ export default function PrivacyPage() {
         </li>
       </ul>
 
+      <h2 id="automated-decisions" className="mb-4 text-2xl font-semibold text-foreground">
+        Automated Decision-Making and AI Processing
+      </h2>
+      <p className="mb-4 text-muted-foreground">
+        AutoCrew uses artificial intelligence to process data on your behalf.
+        This section explains how automated processing works within our platform:
+      </p>
+      <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
+        <li>
+          <strong>AI Crew processing:</strong> When you deploy AI Crews, they
+          process customer interactions (conversations, inquiries, lead data)
+          using automated systems. You, as the data controller, determine what
+          data is processed through these systems.
+        </li>
+        <li>
+          <strong>Automated profiling:</strong> AI Crews may perform automated
+          profiling such as lead scoring, sentiment analysis, and customer
+          categorization based on interaction data you provide.
+        </li>
+        <li>
+          <strong>Human review:</strong> In accordance with GDPR Article 22, you
+          and your customers have the right to request human review of any
+          automated decision that produces legal or similarly significant effects.
+          AI Crew outputs are designed to assist human decision-making, not
+          replace it.
+        </li>
+        <li>
+          <strong>Safeguards:</strong> We implement safeguards against solely
+          automated decisions with significant effects, including confidence
+          thresholds, escalation paths, and the ability to override AI
+          recommendations.
+        </li>
+      </ul>
+
+      <h2 id="ai-training" className="mb-4 text-2xl font-semibold text-foreground">
+        AI Model Training Data
+      </h2>
+      <p className="mb-4 text-muted-foreground">
+        Transparency about how we use data in relation to our AI systems:
+      </p>
+      <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
+        <li>
+          <strong>Customer data is not used for model training:</strong> Your
+          business data and customer interactions processed through AI Crews are
+          not used to train or improve our general AI models. Your data is yours.
+        </li>
+        <li>
+          <strong>Aggregated analytics:</strong> We may use aggregated,
+          anonymized, and de-identified usage data to improve platform
+          performance and develop new features. This data cannot be traced back
+          to any individual or customer.
+        </li>
+        <li>
+          <strong>Opt-out:</strong> You can opt out of anonymized usage analytics
+          at any time through your account settings or by contacting us.
+        </li>
+        <li>
+          <strong>Tenant isolation:</strong> Data from different customers is
+          strictly separated. There is no cross-tenant data sharing or model
+          contamination.
+        </li>
+      </ul>
+
       <h2 id="data-sharing" className="mb-4 text-2xl font-semibold text-foreground">
         Information Sharing and Disclosure
       </h2>
@@ -150,6 +213,13 @@ export default function PrivacyPage() {
         <li>Employee training on data protection and privacy</li>
         <li>Incident response procedures</li>
       </ul>
+      <p className="mb-4 text-muted-foreground">
+        For a comprehensive overview of our security practices, see our{" "}
+        <a href="/docs/security" className="text-primary hover:underline">
+          Security page
+        </a>
+        .
+      </p>
 
       <h2 id="data-retention" className="mb-4 text-2xl font-semibold text-foreground">
         Data Retention
@@ -196,6 +266,58 @@ export default function PrivacyPage() {
           circumstances
         </li>
       </ul>
+
+      <h3 id="gdpr-legal-basis" className="mb-3 text-xl font-semibold text-foreground">
+        GDPR Legal Basis for Processing
+      </h3>
+      <p className="mb-4 text-muted-foreground">
+        Under the GDPR, we process your personal data based on the following
+        legal grounds:
+      </p>
+      <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
+        <li>
+          <strong>Contract performance:</strong> Account management, service
+          delivery, billing, and customer support
+        </li>
+        <li>
+          <strong>Legitimate interest:</strong> Service improvement, security
+          monitoring, fraud prevention, and aggregated analytics
+        </li>
+        <li>
+          <strong>Consent:</strong> Marketing communications, optional analytics,
+          and non-essential cookies
+        </li>
+        <li>
+          <strong>Legal obligation:</strong> Tax reporting, regulatory responses,
+          and law enforcement requests
+        </li>
+      </ul>
+
+      <h3 id="ccpa-rights" className="mb-3 text-xl font-semibold text-foreground">
+        CCPA/CPRA Rights for California Residents
+      </h3>
+      <p className="mb-4 text-muted-foreground">
+        If you are a California resident, you have additional rights under the
+        CCPA/CPRA:
+      </p>
+      <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
+        <li>Right to know what personal information is collected, used, and disclosed</li>
+        <li>Right to delete personal information held by us and our service providers</li>
+        <li>Right to correct inaccurate personal information</li>
+        <li>Right to opt out of the sale or sharing of personal information</li>
+        <li>Right to limit the use of sensitive personal information</li>
+        <li>Right to non-discrimination for exercising privacy rights</li>
+      </ul>
+      <p className="mb-4 text-muted-foreground">
+        We collect the following categories of personal information: identifiers,
+        commercial information, internet activity data, professional information,
+        and inferences. We do not sell or share personal information for
+        cross-context behavioral advertising. For details, see our{" "}
+        <a href="/docs/compliance#ccpa" className="text-primary hover:underline">
+          CCPA/CPRA Compliance
+        </a>{" "}
+        section.
+      </p>
 
       <h2 id="cookies" className="mb-4 text-2xl font-semibold text-foreground">
         Cookies and Tracking

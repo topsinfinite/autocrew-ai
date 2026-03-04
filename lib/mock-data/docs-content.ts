@@ -47,6 +47,14 @@ export const docsNavigation: DocNavigationItem[] = [
         title: "Terms of Service",
         href: "/docs/terms",
       },
+      {
+        title: "Security",
+        href: "/docs/security",
+      },
+      {
+        title: "Compliance",
+        href: "/docs/compliance",
+      },
     ],
   },
 ]

@@ -179,16 +179,16 @@ export function CtaSection() {
                 <div className="flex flex-col gap-4">
                   <p className="text-sm font-semibold text-foreground font-space-grotesk">Legal</p>
                   <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
-                    <Link href="#" className="hover:text-foreground transition-colors">
+                    <Link href="/docs/privacy" className="hover:text-foreground transition-colors">
                       Privacy Policy
                     </Link>
-                    <Link href="#" className="hover:text-foreground transition-colors">
+                    <Link href="/docs/terms" className="hover:text-foreground transition-colors">
                       Terms of Service
                     </Link>
-                    <Link href="#" className="hover:text-foreground transition-colors">
+                    <Link href="/docs/security" className="hover:text-foreground transition-colors">
                       Security
                     </Link>
-                    <Link href="#" className="hover:text-foreground transition-colors">
+                    <Link href="/docs/compliance" className="hover:text-foreground transition-colors">
                       Compliance
                     </Link>
                   </div>
@@ -221,10 +221,10 @@ export function CtaSection() {
                 {footerData.copyright}
               </p>
               <div className="flex gap-6 text-sm text-muted-foreground font-geist">
-                <Link href="#" className="hover:text-foreground transition-colors">
+                <Link href="/docs/privacy" className="hover:text-foreground transition-colors">
                   Privacy Policy
                 </Link>
-                <Link href="#" className="hover:text-foreground transition-colors">
+                <Link href="/docs/terms" className="hover:text-foreground transition-colors">
                   Terms of Service
                 </Link>
               </div>

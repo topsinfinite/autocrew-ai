@@ -44,7 +44,7 @@ export default function DocsPage() {
     },
     {
       title: "Legal",
-      description: "Privacy policy and terms of service",
+      description: "Privacy, terms, security, and compliance",
       icon: FileText,
       href: "/docs/privacy",
     },

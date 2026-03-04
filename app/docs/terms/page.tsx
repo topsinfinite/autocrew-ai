@@ -14,7 +14,7 @@ export default function TermsPage() {
         Terms of Service
       </h1>
       <p className="mb-2 text-sm text-muted-foreground">
-        Last Updated: December 29, 2024
+        Last Updated: March 4, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
         These Terms of Service govern your access to and use of AutoCrew's platform
@@ -96,6 +96,71 @@ export default function TermsPage() {
         <li>Resell or redistribute the Service without authorization</li>
       </ul>
 
+      <h3 id="ai-use-restrictions" className="mb-3 text-xl font-semibold text-foreground">
+        AI-Specific Use Restrictions
+      </h3>
+      <p className="mb-4 text-muted-foreground">
+        In addition to the general acceptable use policy above, you agree not to:
+      </p>
+      <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
+        <li>
+          Use AI Crew outputs to develop, train, or improve competing AI models
+          or services
+        </li>
+        <li>
+          Systematically scrape, extract, or harvest AI model behavior, outputs,
+          or capabilities
+        </li>
+        <li>
+          Use AI Crews for deceptive impersonation — misrepresenting AI-generated
+          content as human-authored where disclosure is required by law
+        </li>
+        <li>
+          Use AI Crews to generate illegal, harmful, discriminatory, or
+          defamatory content
+        </li>
+        <li>
+          Attempt to circumvent, disable, or bypass AI safety measures, content
+          filters, or usage limits
+        </li>
+        <li>
+          Use AI Crews for high-stakes automated decisions (hiring, credit,
+          insurance, law enforcement) without appropriate human oversight and
+          review
+        </li>
+      </ul>
+
+      <h2 id="ai-disclaimers" className="mb-4 text-2xl font-semibold text-foreground">
+        AI Output Disclaimers
+      </h2>
+      <p className="mb-4 text-muted-foreground">
+        You acknowledge and agree to the following regarding AI-generated
+        outputs:
+      </p>
+      <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
+        <li>
+          <strong>No guarantee of accuracy:</strong> AI outputs are generated
+          probabilistically and may contain errors, omissions, or inaccuracies.
+          AutoCrew makes no warranty regarding the accuracy, completeness, or
+          suitability of AI-generated content.
+        </li>
+        <li>
+          <strong>User responsibility:</strong> You are solely responsible for
+          reviewing, validating, and verifying all AI-generated outputs before
+          use. You bear full responsibility for any decisions or actions taken
+          based on AI outputs.
+        </li>
+        <li>
+          <strong>Not professional advice:</strong> AI outputs do not constitute
+          legal, medical, financial, or other professional advice. Consult
+          qualified professionals for matters requiring expert judgment.
+        </li>
+        <li>
+          <strong>Variability:</strong> AI outputs may vary for similar inputs
+          and may change as our models are updated and improved over time.
+        </li>
+      </ul>
+
       <h2 id="service-plans" className="mb-4 text-2xl font-semibold text-foreground">
         Service Plans and Billing
       </h2>
@@ -150,6 +215,33 @@ export default function TermsPage() {
         other purpose without your consent.
       </p>
 
+      <h2 id="ai-intellectual-property" className="mb-4 text-2xl font-semibold text-foreground">
+        AI Intellectual Property
+      </h2>
+      <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
+        <li>
+          <strong>Your outputs:</strong> You retain rights to outputs generated
+          by AI Crews from your data and inputs, subject to applicable law and
+          these Terms
+        </li>
+        <li>
+          <strong>Our models:</strong> AutoCrew retains all rights to the
+          underlying AI models, algorithms, training methodologies, and platform
+          technology. Nothing in these Terms grants you any ownership interest in
+          our AI systems.
+        </li>
+        <li>
+          <strong>No reverse engineering:</strong> You may not reverse engineer,
+          decompile, or otherwise attempt to derive the architecture, weights, or
+          training data of our AI models
+        </li>
+        <li>
+          <strong>Feedback:</strong> Any feedback, suggestions, or ideas you
+          provide about our AI systems may be used by AutoCrew to improve the
+          Service without obligation to you
+        </li>
+      </ul>
+
       <h2 id="data-processing" className="mb-4 text-2xl font-semibold text-foreground">
         Data Processing and Privacy
       </h2>
@@ -165,7 +257,16 @@ export default function TermsPage() {
       <p className="mb-8 text-muted-foreground">
         For customer data processed through AI crews, you act as the data controller
         and we act as the data processor. You are responsible for ensuring you have
-        the necessary rights and consents to process such data.
+        the necessary rights and consents to process such data. For details on our
+        security practices and regulatory compliance, see our{" "}
+        <a href="/docs/security" className="text-primary hover:underline">
+          Security
+        </a>{" "}
+        and{" "}
+        <a href="/docs/compliance" className="text-primary hover:underline">
+          Compliance
+        </a>{" "}
+        pages.
       </p>
 
       <h2 id="warranties" className="mb-4 text-2xl font-semibold text-foreground">

@@ -41,6 +41,8 @@ export const ROUTES = {
   DOCS_FAQ: '/docs/faq',
   DOCS_PRIVACY: '/docs/privacy',
   DOCS_TERMS: '/docs/terms',
+  DOCS_SECURITY: '/docs/security',
+  DOCS_COMPLIANCE: '/docs/compliance',
 } as const;
 
 // ============================================================================
