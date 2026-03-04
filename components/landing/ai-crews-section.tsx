@@ -1,5 +1,3 @@
-"use client";
-
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { SectionBadge } from "@/components/landing/section-badge";

@@ -1,10 +1,9 @@
-"use client";
-
 import { howItWorksData } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils/cn";
 
+const delays = ["0s", "1.5s", "3s", "4.5s"];
+
 export function HowItWorks() {
-  const delays = ["0s", "1.5s", "3s", "4.5s"];
 
   return (
     <section id="how-it-works" className="z-10 pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32 relative section-glow-top">

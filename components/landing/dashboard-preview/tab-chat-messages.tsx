@@ -115,7 +115,7 @@ export function TabChatMessages() {
                     <p className="text-sm text-neutral-300">{message.content}</p>
                   </div>
 
-                  {message.isVoiceClip && (
+                  {message.isVoiceClip ? (
                     <div className="bg-white/[0.02] border border-white/[0.04] rounded-2xl rounded-tl-md px-3 py-2 mt-1.5 flex items-center gap-2.5 w-fit">
                       <button aria-label="Play voice clip" className="w-6 h-6 rounded-full bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center flex-shrink-0">
                         <Play className="w-[9px] h-[9px] text-white ml-[1px]" />

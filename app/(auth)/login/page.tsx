@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Mail, Lock, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Logo } from "@/components/layout";
+import { Logo } from "@/components/layout/logo";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

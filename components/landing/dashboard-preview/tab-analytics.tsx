@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { BarChart3, ChevronDown } from "lucide-react";
 import { dashboardPreviewData } from "@/lib/mock-data/landing-data";
@@ -111,10 +111,7 @@ export function TabAnalytics() {
     return () => clearTimeout(timer);
   }, []);
 
-  const isLast = useCallback(
-    (i: number) => i === barChart.length - 1,
-    [barChart.length],
-  );
+  const lastIndex = barChart.length - 1;
 
   return (
     <div className="flex-1 flex flex-col min-h-0 animate-fade-in-up">
@@ -194,7 +191,7 @@ export function TabAnalytics() {
                 <div className="flex items-end gap-px w-full h-28">
                   {/* Chat bar */}
                   <div
-                    className={`flex-1 rounded-t ${isLast(i) ? "bg-[#FF6B35]/50" : "bg-[#FF6B35]/30"}`}
+                    className={`flex-1 rounded-t ${i === lastIndex ? "bg-[#FF6B35]/50" : "bg-[#FF6B35]/30"}`}
                     style={{
                       height: mounted ? `${day.chatHeight}%` : "0%",
                       transition: `height 0.6s ease-out ${i * 0.07}s`,
@@ -202,7 +199,7 @@ export function TabAnalytics() {
                   />
                   {/* Voice bar */}
                   <div
-                    className={`flex-1 rounded-t ${isLast(i) ? "bg-emerald-400/40" : "bg-emerald-400/25"}`}
+                    className={`flex-1 rounded-t ${i === lastIndex ? "bg-emerald-400/40" : "bg-emerald-400/25"}`}
                     style={{
                       height: mounted ? `${day.voiceHeight}%` : "0%",
                       transition: `height 0.6s ease-out ${i * 0.07 + 0.05}s`,
@@ -210,7 +207,7 @@ export function TabAnalytics() {
                   />
                   {/* Email bar */}
                   <div
-                    className={`flex-1 rounded-t ${isLast(i) ? "bg-sky-400/40" : "bg-sky-400/25"}`}
+                    className={`flex-1 rounded-t ${i === lastIndex ? "bg-sky-400/40" : "bg-sky-400/25"}`}
                     style={{
                       height: mounted ? `${day.emailHeight}%` : "0%",
                       transition: `height 0.6s ease-out ${i * 0.07 + 0.1}s`,
@@ -218,7 +215,7 @@ export function TabAnalytics() {
                   />
                 </div>
                 <span
-                  className={`font-space-mono text-[9px] ${isLast(i) ? "text-neutral-500" : "text-neutral-700"}`}
+                  className={`font-space-mono text-[9px] ${i === lastIndex ? "text-neutral-500" : "text-neutral-700"}`}
                 >
                   {day.day}
                 </span>

@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { statsData } from "@/lib/mock-data/landing-data";
 

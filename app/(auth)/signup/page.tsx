@@ -2,7 +2,7 @@
 
 import { ArrowRight, ArrowLeft, Clock, Building2 } from "lucide-react";
 import Link from "next/link";
-import { Logo } from "@/components/layout";
+import { Logo } from "@/components/layout/logo";
 
 export default function SignUpPage() {
   return (

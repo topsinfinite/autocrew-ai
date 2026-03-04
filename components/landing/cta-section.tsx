@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowRight, Mail, Calendar, Github, Linkedin } from "lucide-react";
-import { Logo } from "@/components/layout";
+import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { ctaData, footerData } from "@/lib/mock-data/landing-data";
 

@@ -3,7 +3,7 @@
 import { Mail, MessageSquare, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Logo } from "@/components/layout";
+import { Logo } from "@/components/layout/logo";
 
 export default function ContactSupportPage() {
   return (
