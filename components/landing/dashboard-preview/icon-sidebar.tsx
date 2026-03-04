@@ -24,6 +24,8 @@ export function IconSidebar({ activeTab, onTabChange }: IconSidebarProps) {
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
+            aria-label={tab.label}
+            aria-current={isActive ? "true" : undefined}
             className={cn(
               "w-8 h-8 rounded-lg flex items-center justify-center transition-colors cursor-pointer",
               isActive
@@ -41,9 +43,9 @@ export function IconSidebar({ activeTab, onTabChange }: IconSidebarProps) {
 
       <div className="flex-1" />
 
-      <div className="w-8 h-8 rounded-lg hover:bg-white/[0.04] flex items-center justify-center transition-colors">
+      <button aria-label="Help" className="w-8 h-8 rounded-lg hover:bg-white/[0.04] flex items-center justify-center transition-colors">
         <HelpCircle className="w-4 h-4" style={{ color: "rgba(255,255,255,0.2)" }} />
-      </div>
+      </button>
     </div>
   );
 }
@@ -58,8 +60,10 @@ export function MobileTabBar({ activeTab, onTabChange }: IconSidebarProps) {
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
+            aria-label={tab.label}
+            aria-current={isActive ? "true" : undefined}
             className={cn(
-              "flex-1 flex flex-col items-center justify-center gap-1 py-2 transition-colors cursor-pointer",
+              "flex-1 flex flex-col items-center justify-center gap-1 py-2 transition-colors cursor-pointer relative",
               isActive ? "bg-[#FF6B35]/5" : "hover:bg-white/[0.02]"
             )}
           >

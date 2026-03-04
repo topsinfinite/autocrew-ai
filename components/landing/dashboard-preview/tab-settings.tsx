@@ -12,11 +12,11 @@ export function TabSettings() {
           <Settings className="w-4 h-4" style={{ color: "#FF6B35" }} />
           <span className="text-sm font-medium text-neutral-300">Settings</span>
         </div>
-        <div className="flex items-center gap-1.5 bg-white/[0.04] rounded-lg px-2.5 py-1 border border-white/[0.05] cursor-pointer">
+        <button className="flex items-center gap-1.5 bg-white/[0.04] rounded-lg px-2.5 py-1 border border-white/[0.05] cursor-pointer">
           <span className="font-space-mono text-[10px] text-neutral-500 uppercase tracking-wider">
             Support Crew
           </span>
-        </div>
+        </button>
       </div>
 
       {/* Content */}

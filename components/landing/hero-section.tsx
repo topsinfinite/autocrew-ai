@@ -30,9 +30,9 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
         
         {/* Decorative Crosses */}
-        <div className="absolute top-1/4 left-10 w-4 h-4 text-[#FF6B35]/20 animate-pulse">+</div>
-        <div className="absolute top-1/3 right-20 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-700">+</div>
-        <div className="absolute bottom-1/3 left-1/4 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-300">+</div>
+        <div className="absolute top-1/4 left-10 w-4 h-4 text-[#FF6B35]/20 animate-pulse" aria-hidden="true">+</div>
+        <div className="absolute top-1/3 right-20 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-700" aria-hidden="true">+</div>
+        <div className="absolute bottom-1/3 left-1/4 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-300" aria-hidden="true">+</div>
         
         {/* Waveform Line */}
         <svg className="absolute top-1/2 left-0 w-full h-24 stroke-[#FF6B35]/10 fill-none opacity-50" viewBox="0 0 1200 100" preserveAspectRatio="none">
@@ -101,33 +101,31 @@ export function HeroSection() {
             )}
             style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
           >
-            <Link href={heroData.primaryCta.href} className="w-full sm:w-auto">
-              <button
-                className={cn(
-                  "w-full sm:w-auto group inline-flex items-center justify-center gap-2 text-base font-medium text-black font-space",
-                  "rounded-full py-3.5 px-8",
-                  "bg-[#FF6B35] hover:bg-[#FF6B35]/90",
-                  "shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)]",
-                  "transition-all duration-200"
-                )}
-              >
-                {heroData.primaryCta.text}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+            <Link
+              href={heroData.primaryCta.href}
+              className={cn(
+                "w-full sm:w-auto group inline-flex items-center justify-center gap-2 text-base font-medium text-black font-space",
+                "rounded-full py-3.5 px-8",
+                "bg-[#FF6B35] hover:bg-[#FF6B35]/90",
+                "shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)]",
+                "transition-all duration-200"
+              )}
+            >
+              {heroData.primaryCta.text}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            
-             <Link href={heroData.secondaryCta.href} className="w-full sm:w-auto">
-              <button
-                className={cn(
-                  "w-full sm:w-auto group inline-flex items-center justify-center gap-2 text-base font-medium text-foreground font-space",
-                  "rounded-full py-3.5 px-8",
-                  "bg-foreground/[0.05] hover:bg-foreground/[0.1] border border-foreground/[0.1]",
-                  "transition-all duration-200"
-                )}
-              >
-                <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
-                {heroData.secondaryCta.text}
-              </button>
+
+            <Link
+              href={heroData.secondaryCta.href}
+              className={cn(
+                "w-full sm:w-auto group inline-flex items-center justify-center gap-2 text-base font-medium text-foreground font-space",
+                "rounded-full py-3.5 px-8",
+                "bg-foreground/[0.05] hover:bg-foreground/[0.1] border border-foreground/[0.1]",
+                "transition-all duration-200"
+              )}
+            >
+              <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
+              {heroData.secondaryCta.text}
             </Link>
           </div>
 

@@ -24,7 +24,7 @@ export function AiCrewsSection() {
             >
               {/* Medical Pulse Decoration for Healthcare Card */}
               {index === 0 && (
-                <div className="absolute top-0 right-0 w-24 h-24 overflow-hidden pointer-events-none opacity-20">
+                <div className="absolute top-0 right-0 w-24 h-24 overflow-hidden pointer-events-none opacity-20" aria-hidden="true">
                     <svg className="w-full h-full text-[#FF6B35]" viewBox="0 0 100 100">
                         <path d="M0 50 L 20 50 L 30 20 L 50 80 L 70 50 L 100 50" fill="none" stroke="currentColor" strokeWidth="2" vectorEffect="non-scaling-stroke" />
                     </svg>
@@ -61,19 +61,22 @@ export function AiCrewsSection() {
                 </ul>
 
                 {/* CTA Button */}
-                <Link href={crew.ctaHref || "#"} className="mt-auto">
-                    <button
-                    disabled={crew.ctaDisabled}
-                    className={`w-full py-3 px-4 rounded-xl border transition-all font-medium font-geist text-sm flex items-center justify-center gap-2 ${
-                        crew.ctaDisabled
-                        ? "border-transparent bg-white/[0.04] text-muted-foreground opacity-50 cursor-not-allowed"
-                        : "border-transparent bg-white/[0.05] hover:bg-[#FF6B35] hover:text-white text-foreground"
-                    }`}
-                    >
+                {crew.ctaDisabled ? (
+                  <div
+                    className="mt-auto w-full py-3 px-4 rounded-xl border border-transparent bg-white/[0.04] text-muted-foreground opacity-50 cursor-not-allowed font-medium font-geist text-sm flex items-center justify-center gap-2"
+                    aria-disabled="true"
+                  >
                     {crew.ctaText}
-                    {!crew.ctaDisabled && <ArrowRight className="w-3.5 h-3.5" />}
-                    </button>
-                </Link>
+                  </div>
+                ) : (
+                  <Link
+                    href={crew.ctaHref || "#"}
+                    className="mt-auto w-full py-3 px-4 rounded-xl border border-transparent bg-white/[0.05] hover:bg-[#FF6B35] hover:text-white text-foreground transition-all font-medium font-geist text-sm flex items-center justify-center gap-2"
+                  >
+                    {crew.ctaText}
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                )}
               </div>
             </div>
           ))}

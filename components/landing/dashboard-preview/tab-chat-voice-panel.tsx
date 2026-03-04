@@ -128,10 +128,10 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
 
           {/* Compact controls */}
           <div className="flex items-center gap-1.5 flex-shrink-0">
-            <button className="w-7 h-7 rounded-full bg-white/[0.04] flex items-center justify-center border border-white/[0.05]">
+            <button aria-label="Microphone" className="w-7 h-7 rounded-full bg-white/[0.04] flex items-center justify-center border border-white/[0.05]">
               <Mic className="w-3 h-3 text-white/50" />
             </button>
-            <button className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/15">
+            <button aria-label="End call" className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/15">
               <PhoneOff className="w-3.5 h-3.5 text-red-400" />
             </button>
             {muteButton}
@@ -241,10 +241,10 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
 
         {/* Control buttons */}
         <div className="flex items-center gap-3 mt-5">
-          <button className="w-9 h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.05]">
+          <button aria-label="Microphone" className="w-9 h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.05]">
             <Mic className="w-4 h-4 text-white/50" />
           </button>
-          <button className="w-11 h-11 rounded-full bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center transition-colors border border-red-500/15">
+          <button aria-label="End call" className="w-11 h-11 rounded-full bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center transition-colors border border-red-500/15">
             <PhoneOff className="w-[18px] h-[18px] text-red-400" />
           </button>
           {muteButton}

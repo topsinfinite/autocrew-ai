@@ -126,12 +126,12 @@ export function TabAnalytics() {
             Analytics Overview
           </span>
         </div>
-        <div className="flex items-center gap-1.5 bg-white/[0.04] rounded-lg px-2.5 py-1 border border-white/[0.05] cursor-pointer">
+        <button className="flex items-center gap-1.5 bg-white/[0.04] rounded-lg px-2.5 py-1 border border-white/[0.05] cursor-pointer">
           <span className="font-space-mono text-[10px] text-neutral-500 uppercase tracking-wider">
             Last 7 days
           </span>
           <ChevronDown className="w-3 h-3 text-white/20" />
-        </div>
+        </button>
       </div>
 
       {/* Content */}

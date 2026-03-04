@@ -77,15 +77,16 @@ export function HowItWorks() {
                   <div
                     className="relative text-5xl sm:text-7xl md:text-8xl font-semibold font-space-grotesk animate-num-pulse transition-colors duration-300 text-foreground/[0.05] dark:text-white/5"
                     style={{ animationDelay: delay }}
+                    aria-hidden="true"
                   >
                     {step.number}
                   </div>
                 </div>
 
                 {/* Title */}
-                <h4 className="text-lg font-medium mb-3 font-geist text-foreground">
+                <h3 className="text-lg font-medium mb-3 font-geist text-foreground">
                   {step.title}
-                </h4>
+                </h3>
 
                 {/* Description */}
                 <p className="text-sm leading-relaxed font-geist text-muted-foreground">

@@ -21,7 +21,7 @@ export function CtaSection() {
 
         <div className="relative z-10">
           {/* Large Typography Headline */}
-          <h2 className="text-[10vw] sm:text-[9vw] lg:text-[7vw] leading-[0.9] font-semibold tracking-tighter font-geist mb-6 sm:mb-8">
+          <h2 className="text-[clamp(2rem,10vw,7rem)] sm:text-[clamp(2.5rem,9vw,7rem)] lg:text-[clamp(3rem,7vw,7rem)] leading-[0.9] font-semibold tracking-tighter font-geist mb-6 sm:mb-8">
             <span className="block font-space-grotesk text-foreground">{ctaData.headline.line1}</span>
             <span className="block text-muted-foreground transition-colors duration-700 font-space-grotesk">
               {ctaData.headline.line2}

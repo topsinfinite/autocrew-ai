@@ -120,12 +120,12 @@ export function TabInbox() {
             <Search className="w-[13px] h-[13px] text-white/25" />
             <span className="text-xs text-neutral-600">Search...</span>
           </div>
-          <div className="flex items-center gap-1 cursor-pointer">
+          <button className="flex items-center gap-1 cursor-pointer">
             <span className="font-space-mono text-[10px] text-neutral-600 uppercase tracking-wider">
               Filter
             </span>
             <ChevronDown className="w-3 h-3 text-white/20" />
-          </div>
+          </button>
         </div>
       </div>
 
