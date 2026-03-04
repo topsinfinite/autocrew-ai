@@ -3,16 +3,21 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { CodeBlock } from "@/components/docs/code-block"
 import { DocNavigation } from "@/components/docs/doc-navigation"
 import { CheckCircle, Info } from "lucide-react"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "Getting Started",
   description:
     "Quick start guide to set up your first AI crew with AutoCrew. Create crews, connect tools, and go live in minutes.",
+  alternates: {
+    canonical: "/docs/getting-started",
+  },
 }
 
 export default function GettingStartedPage() {
   return (
     <div>
+      <DocsBreadcrumbSchema currentPath="/docs/getting-started" currentTitle="Getting Started" />
       <h1 id="getting-started" className="mb-4 text-4xl font-bold text-foreground">
         Getting Started
       </h1>

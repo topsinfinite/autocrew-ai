@@ -7,16 +7,24 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { JsonLd } from "@/components/seo/json-ld"
+import { faqPageSchema } from "@/lib/seo/schemas"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Frequently asked questions about AutoCrew, AI crews, pricing, integrations, and support. Find answers fast.",
+  alternates: {
+    canonical: "/docs/faq",
+  },
 }
 
 export default function FAQPage() {
   return (
     <div>
+      <JsonLd data={faqPageSchema(faqData)} />
+      <DocsBreadcrumbSchema currentPath="/docs/faq" currentTitle="FAQ" />
       <h1 id="faq" className="mb-4 text-4xl font-bold text-foreground">
         Frequently Asked Questions
       </h1>

@@ -3,16 +3,21 @@ import { DocNavigation } from "@/components/docs/doc-navigation"
 import { CodeBlock } from "@/components/docs/code-block"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lightbulb } from "lucide-react"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "Support Crew",
   description:
     "AI-powered customer support that works 24/7. Handle inquiries, resolve issues, escalate when needed. Learn how it works.",
+  alternates: {
+    canonical: "/docs/support-crew",
+  },
 }
 
 export default function SupportCrewPage() {
   return (
     <div>
+      <DocsBreadcrumbSchema currentPath="/docs/support-crew" currentTitle="Support Crew" />
       <h1 id="support-crew" className="mb-4 text-4xl font-bold text-foreground">
         Support Crew
       </h1>

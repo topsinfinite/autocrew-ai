@@ -3,16 +3,21 @@ import { DocNavigation } from "@/components/docs/doc-navigation"
 import { CodeBlock } from "@/components/docs/code-block"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lightbulb, ShieldCheck } from "lucide-react"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "Healthcare Crew",
   description:
     "HIPAA-aware AI voice agents for healthcare. EHR integration, patient identification, and secure health data management.",
+  alternates: {
+    canonical: "/docs/healthcare-crew",
+  },
 }
 
 export default function HealthcareCrewPage() {
   return (
     <div>
+      <DocsBreadcrumbSchema currentPath="/docs/healthcare-crew" currentTitle="Healthcare Crew" />
       <h1 id="healthcare-crew" className="mb-4 text-4xl font-bold text-foreground">
         Healthcare Crew
       </h1>

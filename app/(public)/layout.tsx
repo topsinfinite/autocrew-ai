@@ -15,7 +15,7 @@ export default function PublicLayout({
       {/* Content layer */}
       <div className="relative z-10 flex flex-col min-h-screen">
         <PublicNav />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
         <PublicFooter />
       </div>
     </div>

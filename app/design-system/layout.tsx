@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "Design System | AutoCrew",
   description:
     "AutoCrew design tokens, typography, colors, spacing, effects, and component reference.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function DesignSystemLayout({

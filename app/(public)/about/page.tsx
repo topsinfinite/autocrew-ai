@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "About Us",
   description:
     "Learn about AutoCrew's mission to make AI automation accessible to every business. Our values, vision, and the story behind our platform.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {

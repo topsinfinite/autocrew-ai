@@ -3,16 +3,21 @@ import { DocNavigation } from "@/components/docs/doc-navigation"
 import { CodeBlock } from "@/components/docs/code-block"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lightbulb } from "lucide-react"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "LeadGen Crew",
   description:
     "Intelligent lead generation and qualification. Identify prospects, qualify leads, and accelerate your sales pipeline.",
+  alternates: {
+    canonical: "/docs/leadgen-crew",
+  },
 }
 
 export default function LeadGenCrewPage() {
   return (
     <div>
+      <DocsBreadcrumbSchema currentPath="/docs/leadgen-crew" currentTitle="LeadGen Crew" />
       <h1 id="leadgen-crew" className="mb-4 text-4xl font-bold text-foreground">
         LeadGen Crew
       </h1>

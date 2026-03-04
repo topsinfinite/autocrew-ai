@@ -3,11 +3,15 @@ import Link from "next/link"
 import { BookOpen, Rocket, Users, HelpCircle, FileText, Zap } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { DocNavigation } from "@/components/docs/doc-navigation"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "Documentation",
   description:
     "Learn how to automate your business with AI-powered crews that work 24/7 to support customers and generate leads.",
+  alternates: {
+    canonical: "/docs",
+  },
 }
 
 export default function DocsPage() {
@@ -52,6 +56,7 @@ export default function DocsPage() {
 
   return (
     <div>
+      <DocsBreadcrumbSchema currentPath="/docs" currentTitle="Documentation" />
       <div className="mb-12">
         <h1 id="introduction" className="mb-4 text-4xl font-bold text-foreground">
           AutoCrew Documentation

@@ -1,15 +1,20 @@
 import type { Metadata } from "next"
 import { DocNavigation } from "@/components/docs/doc-navigation"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
     "Terms governing your access to and use of AutoCrew's platform and services. Please read before using our product.",
+  alternates: {
+    canonical: "/docs/terms",
+  },
 }
 
 export default function TermsPage() {
   return (
     <div>
+      <DocsBreadcrumbSchema currentPath="/docs/terms" currentTitle="Terms of Service" />
       <h1 id="terms-of-service" className="mb-4 text-4xl font-bold text-foreground">
         Terms of Service
       </h1>

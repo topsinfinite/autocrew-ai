@@ -148,7 +148,7 @@ export function CtaSection() {
                     <Link href="/contact" className="hover:text-foreground transition-colors">
                       Pricing
                     </Link>
-                    <Link href="#" className="hover:text-foreground transition-colors">
+                    <Link href="/docs" className="hover:text-foreground transition-colors">
                       Changelog
                     </Link>
                   </div>
@@ -161,13 +161,13 @@ export function CtaSection() {
                     <Link href="/docs" className="hover:text-foreground transition-colors">
                       Documentation
                     </Link>
-                    <Link href="/docs" className="hover:text-foreground transition-colors">
+                    <Link href="/docs/getting-started" className="hover:text-foreground transition-colors">
                       Getting Started
                     </Link>
-                    <Link href="/docs" className="hover:text-foreground transition-colors">
+                    <Link href="/docs/user-guide" className="hover:text-foreground transition-colors">
                       User Guide
                     </Link>
-                    <Link href="#" className="hover:text-foreground transition-colors">
+                    <Link href="/docs/faq" className="hover:text-foreground transition-colors">
                       FAQ
                     </Link>
                   </div>
@@ -196,17 +196,11 @@ export function CtaSection() {
                 <div className="flex flex-col gap-4">
                   <p className="text-sm font-semibold text-foreground font-space-grotesk">Company</p>
                   <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
-                    <Link href="#" className="hover:text-foreground transition-colors">
+                    <Link href="/about" className="hover:text-foreground transition-colors">
                       About
                     </Link>
                     <Link href="/contact" className="hover:text-foreground transition-colors">
                       Contact
-                    </Link>
-                    <Link href="#" className="hover:text-foreground transition-colors">
-                      Blog
-                    </Link>
-                    <Link href="#" className="hover:text-foreground transition-colors">
-                      Careers
                     </Link>
                   </div>
                 </div>

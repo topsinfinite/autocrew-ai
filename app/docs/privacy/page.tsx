@@ -1,15 +1,20 @@
 import type { Metadata } from "next"
 import { DocNavigation } from "@/components/docs/doc-navigation"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "How AutoCrew collects, uses, and protects your personal information. Read our full privacy policy and data practices.",
+  alternates: {
+    canonical: "/docs/privacy",
+  },
 }
 
 export default function PrivacyPage() {
   return (
     <div>
+      <DocsBreadcrumbSchema currentPath="/docs/privacy" currentTitle="Privacy Policy" />
       <h1 id="privacy-policy" className="mb-4 text-4xl font-bold text-foreground">
         Privacy Policy
       </h1>

@@ -144,7 +144,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold font-space-grotesk mb-1">Email</h3>
-                  <p className="text-muted-foreground font-geist">support@autocrew.com</p>
+                  <p className="text-muted-foreground font-geist">support@autocrew-ai.com</p>
                   <p className="text-sm text-muted-foreground font-geist">We'll respond within 24 hours</p>
                 </div>
               </div>

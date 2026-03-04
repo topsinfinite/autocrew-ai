@@ -2,16 +2,21 @@ import type { Metadata } from "next"
 import { DocNavigation } from "@/components/docs/doc-navigation"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Info } from "lucide-react"
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
 
 export const metadata: Metadata = {
   title: "User Guide",
   description:
     "Complete guide to AutoCrew features. Maximize your AI crews—dashboard, analytics, conversations, and workflows.",
+  alternates: {
+    canonical: "/docs/user-guide",
+  },
 }
 
 export default function UserGuidePage() {
   return (
     <div>
+      <DocsBreadcrumbSchema currentPath="/docs/user-guide" currentTitle="User Guide" />
       <h1 id="user-guide" className="mb-4 text-4xl font-bold text-foreground">
         User Guide
       </h1>
