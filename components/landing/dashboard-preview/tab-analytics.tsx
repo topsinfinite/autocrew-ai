@@ -291,7 +291,7 @@ export function TabAnalytics() {
                       />
                     ) : (
                       <div
-                        className={`w-5 h-5 rounded-full bg-gradient-to-br ${agent.avatarColor} flex items-center justify-center`}
+                        className={`w-5 h-5 rounded-full bg-linear-to-br ${agent.avatarColor} flex items-center justify-center`}
                       >
                         <span className="text-[8px] font-medium text-white">
                           {agent.initial}

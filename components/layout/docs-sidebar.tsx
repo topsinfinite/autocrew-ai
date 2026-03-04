@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { docsNavigation, type DocNavigationItem } from "@/lib/mock-data/docs-content"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -24,6 +24,7 @@ function NavItem({ item, level = 0, onNavigate }: { item: DocNavigationItem; lev
       <div className="mb-1">
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
           className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
         >
           {isOpen ? (
@@ -62,6 +63,48 @@ function NavItem({ item, level = 0, onNavigate }: { item: DocNavigationItem; lev
 
 export function DocsSidebar({ className }: DocsSidebarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const sidebarRef = useRef<HTMLElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+
+  const closeSidebar = useCallback(() => {
+    setMobileMenuOpen(false)
+    menuButtonRef.current?.focus()
+  }, [])
+
+  // Focus trap and Escape key for mobile sidebar
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeSidebar()
+        return
+      }
+      if (e.key === "Tab") {
+        const focusable = sidebarRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
+        )
+        if (!focusable || focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    const firstFocusable = sidebarRef.current?.querySelector<HTMLElement>(
+      'a[href], button:not([tabindex="-1"])'
+    )
+    firstFocusable?.focus()
+
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [mobileMenuOpen, closeSidebar])
 
   const sidebarContent = (
     <div className="space-y-1">
@@ -85,6 +128,7 @@ export function DocsSidebar({ className }: DocsSidebarProps) {
       {/* Mobile Menu Button */}
       <div className="lg:hidden fixed top-24 left-4 z-50">
         <Button
+          ref={menuButtonRef}
           variant="outline"
           size="icon"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -105,9 +149,18 @@ export function DocsSidebar({ className }: DocsSidebarProps) {
         <>
           <div
             className="lg:hidden fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={closeSidebar}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") closeSidebar() }}
+            role="button"
+            tabIndex={-1}
+            aria-label="Close sidebar"
           />
-          <aside className="lg:hidden fixed inset-y-0 left-0 z-50 w-64 shrink-0 border-r border-border bg-card p-6" role="navigation" aria-label="Documentation navigation">
+          <aside
+            ref={sidebarRef}
+            className="lg:hidden fixed inset-y-0 left-0 z-50 w-64 shrink-0 border-r border-border bg-card p-6"
+            role="navigation"
+            aria-label="Documentation navigation"
+          >
             {sidebarContent}
           </aside>
         </>

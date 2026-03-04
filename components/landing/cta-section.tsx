@@ -7,7 +7,8 @@ import { ctaData } from "@/lib/mock-data/landing-data";
 
 export function CtaSection() {
   return (
-    <section className="sm:px-6 font-space-grotesk max-w-7xl mt-10 sm:mt-20 mx-auto mb-10 sm:mb-16 px-4">
+    <section className="pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-space-grotesk">
       <div className="group overflow-hidden sm:p-10 transition-colors duration-500 text-card-foreground bg-card border-border border rounded-[40px] p-6 relative shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
         {/* Background Effects */}
         <div className="absolute inset-0 pointer-events-none">
@@ -231,6 +232,7 @@ export function CtaSection() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

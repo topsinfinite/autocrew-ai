@@ -101,7 +101,7 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
                 className="w-11 h-11 rounded-xl object-cover shadow-lg shadow-[#FF6B35]/25"
               />
             ) : (
-              <div className="w-11 h-11 bg-gradient-to-br from-[#FF6B35] to-[#FF4444] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/25">
+              <div className="w-11 h-11 bg-linear-to-br from-[#FF6B35] to-[#FF4444] rounded-xl flex items-center justify-center shadow-lg shadow-[#FF6B35]/25">
                 <Activity className="w-5 h-5 text-white" />
               </div>
             )}
@@ -185,7 +185,7 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-[#FF6B35] to-[#FF4444] flex items-center justify-center">
+              <div className="w-full h-full bg-linear-to-br from-[#FF6B35] to-[#FF4444] flex items-center justify-center">
                 <Activity className="w-7 h-7 text-white" />
               </div>
             )}

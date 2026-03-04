@@ -173,7 +173,7 @@ export function TabInbox() {
                     />
                   ) : (
                     <div
-                      className={`w-6 h-6 rounded-full bg-gradient-to-br ${inquiry.avatarColor} flex items-center justify-center flex-shrink-0`}
+                      className={`w-6 h-6 rounded-full bg-linear-to-br ${inquiry.avatarColor} flex items-center justify-center flex-shrink-0`}
                     >
                       <span className="text-[9px] font-medium text-white">
                         {inquiry.initials}

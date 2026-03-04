@@ -85,7 +85,7 @@ export function BackgroundEffects({
             WebkitMaskImage: "linear-gradient(transparent, black 0%, black 80%, transparent)",
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 animate-pulse" />
+          <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-secondary/5 animate-pulse" />
           <div
             className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-primary/10 blur-[100px] animate-pulse"
             style={{ animationDelay: "1s" }}

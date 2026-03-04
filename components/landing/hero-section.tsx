@@ -50,7 +50,7 @@ export function HeroSection() {
           }
         }}
       />
-      <div className="md:px-6 md:pt-16 max-w-7xl mx-auto pt-12 px-4 pb-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-12 relative z-10">
         <div className="text-center max-w-4xl mt-14 sm:mt-20 mx-auto">
           {/* Announcement Badge */}
           <p
@@ -75,9 +75,9 @@ export function HeroSection() {
             style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
           >
             <span className="block">{heroData.headline.prefix}</span>
-            <span className="whitespace-nowrap relative block">
-              {/* Accent underline/highlight */}
-              <span className="absolute bottom-2 left-0 w-full h-4 bg-[#FF6B35]/10 -skew-x-6 -z-10 rounded-sm" />
+            <span className="lg:whitespace-nowrap relative block">
+              {/* Accent underline/highlight - hidden when text wraps on small screens */}
+              <span className="hidden lg:block absolute bottom-2 left-0 w-full h-4 bg-[#FF6B35]/10 -skew-x-6 -z-10 rounded-sm" />
               <span className="text-[#FF6B35]">{heroData.headline.accent}</span>
             </span>
           </h1>

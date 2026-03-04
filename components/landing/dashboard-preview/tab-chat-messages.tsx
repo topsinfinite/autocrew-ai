@@ -117,7 +117,7 @@ export function TabChatMessages() {
 
                   {message.isVoiceClip && (
                     <div className="bg-white/[0.02] border border-white/[0.04] rounded-2xl rounded-tl-md px-3 py-2 mt-1.5 flex items-center gap-2.5 w-fit">
-                      <button aria-label="Play voice clip" className="w-6 h-6 rounded-full bg-gradient-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center flex-shrink-0">
+                      <button aria-label="Play voice clip" className="w-6 h-6 rounded-full bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center flex-shrink-0">
                         <Play className="w-[9px] h-[9px] text-white ml-[1px]" />
                       </button>
                       <div className="flex items-center gap-[1.5px] h-3.5">
@@ -172,7 +172,7 @@ export function TabChatMessages() {
         <div className="flex-1 bg-white/[0.02] border border-white/[0.04] rounded-xl px-4 py-2.5">
           <span className="text-sm text-neutral-500">Message...</span>
         </div>
-        <button aria-label="Send message" className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center shadow-lg shadow-[#FF6B35]/20">
+        <button aria-label="Send message" className="w-9 h-9 rounded-xl bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center shadow-lg shadow-[#FF6B35]/20">
           <ArrowUp className="w-4 h-4 text-white" />
         </button>
       </div>

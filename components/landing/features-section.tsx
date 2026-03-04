@@ -28,7 +28,7 @@ export function FeaturesSection() {
         {/* Header Section */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20 relative">
           {/* Vertical line decoration */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent to-transparent -translate-y-full via-foreground/10" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-linear-to-b from-transparent to-transparent -translate-y-full via-foreground/10" />
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF6B35]/5 border border-[#FF6B35]/20 mb-8 backdrop-blur-sm">
@@ -62,18 +62,18 @@ export function FeaturesSection() {
             
             {/* Vertical Lines */}
             <div className="absolute left-1/3 top-0 w-px h-full bg-foreground/[0.08] dark:bg-white/[0.05] hidden md:block">
-              <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-transparent via-[#FF6B35]/50 to-transparent animate-beam-v" />
+              <div className="absolute top-0 left-0 w-full h-24 bg-linear-to-b from-transparent via-[#FF6B35]/50 to-transparent animate-beam-v" />
             </div>
             <div className="absolute right-1/3 top-0 w-px h-full bg-foreground/[0.08] dark:bg-white/[0.05] hidden md:block">
               <div
-                className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-transparent via-[#FF6B35]/50 to-transparent animate-beam-v"
+                className="absolute top-0 left-0 w-full h-24 bg-linear-to-b from-transparent via-[#FF6B35]/50 to-transparent animate-beam-v"
                 style={{ animationDelay: "2s" }}
               />
             </div>
             {/* Horizontal Lines */}
             <div className="absolute top-1/2 left-0 w-full h-px bg-foreground/[0.08] dark:bg-white/[0.05] hidden md:block">
               <div
-                className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-transparent via-[#FF6B35]/50 to-transparent animate-beam-h"
+                className="absolute top-0 left-0 h-full w-24 bg-linear-to-r from-transparent via-[#FF6B35]/50 to-transparent animate-beam-h"
                 style={{ animationDuration: "5s" }}
               />
             </div>

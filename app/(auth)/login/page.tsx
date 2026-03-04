@@ -37,7 +37,7 @@ export default function LoginPage() {
 
           {/* Middle Art Element (Abstract glow) */}
           <div className="relative z-10 mx-auto w-full max-w-md aspect-square mt-12 opacity-80">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/20 to-transparent rounded-full blur-3xl" />
+            <div className="absolute inset-0 bg-linear-to-tr from-[#FF6B35]/20 to-transparent rounded-full blur-3xl" />
           </div>
 
           {/* Testimonial */}
@@ -48,7 +48,7 @@ export default function LoginPage() {
                 handling 5x the volume with zero additional headcount."
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 border border-white/10" />
+                <div className="w-8 h-8 rounded-full bg-linear-to-br from-slate-700 to-slate-800 border border-white/10" />
                 <div>
                   <div className="text-sm font-medium text-white">Alex Chen</div>
                   <div className="text-xs text-slate-500">CTO, TechFlow Inc.</div>

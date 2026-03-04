@@ -5,7 +5,7 @@ import { statsData } from "@/lib/mock-data/landing-data";
 
 export function StatsSection() {
   return (
-    <section className="relative z-10 py-12 border-y border-foreground/[0.08] dark:border-white/[0.08] bg-foreground/[0.02] dark:bg-white/[0.02]">
+    <section className="relative z-10 py-12 sm:py-16 md:py-20 border-y border-foreground/[0.08] dark:border-white/[0.08] bg-foreground/[0.02] dark:bg-white/[0.02]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {statsData.map((stat, index) => (
