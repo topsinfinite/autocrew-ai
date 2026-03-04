@@ -19,6 +19,10 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        pill:
+          "rounded-full font-space bg-[#FF6B35] text-black hover:bg-[#FF6B35]/90 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] duration-200",
+        "pill-outline":
+          "rounded-full font-geist bg-foreground/[0.05] hover:bg-foreground/[0.08] border border-border text-muted-foreground hover:text-foreground duration-200",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -27,6 +31,9 @@ const buttonVariants = cva(
         icon: "size-9",
         "icon-sm": "size-8",
         "icon-lg": "size-10",
+        "pill-sm": "text-xs py-2.5 px-5 rounded-full",
+        "pill-md": "text-sm font-semibold py-3 px-6 rounded-full",
+        "pill-lg": "text-base py-3.5 px-8 rounded-full",
       },
     },
     defaultVariants: {

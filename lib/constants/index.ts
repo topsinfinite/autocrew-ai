@@ -30,6 +30,7 @@ export const ROUTES = {
   ABOUT: '/about',
   CONTACT: '/contact',
   CONTACT_SUPPORT: '/contact-support',
+  DESIGN_SYSTEM: '/design-system',
 
   // Documentation routes
   DOCS: '/docs',

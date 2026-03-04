@@ -4,6 +4,8 @@ import Link from "next/link";
 import Script from "next/script";
 import { ShieldCheck, ArrowRight, PlayCircle } from "lucide-react";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
+import { SectionBadge } from "@/components/landing/section-badge";
+import { Button } from "@/components/ui/button";
 import { heroData } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/lib/hooks/use-theme";
@@ -53,18 +55,16 @@ export function HeroSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-12 relative z-10">
         <div className="text-center max-w-4xl mt-14 sm:mt-20 mx-auto">
           {/* Announcement Badge */}
-          <p
+          <div
             className={cn(
-              "inline-flex items-center gap-2 text-xs font-medium text-[#FF6B35] font-geist",
-              "bg-foreground/10 dark:bg-white/5 border border-[#FF6B35]/20 rounded-full",
-              "mb-6 py-1.5 px-4 backdrop-blur-lg",
-              "animate-fade-up opacity-0"
+              "mb-6 animate-fade-up opacity-0"
             )}
             style={{ animationDelay: "0ms", animationFillMode: "forwards" }}
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-[#FF6B35]" />
-            {heroData.announcement.text}
-          </p>
+            <SectionBadge icon={<ShieldCheck className="w-3.5 h-3.5" />}>
+              {heroData.announcement.text}
+            </SectionBadge>
+          </div>
 
           {/* Main Headline */}
           <h1
@@ -101,32 +101,29 @@ export function HeroSection() {
             )}
             style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
           >
-            <Link
-              href={heroData.primaryCta.href}
-              className={cn(
-                "w-full sm:w-auto group inline-flex items-center justify-center gap-2 text-base font-medium text-black font-space",
-                "rounded-full py-3.5 px-8",
-                "bg-[#FF6B35] hover:bg-[#FF6B35]/90",
-                "shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)]",
-                "transition-all duration-200"
-              )}
+            <Button
+              variant="pill"
+              size="pill-lg"
+              className="w-full sm:w-auto group"
+              asChild
             >
-              {heroData.primaryCta.text}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
+              <Link href={heroData.primaryCta.href}>
+                {heroData.primaryCta.text}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </Button>
 
-            <Link
-              href={heroData.secondaryCta.href}
-              className={cn(
-                "w-full sm:w-auto group inline-flex items-center justify-center gap-2 text-base font-medium text-foreground font-space",
-                "rounded-full py-3.5 px-8",
-                "bg-foreground/[0.05] hover:bg-foreground/[0.1] border border-foreground/[0.1]",
-                "transition-all duration-200"
-              )}
+            <Button
+              variant="pill-outline"
+              size="pill-lg"
+              className="w-full sm:w-auto"
+              asChild
             >
-              <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
-              {heroData.secondaryCta.text}
-            </Link>
+              <Link href={heroData.secondaryCta.href}>
+                <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
+                {heroData.secondaryCta.text}
+              </Link>
+            </Button>
           </div>
 
           {/* Trust Indicator */}

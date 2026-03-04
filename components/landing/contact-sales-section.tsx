@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { ArrowRight, FileText, CheckCircle2 } from "lucide-react";
+import { SectionBadge } from "@/components/landing/section-badge";
+import { Button } from "@/components/ui/button";
 import { contactSalesData } from "@/lib/mock-data/landing-data";
 
 export function ContactSalesSection() {
@@ -26,10 +28,10 @@ export function ContactSalesSection() {
           <div className="p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
             {/* Left Content */}
             <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#FF6B35]/20 bg-[#FF6B35]/5 text-[#FF6B35] text-xs font-medium mb-6 font-space">
+              <SectionBadge className="mb-6">
                 {contactSalesData.badge}
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-foreground font-space-grotesk mb-6 tracking-tight">
+              </SectionBadge>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground font-space-grotesk mb-6 tracking-tight">
                 {contactSalesData.title}
               </h2>
               <p className="text-lg text-muted-foreground font-geist mb-8 leading-relaxed">
@@ -37,20 +39,18 @@ export function ContactSalesSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link
-                  href={contactSalesData.primaryCta.href}
-                  className="group inline-flex items-center justify-center gap-2 text-base font-medium text-black bg-[#FF6B35] hover:bg-[#FF6B35]/90 rounded-full py-3 px-8 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] font-space"
-                >
-                  {contactSalesData.primaryCta.text}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-                <Link
-                  href={contactSalesData.secondaryCta.href}
-                  className="inline-flex items-center justify-center gap-2 text-base font-medium text-muted-foreground hover:text-foreground transition-colors rounded-full border border-border px-8 py-3 bg-foreground/[0.04] hover:bg-foreground/[0.08] font-geist"
-                >
-                  <FileText className="w-4 h-4" />
-                  {contactSalesData.secondaryCta.text}
-                </Link>
+                <Button variant="pill" size="pill-lg" className="group" asChild>
+                  <Link href={contactSalesData.primaryCta.href}>
+                    {contactSalesData.primaryCta.text}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                </Button>
+                <Button variant="pill-outline" size="pill-lg" asChild>
+                  <Link href={contactSalesData.secondaryCta.href}>
+                    <FileText className="w-4 h-4" />
+                    {contactSalesData.secondaryCta.text}
+                  </Link>
+                </Button>
               </div>
             </div>
 

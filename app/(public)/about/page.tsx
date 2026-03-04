@@ -9,14 +9,14 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="py-20">
-      <div className="container mx-auto px-4">
+    <div className="pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto text-center mb-20">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight font-space-grotesk text-foreground mb-6 leading-[1.1]">
             About AutoCrew
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground font-geist leading-relaxed">
             We're on a mission to make AI automation accessible to every business,
             helping them scale operations and deliver exceptional customer experiences.
           </p>
@@ -24,24 +24,24 @@ export default function AboutPage() {
 
         {/* Mission & Vision */}
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto mb-20">
-          <div className="bg-card border border-border rounded-xl p-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 text-primary mb-4">
+          <div className="bg-card border border-border rounded-3xl p-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-4">
               <Target className="h-6 w-6" />
             </div>
-            <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
-            <p className="text-muted-foreground leading-relaxed">
+            <h2 className="text-2xl font-semibold font-space-grotesk tracking-tight mb-4">Our Mission</h2>
+            <p className="text-muted-foreground font-geist leading-relaxed">
               To empower businesses of all sizes with intelligent AI crews that automate
               repetitive tasks, enhance customer support, and drive revenue growth through
               automated lead generation.
             </p>
           </div>
 
-          <div className="bg-card border border-border rounded-xl p-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-secondary/10 text-secondary mb-4">
+          <div className="bg-card border border-border rounded-3xl p-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-secondary/10 text-secondary mb-4">
               <Rocket className="h-6 w-6" />
             </div>
-            <h2 className="text-2xl font-bold mb-4">Our Vision</h2>
-            <p className="text-muted-foreground leading-relaxed">
+            <h2 className="text-2xl font-semibold font-space-grotesk tracking-tight mb-4">Our Vision</h2>
+            <p className="text-muted-foreground font-geist leading-relaxed">
               A world where every business has access to AI-powered automation, enabling
               them to focus on what matters most—innovation, creativity, and building
               meaningful relationships with their customers.
@@ -51,34 +51,34 @@ export default function AboutPage() {
 
         {/* Values */}
         <div className="max-w-6xl mx-auto mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Values</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-space-grotesk tracking-tight text-center mb-12">Our Values</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-primary/10 text-primary mb-4">
                 <Users className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Customer-First</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold font-space-grotesk mb-2">Customer-First</h3>
+              <p className="text-muted-foreground font-geist">
                 Every decision we make puts our customers' success at the forefront.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-primary/10 text-primary mb-4">
                 <Heart className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Simplicity</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold font-space-grotesk mb-2">Simplicity</h3>
+              <p className="text-muted-foreground font-geist">
                 We believe powerful technology should be simple and accessible to everyone.
               </p>
             </div>
 
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-primary/10 text-primary mb-4">
                 <Rocket className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Innovation</h3>
-              <p className="text-muted-foreground">
+              <h3 className="text-xl font-semibold font-space-grotesk mb-2">Innovation</h3>
+              <p className="text-muted-foreground font-geist">
                 We continuously push boundaries to deliver cutting-edge AI solutions.
               </p>
             </div>
@@ -86,9 +86,9 @@ export default function AboutPage() {
         </div>
 
         {/* Story */}
-        <div className="max-w-4xl mx-auto bg-muted/50 rounded-2xl p-8 md:p-12">
-          <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
+        <div className="max-w-4xl mx-auto bg-muted/50 rounded-3xl p-8 md:p-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold font-space-grotesk tracking-tight mb-6">Our Story</h2>
+          <div className="space-y-4 text-muted-foreground font-geist leading-relaxed">
             <p>
               AutoCrew was born from a simple observation: businesses were struggling
               to keep up with customer demands while managing limited resources. Support

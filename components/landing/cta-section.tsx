@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { ArrowRight, Mail, Calendar, Github, Linkedin } from "lucide-react";
 import { Logo } from "@/components/layout";
-import { ctaData } from "@/lib/mock-data/landing-data";
+import { Button } from "@/components/ui/button";
+import { ctaData, footerData } from "@/lib/mock-data/landing-data";
 
 export function CtaSection() {
   return (
@@ -56,14 +57,13 @@ export function CtaSection() {
               <p className="text-xs font-semibold uppercase tracking-wider text-[#FF6B35] font-space mb-3">
                 {ctaData.schedule.label}
               </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-black tracking-tight bg-[#FF6B35] hover:bg-[#FF6B35]/90 border border-transparent rounded-full py-3 px-6 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] group/btn"
-              >
-                <Calendar className="w-4 h-4" />
-                <span className="font-space">{ctaData.schedule.ctaText}</span>
-                <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
-              </Link>
+              <Button variant="pill" size="pill-md" className="group/btn" asChild>
+                <Link href="/contact">
+                  <Calendar className="w-4 h-4" />
+                  {ctaData.schedule.ctaText}
+                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
+                </Link>
+              </Button>
             </div>
 
             {/* Try AutoCrew */}
@@ -72,18 +72,17 @@ export function CtaSection() {
                 {ctaData.tryIt.label}
               </p>
               <div className="flex flex-col gap-4 w-full sm:w-auto">
-                <Link
-                  href="https://app.autocrew-ai.com/signup"
-                  className="group/btn inline-flex items-center justify-center gap-2 text-sm font-semibold text-black tracking-tight bg-[#FF6B35] hover:bg-[#FF6B35]/90 border border-transparent rounded-full px-6 py-3 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] font-space"
-                >
-                  {ctaData.tryIt.ctaText}
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
-                </Link>
+                <Button variant="pill" size="pill-md" className="group/btn" asChild>
+                  <Link href="https://app.autocrew-ai.com/signup">
+                    {ctaData.tryIt.ctaText}
+                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
+                  </Link>
+                </Button>
                 <Link
                   href="https://app.autocrew-ai.com/login"
                   className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors pl-1 font-geist group/link"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground group-hover/link:bg-[#FF6B35] transition-colors" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground group-hover/link:bg-[#FF6B35] transition-colors" aria-hidden="true" />
                   <span>
                     Already a member?{" "}
                     <span className="text-foreground group-hover/link:text-[#FF6B35] transition-colors">
@@ -96,7 +95,7 @@ export function CtaSection() {
           </div>
 
           {/* Footer Section */}
-          <div className="flex flex-col gap-8 sm:gap-12 mt-10 sm:mt-16 w-full">
+          <footer className="flex flex-col gap-8 sm:gap-12 mt-10 sm:mt-16 w-full">
             {/* Top Section */}
             <div className="flex flex-col lg:flex-row justify-between gap-8 sm:gap-12 lg:gap-24">
               {/* Brand */}
@@ -106,11 +105,11 @@ export function CtaSection() {
                   AI-powered automation for modern businesses. Deploy intelligent crews that work
                   24/7 to transform your operations.
                 </p>
-                <div className="flex gap-5">
+                <div className="flex gap-2">
                   <a
                     href="#"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label="X"
+                    className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label="X (Twitter)"
                   >
                     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-current">
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -118,14 +117,14 @@ export function CtaSection() {
                   </a>
                   <a
                     href="#"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
                     aria-label="GitHub"
                   >
                     <Github className="w-5 h-5" />
                   </a>
                   <a
                     href="#"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-5 h-5" />
@@ -137,7 +136,7 @@ export function CtaSection() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-16 w-full lg:w-auto">
                 {/* Product */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Product</h3>
+                  <p className="text-sm font-semibold text-foreground font-space-grotesk">Product</p>
                   <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
                     <Link href="/#features" className="hover:text-foreground transition-colors">
                       Features
@@ -159,7 +158,7 @@ export function CtaSection() {
 
                 {/* Resources */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Resources</h3>
+                  <p className="text-sm font-semibold text-foreground font-space-grotesk">Resources</p>
                   <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
                     <Link href="/docs" className="hover:text-foreground transition-colors">
                       Documentation
@@ -178,7 +177,7 @@ export function CtaSection() {
 
                 {/* Legal */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Legal</h3>
+                  <p className="text-sm font-semibold text-foreground font-space-grotesk">Legal</p>
                   <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
                     <Link href="#" className="hover:text-foreground transition-colors">
                       Privacy Policy
@@ -197,7 +196,7 @@ export function CtaSection() {
 
                 {/* Company */}
                 <div className="flex flex-col gap-4">
-                  <h3 className="text-sm font-semibold text-foreground font-space-grotesk">Company</h3>
+                  <p className="text-sm font-semibold text-foreground font-space-grotesk">Company</p>
                   <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
                     <Link href="#" className="hover:text-foreground transition-colors">
                       About
@@ -219,7 +218,7 @@ export function CtaSection() {
             {/* Bottom Section */}
             <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border gap-4 mt-4">
               <p className="text-sm text-muted-foreground font-geist">
-                © 2026 AutoCrew. All rights reserved.
+                {footerData.copyright}
               </p>
               <div className="flex gap-6 text-sm text-muted-foreground font-geist">
                 <Link href="#" className="hover:text-foreground transition-colors">
@@ -230,7 +229,7 @@ export function CtaSection() {
                 </Link>
               </div>
             </div>
-          </div>
+          </footer>
         </div>
       </div>
       </div>

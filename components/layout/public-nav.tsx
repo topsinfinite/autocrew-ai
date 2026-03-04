@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Button } from "@/components/ui/button";
 import { navLinks } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/layout/logo";
@@ -128,31 +129,28 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             <ThemeToggle />
 
             {/* Sign In button - desktop only */}
-            <Link
-              href="https://app.autocrew-ai.com/login"
-              className={cn(
-                "hidden lg:block text-xs font-medium font-space rounded-full py-2.5 px-5",
-                "border text-muted-foreground hover:text-foreground",
-                "bg-foreground/[0.05] hover:bg-foreground/[0.08]",
-                "border-border hover:border-border",
-                "transition-colors"
-              )}
+            <Button
+              variant="pill-outline"
+              size="pill-sm"
+              className="hidden lg:inline-flex"
+              asChild
             >
-              Sign In
-            </Link>
+              <Link href="https://app.autocrew-ai.com/login">
+                Sign In
+              </Link>
+            </Button>
 
             {/* Primary CTA - desktop only */}
-            <Link
-              href="https://app.autocrew-ai.com/signup"
-              className={cn(
-                "hidden lg:block text-xs font-medium text-accent-foreground font-space",
-                "rounded-full px-5 py-2.5",
-                "bg-accent hover:bg-accent/90",
-                "transition-colors"
-              )}
+            <Button
+              variant="pill"
+              size="pill-sm"
+              className="hidden lg:inline-flex"
+              asChild
             >
-              Start for free
-            </Link>
+              <Link href="https://app.autocrew-ai.com/signup">
+                Start for free
+              </Link>
+            </Button>
           </div>
         </div>
       </nav>
@@ -205,31 +203,26 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
               ))}
             </nav>
             <div className="flex flex-col gap-2 pt-4 mt-4 border-t border-border">
-              <Link
-                href="https://app.autocrew-ai.com/login"
-                onClick={closeMobileMenu}
-                className={cn(
-                  "block w-full text-center text-sm font-medium font-space rounded-full py-3 px-5",
-                  "border text-muted-foreground hover:text-foreground",
-                  "bg-foreground/5 hover:bg-foreground/8",
-                  "border-border hover:border-border",
-                  "transition-colors"
-                )}
+              <Button
+                variant="pill-outline"
+                size="pill-md"
+                className="w-full justify-center"
+                asChild
               >
-                Sign In
-              </Link>
-              <Link
-                href="https://app.autocrew-ai.com/signup"
-                onClick={closeMobileMenu}
-                className={cn(
-                  "block w-full text-center text-sm font-medium text-accent-foreground font-space",
-                  "rounded-full px-5 py-3",
-                  "bg-accent hover:bg-accent/90",
-                  "transition-colors"
-                )}
+                <Link href="https://app.autocrew-ai.com/login" onClick={closeMobileMenu}>
+                  Sign In
+                </Link>
+              </Button>
+              <Button
+                variant="pill"
+                size="pill-md"
+                className="w-full justify-center"
+                asChild
               >
-                Start for free
-              </Link>
+                <Link href="https://app.autocrew-ai.com/signup" onClick={closeMobileMenu}>
+                  Start for free
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

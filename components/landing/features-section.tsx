@@ -9,6 +9,7 @@ import {
   Shield,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SectionBadge } from "@/components/landing/section-badge";
 import { featuresData } from "@/lib/mock-data/landing-data";
 
 // Icon map to convert string names to components
@@ -31,12 +32,9 @@ export function FeaturesSection() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-linear-to-b from-transparent to-transparent -translate-y-full via-foreground/10" />
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF6B35]/5 border border-[#FF6B35]/20 mb-8 backdrop-blur-sm">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] animate-pulse shadow-[0_0_8px_rgba(255,107,53,0.4)]" />
-            <span className="text-[11px] font-medium text-[#FF6B35] tracking-wider uppercase font-geist">
-              System Capabilities
-            </span>
-          </div>
+          <SectionBadge className="mb-8">
+            System Capabilities
+          </SectionBadge>
 
           {/* Heading */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight mb-6 font-space-grotesk font-semibold text-foreground">

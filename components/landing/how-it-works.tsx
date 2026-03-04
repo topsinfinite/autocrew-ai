@@ -11,7 +11,7 @@ export function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="mb-16">
-          <h2 className="text-3xl md:text-4xl tracking-tight mb-4 font-space-grotesk font-semibold text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight mb-4 font-space-grotesk font-semibold text-foreground">
             How It Works
           </h2>
           <p className="text-lg font-geist text-muted-foreground">

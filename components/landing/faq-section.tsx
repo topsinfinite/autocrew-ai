@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { ArrowRight, HelpCircle, MessageSquare } from "lucide-react";
+import { SectionBadge } from "@/components/landing/section-badge";
+import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
@@ -21,10 +23,9 @@ export function FaqSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#FF6B35]/20 bg-[#FF6B35]/5 text-[#FF6B35] text-xs font-medium mb-6 font-space">
-              <HelpCircle className="w-3.5 h-3.5" />
+            <SectionBadge icon={<HelpCircle className="w-3.5 h-3.5" />} className="mb-6">
               Frequently Asked Questions
-            </div>
+            </SectionBadge>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight mb-6 font-semibold text-foreground font-space-grotesk">
               Answers Before You Commit
@@ -36,20 +37,18 @@ export function FaqSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/docs/faq"
-                className="group inline-flex items-center justify-center gap-2 text-sm font-semibold text-black bg-[#FF6B35] hover:bg-[#FF6B35]/90 rounded-full py-3 px-6 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)] font-space"
-              >
-                View full FAQ
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-full border border-border px-6 py-3 bg-foreground/[0.04] hover:bg-foreground/[0.08] font-geist"
-              >
-                <MessageSquare className="w-4 h-4" />
-                Contact support
-              </Link>
+              <Button variant="pill" size="pill-md" className="group" asChild>
+                <Link href="/docs/faq">
+                  View full FAQ
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              </Button>
+              <Button variant="pill-outline" size="pill-md" asChild>
+                <Link href="/contact">
+                  <MessageSquare className="w-4 h-4" />
+                  Contact support
+                </Link>
+              </Button>
             </div>
           </div>
 

@@ -2,6 +2,7 @@
 
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { SectionBadge } from "@/components/landing/section-badge";
 import { aiCrewsData } from "@/lib/mock-data/landing-data";
 
 export function AiCrewsSection() {
@@ -11,7 +12,7 @@ export function AiCrewsSection() {
       className="z-10 pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32 relative section-glow-center section-glow-bottom"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-3xl md:text-4xl tracking-tight mb-10 sm:mb-16 text-center font-space-grotesk font-semibold text-foreground">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight mb-10 sm:mb-16 text-center font-space-grotesk font-semibold text-foreground">
           AI Crews for Healthcare & Business
         </h2>
 
@@ -33,9 +34,9 @@ export function AiCrewsSection() {
             
               <div className="relative z-10 flex-1 flex flex-col">
                 {/* Badge */}
-                <div className="inline-flex items-center self-start gap-2 px-3 py-1 rounded-full border border-[#FF6B35]/20 bg-[#FF6B35]/5 text-[#FF6B35] text-xs font-medium mb-6 font-geist">
+                <SectionBadge className="self-start mb-6">
                   {crew.badge}
-                </div>
+                </SectionBadge>
 
                 {/* Title */}
                 <h3 className="text-2xl mb-4 font-space-grotesk font-semibold text-foreground">
