@@ -1,31 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import Script from "next/script";
 import { ShieldCheck, ArrowRight, PlayCircle } from "lucide-react";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { SectionBadge } from "@/components/landing/section-badge";
 import { Button } from "@/components/ui/button";
 import { heroData } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/lib/hooks/use-theme";
 
 export function HeroSection() {
-  const { effectiveTheme } = useTheme();
-  const isDark = effectiveTheme === "dark";
 
   return (
     <section className="relative z-10 section-glow-bottom overflow-hidden">
-      {/* Unicorn Studio Animated Background */}
-      <div
-        data-us-project="CyihYkcOkCwqGEIyVwWb"
-        className="absolute inset-0 w-full h-full -z-10 overflow-hidden blur-md transition-opacity duration-500"
-        style={{
-          minHeight: "100vh",
-          opacity: isDark ? 0.48 : 0,
-        }}
-      />
-      
       {/* Medical/Tech Vector Grid Background */}
       <div className="absolute inset-0 pointer-events-none -z-5 overflow-hidden">
          {/* Grid Pattern */}
@@ -42,17 +28,7 @@ export function HeroSection() {
         </svg>
       </div>
 
-      <Script
-        src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.2/dist/unicornStudio.umd.js"
-        strategy="afterInteractive"
-        onLoad={() => {
-          if (window.UnicornStudio && !window.UnicornStudio.isInitialized) {
-            window.UnicornStudio.init?.();
-            window.UnicornStudio.isInitialized = true;
-          }
-        }}
-      />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-12 relative z-10">
+<div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-12 relative z-10">
         <div className="text-center max-w-4xl mt-14 sm:mt-20 mx-auto">
           {/* Announcement Badge */}
           <div

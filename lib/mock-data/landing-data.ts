@@ -11,7 +11,7 @@ export const heroData = {
   subheadline:
     "Deploy HIPAA-aware healthcare agents and intelligent customer support crews that work 24/7 — accessible via phone calls and web voice widgets.",
   primaryCta: {
-    text: "Get Started Free",
+    text: "Request Access",
     href: "https://app.autocrew-ai.com/signup",
   },
   secondaryCta: {
@@ -272,7 +272,7 @@ export const ctaData = {
   },
   tryIt: {
     label: "Try AutoCrew",
-    ctaText: "Start Free Trial",
+    ctaText: "Request Access",
   },
 };
 

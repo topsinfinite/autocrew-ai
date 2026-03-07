@@ -35,7 +35,7 @@ export function BackgroundEffects({
     }
 
     const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/gh/AiCEG/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
+    script.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.2/dist/unicornStudio.umd.js";
     script.async = true;
     script.onload = () => {
       if (!window.UnicornStudio?.isInitialized) {
