@@ -41,7 +41,7 @@ export const statsData: StatItem[] = [
     sublabel: "Lightning-fast AI responses",
   },
   {
-    value: "10M+",
+    value: "1k+",
     label: "Conversations",
     sublabel: "Handled by our AI crews",
   },
