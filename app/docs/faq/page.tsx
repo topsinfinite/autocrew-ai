@@ -65,7 +65,7 @@ export default function FAQPage() {
         </p>
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
-            <strong>Email:</strong> support@autocrew.ai
+            <strong>Email:</strong> support@autocrew-ai.com
           </li>
           <li>
             <strong>Live Chat:</strong> Available 24/7 on our website

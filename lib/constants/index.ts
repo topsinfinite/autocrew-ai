@@ -15,7 +15,7 @@ export const APP_CONFIG = {
   description: 'B2B digital labor platform for managing Agentic Crews',
   tagline: 'Automate your business with AI-powered crews',
   url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-  supportEmail: 'support@autocrew.ai',
+  supportEmail: 'support@autocrew-ai.com',
 } as const;
 
 // ============================================================================

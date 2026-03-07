@@ -44,10 +44,10 @@ export default function ContactSupportPage() {
                   For access requests, technical support, or general inquiries, please contact our support team:
                 </p>
                 <a
-                  href="mailto:info@feattconsulting.com"
+                  href="mailto:support@autocrew-ai.com"
                   className="inline-flex items-center gap-2 text-primary hover:underline font-medium text-lg font-geist"
                 >
-                  info@feattconsulting.com
+                  support@autocrew-ai.com
                 </a>
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function ContactSupportPage() {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3">
             <Button variant="pill" size="pill-md" className="flex-1" asChild>
-              <a href="mailto:info@feattconsulting.com?subject=AutoCrew Access Request">
+              <a href="mailto:support@autocrew-ai.com?subject=AutoCrew Access Request">
                 <Mail className="h-4 w-4" />
                 Send Email
               </a>

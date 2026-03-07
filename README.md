@@ -174,7 +174,7 @@ N8N_API_KEY=your-n8n-api-key
 N8N_DOCUMENT_UPLOAD_WEBHOOK=https://your-n8n-instance.com/webhook/document-upload
 
 # Email (for Better Auth)
-EMAIL_FROM=noreply@yourdomain.com
+EMAIL_FROM=support@autocrew-ai.com
 EMAIL_SERVER_HOST=smtp.example.com
 EMAIL_SERVER_PORT=587
 EMAIL_SERVER_USER=your-smtp-user
@@ -207,7 +207,7 @@ npm run dev
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 **Default Super Admin Credentials:**
-- Email: `admin@autocrew.ai`
+- Email: `support@autocrew-ai.com`
 - Password: `Admin123!@#`
 
 ### Build for Production

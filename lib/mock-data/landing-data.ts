@@ -264,7 +264,7 @@ export const ctaData = {
   subheadline: "Join healthcare providers and businesses using AutoCrew for HIPAA-aware patient engagement and intelligent customer support.",
   email: {
     label: "SEND US AN EMAIL",
-    address: "hello@autocrew.com",
+    address: "support@autocrew-ai.com",
   },
   schedule: {
     label: "Schedule a Demo",

@@ -104,8 +104,8 @@ export default function CompliancePage() {
       </ul>
       <p className="mb-6 text-muted-foreground">
         Data subject requests can be submitted to{" "}
-        <a href="mailto:privacy@autocrew.ai" className="text-primary hover:underline">
-          privacy@autocrew.ai
+        <a href="mailto:support@autocrew-ai.com" className="text-primary hover:underline">
+          support@autocrew-ai.com
         </a>{" "}
         and are processed within 30 days.
       </p>
@@ -225,8 +225,8 @@ export default function CompliancePage() {
       <p className="mb-8 text-muted-foreground">
         Enterprise customers can request our SOC 2 Type II report under NDA by
         contacting{" "}
-        <a href="mailto:compliance@autocrew.ai" className="text-primary hover:underline">
-          compliance@autocrew.ai
+        <a href="mailto:support@autocrew-ai.com" className="text-primary hover:underline">
+          support@autocrew-ai.com
         </a>
         .
       </p>
@@ -392,10 +392,10 @@ export default function CompliancePage() {
       <div className="mb-8 rounded-lg border border-border bg-card p-6">
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
-            <strong>Compliance Team:</strong> compliance@autocrew.ai
+            <strong>Compliance Team:</strong> support@autocrew-ai.com
           </li>
           <li>
-            <strong>Data Protection Officer:</strong> dpo@autocrew.ai
+            <strong>Data Protection Officer:</strong> support@autocrew-ai.com
           </li>
           <li>
             <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San

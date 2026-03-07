@@ -399,7 +399,7 @@ export default function TermsPage() {
       <div className="mb-8 rounded-lg border border-border bg-card p-6">
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
-            <strong>Email:</strong> legal@autocrew.ai
+            <strong>Email:</strong> support@autocrew-ai.com
           </li>
           <li>
             <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San Francisco, CA

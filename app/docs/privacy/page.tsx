@@ -385,14 +385,14 @@ export default function PrivacyPage() {
       <div className="mb-8 rounded-lg border border-border bg-card p-6">
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
-            <strong>Email:</strong> privacy@autocrew.ai
+            <strong>Email:</strong> support@autocrew-ai.com
           </li>
           <li>
             <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San Francisco, CA
             94105
           </li>
           <li>
-            <strong>Data Protection Officer:</strong> dpo@autocrew.ai
+            <strong>Data Protection Officer:</strong> support@autocrew-ai.com
           </li>
         </ul>
       </div>
