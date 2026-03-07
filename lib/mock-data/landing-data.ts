@@ -1,25 +1,25 @@
 // Hero Section Data
 export const heroData = {
   announcement: {
-    text: "HIPAA-Aware AI Voice Agents",
+    text: "Now Onboarding Healthcare Practices",
     icon: "ShieldCheck",
   },
   headline: {
-    prefix: "Voice & Chat AI Agents for",
-    accent: "Healthcare Businesses",
+    prefix: "Never Miss a",
+    accent: "Patient Call Again",
   },
   subheadline:
-    "Deploy HIPAA-aware healthcare agents and intelligent customer support crews that work 24/7 — accessible via phone calls and web voice widgets.",
+    "AI voice agents answer every call, book appointments, and check records — HIPAA-aware and live in under a week.",
   primaryCta: {
     text: "Request Access",
     href: "https://app.autocrew-ai.com/signup",
   },
   secondaryCta: {
-    text: "Watch Demo",
+    text: "or watch a 2-min demo",
     href: "/#demo",
     icon: "PlayCircle",
   },
-  trustText: "Trusted by healthcare providers and businesses worldwide",
+  trustText: "HIPAA Aware  |  EHR Integrated  |  Live in Days",
 };
 
 // Stats Data
@@ -33,22 +33,22 @@ export const statsData: StatItem[] = [
   {
     value: "99.9%",
     label: "Uptime",
-    sublabel: "Enterprise-grade reliability",
+    sublabel: "Across all deployments",
   },
   {
     value: "< 2s",
     label: "Response Time",
-    sublabel: "Lightning-fast AI responses",
+    sublabel: "Average across voice and chat",
   },
   {
     value: "1k+",
     label: "Conversations",
-    sublabel: "Handled by our AI crews",
+    sublabel: "Across active deployments",
   },
   {
     value: "95%",
     label: "Satisfaction",
-    sublabel: "Customer satisfaction rate",
+    sublabel: "Post-interaction survey average",
   },
 ];
 
@@ -258,10 +258,10 @@ export const whyAutocrewData = {
 // CTA Section Data
 export const ctaData = {
   headline: {
-    line1: "Ready to Deploy",
-    line2: "AI Voice Agents?",
+    line1: "Never Miss Another",
+    line2: "Patient Call",
   },
-  subheadline: "Join healthcare providers and businesses using AutoCrew for HIPAA-aware patient engagement and intelligent customer support.",
+  subheadline: "Join healthcare practices using AutoCrew for HIPAA-aware patient engagement and 24/7 intelligent support.",
   email: {
     label: "SEND US AN EMAIL",
     address: "support@autocrew-ai.com",

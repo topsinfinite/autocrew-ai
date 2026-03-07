@@ -89,17 +89,13 @@ export function HeroSection() {
               </Link>
             </Button>
 
-            <Button
-              variant="pill-outline"
-              size="pill-lg"
-              className="w-full sm:w-auto"
-              asChild
+            <Link
+              href={heroData.secondaryCta.href}
+              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              <Link href={heroData.secondaryCta.href}>
-                <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
-                {heroData.secondaryCta.text}
-              </Link>
-            </Button>
+              <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
+              {heroData.secondaryCta.text}
+            </Link>
           </div>
 
           {/* Trust Indicator */}
