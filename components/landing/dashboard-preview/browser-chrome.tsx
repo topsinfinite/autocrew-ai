@@ -14,7 +14,7 @@ export function BrowserChrome() {
       <div className="flex items-center gap-2 bg-white/[0.03] rounded-lg px-4 py-1.5 border border-white/[0.04] flex-1 max-w-xs mx-8">
         <Lock className="w-3 h-3 text-white/20" />
         <span className="font-space-mono text-xs text-neutral-600">
-          app.autocrew.ai/dashboard
+          app.autocrew-ai.com/dashboard
         </span>
       </div>
 
