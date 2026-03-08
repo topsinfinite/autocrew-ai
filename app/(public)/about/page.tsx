@@ -40,7 +40,7 @@ export default function AboutPage() {
           </div>
 
           <div className="bg-card border border-border rounded-3xl p-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-secondary/10 text-secondary mb-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-4">
               <Rocket className="h-6 w-6" />
             </div>
             <h2 className="text-2xl font-semibold font-space-grotesk tracking-tight mb-4">Our Vision</h2>
