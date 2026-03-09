@@ -1,12 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/lib/hooks/use-theme";
 
 interface BackgroundEffectsProps {
   className?: string;
-  unicornStudioProjectId?: string;
   showGrid?: boolean;
   showAccentGlow?: boolean;
   showAnimatedGradient?: boolean;
@@ -14,70 +12,23 @@ interface BackgroundEffectsProps {
 
 export function BackgroundEffects({
   className,
-  unicornStudioProjectId,
   showGrid = true,
   showAccentGlow = true,
   showAnimatedGradient = true,
 }: BackgroundEffectsProps) {
-  const [unicornLoaded, setUnicornLoaded] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const { effectiveTheme } = useTheme();
   const isDark = effectiveTheme === "dark";
 
-  // Load Unicorn Studio script if project ID is provided
-  useEffect(() => {
-    if (!unicornStudioProjectId) return;
-
-    // Check if already loaded
-    if (window.UnicornStudio?.isInitialized) {
-      setUnicornLoaded(true);
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.2/dist/unicornStudio.umd.js";
-    script.async = true;
-    script.onload = () => {
-      if (!window.UnicornStudio?.isInitialized) {
-        window.UnicornStudio?.init?.();
-        window.UnicornStudio = { ...window.UnicornStudio, isInitialized: true };
-      }
-      setUnicornLoaded(true);
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      // Cleanup if needed
-    };
-  }, [unicornStudioProjectId]);
-
   return (
     <div
-      ref={containerRef}
       className={cn(
         "pointer-events-none fixed inset-0 -z-10 overflow-hidden transition-opacity duration-500",
         className
       )}
       style={{ opacity: isDark ? 1 : 0 }}
     >
-      {/* Unicorn Studio Animated Background */}
-      {unicornStudioProjectId && (
-        <div
-          className="absolute inset-0 h-[800px] saturate-150"
-          style={{
-            maskImage: "linear-gradient(transparent, black 0%, black 80%, transparent)",
-            WebkitMaskImage: "linear-gradient(transparent, black 0%, black 80%, transparent)",
-          }}
-        >
-          <div
-            data-us-project={unicornStudioProjectId}
-            className="absolute inset-0 -z-10 h-full w-full"
-          />
-        </div>
-      )}
-
-      {/* CSS Animated Gradient Fallback */}
-      {showAnimatedGradient && !unicornLoaded && (
+      {/* CSS Animated Gradient */}
+      {showAnimatedGradient && (
         <div
           className="absolute inset-0 h-[800px]"
           style={{
