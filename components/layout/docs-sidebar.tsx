@@ -57,6 +57,11 @@ function NavItem({ item, level = 0, onNavigate }: { item: DocNavigationItem; lev
       )}
     >
       {item.title}
+      {item.comingSoon && (
+        <span className="ml-2 inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">
+          Coming Soon
+        </span>
+      )}
     </Link>
   )
 }

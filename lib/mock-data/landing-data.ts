@@ -151,8 +151,8 @@ export const aiCrewsData: AiCrew[] = [
       "CRM integration and data sync",
       "Appointment scheduling",
     ],
-    ctaText: "Learn More",
-    ctaDisabled: false,
+    ctaText: "Coming Soon",
+    ctaDisabled: true,
     ctaHref: "/docs/leadgen-crew",
   },
 ];
@@ -277,12 +277,27 @@ export const ctaData = {
 };
 
 // Navigation Links
-export const navLinks = [
+export type NavLinkItem =
+  | { label: string; href: string }
+  | { label: string; children: { label: string; href: string }[] };
+
+export function isDropdownLink(
+  link: NavLinkItem
+): link is { label: string; children: { label: string; href: string }[] } {
+  return "children" in link;
+}
+
+export const navLinks: NavLinkItem[] = [
   { label: "Features", href: "/#features" },
   { label: "Solutions", href: "/#solutions" },
-  { label: "Docs", href: "/docs" },
+  {
+    label: "Industry",
+    children: [
+      { label: "Coaching", href: "/industry/coaching" },
+      { label: "Restaurant", href: "/industry/restaurant" },
+    ],
+  },
   { label: "Pricing", href: "/#contact-sales" },
-  { label: "FAQ", href: "/#faq" },
 ];
 
 // Footer Data (simplified - just copyright)

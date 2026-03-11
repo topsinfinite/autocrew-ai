@@ -32,6 +32,10 @@ export const ROUTES = {
   CONTACT_SUPPORT: '/contact-support',
   DESIGN_SYSTEM: '/design-system',
 
+  // Industry routes
+  INDUSTRY_COACHING: '/industry/coaching',
+  INDUSTRY_RESTAURANT: '/industry/restaurant',
+
   // Documentation routes
   DOCS: '/docs',
   DOCS_GETTING_STARTED: '/docs/getting-started',

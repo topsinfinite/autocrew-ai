@@ -18,9 +18,14 @@ export default function LeadGenCrewPage() {
   return (
     <div>
       <DocsBreadcrumbSchema currentPath="/docs/leadgen-crew" currentTitle="LeadGen Crew" />
-      <h1 id="leadgen-crew" className="mb-4 text-4xl font-bold text-foreground">
-        LeadGen Crew
-      </h1>
+      <div className="mb-6 flex items-center gap-3">
+        <h1 id="leadgen-crew" className="text-4xl font-bold text-foreground">
+          LeadGen Crew
+        </h1>
+        <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+          Coming Soon
+        </span>
+      </div>
       <p className="mb-8 text-lg text-muted-foreground">
         Intelligent lead generation and qualification powered by AI. Identify
         potential customers, qualify leads, and accelerate your sales pipeline.

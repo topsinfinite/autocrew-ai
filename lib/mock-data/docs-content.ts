@@ -1,6 +1,7 @@
 export interface DocNavigationItem {
   title: string
   href: string
+  comingSoon?: boolean
   items?: DocNavigationItem[]
 }
 
@@ -28,6 +29,7 @@ export const docsNavigation: DocNavigationItem[] = [
       {
         title: "LeadGen Crew",
         href: "/docs/leadgen-crew",
+        comingSoon: true,
       },
     ],
   },

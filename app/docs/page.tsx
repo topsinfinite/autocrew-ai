@@ -39,6 +39,7 @@ export default function DocsPage() {
       description: "Intelligent lead generation and qualification",
       icon: Zap,
       href: "/docs/leadgen-crew",
+      comingSoon: true,
     },
     {
       title: "FAQ",
@@ -98,7 +99,14 @@ export default function DocsPage() {
                     <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                       <Icon className="h-6 w-6 text-primary" />
                     </div>
-                    <CardTitle>{section.title}</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      {section.title}
+                      {section.comingSoon && (
+                        <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                          Coming Soon
+                        </span>
+                      )}
+                    </CardTitle>
                     <CardDescription>{section.description}</CardDescription>
                   </CardHeader>
                 </Card>
