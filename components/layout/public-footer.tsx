@@ -6,7 +6,7 @@ import { footerData } from "@/lib/mock-data/landing-data";
 
 export function PublicFooter() {
   const pathname = usePathname();
-  if (pathname === "/") return null;
+  if (pathname === "/" || pathname === "/industry/coaching") return null;
 
   return (
     <footer className="border-t border-border py-12">

@@ -4,6 +4,43 @@ All notable changes to the AutoCrew Marketing Site are documented here.
 
 ---
 
+## [v1.5.0] - 2026-03-11
+
+### New Features
+- **Coaching Industry page** (`/industry/coaching`) - Full landing page with hero, features, pain points, how it works, metrics, testimonials, FAQ, and CTA sections
+- Added coaching mock data (`lib/mock-data/coaching-data.ts`) with comprehensive content for the coaching vertical
+- Added **"Coming Soon" indicators** to documentation sidebar and public navigation for upcoming features
+- Added new industry routes for coaching and restaurant in constants
+
+### Improvements
+- Simplified `BackgroundEffects` component by removing `unicornStudioProjectId` prop and associated script loading logic
+- Changed header positioning in `PublicNav` from fixed to relative for improved layout consistency
+- Adjusted hero section padding and margin for better visual alignment
+- Updated dashboard preview URL in `browser-chrome.tsx`
+- Fixed inconsistent label color badge styling
+- Cleaned up global type declarations by removing unused `Window` interface extensions (`types/global.d.ts`)
+
+### Bug Fixes
+- Resolved layout inconsistencies on the LeadGen Crew page
+- Adjusted "Coming Soon" indicators in navigation for better visibility
+- Updated LeadGen Crew docs page and docs landing to reflect "Coming Soon" status
+
+### Infrastructure
+- Replaced `app/icon.png` with `app/icon.svg` for sharper favicon rendering
+- Updated `landing-data.ts` mock data to include "Coming Soon" flags for LeadGen Crew
+
+---
+
+## Files Changed
+
+25 files changed, 1,250 insertions, 100 deletions, including:
+- 8 new coaching industry components and page created
+- Navigation and sidebar updated with "Coming Soon" badges
+- BackgroundEffects simplified, hero section refined
+- Mock data and constants expanded for new industry verticals
+
+---
+
 ## [v1.4.0] - 2026-03-07
 
 ### Hero Section & Messaging
@@ -82,4 +119,4 @@ All notable changes to the AutoCrew Marketing Site are documented here.
 
 ---
 
-*Generated on 2026-03-07*
+*Generated on 2026-03-11*
