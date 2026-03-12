@@ -4,6 +4,28 @@ All notable changes to the AutoCrew Marketing Site are documented here.
 
 ---
 
+## [v1.6.0] - 2026-03-12
+
+### New Features
+- **Restaurant Industry page** (`/industry/restaurant`) - Full landing page with hero, features, pain points, how it works, metrics, testimonials, FAQ, and CTA sections
+- Added restaurant mock data (`lib/mock-data/restaurant-data.ts`) with comprehensive content for the restaurant vertical
+- Added **industry page scaffold skill** (`.claude/commands/industry.md`) for generating new industry landing pages
+
+### Bug Fixes
+- Updated 404 page link from `/dashboard` to `/login` for correct user flow on the static marketing site
+- Updated `PublicFooter` to conditionally hide on `/industry/restaurant` path, matching existing behavior for other industry pages
+
+---
+
+## Files Changed
+
+13 files changed, 1,474 insertions, 2 deletions, including:
+- 8 new restaurant industry components and page created
+- Restaurant mock data with industry-specific content
+- Footer and 404 page navigation fixes
+
+---
+
 ## [v1.5.0] - 2026-03-11
 
 ### New Features
@@ -119,4 +141,4 @@ All notable changes to the AutoCrew Marketing Site are documented here.
 
 ---
 
-*Generated on 2026-03-11*
+*Generated on 2026-03-12*
