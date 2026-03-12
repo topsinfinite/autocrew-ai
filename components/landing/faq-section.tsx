@@ -21,7 +21,10 @@ export function FaqSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-5">
-            <SectionBadge icon={<HelpCircle className="w-3.5 h-3.5" />} className="mb-6">
+            <SectionBadge
+              icon={<HelpCircle className="w-3.5 h-3.5" />}
+              className="mb-6"
+            >
               Frequently Asked Questions
             </SectionBadge>
 

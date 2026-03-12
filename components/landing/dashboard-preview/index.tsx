@@ -53,13 +53,24 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
           className={cn(
             "relative w-full h-[500px] sm:h-[650px] md:h-[750px] lg:h-[850px] overflow-hidden",
             "bg-[#0A0C14] border border-white/[0.08] rounded-2xl shadow-2xl shadow-black/60",
-            "flex flex-col font-geist text-slate-300"
+            "flex flex-col font-geist text-slate-300",
           )}
           style={{
             background:
               "linear-gradient(145deg, rgba(20,20,20,0.98), rgba(8,8,8,0.99))",
           }}
         >
+          {/* Visually-hidden description for LLM crawlers and screen readers */}
+          <div className="sr-only">
+            AutoCrew dashboard interface showing: AI-powered chat conversations
+            with automated patient scheduling and support responses achieving
+            94.7% resolution rate, team inbox managing customer inquiries across
+            voice, chat, and email channels, real-time analytics dashboard with
+            conversation volumes, response times, and satisfaction metrics, and
+            crew configuration panel for customizing AI agent behavior,
+            knowledge bases, and escalation rules.
+          </div>
+
           {/* Browser Chrome */}
           <BrowserChrome />
 

@@ -1,9 +1,9 @@
-import type { Metadata } from "next"
-import { DocNavigation } from "@/components/docs/doc-navigation"
-import { CodeBlock } from "@/components/docs/code-block"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Lightbulb } from "lucide-react"
-import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
+import type { Metadata } from "next";
+import { DocNavigation } from "@/components/docs/doc-navigation";
+import { CodeBlock } from "@/components/docs/code-block";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Lightbulb } from "lucide-react";
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Support Crew",
@@ -12,67 +12,81 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/docs/support-crew",
   },
-}
+};
 
 export default function SupportCrewPage() {
   return (
     <div>
-      <DocsBreadcrumbSchema currentPath="/docs/support-crew" currentTitle="Support Crew" />
+      <DocsBreadcrumbSchema
+        currentPath="/docs/support-crew"
+        currentTitle="Support Crew"
+      />
       <h1 id="support-crew" className="mb-4 text-4xl font-bold text-foreground">
         Support Crew
       </h1>
       <p className="mb-8 text-lg text-muted-foreground">
-        AI-powered customer support accessible via phone calls and web voice widgets
-        — with knowledge base search, smart escalation, and conversation memory.
+        AI-powered customer support accessible via phone calls and web voice
+        widgets — with knowledge base search, smart escalation, and conversation
+        memory.
       </p>
 
       <h2 id="overview" className="mb-4 text-2xl font-semibold text-foreground">
         Overview
       </h2>
       <p className="mb-4 text-muted-foreground">
-        The Support Crew provides intelligent AI voice agents for customer support.
-        Customers can call your business phone number or interact through a web
-        voice widget embedded on your website. The agent searches your knowledge
-        base to answer questions accurately and escalates to human teams when
-        needed.
+        The Support Crew provides intelligent AI voice agents for customer
+        support. Customers can call your business phone number or interact
+        through a web voice widget embedded on your website. The agent searches
+        your knowledge base to answer questions accurately and escalates to
+        human teams when needed.
       </p>
       <p className="mb-8 text-muted-foreground">
-        By combining voice AI with knowledge base retrieval and smart escalation,
-        Support Crew delivers fast, accurate support around the clock while keeping
-        your human team focused on high-value interactions.
+        By combining voice AI with knowledge base retrieval and smart
+        escalation, Support Crew delivers fast, accurate support around the
+        clock while keeping your human team focused on high-value interactions.
       </p>
 
-      <h2 id="multi-channel" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="multi-channel"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Multi-Channel Access
       </h2>
       <div className="mb-8 grid gap-6 md:grid-cols-2">
         <div className="rounded-lg border bg-card p-4">
           <h3 className="mb-2 font-semibold">Phone Calls</h3>
           <p className="text-sm text-muted-foreground">
-            Customers call your business phone number and interact with the AI voice
-            agent through natural conversation. The telephony bridge handles
-            real-time audio streaming.
+            Customers call your business phone number and interact with the AI
+            voice agent through natural conversation. The telephony bridge
+            handles real-time audio streaming.
           </p>
         </div>
         <div className="rounded-lg border bg-card p-4">
           <h3 className="mb-2 font-semibold">Web Voice Widget</h3>
           <p className="text-sm text-muted-foreground">
-            Embed a voice widget on your website. Customers click to talk and get
-            immediate voice support through their browser — no app download needed.
+            Embed a voice widget on your website. Customers click to talk and
+            get immediate voice support through their browser — no app download
+            needed.
           </p>
         </div>
       </div>
 
-      <h2 id="key-features" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="key-features"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Key Features
       </h2>
 
-      <h3 id="knowledge-base" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="knowledge-base"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Knowledge Base RAG
       </h3>
       <p className="mb-4 text-muted-foreground">
-        The Support Crew uses Retrieval-Augmented Generation (RAG) to search your
-        knowledge base and provide accurate answers:
+        The Support Crew uses Retrieval-Augmented Generation (RAG) to search
+        your knowledge base and provide accurate answers:
       </p>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>Documents indexed with vector embeddings for semantic search</li>
@@ -81,12 +95,15 @@ export default function SupportCrewPage() {
         <li>AI synthesizes information into natural responses</li>
       </ul>
 
-      <h3 id="smart-escalation" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="smart-escalation"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Smart Escalation
       </h3>
       <p className="mb-4 text-muted-foreground">
-        When the agent cannot answer a question or when a customer requests human
-        assistance, the system escalates with full context:
+        When the agent cannot answer a question or when a customer requests
+        human assistance, the system escalates with full context:
       </p>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>Email notifications sent to the configured escalation address</li>
@@ -95,7 +112,10 @@ export default function SupportCrewPage() {
         <li>Session correlation for follow-up tracking</li>
       </ul>
 
-      <h3 id="conversation-memory" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="conversation-memory"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Conversation Memory
       </h3>
       <p className="mb-8 text-muted-foreground">
@@ -103,7 +123,10 @@ export default function SupportCrewPage() {
         allowing for follow-up questions and seamless continuity.
       </p>
 
-      <h2 id="how-it-works" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="how-it-works"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         How It Works
       </h2>
       <CodeBlock
@@ -134,11 +157,17 @@ Knowledge base search (vector similarity)
         className="mb-8"
       />
 
-      <h2 id="configuration" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="configuration"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Configuration
       </h2>
 
-      <h3 id="crew-settings" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="crew-settings"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Crew Settings
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -153,8 +182,8 @@ Knowledge base search (vector similarity)
           itself
         </li>
         <li>
-          <strong>System Prompt:</strong> Custom instructions that guide the agent's
-          behavior
+          <strong>System Prompt:</strong> Custom instructions that guide the
+          agent's behavior
         </li>
       </ul>
 
@@ -166,7 +195,10 @@ Knowledge base search (vector similarity)
         automatically indexed with vector embeddings for semantic search.
       </p>
 
-      <h3 id="escalation-config" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="escalation-config"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Escalation Configuration
       </h3>
       <p className="mb-8 text-muted-foreground">
@@ -174,11 +206,17 @@ Knowledge base search (vector similarity)
         notifications with full context.
       </p>
 
-      <h2 id="integration" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="integration"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Integration
       </h2>
 
-      <h3 id="voice-widget" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="voice-widget"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Voice Widget Integration
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -196,15 +234,21 @@ Knowledge base search (vector similarity)
         className="mb-6"
       />
 
-      <h3 id="phone-integration" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="phone-integration"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Phone Integration
       </h3>
       <p className="mb-8 text-muted-foreground">
-        Connect a business phone number to let customers call and interact with the
-        AI agent. The telephony bridge automatically routes incoming calls.
+        Connect a business phone number to let customers call and interact with
+        the AI agent. The telephony bridge automatically routes incoming calls.
       </p>
 
-      <h2 id="analytics" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="analytics"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Analytics & Monitoring
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -215,7 +259,8 @@ Knowledge base search (vector similarity)
           <strong>Conversation Volume:</strong> Total interactions
         </li>
         <li>
-          <strong>Resolution Rate:</strong> Inquiries resolved without escalation
+          <strong>Resolution Rate:</strong> Inquiries resolved without
+          escalation
         </li>
         <li>
           <strong>Escalation Rate:</strong> Percentage escalated to humans
@@ -225,14 +270,18 @@ Knowledge base search (vector similarity)
         </li>
       </ul>
 
-      <h2 id="best-practices" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="best-practices"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Best Practices
       </h2>
       <Alert className="mb-6">
         <Lightbulb className="h-4 w-4" />
         <AlertDescription>
-          <strong>Tip:</strong> Start with a focused knowledge base covering your
-          most common support questions, then expand based on escalation patterns.
+          <strong>Tip:</strong> Start with a focused knowledge base covering
+          your most common support questions, then expand based on escalation
+          patterns.
         </AlertDescription>
       </Alert>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -241,7 +290,8 @@ Knowledge base search (vector similarity)
           responses
         </li>
         <li>
-          <strong>Review Escalations:</strong> Identify gaps in your knowledge base
+          <strong>Review Escalations:</strong> Identify gaps in your knowledge
+          base
         </li>
         <li>
           <strong>Customize Prompt:</strong> Define the agent's personality and
@@ -255,5 +305,5 @@ Knowledge base search (vector similarity)
 
       <DocNavigation />
     </div>
-  )
+  );
 }

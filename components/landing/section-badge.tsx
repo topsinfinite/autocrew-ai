@@ -13,7 +13,7 @@ export function SectionBadge({ children, icon, className }: SectionBadgeProps) {
         "inline-flex items-center gap-2 px-3 py-1 rounded-full",
         "bg-[#FF6B35]/5 border border-[#FF6B35]/20",
         "text-xs font-medium text-[#FF6B35] font-space",
-        className
+        className,
       )}
     >
       {icon ?? (

@@ -21,7 +21,10 @@ export default function LoginPage() {
           {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center opacity-30"
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80')" }}
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80')",
+            }}
           />
           {/* Grid Overlay */}
           <div className="linear-grid absolute inset-0 opacity-50" />
@@ -50,8 +53,12 @@ export default function LoginPage() {
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-linear-to-br from-slate-700 to-slate-800 border border-white/10" />
                 <div>
-                  <div className="text-sm font-medium text-white">Alex Chen</div>
-                  <div className="text-xs text-slate-500">CTO, TechFlow Inc.</div>
+                  <div className="text-sm font-medium text-white">
+                    Alex Chen
+                  </div>
+                  <div className="text-xs text-slate-500">
+                    CTO, TechFlow Inc.
+                  </div>
                 </div>
               </div>
             </div>

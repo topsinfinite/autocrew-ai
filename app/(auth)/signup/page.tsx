@@ -12,7 +12,10 @@ export default function SignUpPage() {
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80')" }}
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80')",
+          }}
         />
         {/* Grid Overlay */}
         <div className="linear-grid absolute inset-0 opacity-50" />
@@ -35,8 +38,9 @@ export default function SignUpPage() {
         <div className="relative z-10 mt-12">
           <div className="max-w-md">
             <p className="text-xl font-medium font-space-grotesk text-white mb-4">
-              &ldquo;AutoCrew transformed our support workflow overnight. We&apos;re
-              handling 5x the volume with zero additional headcount.&rdquo;
+              &ldquo;AutoCrew transformed our support workflow overnight.
+              We&apos;re handling 5x the volume with zero additional
+              headcount.&rdquo;
             </p>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-linear-to-br from-slate-700 to-slate-800 border border-white/10" />

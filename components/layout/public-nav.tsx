@@ -92,7 +92,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
       }
       if (e.key === "Tab") {
         const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
-          'a[href], button:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
+          'a[href], button:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])',
         );
         if (!focusable || focusable.length === 0) return;
         const first = focusable[0];
@@ -109,7 +109,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
 
     document.addEventListener("keydown", handleKeyDown);
     const firstFocusable = menuRef.current?.querySelector<HTMLElement>(
-      'a[href], button:not([tabindex="-1"])'
+      'a[href], button:not([tabindex="-1"])',
     );
     firstFocusable?.focus();
 
@@ -135,7 +135,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             <ChevronDown
               className={cn(
                 "w-3.5 h-3.5 transition-transform duration-200",
-                dropdownOpen && "rotate-180"
+                dropdownOpen && "rotate-180",
               )}
             />
           </button>
@@ -146,7 +146,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
               "transition-all duration-200 ease-out",
               dropdownOpen
                 ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 -translate-y-1 pointer-events-none"
+                : "opacity-0 -translate-y-1 pointer-events-none",
             )}
           >
             <div className="bg-background rounded-xl border border-border p-2 shadow-lg">
@@ -184,23 +184,21 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
         <div key={link.label}>
           <button
             className="w-full flex items-center justify-between px-4 py-4 text-sm font-medium font-geist rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-foreground/5"
-            onClick={() =>
-              setMobileExpanded(isExpanded ? null : link.label)
-            }
+            onClick={() => setMobileExpanded(isExpanded ? null : link.label)}
             aria-expanded={isExpanded}
           >
             {link.label}
             <ChevronDown
               className={cn(
                 "w-4 h-4 transition-transform duration-200",
-                isExpanded && "rotate-180"
+                isExpanded && "rotate-180",
               )}
             />
           </button>
           <div
             className={cn(
               "overflow-hidden transition-all duration-200 ease-out",
-              isExpanded ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+              isExpanded ? "max-h-40 opacity-100" : "max-h-0 opacity-0",
             )}
           >
             <div className="pl-4 flex flex-col gap-1 pb-1">
@@ -239,7 +237,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
           "max-w-5xl mx-auto rounded-full px-6 py-3",
           "border",
           "glass-nav",
-          "relative overflow-visible"
+          "relative overflow-visible",
         )}
       >
         <div className="relative z-10 flex items-center justify-between">
@@ -281,9 +279,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
               className="hidden lg:inline-flex"
               asChild
             >
-              <Link href="https://app.autocrew-ai.com/login">
-                Sign In
-              </Link>
+              <Link href="https://app.autocrew-ai.com/login">Sign In</Link>
             </Button>
 
             {/* Primary CTA - desktop only */}
@@ -320,7 +316,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             ref={menuRef}
             className={cn(
               "relative z-10 mx-4 mt-4 rounded-2xl border glass-nav p-6",
-              "animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200"
+              "animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200",
             )}
           >
             <div className="flex items-center justify-between mb-4">
@@ -346,7 +342,10 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
                 className="w-full justify-center"
                 asChild
               >
-                <Link href="https://app.autocrew-ai.com/login" onClick={closeMobileMenu}>
+                <Link
+                  href="https://app.autocrew-ai.com/login"
+                  onClick={closeMobileMenu}
+                >
                   Sign In
                 </Link>
               </Button>
@@ -356,7 +355,10 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
                 className="w-full justify-center"
                 asChild
               >
-                <Link href="https://app.autocrew-ai.com/signup" onClick={closeMobileMenu}>
+                <Link
+                  href="https://app.autocrew-ai.com/signup"
+                  onClick={closeMobileMenu}
+                >
                   Start for free
                 </Link>
               </Button>

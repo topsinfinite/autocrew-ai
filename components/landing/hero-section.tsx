@@ -9,32 +9,52 @@ import { heroData } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
 
 export function HeroSection() {
-
   return (
     <section className="relative z-10 section-glow-bottom overflow-hidden">
       {/* Medical/Tech Vector Grid Background */}
       <div className="absolute inset-0 pointer-events-none -z-5 overflow-hidden">
-         {/* Grid Pattern */}
+        {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-        
+
         {/* Decorative Crosses */}
-        <div className="absolute top-1/4 left-10 w-4 h-4 text-[#FF6B35]/20 animate-pulse" aria-hidden="true">+</div>
-        <div className="absolute top-1/3 right-20 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-700" aria-hidden="true">+</div>
-        <div className="absolute bottom-1/3 left-1/4 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-300" aria-hidden="true">+</div>
-        
+        <div
+          className="absolute top-1/4 left-10 w-4 h-4 text-[#FF6B35]/20 animate-pulse"
+          aria-hidden="true"
+        >
+          +
+        </div>
+        <div
+          className="absolute top-1/3 right-20 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-700"
+          aria-hidden="true"
+        >
+          +
+        </div>
+        <div
+          className="absolute bottom-1/3 left-1/4 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-300"
+          aria-hidden="true"
+        >
+          +
+        </div>
+
         {/* Waveform Line */}
-        <svg className="absolute top-1/2 left-0 w-full h-24 stroke-[#FF6B35]/10 fill-none opacity-50" viewBox="0 0 1200 100" preserveAspectRatio="none">
-            <path d="M0 50 Q 300 100 600 50 T 1200 50" vectorEffect="non-scaling-stroke" strokeWidth="2" />
+        <svg
+          className="absolute top-1/2 left-0 w-full h-24 stroke-[#FF6B35]/10 fill-none opacity-50"
+          viewBox="0 0 1200 100"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0 50 Q 300 100 600 50 T 1200 50"
+            vectorEffect="non-scaling-stroke"
+            strokeWidth="2"
+          />
         </svg>
       </div>
 
-<div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 relative z-10">
         <div className="text-center max-w-4xl mt-4 sm:mt-6 mx-auto">
           {/* Announcement Badge */}
           <div
-            className={cn(
-              "mb-6 animate-fade-up opacity-0"
-            )}
+            className={cn("mb-6 animate-fade-up opacity-0")}
             style={{ animationDelay: "0ms", animationFillMode: "forwards" }}
           >
             <SectionBadge icon={<ShieldCheck className="w-3.5 h-3.5" />}>
@@ -46,7 +66,7 @@ export function HeroSection() {
           <h1
             className={cn(
               "text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight font-space-grotesk text-foreground mb-6 leading-[1.1]",
-              "animate-fade-up opacity-0"
+              "animate-fade-up opacity-0",
             )}
             style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
           >
@@ -62,7 +82,7 @@ export function HeroSection() {
           <p
             className={cn(
               "md:text-xl text-lg text-muted-foreground font-geist max-w-2xl mx-auto leading-relaxed",
-              "animate-fade-up opacity-0"
+              "animate-fade-up opacity-0",
             )}
             style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
           >
@@ -73,7 +93,7 @@ export function HeroSection() {
           <div
             className={cn(
               "flex flex-col sm:flex-row mt-10 items-center justify-center gap-4",
-              "animate-fade-up opacity-0"
+              "animate-fade-up opacity-0",
             )}
             style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
           >
@@ -102,7 +122,7 @@ export function HeroSection() {
           <div
             className={cn(
               "flex text-sm mt-8 items-center justify-center text-muted-foreground",
-              "animate-fade-up opacity-0"
+              "animate-fade-up opacity-0",
             )}
             style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
           >
@@ -118,9 +138,9 @@ export function HeroSection() {
         data-theme="dark"
       >
         <div className="relative">
-             {/* Glow behind dashboard */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#FF6B35]/20 blur-[100px] -z-10 rounded-full" />
-            <DashboardPreview />
+          {/* Glow behind dashboard */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#FF6B35]/20 blur-[100px] -z-10 rounded-full" />
+          <DashboardPreview />
         </div>
       </div>
     </section>

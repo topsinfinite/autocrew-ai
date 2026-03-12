@@ -28,7 +28,8 @@ export default function PublicError({
         <CardContent className="space-y-4">
           <div>
             <p className="text-sm text-muted-foreground mb-2">
-              An error occurred while loading this page. This might be a temporary issue.
+              An error occurred while loading this page. This might be a
+              temporary issue.
             </p>
             {error.message && (
               <p className="text-sm font-mono bg-muted p-3 rounded">
@@ -46,7 +47,10 @@ export default function PublicError({
             <Button onClick={reset} variant="default">
               Try again
             </Button>
-            <Button onClick={() => window.location.href = '/'} variant="outline">
+            <Button
+              onClick={() => (window.location.href = "/")}
+              variant="outline"
+            >
               Go to Home
             </Button>
           </div>

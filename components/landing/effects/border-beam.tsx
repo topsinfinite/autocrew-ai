@@ -29,7 +29,8 @@ export function BorderBeam({
         className="pointer-events-none absolute inset-0 z-20 rounded-[inherit]"
         style={{
           padding: `${borderWidth}px`,
-          WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+          WebkitMask:
+            "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
           WebkitMaskComposite: "xor",
           maskComposite: "exclude",
         }}
@@ -44,9 +45,7 @@ export function BorderBeam({
       </div>
 
       {/* Content */}
-      <div className={cn("relative", className)}>
-        {children}
-      </div>
+      <div className={cn("relative", className)}>{children}</div>
     </div>
   );
 }

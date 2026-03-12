@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
 import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
@@ -70,14 +71,12 @@ export const metadata: Metadata = {
     title: "AutoCrew – Agentic Crews Management Platform",
     description:
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
-    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "AutoCrew" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "AutoCrew – Agentic Crews Management Platform",
     description:
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
-    images: ["/opengraph-image.png"],
   },
 };
 
@@ -87,7 +86,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark" style={{ colorScheme: "dark" } as React.CSSProperties}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="dark"
+      style={{ colorScheme: "dark" } as React.CSSProperties}
+    >
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} ${spaceGrotesk.variable} ${spaceMono.variable} font-sans antialiased`}
         suppressHydrationWarning
@@ -100,9 +104,17 @@ export default function RootLayout({
         </a>
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
-        <ThemeProvider defaultTheme="dark">
-          {children}
-        </ThemeProvider>
+        <ThemeProvider defaultTheme="dark">{children}</ThemeProvider>
+        <Script id="autocrew-config" strategy="beforeInteractive">
+          {`window.AutoCrewConfig = {
+            crewCode: 'AUTOCREW-001-SUP-001',
+            configUrl: 'https://app.autocrew-ai.com/api/widget/config'
+          };`}
+        </Script>
+        <Script
+          src="https://app.autocrew-ai.com/widget.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

@@ -33,7 +33,7 @@ export function CoachingFeatures() {
             const Icon = iconMap[feature.icon as keyof typeof iconMap];
 
             return (
-              <div
+              <article
                 key={feature.title}
                 className={cn(
                   "p-6 sm:p-8 rounded-2xl sm:rounded-3xl",
@@ -84,7 +84,7 @@ export function CoachingFeatures() {
                     ))}
                   </ul>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

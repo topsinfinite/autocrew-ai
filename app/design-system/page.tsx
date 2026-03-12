@@ -90,28 +90,106 @@ interface ColorToken {
 }
 
 const COLORS_BRAND: ColorToken[] = [
-  { name: "Primary", cssVar: "--primary", hsl: "16 100% 60%", hex: "#FF6B35", description: "Burnt orange - main accent" },
-  { name: "Secondary", cssVar: "--secondary", hsl: "199 89% 48%", hex: "#17B8D1", description: "Cool cyan - secondary accent" },
+  {
+    name: "Primary",
+    cssVar: "--primary",
+    hsl: "16 100% 60%",
+    hex: "#FF6B35",
+    description: "Burnt orange - main accent",
+  },
+  {
+    name: "Secondary",
+    cssVar: "--secondary",
+    hsl: "199 89% 48%",
+    hex: "#17B8D1",
+    description: "Cool cyan - secondary accent",
+  },
 ];
 
 const COLORS_BACKGROUNDS: ColorToken[] = [
-  { name: "Background", cssVar: "--background", hsl: "224 65% 3%", hex: "#03060e", description: "Page background" },
-  { name: "Card", cssVar: "--card", hsl: "228 33% 6%", hex: "#0A0C14", description: "Card surfaces" },
-  { name: "Muted", cssVar: "--muted", hsl: "217 33% 17%", hex: "#1e293b", description: "Muted backgrounds" },
-  { name: "Popover", cssVar: "--popover", hsl: "228 33% 6%", hex: "#0A0C14", description: "Popover surfaces" },
+  {
+    name: "Background",
+    cssVar: "--background",
+    hsl: "224 65% 3%",
+    hex: "#03060e",
+    description: "Page background",
+  },
+  {
+    name: "Card",
+    cssVar: "--card",
+    hsl: "228 33% 6%",
+    hex: "#0A0C14",
+    description: "Card surfaces",
+  },
+  {
+    name: "Muted",
+    cssVar: "--muted",
+    hsl: "217 33% 17%",
+    hex: "#1e293b",
+    description: "Muted backgrounds",
+  },
+  {
+    name: "Popover",
+    cssVar: "--popover",
+    hsl: "228 33% 6%",
+    hex: "#0A0C14",
+    description: "Popover surfaces",
+  },
 ];
 
 const COLORS_TEXT: ColorToken[] = [
-  { name: "Foreground", cssVar: "--foreground", hsl: "0 0% 93%", hex: "#EDEDED", description: "Primary text" },
-  { name: "Card Foreground", cssVar: "--card-foreground", hsl: "0 0% 93%", hex: "#EDEDED", description: "Text on cards" },
-  { name: "Muted Foreground", cssVar: "--muted-foreground", hsl: "215 20% 65%", hex: "#94A3B8", description: "Secondary text" },
+  {
+    name: "Foreground",
+    cssVar: "--foreground",
+    hsl: "0 0% 93%",
+    hex: "#EDEDED",
+    description: "Primary text",
+  },
+  {
+    name: "Card Foreground",
+    cssVar: "--card-foreground",
+    hsl: "0 0% 93%",
+    hex: "#EDEDED",
+    description: "Text on cards",
+  },
+  {
+    name: "Muted Foreground",
+    cssVar: "--muted-foreground",
+    hsl: "215 20% 65%",
+    hex: "#94A3B8",
+    description: "Secondary text",
+  },
 ];
 
 const COLORS_SEMANTIC: ColorToken[] = [
-  { name: "Accent", cssVar: "--accent", hsl: "18 100% 60%", hex: "#FF6A35", description: "Accent color" },
-  { name: "Destructive", cssVar: "--destructive", hsl: "0 84.2% 60.2%", hex: "#EF4444", description: "Error / destructive" },
-  { name: "Success", cssVar: "--success", hsl: "142 71% 45%", hex: "#10B981", description: "Success state" },
-  { name: "Warning", cssVar: "--warning", hsl: "38 92% 50%", hex: "#F59E0B", description: "Warning state" },
+  {
+    name: "Accent",
+    cssVar: "--accent",
+    hsl: "18 100% 60%",
+    hex: "#FF6A35",
+    description: "Accent color",
+  },
+  {
+    name: "Destructive",
+    cssVar: "--destructive",
+    hsl: "0 84.2% 60.2%",
+    hex: "#EF4444",
+    description: "Error / destructive",
+  },
+  {
+    name: "Success",
+    cssVar: "--success",
+    hsl: "142 71% 45%",
+    hex: "#10B981",
+    description: "Success state",
+  },
+  {
+    name: "Warning",
+    cssVar: "--warning",
+    hsl: "38 92% 50%",
+    hex: "#F59E0B",
+    description: "Warning state",
+  },
 ];
 
 const COLORS_CHART: ColorToken[] = [
@@ -123,9 +201,27 @@ const COLORS_CHART: ColorToken[] = [
 ];
 
 const COLORS_BORDER: ColorToken[] = [
-  { name: "Border", cssVar: "--border", hsl: "215 20% 18%", hex: "#1E293B", description: "Default borders" },
-  { name: "Input", cssVar: "--input", hsl: "215 20% 18%", hex: "#1E293B", description: "Input borders" },
-  { name: "Ring", cssVar: "--ring", hsl: "18 100% 60%", hex: "#FF6A35", description: "Focus rings" },
+  {
+    name: "Border",
+    cssVar: "--border",
+    hsl: "215 20% 18%",
+    hex: "#1E293B",
+    description: "Default borders",
+  },
+  {
+    name: "Input",
+    cssVar: "--input",
+    hsl: "215 20% 18%",
+    hex: "#1E293B",
+    description: "Input borders",
+  },
+  {
+    name: "Ring",
+    cssVar: "--ring",
+    hsl: "18 100% 60%",
+    hex: "#FF6A35",
+    description: "Focus rings",
+  },
 ];
 
 interface GlassToken {
@@ -135,12 +231,36 @@ interface GlassToken {
 }
 
 const GLASS_TOKENS: GlassToken[] = [
-  { name: "Glass Border", cssVar: "--glass-border", value: "rgba(255, 255, 255, 0.08)" },
-  { name: "Glass Surface", cssVar: "--glass-surface", value: "rgba(255, 255, 255, 0.03)" },
-  { name: "Surface Subtle", cssVar: "--surface-subtle", value: "rgba(255, 255, 255, 0.02)" },
-  { name: "Border Subtle", cssVar: "--border-subtle", value: "rgba(255, 255, 255, 0.08)" },
-  { name: "Surface Hover", cssVar: "--surface-hover", value: "rgba(255, 255, 255, 0.05)" },
-  { name: "Section Glow", cssVar: "--section-glow", value: "rgba(255, 107, 53, 0.04)" },
+  {
+    name: "Glass Border",
+    cssVar: "--glass-border",
+    value: "rgba(255, 255, 255, 0.08)",
+  },
+  {
+    name: "Glass Surface",
+    cssVar: "--glass-surface",
+    value: "rgba(255, 255, 255, 0.03)",
+  },
+  {
+    name: "Surface Subtle",
+    cssVar: "--surface-subtle",
+    value: "rgba(255, 255, 255, 0.02)",
+  },
+  {
+    name: "Border Subtle",
+    cssVar: "--border-subtle",
+    value: "rgba(255, 255, 255, 0.08)",
+  },
+  {
+    name: "Surface Hover",
+    cssVar: "--surface-hover",
+    value: "rgba(255, 255, 255, 0.05)",
+  },
+  {
+    name: "Section Glow",
+    cssVar: "--section-glow",
+    value: "rgba(255, 107, 53, 0.04)",
+  },
 ];
 
 interface TypoSample {
@@ -152,14 +272,65 @@ interface TypoSample {
 }
 
 const TYPOGRAPHY_SAMPLES: TypoSample[] = [
-  { level: "H1", classes: "text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]", font: "Space Grotesk", fontClass: "font-space-grotesk", sampleText: "The quick brown fox" },
-  { level: "H2", classes: "text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight", font: "Space Grotesk", fontClass: "font-space-grotesk", sampleText: "The quick brown fox" },
-  { level: "H3", classes: "text-2xl font-semibold", font: "Space Grotesk", fontClass: "font-space-grotesk", sampleText: "The quick brown fox jumps" },
-  { level: "H4", classes: "text-lg font-medium tracking-tight", font: "Geist Sans", fontClass: "font-geist", sampleText: "The quick brown fox jumps over the lazy dog" },
-  { level: "Body", classes: "text-base leading-relaxed", font: "Geist Sans", fontClass: "font-geist", sampleText: "AutoCrew helps businesses automate customer interactions at scale. Our AI-powered crews handle support, lead generation, and more with human-like precision and empathy." },
-  { level: "Small", classes: "text-sm leading-relaxed", font: "Geist Sans", fontClass: "font-geist", sampleText: "Secondary body text used for descriptions, card content, and supporting information throughout the interface." },
-  { level: "Caption", classes: "text-xs font-medium", font: "Geist Sans", fontClass: "font-geist", sampleText: "Caption text for metadata and labels" },
-  { level: "Label", classes: "text-xs uppercase tracking-wider font-semibold", font: "Space Mono", fontClass: "font-space-mono", sampleText: "System Status" },
+  {
+    level: "H1",
+    classes:
+      "text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]",
+    font: "Space Grotesk",
+    fontClass: "font-space-grotesk",
+    sampleText: "The quick brown fox",
+  },
+  {
+    level: "H2",
+    classes: "text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight",
+    font: "Space Grotesk",
+    fontClass: "font-space-grotesk",
+    sampleText: "The quick brown fox",
+  },
+  {
+    level: "H3",
+    classes: "text-2xl font-semibold",
+    font: "Space Grotesk",
+    fontClass: "font-space-grotesk",
+    sampleText: "The quick brown fox jumps",
+  },
+  {
+    level: "H4",
+    classes: "text-lg font-medium tracking-tight",
+    font: "Geist Sans",
+    fontClass: "font-geist",
+    sampleText: "The quick brown fox jumps over the lazy dog",
+  },
+  {
+    level: "Body",
+    classes: "text-base leading-relaxed",
+    font: "Geist Sans",
+    fontClass: "font-geist",
+    sampleText:
+      "AutoCrew helps businesses automate customer interactions at scale. Our AI-powered crews handle support, lead generation, and more with human-like precision and empathy.",
+  },
+  {
+    level: "Small",
+    classes: "text-sm leading-relaxed",
+    font: "Geist Sans",
+    fontClass: "font-geist",
+    sampleText:
+      "Secondary body text used for descriptions, card content, and supporting information throughout the interface.",
+  },
+  {
+    level: "Caption",
+    classes: "text-xs font-medium",
+    font: "Geist Sans",
+    fontClass: "font-geist",
+    sampleText: "Caption text for metadata and labels",
+  },
+  {
+    level: "Label",
+    classes: "text-xs uppercase tracking-wider font-semibold",
+    font: "Space Mono",
+    fontClass: "font-space-mono",
+    sampleText: "System Status",
+  },
 ];
 
 interface RadiusValue {
@@ -185,15 +356,55 @@ interface AnimationDef {
 }
 
 const ANIMATIONS: AnimationDef[] = [
-  { name: "Fade Up", class: "animate-fade-up", duration: "0.6s", type: "entrance" },
-  { name: "Fade In", class: "animate-fade-in", duration: "0.6s", type: "entrance" },
-  { name: "Scale In", class: "animate-scale-in", duration: "0.6s", type: "entrance" },
-  { name: "Pulse Glow", class: "animate-pulse-glow", duration: "2s", type: "infinite" },
-  { name: "Spin Slow", class: "animate-spin-slow", duration: "8s", type: "infinite" },
-  { name: "Morph Blob", class: "animate-morph-blob", duration: "5s", type: "infinite" },
+  {
+    name: "Fade Up",
+    class: "animate-fade-up",
+    duration: "0.6s",
+    type: "entrance",
+  },
+  {
+    name: "Fade In",
+    class: "animate-fade-in",
+    duration: "0.6s",
+    type: "entrance",
+  },
+  {
+    name: "Scale In",
+    class: "animate-scale-in",
+    duration: "0.6s",
+    type: "entrance",
+  },
+  {
+    name: "Pulse Glow",
+    class: "animate-pulse-glow",
+    duration: "2s",
+    type: "infinite",
+  },
+  {
+    name: "Spin Slow",
+    class: "animate-spin-slow",
+    duration: "8s",
+    type: "infinite",
+  },
+  {
+    name: "Morph Blob",
+    class: "animate-morph-blob",
+    duration: "5s",
+    type: "infinite",
+  },
   { name: "Sonar", class: "animate-sonar", duration: "2s", type: "infinite" },
-  { name: "Dot Bounce", class: "animate-dot-bounce", duration: "1.4s", type: "infinite" },
-  { name: "Pulse Ring", class: "animate-pulse-ring", duration: "2.5s", type: "infinite" },
+  {
+    name: "Dot Bounce",
+    class: "animate-dot-bounce",
+    duration: "1.4s",
+    type: "infinite",
+  },
+  {
+    name: "Pulse Ring",
+    class: "animate-pulse-ring",
+    duration: "2.5s",
+    type: "infinite",
+  },
 ];
 
 interface IconEntry {
@@ -248,32 +459,162 @@ interface CSSVarRef {
 }
 
 const CSS_VARIABLES: CSSVarRef[] = [
-  { variable: "--background", darkValue: "224 65% 3%", lightValue: "0 0% 100%", usage: "Page background" },
-  { variable: "--foreground", darkValue: "0 0% 93%", lightValue: "222 47% 11%", usage: "Primary text" },
-  { variable: "--card", darkValue: "228 33% 6%", lightValue: "0 0% 100%", usage: "Card background" },
-  { variable: "--card-foreground", darkValue: "0 0% 93%", lightValue: "222 47% 11%", usage: "Card text" },
-  { variable: "--popover", darkValue: "228 33% 6%", lightValue: "0 0% 100%", usage: "Popover bg" },
-  { variable: "--popover-foreground", darkValue: "0 0% 93%", lightValue: "222 47% 11%", usage: "Popover text" },
-  { variable: "--primary", darkValue: "16 100% 60%", lightValue: "18 100% 55%", usage: "Primary accent" },
-  { variable: "--primary-foreground", darkValue: "224 65% 3%", lightValue: "0 0% 100%", usage: "Text on primary" },
-  { variable: "--secondary", darkValue: "199 89% 48%", lightValue: "199 89% 45%", usage: "Secondary accent" },
-  { variable: "--secondary-foreground", darkValue: "0 0% 100%", lightValue: "199 89% 10%", usage: "Text on secondary" },
-  { variable: "--muted", darkValue: "217 33% 17%", lightValue: "210 40% 96%", usage: "Muted background" },
-  { variable: "--muted-foreground", darkValue: "215 20% 65%", lightValue: "215 16% 47%", usage: "Muted text" },
-  { variable: "--accent", darkValue: "18 100% 60%", lightValue: "18 100% 55%", usage: "Accent color" },
-  { variable: "--accent-foreground", darkValue: "222 69% 3%", lightValue: "222 47% 11%", usage: "Text on accent" },
-  { variable: "--destructive", darkValue: "0 84.2% 60.2%", lightValue: "0 84.2% 60.2%", usage: "Destructive" },
-  { variable: "--success", darkValue: "142 71% 45%", lightValue: "142 71% 45%", usage: "Success state" },
-  { variable: "--warning", darkValue: "38 92% 50%", lightValue: "38 92% 50%", usage: "Warning state" },
-  { variable: "--border", darkValue: "215 20% 18%", lightValue: "214 32% 91%", usage: "Borders" },
-  { variable: "--input", darkValue: "215 20% 18%", lightValue: "214 32% 91%", usage: "Input borders" },
-  { variable: "--ring", darkValue: "18 100% 60%", lightValue: "18 100% 55%", usage: "Focus rings" },
-  { variable: "--radius", darkValue: "0.75rem", lightValue: "0.75rem", usage: "Base radius" },
-  { variable: "--chart-1", darkValue: "18 100% 60%", lightValue: "18 100% 55%", usage: "Chart primary" },
-  { variable: "--chart-2", darkValue: "199 89% 48%", lightValue: "199 89% 45%", usage: "Chart secondary" },
-  { variable: "--chart-3", darkValue: "142 71% 45%", lightValue: "142 71% 45%", usage: "Chart tertiary" },
-  { variable: "--chart-4", darkValue: "280 65% 60%", lightValue: "280 65% 55%", usage: "Chart quaternary" },
-  { variable: "--chart-5", darkValue: "38 92% 50%", lightValue: "38 92% 50%", usage: "Chart quinary" },
+  {
+    variable: "--background",
+    darkValue: "224 65% 3%",
+    lightValue: "0 0% 100%",
+    usage: "Page background",
+  },
+  {
+    variable: "--foreground",
+    darkValue: "0 0% 93%",
+    lightValue: "222 47% 11%",
+    usage: "Primary text",
+  },
+  {
+    variable: "--card",
+    darkValue: "228 33% 6%",
+    lightValue: "0 0% 100%",
+    usage: "Card background",
+  },
+  {
+    variable: "--card-foreground",
+    darkValue: "0 0% 93%",
+    lightValue: "222 47% 11%",
+    usage: "Card text",
+  },
+  {
+    variable: "--popover",
+    darkValue: "228 33% 6%",
+    lightValue: "0 0% 100%",
+    usage: "Popover bg",
+  },
+  {
+    variable: "--popover-foreground",
+    darkValue: "0 0% 93%",
+    lightValue: "222 47% 11%",
+    usage: "Popover text",
+  },
+  {
+    variable: "--primary",
+    darkValue: "16 100% 60%",
+    lightValue: "18 100% 55%",
+    usage: "Primary accent",
+  },
+  {
+    variable: "--primary-foreground",
+    darkValue: "224 65% 3%",
+    lightValue: "0 0% 100%",
+    usage: "Text on primary",
+  },
+  {
+    variable: "--secondary",
+    darkValue: "199 89% 48%",
+    lightValue: "199 89% 45%",
+    usage: "Secondary accent",
+  },
+  {
+    variable: "--secondary-foreground",
+    darkValue: "0 0% 100%",
+    lightValue: "199 89% 10%",
+    usage: "Text on secondary",
+  },
+  {
+    variable: "--muted",
+    darkValue: "217 33% 17%",
+    lightValue: "210 40% 96%",
+    usage: "Muted background",
+  },
+  {
+    variable: "--muted-foreground",
+    darkValue: "215 20% 65%",
+    lightValue: "215 16% 47%",
+    usage: "Muted text",
+  },
+  {
+    variable: "--accent",
+    darkValue: "18 100% 60%",
+    lightValue: "18 100% 55%",
+    usage: "Accent color",
+  },
+  {
+    variable: "--accent-foreground",
+    darkValue: "222 69% 3%",
+    lightValue: "222 47% 11%",
+    usage: "Text on accent",
+  },
+  {
+    variable: "--destructive",
+    darkValue: "0 84.2% 60.2%",
+    lightValue: "0 84.2% 60.2%",
+    usage: "Destructive",
+  },
+  {
+    variable: "--success",
+    darkValue: "142 71% 45%",
+    lightValue: "142 71% 45%",
+    usage: "Success state",
+  },
+  {
+    variable: "--warning",
+    darkValue: "38 92% 50%",
+    lightValue: "38 92% 50%",
+    usage: "Warning state",
+  },
+  {
+    variable: "--border",
+    darkValue: "215 20% 18%",
+    lightValue: "214 32% 91%",
+    usage: "Borders",
+  },
+  {
+    variable: "--input",
+    darkValue: "215 20% 18%",
+    lightValue: "214 32% 91%",
+    usage: "Input borders",
+  },
+  {
+    variable: "--ring",
+    darkValue: "18 100% 60%",
+    lightValue: "18 100% 55%",
+    usage: "Focus rings",
+  },
+  {
+    variable: "--radius",
+    darkValue: "0.75rem",
+    lightValue: "0.75rem",
+    usage: "Base radius",
+  },
+  {
+    variable: "--chart-1",
+    darkValue: "18 100% 60%",
+    lightValue: "18 100% 55%",
+    usage: "Chart primary",
+  },
+  {
+    variable: "--chart-2",
+    darkValue: "199 89% 48%",
+    lightValue: "199 89% 45%",
+    usage: "Chart secondary",
+  },
+  {
+    variable: "--chart-3",
+    darkValue: "142 71% 45%",
+    lightValue: "142 71% 45%",
+    usage: "Chart tertiary",
+  },
+  {
+    variable: "--chart-4",
+    darkValue: "280 65% 60%",
+    lightValue: "280 65% 55%",
+    usage: "Chart quaternary",
+  },
+  {
+    variable: "--chart-5",
+    darkValue: "38 92% 50%",
+    lightValue: "38 92% 50%",
+    usage: "Chart quinary",
+  },
 ];
 
 // ============================================================================
@@ -442,11 +783,7 @@ function CodeBlock({
   );
 }
 
-function AnimationDemo({
-  animation,
-}: {
-  animation: AnimationDef;
-}) {
+function AnimationDemo({ animation }: { animation: AnimationDef }) {
   const [playing, setPlaying] = useState(animation.type === "infinite");
 
   return (
@@ -477,7 +814,7 @@ function AnimationDemo({
         <div
           className={cn(
             "w-12 h-12 rounded-xl bg-[#FF6B35]/20 border border-[#FF6B35]/30",
-            playing && animation.class
+            playing && animation.class,
           )}
           style={{
             animationPlayState: playing ? "running" : "paused",
@@ -513,15 +850,14 @@ export default function DesignSystemPage() {
             <SectionBadge className="mb-6">Design System</SectionBadge>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-space-grotesk text-foreground mb-6 leading-[1.1]">
-              AutoCrew{" "}
-              <span className="text-[#FF6B35]">Design System</span>
+              AutoCrew <span className="text-[#FF6B35]">Design System</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground font-geist leading-relaxed max-w-2xl">
-              A comprehensive reference of every design token, typography
-              scale, color, spacing value, and component pattern used across
-              the AutoCrew brand. Use this guide to maintain visual
-              consistency across all products.
+              A comprehensive reference of every design token, typography scale,
+              color, spacing value, and component pattern used across the
+              AutoCrew brand. Use this guide to maintain visual consistency
+              across all products.
             </p>
           </div>
         </div>
@@ -562,7 +898,12 @@ export default function DesignSystemPage() {
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
               {COLORS_BRAND.map((c) => (
-                <ColorSwatch key={c.cssVar} color={c} onCopy={copy} copiedValue={copiedValue} />
+                <ColorSwatch
+                  key={c.cssVar}
+                  color={c}
+                  onCopy={copy}
+                  copiedValue={copiedValue}
+                />
               ))}
             </div>
           </div>
@@ -574,7 +915,12 @@ export default function DesignSystemPage() {
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {COLORS_BACKGROUNDS.map((c) => (
-                <ColorSwatch key={c.cssVar} color={c} onCopy={copy} copiedValue={copiedValue} />
+                <ColorSwatch
+                  key={c.cssVar}
+                  color={c}
+                  onCopy={copy}
+                  copiedValue={copiedValue}
+                />
               ))}
             </div>
           </div>
@@ -586,7 +932,12 @@ export default function DesignSystemPage() {
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {COLORS_TEXT.map((c) => (
-                <ColorSwatch key={c.cssVar} color={c} onCopy={copy} copiedValue={copiedValue} />
+                <ColorSwatch
+                  key={c.cssVar}
+                  color={c}
+                  onCopy={copy}
+                  copiedValue={copiedValue}
+                />
               ))}
             </div>
           </div>
@@ -598,7 +949,12 @@ export default function DesignSystemPage() {
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {COLORS_SEMANTIC.map((c) => (
-                <ColorSwatch key={c.cssVar} color={c} onCopy={copy} copiedValue={copiedValue} />
+                <ColorSwatch
+                  key={c.cssVar}
+                  color={c}
+                  onCopy={copy}
+                  copiedValue={copiedValue}
+                />
               ))}
             </div>
           </div>
@@ -610,7 +966,12 @@ export default function DesignSystemPage() {
             </h3>
             <div className="grid grid-cols-3 sm:grid-cols-5 gap-4">
               {COLORS_CHART.map((c) => (
-                <ColorSwatch key={c.cssVar} color={c} onCopy={copy} copiedValue={copiedValue} />
+                <ColorSwatch
+                  key={c.cssVar}
+                  color={c}
+                  onCopy={copy}
+                  copiedValue={copiedValue}
+                />
               ))}
             </div>
           </div>
@@ -622,7 +983,12 @@ export default function DesignSystemPage() {
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {COLORS_BORDER.map((c) => (
-                <ColorSwatch key={c.cssVar} color={c} onCopy={copy} copiedValue={copiedValue} />
+                <ColorSwatch
+                  key={c.cssVar}
+                  color={c}
+                  onCopy={copy}
+                  copiedValue={copiedValue}
+                />
               ))}
             </div>
           </div>
@@ -634,7 +1000,12 @@ export default function DesignSystemPage() {
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {GLASS_TOKENS.map((t) => (
-                <GlassSwatch key={t.cssVar} token={t} onCopy={copy} copiedValue={copiedValue} />
+                <GlassSwatch
+                  key={t.cssVar}
+                  token={t}
+                  onCopy={copy}
+                  copiedValue={copiedValue}
+                />
               ))}
             </div>
           </div>
@@ -647,33 +1018,59 @@ export default function DesignSystemPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="rounded-xl border border-border bg-card p-4">
                 <div className="w-full h-16 rounded-lg mb-3 bg-gradient-to-r from-[#FF6B35] to-[#FF8C5A]" />
-                <p className="text-sm font-medium text-foreground font-geist">Primary Gradient</p>
-                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">from-[#FF6B35] to-[#FF8C5A]</p>
+                <p className="text-sm font-medium text-foreground font-geist">
+                  Primary Gradient
+                </p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">
+                  from-[#FF6B35] to-[#FF8C5A]
+                </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <div className="w-full h-16 rounded-lg mb-3 bg-gradient-to-r from-[#FF6B35] to-[#FF4444]" />
-                <p className="text-sm font-medium text-foreground font-geist">Warm Gradient</p>
-                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">from-[#FF6B35] to-[#FF4444]</p>
+                <p className="text-sm font-medium text-foreground font-geist">
+                  Warm Gradient
+                </p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">
+                  from-[#FF6B35] to-[#FF4444]
+                </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
-                <div className="w-full h-16 rounded-lg mb-3 gradient-text text-3xl font-bold font-space-grotesk flex items-center justify-center">Aa</div>
-                <p className="text-sm font-medium text-foreground font-geist">Gradient Text</p>
-                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">.gradient-text (primary to secondary)</p>
+                <div className="w-full h-16 rounded-lg mb-3 gradient-text text-3xl font-bold font-space-grotesk flex items-center justify-center">
+                  Aa
+                </div>
+                <p className="text-sm font-medium text-foreground font-geist">
+                  Gradient Text
+                </p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">
+                  .gradient-text (primary to secondary)
+                </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <div className="w-full h-16 rounded-lg mb-3 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5" />
-                <p className="text-sm font-medium text-foreground font-geist">Subtle Background</p>
-                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">from-primary/5 via-transparent to-secondary/5</p>
+                <p className="text-sm font-medium text-foreground font-geist">
+                  Subtle Background
+                </p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">
+                  from-primary/5 via-transparent to-secondary/5
+                </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <div className="w-full h-16 rounded-lg mb-3 bg-gradient-to-r from-transparent via-[#FF6B35] to-transparent" />
-                <p className="text-sm font-medium text-foreground font-geist">Beam Line</p>
-                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">from-transparent via-[#FF6B35] to-transparent</p>
+                <p className="text-sm font-medium text-foreground font-geist">
+                  Beam Line
+                </p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">
+                  from-transparent via-[#FF6B35] to-transparent
+                </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
                 <div className="w-full h-16 rounded-lg mb-3 bg-[radial-gradient(1000px_400px_at_50%_50%,rgba(255,107,53,0.12),transparent_100%)]" />
-                <p className="text-sm font-medium text-foreground font-geist">Section Glow</p>
-                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">radial-gradient with primary/12</p>
+                <p className="text-sm font-medium text-foreground font-geist">
+                  Section Glow
+                </p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">
+                  radial-gradient with primary/12
+                </p>
               </div>
             </div>
           </div>
@@ -753,7 +1150,8 @@ export default function DesignSystemPage() {
                   Space Mono
                 </p>
                 <p className="text-sm text-muted-foreground font-geist mb-4">
-                  Used for labels, code snippets, timestamps, and technical content
+                  Used for labels, code snippets, timestamps, and technical
+                  content
                 </p>
                 <div className="space-y-1 text-sm font-space-mono text-foreground/80">
                   <p className="font-normal">Regular 400</p>
@@ -788,7 +1186,13 @@ export default function DesignSystemPage() {
                     </span>
                   </div>
 
-                  <div className={cn(sample.fontClass, sample.classes, "text-foreground mb-4")}>
+                  <div
+                    className={cn(
+                      sample.fontClass,
+                      sample.classes,
+                      "text-foreground mb-4",
+                    )}
+                  >
                     {sample.sampleText}
                   </div>
 
@@ -823,13 +1227,30 @@ export default function DesignSystemPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { bp: "Mobile", classes: "pt-16 pb-16", value: "64px" },
-                { bp: "Tablet (sm:)", classes: "sm:pt-24 sm:pb-24", value: "96px" },
-                { bp: "Desktop (md:)", classes: "md:pt-32 md:pb-32", value: "128px" },
+                {
+                  bp: "Tablet (sm:)",
+                  classes: "sm:pt-24 sm:pb-24",
+                  value: "96px",
+                },
+                {
+                  bp: "Desktop (md:)",
+                  classes: "md:pt-32 md:pb-32",
+                  value: "128px",
+                },
               ].map((tier) => (
-                <div key={tier.bp} className="rounded-xl border border-border bg-card p-6">
-                  <p className="text-sm font-medium text-foreground font-geist mb-2">{tier.bp}</p>
-                  <p className="text-3xl font-bold font-space-grotesk text-foreground mb-1">{tier.value}</p>
-                  <p className="text-xs text-muted-foreground font-space-mono">{tier.classes}</p>
+                <div
+                  key={tier.bp}
+                  className="rounded-xl border border-border bg-card p-6"
+                >
+                  <p className="text-sm font-medium text-foreground font-geist mb-2">
+                    {tier.bp}
+                  </p>
+                  <p className="text-3xl font-bold font-space-grotesk text-foreground mb-1">
+                    {tier.value}
+                  </p>
+                  <p className="text-xs text-muted-foreground font-space-mono">
+                    {tier.classes}
+                  </p>
                 </div>
               ))}
             </div>
@@ -875,7 +1296,10 @@ export default function DesignSystemPage() {
                 { bp: "Tablet (sm:)", classes: "sm:p-8", value: "32px" },
                 { bp: "Desktop (md:)", classes: "md:p-10", value: "40px" },
               ].map((tier) => (
-                <div key={tier.bp} className="rounded-xl border border-border bg-card overflow-hidden">
+                <div
+                  key={tier.bp}
+                  className="rounded-xl border border-border bg-card overflow-hidden"
+                >
                   <div
                     className="border-2 border-dashed border-[#FF6B35]/20 m-1"
                     style={{ padding: tier.value }}
@@ -885,8 +1309,12 @@ export default function DesignSystemPage() {
                     </div>
                   </div>
                   <div className="px-4 py-3 border-t border-border">
-                    <p className="text-sm font-medium text-foreground font-geist">{tier.bp}</p>
-                    <p className="text-xs text-muted-foreground font-space-mono">{tier.classes} = {tier.value}</p>
+                    <p className="text-sm font-medium text-foreground font-geist">
+                      {tier.bp}
+                    </p>
+                    <p className="text-xs text-muted-foreground font-space-mono">
+                      {tier.classes} = {tier.value}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -905,13 +1333,23 @@ export default function DesignSystemPage() {
                 { class: "gap-8", value: "32px" },
                 { class: "gap-12", value: "48px" },
               ].map((gap) => (
-                <div key={gap.class} className="rounded-xl border border-border bg-card p-4">
-                  <div className="flex items-end mb-3" style={{ gap: gap.value }}>
+                <div
+                  key={gap.class}
+                  className="rounded-xl border border-border bg-card p-4"
+                >
+                  <div
+                    className="flex items-end mb-3"
+                    style={{ gap: gap.value }}
+                  >
                     <div className="w-8 h-8 rounded bg-[#FF6B35]/20 border border-[#FF6B35]/30 shrink-0" />
                     <div className="w-8 h-8 rounded bg-[#FF6B35]/20 border border-[#FF6B35]/30 shrink-0" />
                   </div>
-                  <p className="text-sm font-medium text-foreground font-geist">{gap.value}</p>
-                  <p className="text-xs text-muted-foreground font-space-mono">{gap.class}</p>
+                  <p className="text-sm font-medium text-foreground font-geist">
+                    {gap.value}
+                  </p>
+                  <p className="text-xs text-muted-foreground font-space-mono">
+                    {gap.class}
+                  </p>
                 </div>
               ))}
             </div>
@@ -932,18 +1370,27 @@ export default function DesignSystemPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {RADII.map((r) => (
-              <div key={r.name} className="rounded-xl border border-border bg-card p-4 text-center">
+              <div
+                key={r.name}
+                className="rounded-xl border border-border bg-card p-4 text-center"
+              >
                 <div className="flex items-center justify-center mb-4">
                   <div
                     className={cn(
                       "w-20 h-20 bg-[#FF6B35]/15 border-2 border-[#FF6B35]/30",
-                      r.class
+                      r.class,
                     )}
                   />
                 </div>
-                <p className="text-sm font-medium text-foreground font-geist">{r.name}</p>
-                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">{r.class}</p>
-                <p className="text-xs text-muted-foreground/60 font-space-mono">{r.value}</p>
+                <p className="text-sm font-medium text-foreground font-geist">
+                  {r.name}
+                </p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-0.5">
+                  {r.class}
+                </p>
+                <p className="text-xs text-muted-foreground/60 font-space-mono">
+                  {r.value}
+                </p>
               </div>
             ))}
           </div>
@@ -967,7 +1414,9 @@ export default function DesignSystemPage() {
               Pill Buttons (Landing Page CTAs)
             </h3>
             <div className="rounded-xl border border-border bg-card p-8">
-              <h4 className="text-sm font-medium text-foreground font-geist mb-4">variant=&quot;pill&quot;</h4>
+              <h4 className="text-sm font-medium text-foreground font-geist mb-4">
+                variant=&quot;pill&quot;
+              </h4>
               <div className="flex flex-wrap items-center gap-4 mb-8">
                 <Button variant="pill" size="pill-lg">
                   Large CTA
@@ -982,7 +1431,9 @@ export default function DesignSystemPage() {
                 </Button>
               </div>
 
-              <h4 className="text-sm font-medium text-foreground font-geist mb-4">variant=&quot;pill-outline&quot;</h4>
+              <h4 className="text-sm font-medium text-foreground font-geist mb-4">
+                variant=&quot;pill-outline&quot;
+              </h4>
               <div className="flex flex-wrap items-center gap-4 mb-8">
                 <Button variant="pill-outline" size="pill-lg">
                   <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
@@ -1039,12 +1490,16 @@ export default function DesignSystemPage() {
                 <Button variant="link">Link</Button>
               </div>
 
-              <h4 className="text-sm font-medium text-foreground font-geist mb-4 mt-8">Sizes</h4>
+              <h4 className="text-sm font-medium text-foreground font-geist mb-4 mt-8">
+                Sizes
+              </h4>
               <div className="flex flex-wrap items-center gap-4 mb-6">
                 <Button size="sm">Small</Button>
                 <Button size="default">Default</Button>
                 <Button size="lg">Large</Button>
-                <Button size="icon"><ArrowRight className="w-4 h-4" /></Button>
+                <Button size="icon">
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
               </div>
 
               <CodeBlock
@@ -1101,7 +1556,8 @@ export default function DesignSystemPage() {
             </h3>
             <div className="rounded-xl border border-border bg-card p-8">
               <p className="text-sm text-muted-foreground font-geist mb-6">
-                Unified badge component used across all landing page sections. Replaces the previous inconsistent inline implementations.
+                Unified badge component used across all landing page sections.
+                Replaces the previous inconsistent inline implementations.
               </p>
               <div className="flex flex-wrap gap-4 mb-6">
                 <SectionBadge>Default with pulse dot</SectionBadge>
@@ -1149,11 +1605,15 @@ export default function DesignSystemPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Glass Card */}
             <div className="rounded-xl border border-border bg-card p-6">
-              <h4 className="text-sm font-medium text-foreground font-geist mb-4">.glass-card</h4>
+              <h4 className="text-sm font-medium text-foreground font-geist mb-4">
+                .glass-card
+              </h4>
               <div className="relative h-40 rounded-xl overflow-hidden mb-4">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/30 via-[#17B8D1]/20 to-[#FF6B35]/10" />
                 <div className="absolute inset-4 glass-card rounded-xl p-4 flex items-center justify-center">
-                  <p className="text-sm text-foreground font-geist">Glass card content</p>
+                  <p className="text-sm text-foreground font-geist">
+                    Glass card content
+                  </p>
                 </div>
               </div>
               <CodeBlock
@@ -1169,14 +1629,22 @@ export default function DesignSystemPage() {
 
             {/* Glass Nav */}
             <div className="rounded-xl border border-border bg-card p-6">
-              <h4 className="text-sm font-medium text-foreground font-geist mb-4">.glass-nav</h4>
+              <h4 className="text-sm font-medium text-foreground font-geist mb-4">
+                .glass-nav
+              </h4>
               <div className="relative h-40 rounded-xl overflow-hidden mb-4">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#FF6B35]/20 to-transparent" />
                 <div className="absolute top-4 inset-x-4 glass-nav rounded-full px-6 py-3 flex items-center justify-between border border-white/[0.08]">
-                  <p className="text-sm font-medium text-foreground font-space-grotesk">Logo</p>
+                  <p className="text-sm font-medium text-foreground font-space-grotesk">
+                    Logo
+                  </p>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-muted-foreground font-geist">Nav Item</span>
-                    <span className="text-xs text-muted-foreground font-geist">Nav Item</span>
+                    <span className="text-xs text-muted-foreground font-geist">
+                      Nav Item
+                    </span>
+                    <span className="text-xs text-muted-foreground font-geist">
+                      Nav Item
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1194,10 +1662,14 @@ export default function DesignSystemPage() {
 
             {/* Border Beam */}
             <div className="rounded-xl border border-border bg-card p-6">
-              <h4 className="text-sm font-medium text-foreground font-geist mb-4">.border-beam</h4>
+              <h4 className="text-sm font-medium text-foreground font-geist mb-4">
+                .border-beam
+              </h4>
               <div className="flex items-center justify-center h-40 mb-4">
                 <div className="border-beam w-32 h-32 rounded-2xl bg-card border border-border flex items-center justify-center">
-                  <p className="text-xs text-muted-foreground font-geist">Rotating beam</p>
+                  <p className="text-xs text-muted-foreground font-geist">
+                    Rotating beam
+                  </p>
                 </div>
               </div>
               <CodeBlock
@@ -1212,10 +1684,14 @@ export default function DesignSystemPage() {
 
             {/* Hover Lift */}
             <div className="rounded-xl border border-border bg-card p-6">
-              <h4 className="text-sm font-medium text-foreground font-geist mb-4">.hover-lift</h4>
+              <h4 className="text-sm font-medium text-foreground font-geist mb-4">
+                .hover-lift
+              </h4>
               <div className="flex items-center justify-center h-40 mb-4">
                 <div className="hover-lift w-32 h-32 rounded-2xl bg-card border border-border flex items-center justify-center cursor-pointer">
-                  <p className="text-xs text-muted-foreground font-geist">Hover me</p>
+                  <p className="text-xs text-muted-foreground font-geist">
+                    Hover me
+                  </p>
                 </div>
               </div>
               <CodeBlock
@@ -1249,22 +1725,45 @@ export default function DesignSystemPage() {
             {[
               { name: "Flat", class: "", shadow: "none" },
               { name: "Shadow SM", class: "shadow-sm", shadow: "shadow-sm" },
-              { name: "Shadow LG", class: "shadow-lg shadow-black/20", shadow: "shadow-lg shadow-black/20" },
-              { name: "Primary Glow", class: "shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)]", shadow: "shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)]" },
-              { name: "CTA Card Shadow", class: "shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]", shadow: "shadow-[0_20px_40px_-15px_...]" },
-              { name: "Glow Hover", class: "shadow-[0_0_15px_-3px_rgba(255,107,53,0.3)]", shadow: "shadow-[0_0_15px_-3px_...]" },
+              {
+                name: "Shadow LG",
+                class: "shadow-lg shadow-black/20",
+                shadow: "shadow-lg shadow-black/20",
+              },
+              {
+                name: "Primary Glow",
+                class: "shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)]",
+                shadow: "shadow-[0_0_20px_-5px_rgba(255,107,53,0.4)]",
+              },
+              {
+                name: "CTA Card Shadow",
+                class: "shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]",
+                shadow: "shadow-[0_20px_40px_-15px_...]",
+              },
+              {
+                name: "Glow Hover",
+                class: "shadow-[0_0_15px_-3px_rgba(255,107,53,0.3)]",
+                shadow: "shadow-[0_0_15px_-3px_...]",
+              },
             ].map((s) => (
-              <div key={s.name} className="rounded-xl border border-border bg-card p-6">
+              <div
+                key={s.name}
+                className="rounded-xl border border-border bg-card p-6"
+              >
                 <div className="flex items-center justify-center h-28 mb-4">
                   <div
                     className={cn(
                       "w-24 h-24 rounded-2xl bg-card border border-border",
-                      s.class
+                      s.class,
                     )}
                   />
                 </div>
-                <p className="text-sm font-medium text-foreground font-geist">{s.name}</p>
-                <p className="text-xs text-muted-foreground font-space-mono mt-0.5 truncate">{s.shadow}</p>
+                <p className="text-sm font-medium text-foreground font-geist">
+                  {s.name}
+                </p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-0.5 truncate">
+                  {s.shadow}
+                </p>
               </div>
             ))}
           </div>
@@ -1295,18 +1794,26 @@ export default function DesignSystemPage() {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="rounded-xl border border-border bg-card p-6">
-                <h4 className="text-sm font-medium text-foreground font-geist mb-2">.section-glow-top</h4>
+                <h4 className="text-sm font-medium text-foreground font-geist mb-2">
+                  .section-glow-top
+                </h4>
                 <div className="relative h-24 bg-background rounded-lg overflow-hidden">
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[60%] bg-[radial-gradient(ellipse_100%_100%_at_50%_0%,rgba(255,107,53,0.08),transparent_70%)]" />
                 </div>
-                <p className="text-xs text-muted-foreground font-space-mono mt-2">Radial gradient glow at section top</p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-2">
+                  Radial gradient glow at section top
+                </p>
               </div>
               <div className="rounded-xl border border-border bg-card p-6">
-                <h4 className="text-sm font-medium text-foreground font-geist mb-2">.section-divider</h4>
+                <h4 className="text-sm font-medium text-foreground font-geist mb-2">
+                  .section-divider
+                </h4>
                 <div className="relative h-24 bg-background rounded-lg flex items-start justify-center overflow-hidden">
                   <div className="w-[60%] h-px bg-gradient-to-r from-transparent via-[#FF6B35]/15 to-transparent mt-8" />
                 </div>
-                <p className="text-xs text-muted-foreground font-space-mono mt-2">Gradient line with primary accent center</p>
+                <p className="text-xs text-muted-foreground font-space-mono mt-2">
+                  Gradient line with primary accent center
+                </p>
               </div>
             </div>
           </div>
@@ -1365,13 +1872,22 @@ export default function DesignSystemPage() {
                 { size: "w-6 h-6", px: "24px", label: "Feature" },
                 { size: "w-8 h-8", px: "32px", label: "Large" },
               ].map((s) => (
-                <div key={s.label} className="rounded-xl border border-border bg-card p-6 text-center">
+                <div
+                  key={s.label}
+                  className="rounded-xl border border-border bg-card p-6 text-center"
+                >
                   <div className="flex items-center justify-center mb-3">
                     <Zap className={cn(s.size, "text-[#FF6B35]")} />
                   </div>
-                  <p className="text-sm font-medium text-foreground font-geist">{s.label}</p>
-                  <p className="text-xs text-muted-foreground font-space-mono">{s.size}</p>
-                  <p className="text-xs text-muted-foreground/60 font-space-mono">{s.px}</p>
+                  <p className="text-sm font-medium text-foreground font-geist">
+                    {s.label}
+                  </p>
+                  <p className="text-xs text-muted-foreground font-space-mono">
+                    {s.size}
+                  </p>
+                  <p className="text-xs text-muted-foreground/60 font-space-mono">
+                    {s.px}
+                  </p>
                 </div>
               ))}
             </div>
@@ -1450,7 +1966,7 @@ export default function DesignSystemPage() {
                       key={v.variable}
                       className={cn(
                         "border-b border-border/50 hover:bg-foreground/[0.02] transition-colors cursor-pointer",
-                        i % 2 === 0 && "bg-foreground/[0.01]"
+                        i % 2 === 0 && "bg-foreground/[0.01]",
                       )}
                       onClick={() => copy(`var(${v.variable})`)}
                     >
@@ -1464,9 +1980,10 @@ export default function DesignSystemPage() {
                           <div
                             className="w-3 h-3 rounded-sm border border-white/10 shrink-0"
                             style={{
-                              backgroundColor: v.variable === "--radius"
-                                ? "transparent"
-                                : `hsl(${v.darkValue})`,
+                              backgroundColor:
+                                v.variable === "--radius"
+                                  ? "transparent"
+                                  : `hsl(${v.darkValue})`,
                             }}
                           />
                           <code className="text-xs font-space-mono text-muted-foreground">
@@ -1479,9 +1996,10 @@ export default function DesignSystemPage() {
                           <div
                             className="w-3 h-3 rounded-sm border border-black/10 shrink-0"
                             style={{
-                              backgroundColor: v.variable === "--radius"
-                                ? "transparent"
-                                : `hsl(${v.lightValue})`,
+                              backgroundColor:
+                                v.variable === "--radius"
+                                  ? "transparent"
+                                  : `hsl(${v.lightValue})`,
                             }}
                           />
                           <code className="text-xs font-space-mono text-muted-foreground">

@@ -1,8 +1,8 @@
 export interface DocNavigationItem {
-  title: string
-  href: string
-  comingSoon?: boolean
-  items?: DocNavigationItem[]
+  title: string;
+  href: string;
+  comingSoon?: boolean;
+  items?: DocNavigationItem[];
 }
 
 export const docsNavigation: DocNavigationItem[] = [
@@ -59,11 +59,11 @@ export const docsNavigation: DocNavigationItem[] = [
       },
     ],
   },
-]
+];
 
 export interface FAQItem {
-  question: string
-  answer: string
+  question: string;
+  answer: string;
 }
 
 export const faqData: FAQItem[] = [
@@ -100,7 +100,7 @@ export const faqData: FAQItem[] = [
   {
     question: "What pricing plans are available?",
     answer:
-      "AutoCrew offers three tiers: Starter (basic features for small teams), Professional (advanced features for growing businesses), and Enterprise (full customization and dedicated support for large organizations). Contact our sales team for detailed pricing.",
+      "AutoCrew offers three pricing tiers designed for businesses of all sizes. The Starter plan begins at $49/month and includes one AI crew with up to 500 conversations per month, basic analytics, and email support. The Professional plan starts at $149/month and adds unlimited crews, advanced analytics, priority support, custom knowledge base training, and CRM integrations. The Enterprise plan offers custom pricing with dedicated infrastructure, SLA guarantees, HIPAA compliance, SSO, and a dedicated customer success manager. All plans include a 14-day free trial with no credit card required. Contact our sales team for a custom quote tailored to your business needs.",
   },
   {
     question: "How quickly can I get started?",
@@ -117,59 +117,59 @@ export const faqData: FAQItem[] = [
     answer:
       "Yes! We offer a free trial that gives you access to core features so you can experience AutoCrew's capabilities firsthand. No credit card required to start your trial.",
   },
-]
+];
 
 export interface TableOfContentsItem {
-  id: string
-  title: string
-  level: number
+  id: string;
+  title: string;
+  level: number;
 }
 
 // Helper function to create a flat route map for navigation
 export const getDocRoutes = (): string[] => {
-  const routes: string[] = []
+  const routes: string[] = [];
 
   const traverse = (items: DocNavigationItem[]) => {
     items.forEach((item) => {
       if (item.href && item.href !== "#") {
-        routes.push(item.href)
+        routes.push(item.href);
       }
       if (item.items) {
-        traverse(item.items)
+        traverse(item.items);
       }
-    })
-  }
+    });
+  };
 
-  traverse(docsNavigation)
-  return routes
-}
+  traverse(docsNavigation);
+  return routes;
+};
 
 // Get a flat map of route paths to page titles
 export const getDocTitleMap = (): Record<string, string> => {
-  const map: Record<string, string> = {}
+  const map: Record<string, string> = {};
 
   const traverse = (items: DocNavigationItem[]) => {
     items.forEach((item) => {
       if (item.href && item.href !== "#") {
-        map[item.href] = item.title
+        map[item.href] = item.title;
       }
       if (item.items) {
-        traverse(item.items)
+        traverse(item.items);
       }
-    })
-  }
+    });
+  };
 
-  traverse(docsNavigation)
-  return map
-}
+  traverse(docsNavigation);
+  return map;
+};
 
 // Get previous and next routes for navigation
 export const getAdjacentRoutes = (currentPath: string) => {
-  const routes = getDocRoutes()
-  const currentIndex = routes.indexOf(currentPath)
+  const routes = getDocRoutes();
+  const currentIndex = routes.indexOf(currentPath);
 
   return {
     previous: currentIndex > 0 ? routes[currentIndex - 1] : null,
     next: currentIndex < routes.length - 1 ? routes[currentIndex + 1] : null,
-  }
-}
+  };
+};

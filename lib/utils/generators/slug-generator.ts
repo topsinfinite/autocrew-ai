@@ -13,17 +13,19 @@
  * @returns A URL-friendly slug
  */
 export function generateSlug(input: string): string {
-  return input
-    .toLowerCase()
-    .trim()
-    // Replace spaces and non-alphanumeric chars with hyphens
-    .replace(/[^a-z0-9]+/g, '-')
-    // Remove leading/trailing hyphens
-    .replace(/^-+|-+$/g, '')
-    // Limit to 50 characters
-    .slice(0, 50)
-    // Remove trailing hyphen if trimming created one
-    .replace(/-+$/, '');
+  return (
+    input
+      .toLowerCase()
+      .trim()
+      // Replace spaces and non-alphanumeric chars with hyphens
+      .replace(/[^a-z0-9]+/g, "-")
+      // Remove leading/trailing hyphens
+      .replace(/^-+|-+$/g, "")
+      // Limit to 50 characters
+      .slice(0, 50)
+      // Remove trailing hyphen if trimming created one
+      .replace(/-+$/, "")
+  );
 }
 
 /**
@@ -33,7 +35,7 @@ export function generateSlug(input: string): string {
  */
 export function isValidSlug(slug: string): boolean {
   const slugRegex = /^[a-z0-9-]{3,50}$/;
-  return slugRegex.test(slug) && !slug.startsWith('-') && !slug.endsWith('-');
+  return slugRegex.test(slug) && !slug.startsWith("-") && !slug.endsWith("-");
 }
 
 /**
@@ -44,7 +46,7 @@ export function isValidSlug(slug: string): boolean {
  */
 export async function generateUniqueSlug(
   baseSlug: string,
-  checkExists: (slug: string) => Promise<boolean>
+  checkExists: (slug: string) => Promise<boolean>,
 ): Promise<string> {
   let slug = baseSlug;
   let counter = 1;

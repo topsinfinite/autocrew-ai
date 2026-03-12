@@ -53,7 +53,9 @@ export function TabChatMessages() {
       <div className="px-5 py-4 border-b border-white/[0.05] flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
           <MessageCircle className="w-4 h-4 text-neutral-500" />
-          <span className="text-sm font-medium text-neutral-300">Conversation</span>
+          <span className="text-sm font-medium text-neutral-300">
+            Conversation
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <span className="font-space-mono text-[10px] text-[#FF6B35]/50 uppercase tracking-wider">
@@ -70,7 +72,10 @@ export function TabChatMessages() {
       >
         {/* Timestamp */}
         {isVisible(0) && (
-          <div className="flex justify-center animate-fade-up opacity-0" style={{ animationFillMode: "forwards" }}>
+          <div
+            className="flex justify-center animate-fade-up opacity-0"
+            style={{ animationFillMode: "forwards" }}
+          >
             <span className="font-space-mono text-[10px] text-neutral-600 bg-white/[0.03] rounded-full px-3 py-1 uppercase tracking-wider border border-white/[0.04]">
               Today 2:12 PM
             </span>
@@ -112,12 +117,17 @@ export function TabChatMessages() {
                 </div>
                 <div>
                   <div className="bg-white/[0.02] border border-white/[0.04] rounded-2xl rounded-tl-md px-3.5 py-2.5">
-                    <p className="text-sm text-neutral-300">{message.content}</p>
+                    <p className="text-sm text-neutral-300">
+                      {message.content}
+                    </p>
                   </div>
 
                   {message.isVoiceClip ? (
                     <div className="bg-white/[0.02] border border-white/[0.04] rounded-2xl rounded-tl-md px-3 py-2 mt-1.5 flex items-center gap-2.5 w-fit">
-                      <button aria-label="Play voice clip" className="w-6 h-6 rounded-full bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center flex-shrink-0">
+                      <button
+                        aria-label="Play voice clip"
+                        className="w-6 h-6 rounded-full bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center flex-shrink-0"
+                      >
                         <Play className="w-[9px] h-[9px] text-white ml-[1px]" />
                       </button>
                       <div className="flex items-center gap-[1.5px] h-3.5">
@@ -146,7 +156,10 @@ export function TabChatMessages() {
 
         {/* Typing indicator — shows after all messages */}
         {isVisible(1 + messages.length) && (
-          <div className="flex justify-start animate-fade-up opacity-0" style={{ animationFillMode: "forwards" }}>
+          <div
+            className="flex justify-start animate-fade-up opacity-0"
+            style={{ animationFillMode: "forwards" }}
+          >
             <div className="flex items-start gap-2">
               <div className="w-6 h-6 rounded-full bg-[#FF6B35]/15 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Star className="w-[10px] h-[10px] fill-[#FF6B35] text-[#FF6B35]" />
@@ -172,7 +185,10 @@ export function TabChatMessages() {
         <div className="flex-1 bg-white/[0.02] border border-white/[0.04] rounded-xl px-4 py-2.5">
           <span className="text-sm text-neutral-500">Message...</span>
         </div>
-        <button aria-label="Send message" className="w-9 h-9 rounded-xl bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center shadow-lg shadow-[#FF6B35]/20">
+        <button
+          aria-label="Send message"
+          className="w-9 h-9 rounded-xl bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center shadow-lg shadow-[#FF6B35]/20"
+        >
           <ArrowUp className="w-4 h-4 text-white" />
         </button>
       </div>

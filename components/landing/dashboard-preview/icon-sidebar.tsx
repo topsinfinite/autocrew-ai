@@ -1,8 +1,18 @@
-import { MessageCircle, Users, BarChart3, Settings, HelpCircle } from "lucide-react";
+import {
+  MessageCircle,
+  Users,
+  BarChart3,
+  Settings,
+  HelpCircle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DashboardTabId } from "@/lib/mock-data/landing-data";
 
-const tabs: { id: DashboardTabId; icon: typeof MessageCircle; label: string }[] = [
+const tabs: {
+  id: DashboardTabId;
+  icon: typeof MessageCircle;
+  label: string;
+}[] = [
   { id: "chat", icon: MessageCircle, label: "Chat" },
   { id: "inbox", icon: Users, label: "Inbox" },
   { id: "analytics", icon: BarChart3, label: "Analytics" },
@@ -28,9 +38,7 @@ export function IconSidebar({ activeTab, onTabChange }: IconSidebarProps) {
             aria-current={isActive ? "true" : undefined}
             className={cn(
               "w-8 h-8 rounded-lg flex items-center justify-center transition-colors cursor-pointer",
-              isActive
-                ? "bg-[#FF6B35]/10"
-                : "hover:bg-white/[0.04]"
+              isActive ? "bg-[#FF6B35]/10" : "hover:bg-white/[0.04]",
             )}
           >
             <Icon
@@ -43,8 +51,14 @@ export function IconSidebar({ activeTab, onTabChange }: IconSidebarProps) {
 
       <div className="flex-1" />
 
-      <button aria-label="Help" className="w-8 h-8 rounded-lg hover:bg-white/[0.04] flex items-center justify-center transition-colors">
-        <HelpCircle className="w-4 h-4" style={{ color: "rgba(255,255,255,0.2)" }} />
+      <button
+        aria-label="Help"
+        className="w-8 h-8 rounded-lg hover:bg-white/[0.04] flex items-center justify-center transition-colors"
+      >
+        <HelpCircle
+          className="w-4 h-4"
+          style={{ color: "rgba(255,255,255,0.2)" }}
+        />
       </button>
     </div>
   );
@@ -64,7 +78,7 @@ export function MobileTabBar({ activeTab, onTabChange }: IconSidebarProps) {
             aria-current={isActive ? "true" : undefined}
             className={cn(
               "flex-1 flex flex-col items-center justify-center gap-1 py-2 transition-colors cursor-pointer relative",
-              isActive ? "bg-[#FF6B35]/5" : "hover:bg-white/[0.02]"
+              isActive ? "bg-[#FF6B35]/5" : "hover:bg-white/[0.02]",
             )}
           >
             <Icon

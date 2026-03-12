@@ -1,7 +1,20 @@
-import { Settings, Mic, ToggleLeft, ToggleRight, MessageSquare, Mail, Database, Webhook, ChevronRight } from "lucide-react";
+import {
+  Settings,
+  Mic,
+  ToggleLeft,
+  ToggleRight,
+  MessageSquare,
+  Mail,
+  Database,
+  Webhook,
+  ChevronRight,
+} from "lucide-react";
 import { dashboardPreviewData } from "@/lib/mock-data/landing-data";
 
-const integrationIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const integrationIconMap: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
   MessageSquare,
   Mail,
   Database,
@@ -9,7 +22,8 @@ const integrationIconMap: Record<string, React.ComponentType<{ className?: strin
 };
 
 export function TabSettings() {
-  const { crewConfig, voiceSettings, toggles, integrations } = dashboardPreviewData.settings;
+  const { crewConfig, voiceSettings, toggles, integrations } =
+    dashboardPreviewData.settings;
 
   return (
     <div className="flex-1 flex flex-col min-h-0 animate-fade-in-up">
@@ -46,12 +60,16 @@ export function TabSettings() {
               <span className="text-xs text-neutral-400">Status</span>
               <span className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span className="font-space-mono text-[10px] text-emerald-400 uppercase">Active</span>
+                <span className="font-space-mono text-[10px] text-emerald-400 uppercase">
+                  Active
+                </span>
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-xs text-neutral-400">Model</span>
-              <span className="font-space-mono text-xs text-white">{crewConfig.model}</span>
+              <span className="font-space-mono text-xs text-white">
+                {crewConfig.model}
+              </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-xs text-neutral-400">Temperature</span>
@@ -62,7 +80,9 @@ export function TabSettings() {
                     style={{ width: `${crewConfig.temperature * 100}%` }}
                   />
                 </div>
-                <span className="font-space-mono text-[10px] text-neutral-500">{crewConfig.temperature}</span>
+                <span className="font-space-mono text-[10px] text-neutral-500">
+                  {crewConfig.temperature}
+                </span>
               </div>
             </div>
           </div>
@@ -79,7 +99,9 @@ export function TabSettings() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs text-neutral-400">Provider</span>
-              <span className="text-xs text-white">{voiceSettings.provider}</span>
+              <span className="text-xs text-white">
+                {voiceSettings.provider}
+              </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-xs text-neutral-400">Voice</span>
@@ -87,7 +109,9 @@ export function TabSettings() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-xs text-neutral-400">Speed</span>
-              <span className="font-space-mono text-xs text-white">{voiceSettings.speed}x</span>
+              <span className="font-space-mono text-xs text-white">
+                {voiceSettings.speed}x
+              </span>
             </div>
           </div>
         </div>
@@ -99,10 +123,15 @@ export function TabSettings() {
           </p>
           <div className="space-y-3">
             {toggles.map((toggle) => (
-              <div key={toggle.label} className="flex items-center justify-between">
+              <div
+                key={toggle.label}
+                className="flex items-center justify-between"
+              >
                 <div>
                   <p className="text-xs text-neutral-300">{toggle.label}</p>
-                  <p className="text-[10px] text-neutral-600">{toggle.description}</p>
+                  <p className="text-[10px] text-neutral-600">
+                    {toggle.description}
+                  </p>
                 </div>
                 {toggle.enabled ? (
                   <ToggleRight className="w-5 h-5 text-[#FF6B35] flex-shrink-0" />
@@ -129,7 +158,9 @@ export function TabSettings() {
                 >
                   <div className="flex items-center gap-2">
                     <Icon className="w-3.5 h-3.5 text-neutral-500" />
-                    <span className="text-xs text-neutral-300">{item.name}</span>
+                    <span className="text-xs text-neutral-300">
+                      {item.name}
+                    </span>
                   </div>
                   <span
                     className={`font-space-mono text-[9px] uppercase ${
@@ -147,13 +178,17 @@ export function TabSettings() {
         {/* Quick Actions */}
         <div className="mt-4 flex gap-2">
           <button className="flex-1 flex items-center justify-between bg-white/[0.02] border border-white/[0.04] rounded-lg px-3 py-2 hover:bg-white/[0.04] transition-colors">
-            <span className="text-xs text-neutral-400">Configure Custom Prompts</span>
+            <span className="text-xs text-neutral-400">
+              Configure Custom Prompts
+            </span>
             <ChevronRight className="w-3 h-3 text-neutral-600" />
           </button>
         </div>
         <div className="mt-2 flex gap-2">
           <button className="flex-1 flex items-center justify-between bg-white/[0.02] border border-white/[0.04] rounded-lg px-3 py-2 hover:bg-white/[0.04] transition-colors">
-            <span className="text-xs text-neutral-400">Manage Knowledge Base</span>
+            <span className="text-xs text-neutral-400">
+              Manage Knowledge Base
+            </span>
             <ChevronRight className="w-3 h-3 text-neutral-600" />
           </button>
         </div>

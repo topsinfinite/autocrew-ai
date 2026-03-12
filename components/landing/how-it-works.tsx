@@ -4,9 +4,11 @@ import { cn } from "@/lib/utils/cn";
 const delays = ["0s", "1.5s", "3s", "4.5s"];
 
 export function HowItWorks() {
-
   return (
-    <section id="how-it-works" className="z-10 pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32 relative section-glow-top">
+    <section
+      id="how-it-works"
+      className="z-10 pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32 relative section-glow-top"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="mb-16">
@@ -54,7 +56,7 @@ export function HowItWorks() {
                     className={cn(
                       "absolute left-[9px] top-[49px] w-[2px] pointer-events-none lg:hidden",
                       "bg-foreground/[0.08] dark:bg-white/[0.08]",
-                      index >= 2 && "md:hidden"
+                      index >= 2 && "md:hidden",
                     )}
                     style={{ height: "calc(100% + 2rem)" }}
                   >

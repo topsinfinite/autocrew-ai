@@ -14,7 +14,9 @@ export function ThemeProvider({
   defaultTheme = "dark",
 }: ThemeProviderProps) {
   const [theme, setTheme] = useLocalStorage<Theme>("theme", defaultTheme);
-  const [effectiveTheme, setEffectiveTheme] = useState<"light" | "dark">("dark");
+  const [effectiveTheme, setEffectiveTheme] = useState<"light" | "dark">(
+    "dark",
+  );
 
   // Determine the effective theme based on system preference
   useEffect(() => {
@@ -54,9 +56,9 @@ export function ThemeProvider({
 
   // Clean up legacy mockUser data from localStorage (one-time cleanup)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       // Remove old mock user data that was used before Better Auth integration
-      localStorage.removeItem('mockUser');
+      localStorage.removeItem("mockUser");
     }
   }, []);
 

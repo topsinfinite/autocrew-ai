@@ -1,8 +1,8 @@
-import type { Metadata } from "next"
-import { DocNavigation } from "@/components/docs/doc-navigation"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Info } from "lucide-react"
-import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
+import type { Metadata } from "next";
+import { DocNavigation } from "@/components/docs/doc-navigation";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Info } from "lucide-react";
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "User Guide",
@@ -11,21 +11,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/docs/user-guide",
   },
-}
+};
 
 export default function UserGuidePage() {
   return (
     <div>
-      <DocsBreadcrumbSchema currentPath="/docs/user-guide" currentTitle="User Guide" />
+      <DocsBreadcrumbSchema
+        currentPath="/docs/user-guide"
+        currentTitle="User Guide"
+      />
       <h1 id="user-guide" className="mb-4 text-4xl font-bold text-foreground">
         User Guide
       </h1>
       <p className="mb-8 text-lg text-muted-foreground">
-        Complete guide to using AutoCrew's features and capabilities. Learn how to
-        maximize the value of your AI crews and streamline your business operations.
+        Complete guide to using AutoCrew's features and capabilities. Learn how
+        to maximize the value of your AI crews and streamline your business
+        operations.
       </p>
 
-      <h2 id="dashboard-overview" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="dashboard-overview"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Dashboard Overview
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -34,14 +41,16 @@ export default function UserGuidePage() {
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
-          <strong>Overview Cards:</strong> Quick stats showing active crews, total
-          conversations, leads generated, and response time
+          <strong>Overview Cards:</strong> Quick stats showing active crews,
+          total conversations, leads generated, and response time
         </li>
         <li>
-          <strong>Recent Activity:</strong> Latest conversations and crew actions
+          <strong>Recent Activity:</strong> Latest conversations and crew
+          actions
         </li>
         <li>
-          <strong>Performance Metrics:</strong> Charts displaying trends over time
+          <strong>Performance Metrics:</strong> Charts displaying trends over
+          time
         </li>
         <li>
           <strong>Quick Actions:</strong> Shortcuts to create crews, view
@@ -49,19 +58,25 @@ export default function UserGuidePage() {
         </li>
       </ul>
 
-      <h2 id="managing-crews" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="managing-crews"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Managing Crews
       </h2>
       <p className="mb-4 text-muted-foreground">
         The Crews section lets you create, configure, and monitor your AI crews.
       </p>
 
-      <h3 id="creating-crews" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="creating-crews"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Creating Crews
       </h3>
       <p className="mb-4 text-muted-foreground">
-        To create a new crew, navigate to the Crews page and click "Create New Crew".
-        You'll need to specify:
+        To create a new crew, navigate to the Crews page and click "Create New
+        Crew". You'll need to specify:
       </p>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>Crew name and description</li>
@@ -70,7 +85,10 @@ export default function UserGuidePage() {
         <li>Integration channels and endpoints</li>
       </ul>
 
-      <h3 id="configuring-crews" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="configuring-crews"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Configuring Crews
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -84,22 +102,32 @@ export default function UserGuidePage() {
         <li>Set up integrations with your existing tools</li>
       </ul>
 
-      <h3 id="monitoring-performance" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="monitoring-performance"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Monitoring Performance
       </h3>
       <p className="mb-6 text-muted-foreground">
-        Track your crew's performance with detailed metrics including response times,
-        conversation volumes, customer satisfaction scores, and more.
+        Track your crew's performance with detailed metrics including response
+        times, conversation volumes, customer satisfaction scores, and more.
       </p>
 
-      <h2 id="conversations" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="conversations"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Conversations
       </h2>
       <p className="mb-4 text-muted-foreground">
-        The Conversations section displays all interactions handled by your crews.
+        The Conversations section displays all interactions handled by your
+        crews.
       </p>
 
-      <h3 id="viewing-conversations" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="viewing-conversations"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Viewing Conversations
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -113,23 +141,32 @@ export default function UserGuidePage() {
         <li>Any escalations or manual interventions</li>
       </ul>
 
-      <h3 id="filtering-conversations" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="filtering-conversations"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Filtering and Search
       </h3>
       <p className="mb-6 text-muted-foreground">
-        Use the filter options to find specific conversations by date range, crew,
-        status, sentiment, or keyword search.
+        Use the filter options to find specific conversations by date range,
+        crew, status, sentiment, or keyword search.
       </p>
 
-      <h2 id="analytics" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="analytics"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Analytics
       </h2>
       <p className="mb-4 text-muted-foreground">
-        The Analytics page provides in-depth insights into your crew performance and
-        customer interactions.
+        The Analytics page provides in-depth insights into your crew performance
+        and customer interactions.
       </p>
 
-      <h3 id="key-metrics" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="key-metrics"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Key Metrics
       </h3>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -138,12 +175,12 @@ export default function UserGuidePage() {
           inquiries
         </li>
         <li>
-          <strong>Resolution Rate:</strong> Percentage of issues resolved without
-          escalation
+          <strong>Resolution Rate:</strong> Percentage of issues resolved
+          without escalation
         </li>
         <li>
-          <strong>Customer Satisfaction:</strong> Overall satisfaction scores from
-          interactions
+          <strong>Customer Satisfaction:</strong> Overall satisfaction scores
+          from interactions
         </li>
         <li>
           <strong>Lead Conversion:</strong> Percentage of leads that convert to
@@ -166,11 +203,14 @@ export default function UserGuidePage() {
         Settings
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Manage your account settings, user permissions, and integrations from the
-        Settings page.
+        Manage your account settings, user permissions, and integrations from
+        the Settings page.
       </p>
 
-      <h3 id="account-settings" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="account-settings"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Account Settings
       </h3>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -180,15 +220,21 @@ export default function UserGuidePage() {
         <li>Set up two-factor authentication</li>
       </ul>
 
-      <h3 id="user-management" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="user-management"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         User Management
       </h3>
       <p className="mb-6 text-muted-foreground">
-        Invite team members, assign roles, and manage user permissions. Different
-        roles have different levels of access to features and data.
+        Invite team members, assign roles, and manage user permissions.
+        Different roles have different levels of access to features and data.
       </p>
 
-      <h3 id="integrations" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="integrations"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Integrations
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -202,25 +248,42 @@ export default function UserGuidePage() {
         <li>Custom webhooks and API integrations</li>
       </ul>
 
-      <h2 id="best-practices" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="best-practices"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Best Practices
       </h2>
 
-      <h3 id="crew-optimization" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="crew-optimization"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Crew Optimization
       </h3>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
-        <li>Regularly review and update crew configurations based on performance</li>
-        <li>Monitor conversation sentiment to identify areas for improvement</li>
+        <li>
+          Regularly review and update crew configurations based on performance
+        </li>
+        <li>
+          Monitor conversation sentiment to identify areas for improvement
+        </li>
         <li>Use A/B testing to optimize response templates and triggers</li>
-        <li>Keep escalation rules up-to-date with current business processes</li>
+        <li>
+          Keep escalation rules up-to-date with current business processes
+        </li>
       </ul>
 
-      <h3 id="data-quality" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="data-quality"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Data Quality
       </h3>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
-        <li>Ensure lead qualification criteria align with your sales process</li>
+        <li>
+          Ensure lead qualification criteria align with your sales process
+        </li>
         <li>Regularly audit conversation data for accuracy</li>
         <li>Keep customer information synchronized across integrations</li>
         <li>Archive old conversations to maintain system performance</li>
@@ -246,5 +309,5 @@ export default function UserGuidePage() {
 
       <DocNavigation />
     </div>
-  )
+  );
 }

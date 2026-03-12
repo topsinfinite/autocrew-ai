@@ -11,7 +11,7 @@ export function StatsSection() {
               key={index}
               className={cn(
                 "flex flex-col items-center text-center",
-                "animate-fade-up opacity-0"
+                "animate-fade-up opacity-0",
               )}
               style={{
                 animationDelay: `${index * 100}ms`,

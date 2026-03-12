@@ -1,23 +1,34 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
-import { useState, useEffect, useRef, useCallback } from "react"
-import { docsNavigation, type DocNavigationItem } from "@/lib/mock-data/docs-content"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import {
+  docsNavigation,
+  type DocNavigationItem,
+} from "@/lib/mock-data/docs-content";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface DocsSidebarProps {
-  className?: string
+  className?: string;
 }
 
-function NavItem({ item, level = 0, onNavigate }: { item: DocNavigationItem; level?: number; onNavigate?: () => void }) {
-  const pathname = usePathname()
-  const [isOpen, setIsOpen] = useState(true)
-  const hasChildren = item.items && item.items.length > 0
-  const isActive = pathname === item.href
-  const isParent = hasChildren && item.href === "#"
+function NavItem({
+  item,
+  level = 0,
+  onNavigate,
+}: {
+  item: DocNavigationItem;
+  level?: number;
+  onNavigate?: () => void;
+}) {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(true);
+  const hasChildren = item.items && item.items.length > 0;
+  const isActive = pathname === item.href;
+  const isParent = hasChildren && item.href === "#";
 
   if (isParent) {
     return (
@@ -37,12 +48,17 @@ function NavItem({ item, level = 0, onNavigate }: { item: DocNavigationItem; lev
         {isOpen && item.items && (
           <div className="ml-3 mt-1 border-l border-border pl-3">
             {item.items.map((child, index) => (
-              <NavItem key={index} item={child} level={level + 1} onNavigate={onNavigate} />
+              <NavItem
+                key={index}
+                item={child}
+                level={level + 1}
+                onNavigate={onNavigate}
+              />
             ))}
           </div>
         )}
       </div>
-    )
+    );
   }
 
   return (
@@ -53,7 +69,7 @@ function NavItem({ item, level = 0, onNavigate }: { item: DocNavigationItem; lev
         "block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
         isActive
           ? "bg-accent font-medium text-foreground"
-          : "text-muted-foreground"
+          : "text-muted-foreground",
       )}
     >
       {item.title}
@@ -63,53 +79,53 @@ function NavItem({ item, level = 0, onNavigate }: { item: DocNavigationItem; lev
         </span>
       )}
     </Link>
-  )
+  );
 }
 
 export function DocsSidebar({ className }: DocsSidebarProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const sidebarRef = useRef<HTMLElement>(null)
-  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const sidebarRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const closeSidebar = useCallback(() => {
-    setMobileMenuOpen(false)
-    menuButtonRef.current?.focus()
-  }, [])
+    setMobileMenuOpen(false);
+    menuButtonRef.current?.focus();
+  }, []);
 
   // Focus trap and Escape key for mobile sidebar
   useEffect(() => {
-    if (!mobileMenuOpen) return
+    if (!mobileMenuOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        closeSidebar()
-        return
+        closeSidebar();
+        return;
       }
       if (e.key === "Tab") {
         const focusable = sidebarRef.current?.querySelectorAll<HTMLElement>(
-          'a[href], button:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])'
-        )
-        if (!focusable || focusable.length === 0) return
-        const first = focusable[0]
-        const last = focusable[focusable.length - 1]
+          'a[href], button:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (!focusable || focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
         if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault()
-          last.focus()
+          e.preventDefault();
+          last.focus();
         } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault()
-          first.focus()
+          e.preventDefault();
+          first.focus();
         }
       }
-    }
+    };
 
-    document.addEventListener("keydown", handleKeyDown)
+    document.addEventListener("keydown", handleKeyDown);
     const firstFocusable = sidebarRef.current?.querySelector<HTMLElement>(
-      'a[href], button:not([tabindex="-1"])'
-    )
-    firstFocusable?.focus()
+      'a[href], button:not([tabindex="-1"])',
+    );
+    firstFocusable?.focus();
 
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [mobileMenuOpen, closeSidebar])
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen, closeSidebar]);
 
   const sidebarContent = (
     <div className="space-y-1">
@@ -122,11 +138,15 @@ export function DocsSidebar({ className }: DocsSidebarProps) {
       </Link>
       <nav className="space-y-1">
         {docsNavigation.map((item, index) => (
-          <NavItem key={index} item={item} onNavigate={() => setMobileMenuOpen(false)} />
+          <NavItem
+            key={index}
+            item={item}
+            onNavigate={() => setMobileMenuOpen(false)}
+          />
         ))}
       </nav>
     </div>
-  )
+  );
 
   return (
     <>
@@ -138,7 +158,9 @@ export function DocsSidebar({ className }: DocsSidebarProps) {
           size="icon"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="bg-background"
-          aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
           aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? (
@@ -155,7 +177,9 @@ export function DocsSidebar({ className }: DocsSidebarProps) {
           <div
             className="lg:hidden fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
             onClick={closeSidebar}
-            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") closeSidebar() }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") closeSidebar();
+            }}
             role="button"
             tabIndex={-1}
             aria-label="Close sidebar"
@@ -175,11 +199,11 @@ export function DocsSidebar({ className }: DocsSidebarProps) {
       <aside
         className={cn(
           "hidden lg:block w-64 shrink-0 border-r border-border bg-card p-6",
-          className
+          className,
         )}
       >
         {sidebarContent}
       </aside>
     </>
-  )
+  );
 }

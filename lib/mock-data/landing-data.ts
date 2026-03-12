@@ -57,6 +57,7 @@ export interface Feature {
   title: string;
   description: string;
   icon: string;
+  extendedDescription?: string;
 }
 
 export const featuresData: Feature[] = [
@@ -65,36 +66,48 @@ export const featuresData: Feature[] = [
     description:
       "AI voice agents with EHR integration, patient identification, and HIPAA-compliant audit trails for secure healthcare workflows.",
     icon: "Activity",
+    extendedDescription:
+      "Purpose-built for healthcare practices, our AI agents handle patient appointment scheduling, health record queries, and triage routing while maintaining full HIPAA compliance. Every interaction is encrypted and audit-logged. Integrates with major EHR systems including Epic, Cerner, and Athenahealth.",
   },
   {
     title: "Multi-Channel Voice Access",
     description:
       "Reach your AI agents via phone calls or web voice widgets — same intelligence, multiple touchpoints.",
     icon: "PhoneCall",
+    extendedDescription:
+      "Patients and customers can reach your AI crew via phone calls, web chat, SMS, or WhatsApp. Voice agents use natural language processing to understand intent and provide human-like responses. Supports call transfer to live agents with full context preservation.",
   },
   {
     title: "Knowledge Base RAG",
     description:
       "AI agents search your knowledge base with vector embeddings for accurate, context-aware responses.",
     icon: "Database",
+    extendedDescription:
+      "Upload your documentation, FAQs, and policies to create a custom knowledge base. Our retrieval-augmented generation system ensures AI responses are grounded in your actual content, reducing hallucinations and improving accuracy. Automatically stays current as you update your docs.",
   },
   {
     title: "Smart Escalation",
     description:
       "Automatic escalation to human teams with conversation context, urgency levels, and email notifications.",
     icon: "UserCheck",
+    extendedDescription:
+      "When an interaction exceeds AI capabilities, smart escalation routes the conversation to the right human agent with full context. Escalation rules are customizable by topic, sentiment, or customer tier. Reduces average handle time by providing agents with conversation summaries.",
   },
   {
     title: "Real-Time Analytics",
     description:
       "Track performance metrics, conversation sentiment, and agent effectiveness with comprehensive dashboards.",
     icon: "BarChart3",
+    extendedDescription:
+      "Monitor your AI crew performance with live dashboards showing resolution rates, response times, customer satisfaction scores, and conversation volumes. Set alerts for anomalies and export reports for stakeholder reviews.",
   },
   {
     title: "Enterprise Security",
     description:
       "AES-256-GCM encryption, JWT authentication, multi-tenant isolation, and comprehensive audit logging.",
     icon: "Shield",
+    extendedDescription:
+      "SOC 2 Type II compliant infrastructure with end-to-end encryption, role-based access controls, and SSO integration. Data residency options available for EU and APAC regions. Regular third-party penetration testing and vulnerability assessments.",
   },
 ];
 
@@ -261,7 +274,8 @@ export const ctaData = {
     line1: "Never Miss Another",
     line2: "Patient Call",
   },
-  subheadline: "Join healthcare practices using AutoCrew for HIPAA-aware patient engagement and 24/7 intelligent support.",
+  subheadline:
+    "Join healthcare practices using AutoCrew for HIPAA-aware patient engagement and 24/7 intelligent support.",
   email: {
     label: "SEND US AN EMAIL",
     address: "support@autocrew-ai.com",
@@ -282,7 +296,7 @@ export type NavLinkItem =
   | { label: string; children: { label: string; href: string }[] };
 
 export function isDropdownLink(
-  link: NavLinkItem
+  link: NavLinkItem,
 ): link is { label: string; children: { label: string; href: string }[] } {
   return "children" in link;
 }

@@ -39,9 +39,12 @@ export default function ContactSupportPage() {
                 <Mail className="h-6 w-6 text-primary" />
               </div>
               <div className="flex-1">
-                <h2 className="text-lg font-semibold font-space-grotesk mb-2">Email Support</h2>
+                <h2 className="text-lg font-semibold font-space-grotesk mb-2">
+                  Email Support
+                </h2>
                 <p className="text-sm text-muted-foreground font-geist mb-3">
-                  For access requests, technical support, or general inquiries, please contact our support team:
+                  For access requests, technical support, or general inquiries,
+                  please contact our support team:
                 </p>
                 <a
                   href="mailto:support@autocrew-ai.com"
@@ -56,7 +59,9 @@ export default function ContactSupportPage() {
           {/* Information Boxes */}
           <div className="space-y-4 mb-8">
             <div className="p-4 rounded-xl bg-muted/50 border border-border">
-              <h3 className="font-semibold font-space-grotesk mb-2">Requesting Access</h3>
+              <h3 className="font-semibold font-space-grotesk mb-2">
+                Requesting Access
+              </h3>
               <p className="text-sm text-muted-foreground font-geist">
                 If you need access to AutoCrew, please email us with:
               </p>
@@ -68,16 +73,23 @@ export default function ContactSupportPage() {
             </div>
 
             <div className="p-4 rounded-xl bg-muted/50 border border-border">
-              <h3 className="font-semibold font-space-grotesk mb-2">Response Time</h3>
+              <h3 className="font-semibold font-space-grotesk mb-2">
+                Response Time
+              </h3>
               <p className="text-sm text-muted-foreground font-geist">
-                Our support team typically responds within 24-48 hours during business days (Monday-Friday, 9 AM - 5 PM EST).
+                Our support team typically responds within 24-48 hours during
+                business days (Monday-Friday, 9 AM - 5 PM EST).
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-muted/50 border border-border">
-              <h3 className="font-semibold font-space-grotesk mb-2">Existing Organization Members</h3>
+              <h3 className="font-semibold font-space-grotesk mb-2">
+                Existing Organization Members
+              </h3>
               <p className="text-sm text-muted-foreground font-geist">
-                If you're part of an existing organization, please contact your organization administrator first. They can invite you directly to your team.
+                If you're part of an existing organization, please contact your
+                organization administrator first. They can invite you directly
+                to your team.
               </p>
             </div>
           </div>
@@ -90,7 +102,12 @@ export default function ContactSupportPage() {
                 Send Email
               </a>
             </Button>
-            <Button variant="pill-outline" size="pill-md" className="flex-1" asChild>
+            <Button
+              variant="pill-outline"
+              size="pill-md"
+              className="flex-1"
+              asChild
+            >
               <Link href="https://app.autocrew-ai.com/login">
                 <ArrowLeft className="h-4 w-4" />
                 Back to Login
@@ -101,9 +118,7 @@ export default function ContactSupportPage() {
 
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-muted-foreground font-geist">
-          <p>
-            AutoCrew - AI-Powered Automation Platform
-          </p>
+          <p>AutoCrew - AI-Powered Automation Platform</p>
         </div>
       </div>
     </div>

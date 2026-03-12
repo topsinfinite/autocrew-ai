@@ -28,6 +28,7 @@ Synthesize findings into a brief research summary before proceeding.
 ## Phase 2 — Clarify
 
 Ask the user 1-2 quick questions only if the industry is ambiguous:
+
 - Target audience within the industry? (e.g., "restaurant owners" vs "restaurant chain managers")
 - Any specific pain points or messaging angles to emphasize?
 
@@ -40,6 +41,7 @@ If the industry is clear and straightforward, skip this phase.
 Generate a detailed section-by-section plan with all industry-specific content filled in. The plan must follow the **8-Section Template** below. Present for user approval before building.
 
 ### Content Strategy
+
 - **Lead with the industry professional's world first, product second** (poly.ai pattern)
 - Use industry-specific terminology, not generic SaaS speak
 - Pain points should be visceral and relatable to practitioners in that field
@@ -52,16 +54,16 @@ Generate a detailed section-by-section plan with all industry-specific content f
 
 Plan each section with specific content:
 
-| # | Section | What to Plan | Reference |
-|---|---------|-------------|-----------|
-| 1 | **Hero** | Badge text, headline (prefix + accent), subheadline, primary CTA, secondary CTA, trust text (3 metrics), 3 workflow cascade steps with icons | `components/industry/coaching/coaching-hero.tsx` |
-| 2 | **Pain Points** | Badge, headline, subheadline, 3 cards (icon, title, description) | `components/industry/coaching/coaching-pain-points.tsx` |
-| 3 | **Features** | Badge, headline (prefix + accent), 3 cards (icon, title, description, 4 bullet points each) | `components/industry/coaching/coaching-features.tsx` |
-| 4 | **Metrics** | 4 stats: value, label, sublabel | `components/industry/coaching/coaching-metrics.tsx` |
-| 5 | **How It Works** | 4 steps: number (01-04), title, description | `components/industry/coaching/coaching-how-it-works.tsx` |
-| 6 | **Testimonials** | Badge, headline, 3 testimonials: quote, name, role, initials, avatar gradient color | `components/industry/coaching/coaching-testimonials.tsx` |
-| 7 | **FAQ** | 6 questions with answers addressing industry-specific objections | `components/industry/coaching/coaching-faq.tsx` |
-| 8 | **CTA + Footer** | Headline (line1 + line2), subheadline, brand description customized for industry | `components/industry/coaching/coaching-cta.tsx` |
+| #   | Section          | What to Plan                                                                                                                                 | Reference                                                |
+| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| 1   | **Hero**         | Badge text, headline (prefix + accent), subheadline, primary CTA, secondary CTA, trust text (3 metrics), 3 workflow cascade steps with icons | `components/industry/coaching/coaching-hero.tsx`         |
+| 2   | **Pain Points**  | Badge, headline, subheadline, 3 cards (icon, title, description)                                                                             | `components/industry/coaching/coaching-pain-points.tsx`  |
+| 3   | **Features**     | Badge, headline (prefix + accent), 3 cards (icon, title, description, 4 bullet points each)                                                  | `components/industry/coaching/coaching-features.tsx`     |
+| 4   | **Metrics**      | 4 stats: value, label, sublabel                                                                                                              | `components/industry/coaching/coaching-metrics.tsx`      |
+| 5   | **How It Works** | 4 steps: number (01-04), title, description                                                                                                  | `components/industry/coaching/coaching-how-it-works.tsx` |
+| 6   | **Testimonials** | Badge, headline, 3 testimonials: quote, name, role, initials, avatar gradient color                                                          | `components/industry/coaching/coaching-testimonials.tsx` |
+| 7   | **FAQ**          | 6 questions with answers addressing industry-specific objections                                                                             | `components/industry/coaching/coaching-faq.tsx`          |
+| 8   | **CTA + Footer** | Headline (line1 + line2), subheadline, brand description customized for industry                                                             | `components/industry/coaching/coaching-cta.tsx`          |
 
 ---
 
@@ -78,6 +80,7 @@ This ensures the design thinking framework is active and all components follow t
 ### Naming Convention
 
 For industry `{name}` (e.g., "restaurant"):
+
 - Route: `/industry/{name}`
 - Page file: `app/(public)/industry/{name}/page.tsx`
 - Data file: `lib/mock-data/{name}-data.ts`
@@ -114,6 +117,7 @@ Define any needed interfaces (e.g., `{PascalName}PainPoint`, `{PascalName}Featur
 #### Step 2: Page file — `app/(public)/industry/{name}/page.tsx`
 
 Clone the structure from `app/(public)/industry/coaching/page.tsx`:
+
 - Server component (no "use client")
 - Export `metadata: Metadata` with SEO title, description, canonical URL, openGraph
 - Import and render `JsonLd` with `faqPageSchema({name}FaqItems)`
@@ -122,20 +126,21 @@ Clone the structure from `app/(public)/industry/coaching/page.tsx`:
 #### Step 3: Components — `components/industry/{name}/`
 
 Create 8 component files. **Each one must clone its coaching counterpart exactly in structure and styling**, only changing:
+
 - Import paths (use new data file)
 - Data variable names
 - Component name
 
-| File | Clone From | Notes |
-|------|-----------|-------|
-| `{name}-hero.tsx` | `coaching-hero.tsx` | Client component ("use client"). Update icon mapping for workflow steps. |
-| `{name}-pain-points.tsx` | `coaching-pain-points.tsx` | Server component. Update icon imports. |
-| `{name}-features.tsx` | `coaching-features.tsx` | Server component. Update icon imports. |
-| `{name}-metrics.tsx` | `coaching-metrics.tsx` | Server component. No icon changes needed. |
-| `{name}-how-it-works.tsx` | `coaching-how-it-works.tsx` | Server component. No changes beyond data imports. |
-| `{name}-testimonials.tsx` | `coaching-testimonials.tsx` | Server component. No changes beyond data imports. |
-| `{name}-faq.tsx` | `coaching-faq.tsx` | Server component. No changes beyond data imports. |
-| `{name}-cta.tsx` | `coaching-cta.tsx` | Server component. Update brand description in footer. |
+| File                      | Clone From                  | Notes                                                                    |
+| ------------------------- | --------------------------- | ------------------------------------------------------------------------ |
+| `{name}-hero.tsx`         | `coaching-hero.tsx`         | Client component ("use client"). Update icon mapping for workflow steps. |
+| `{name}-pain-points.tsx`  | `coaching-pain-points.tsx`  | Server component. Update icon imports.                                   |
+| `{name}-features.tsx`     | `coaching-features.tsx`     | Server component. Update icon imports.                                   |
+| `{name}-metrics.tsx`      | `coaching-metrics.tsx`      | Server component. No icon changes needed.                                |
+| `{name}-how-it-works.tsx` | `coaching-how-it-works.tsx` | Server component. No changes beyond data imports.                        |
+| `{name}-testimonials.tsx` | `coaching-testimonials.tsx` | Server component. No changes beyond data imports.                        |
+| `{name}-faq.tsx`          | `coaching-faq.tsx`          | Server component. No changes beyond data imports.                        |
+| `{name}-cta.tsx`          | `coaching-cta.tsx`          | Server component. Update brand description in footer.                    |
 
 #### Step 4: Update existing files
 
@@ -178,6 +183,7 @@ Create 8 component files. **Each one must clone its coaching counterpart exactly
 ```
 
 Fix all issues by severity:
+
 - **Critical (Must Fix)**: missing alt text, icon buttons without aria-label, non-semantic click handlers, missing link destinations
 - **Serious (Should Fix)**: removed focus outlines, missing keyboard handlers, touch targets < 44x44px, color-only information
 - **Moderate (Consider)**: heading hierarchy, positive tabIndex, roles without required attributes

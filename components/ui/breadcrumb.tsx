@@ -42,7 +42,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
                 className={cn(
                   isLast
                     ? "font-medium text-foreground"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               >
                 {item.label}

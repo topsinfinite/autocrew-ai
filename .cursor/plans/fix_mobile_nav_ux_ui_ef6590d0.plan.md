@@ -66,11 +66,9 @@ Delete the existing mobile menu `div` (lines 92–139) that expands inside the n
 
 ## File Changes
 
-
 | File                                                                 | Changes                                                                                                  |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | [components/layout/public-nav.tsx](components/layout/public-nav.tsx) | Extract mobile menu to overlay component; remove inline expanding div; add overlay with backdrop + panel |
-
 
 ## Structure Sketch
 
@@ -92,8 +90,6 @@ flowchart TD
         Panel --> Links[nav links + CTAs]
     end
 ```
-
-
 
 ## No New Dependencies
 

@@ -1,6 +1,6 @@
-import type { Metadata } from "next"
-import { DocNavigation } from "@/components/docs/doc-navigation"
-import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
+import type { Metadata } from "next";
+import { DocNavigation } from "@/components/docs/doc-navigation";
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -9,31 +9,44 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/docs/privacy",
   },
-}
+};
 
 export default function PrivacyPage() {
   return (
     <div>
-      <DocsBreadcrumbSchema currentPath="/docs/privacy" currentTitle="Privacy Policy" />
-      <h1 id="privacy-policy" className="mb-4 text-4xl font-bold text-foreground">
+      <DocsBreadcrumbSchema
+        currentPath="/docs/privacy"
+        currentTitle="Privacy Policy"
+      />
+      <h1
+        id="privacy-policy"
+        className="mb-4 text-4xl font-bold text-foreground"
+      >
         Privacy Policy
       </h1>
       <p className="mb-2 text-sm text-muted-foreground">
         Last Updated: March 4, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
-        This Privacy Policy describes how AutoCrew collects, uses, and protects your
-        personal information when you use our services.
+        This Privacy Policy describes how AutoCrew collects, uses, and protects
+        your personal information when you use our services.
       </p>
 
-      <h2 id="information-collection" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="information-collection"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Information We Collect
       </h2>
       <p className="mb-4 text-muted-foreground">
-        We collect several types of information to provide and improve our services:
+        We collect several types of information to provide and improve our
+        services:
       </p>
 
-      <h3 id="account-information" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="account-information"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Account Information
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -46,29 +59,40 @@ export default function PrivacyPage() {
         <li>Billing and payment information</li>
       </ul>
 
-      <h3 id="usage-data" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="usage-data"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Usage Data
       </h3>
       <p className="mb-4 text-muted-foreground">
         We automatically collect information about how you use AutoCrew:
       </p>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
-        <li>Log data including IP address, browser type, and device information</li>
+        <li>
+          Log data including IP address, browser type, and device information
+        </li>
         <li>Pages visited, features used, and actions taken</li>
         <li>Conversation data processed by AI crews</li>
         <li>Performance metrics and analytics data</li>
       </ul>
 
-      <h3 id="customer-data" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="customer-data"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Customer Data
       </h3>
       <p className="mb-6 text-muted-foreground">
         When you use AutoCrew to interact with your customers, we process
-        conversation data, customer contact information, and related metadata on your
-        behalf. You retain ownership of this data.
+        conversation data, customer contact information, and related metadata on
+        your behalf. You retain ownership of this data.
       </p>
 
-      <h2 id="information-use" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="information-use"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         How We Use Your Information
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -84,29 +108,33 @@ export default function PrivacyPage() {
           better customer support and lead generation
         </li>
         <li>
-          <strong>Customer Support:</strong> To respond to your inquiries and provide
-          technical assistance
+          <strong>Customer Support:</strong> To respond to your inquiries and
+          provide technical assistance
         </li>
         <li>
-          <strong>Analytics:</strong> To understand usage patterns and improve our
-          services
+          <strong>Analytics:</strong> To understand usage patterns and improve
+          our services
         </li>
         <li>
-          <strong>Communication:</strong> To send service updates, security alerts,
-          and marketing communications (with consent)
+          <strong>Communication:</strong> To send service updates, security
+          alerts, and marketing communications (with consent)
         </li>
         <li>
-          <strong>Security:</strong> To detect and prevent fraud, abuse, and security
-          incidents
+          <strong>Security:</strong> To detect and prevent fraud, abuse, and
+          security incidents
         </li>
       </ul>
 
-      <h2 id="automated-decisions" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="automated-decisions"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Automated Decision-Making and AI Processing
       </h2>
       <p className="mb-4 text-muted-foreground">
         AutoCrew uses artificial intelligence to process data on your behalf.
-        This section explains how automated processing works within our platform:
+        This section explains how automated processing works within our
+        platform:
       </p>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
@@ -123,9 +151,9 @@ export default function PrivacyPage() {
         <li>
           <strong>Human review:</strong> In accordance with GDPR Article 22, you
           and your customers have the right to request human review of any
-          automated decision that produces legal or similarly significant effects.
-          AI Crew outputs are designed to assist human decision-making, not
-          replace it.
+          automated decision that produces legal or similarly significant
+          effects. AI Crew outputs are designed to assist human decision-making,
+          not replace it.
         </li>
         <li>
           <strong>Safeguards:</strong> We implement safeguards against solely
@@ -135,7 +163,10 @@ export default function PrivacyPage() {
         </li>
       </ul>
 
-      <h2 id="ai-training" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="ai-training"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         AI Model Training Data
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -145,7 +176,8 @@ export default function PrivacyPage() {
         <li>
           <strong>Customer data is not used for model training:</strong> Your
           business data and customer interactions processed through AI Crews are
-          not used to train or improve our general AI models. Your data is yours.
+          not used to train or improve our general AI models. Your data is
+          yours.
         </li>
         <li>
           <strong>Aggregated analytics:</strong> We may use aggregated,
@@ -154,8 +186,9 @@ export default function PrivacyPage() {
           to any individual or customer.
         </li>
         <li>
-          <strong>Opt-out:</strong> You can opt out of anonymized usage analytics
-          at any time through your account settings or by contacting us.
+          <strong>Opt-out:</strong> You can opt out of anonymized usage
+          analytics at any time through your account settings or by contacting
+          us.
         </li>
         <li>
           <strong>Tenant isolation:</strong> Data from different customers is
@@ -164,15 +197,21 @@ export default function PrivacyPage() {
         </li>
       </ul>
 
-      <h2 id="data-sharing" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="data-sharing"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Information Sharing and Disclosure
       </h2>
       <p className="mb-4 text-muted-foreground">
-        We do not sell your personal information. We may share your information in
-        the following circumstances:
+        We do not sell your personal information. We may share your information
+        in the following circumstances:
       </p>
 
-      <h3 id="service-providers" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="service-providers"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Service Providers
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -186,29 +225,39 @@ export default function PrivacyPage() {
         <li>Email delivery services</li>
       </ul>
 
-      <h3 id="legal-requirements" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="legal-requirements"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Legal Requirements
       </h3>
       <p className="mb-6 text-muted-foreground">
         We may disclose your information if required by law, court order, or
-        government regulation, or if we believe disclosure is necessary to protect
-        our rights, your safety, or the safety of others.
+        government regulation, or if we believe disclosure is necessary to
+        protect our rights, your safety, or the safety of others.
       </p>
 
-      <h3 id="business-transfers" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="business-transfers"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Business Transfers
       </h3>
       <p className="mb-8 text-muted-foreground">
-        In the event of a merger, acquisition, or sale of assets, your information
-        may be transferred to the acquiring entity. We will notify you of any such
-        change in ownership.
+        In the event of a merger, acquisition, or sale of assets, your
+        information may be transferred to the acquiring entity. We will notify
+        you of any such change in ownership.
       </p>
 
-      <h2 id="data-security" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="data-security"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Data Security
       </h2>
       <p className="mb-4 text-muted-foreground">
-        We implement industry-standard security measures to protect your information:
+        We implement industry-standard security measures to protect your
+        information:
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>End-to-end encryption for data in transit</li>
@@ -226,21 +275,29 @@ export default function PrivacyPage() {
         .
       </p>
 
-      <h2 id="data-retention" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="data-retention"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Data Retention
       </h2>
       <p className="mb-4 text-muted-foreground">
-        We retain your information for as long as necessary to provide our services
-        and comply with legal obligations:
+        We retain your information for as long as necessary to provide our
+        services and comply with legal obligations:
       </p>
       <ul className="mb-8 list-disc space-y-1 pl-6 text-muted-foreground">
         <li>Account information: Retained while your account is active</li>
-        <li>Conversation data: Retained according to your retention settings</li>
+        <li>
+          Conversation data: Retained according to your retention settings
+        </li>
         <li>Usage logs: Typically retained for 90 days</li>
         <li>Billing records: Retained for 7 years for tax purposes</li>
       </ul>
 
-      <h2 id="your-rights" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="your-rights"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Your Privacy Rights
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -248,15 +305,16 @@ export default function PrivacyPage() {
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
-          <strong>Access:</strong> Request a copy of the personal information we hold
-          about you
+          <strong>Access:</strong> Request a copy of the personal information we
+          hold about you
         </li>
         <li>
-          <strong>Correction:</strong> Request correction of inaccurate or incomplete
+          <strong>Correction:</strong> Request correction of inaccurate or
+          incomplete information
+        </li>
+        <li>
+          <strong>Deletion:</strong> Request deletion of your personal
           information
-        </li>
-        <li>
-          <strong>Deletion:</strong> Request deletion of your personal information
         </li>
         <li>
           <strong>Portability:</strong> Request a copy of your data in a
@@ -267,12 +325,15 @@ export default function PrivacyPage() {
           information
         </li>
         <li>
-          <strong>Restriction:</strong> Request restriction of processing in certain
-          circumstances
+          <strong>Restriction:</strong> Request restriction of processing in
+          certain circumstances
         </li>
       </ul>
 
-      <h3 id="gdpr-legal-basis" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="gdpr-legal-basis"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         GDPR Legal Basis for Processing
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -289,16 +350,19 @@ export default function PrivacyPage() {
           monitoring, fraud prevention, and aggregated analytics
         </li>
         <li>
-          <strong>Consent:</strong> Marketing communications, optional analytics,
-          and non-essential cookies
+          <strong>Consent:</strong> Marketing communications, optional
+          analytics, and non-essential cookies
         </li>
         <li>
-          <strong>Legal obligation:</strong> Tax reporting, regulatory responses,
-          and law enforcement requests
+          <strong>Legal obligation:</strong> Tax reporting, regulatory
+          responses, and law enforcement requests
         </li>
       </ul>
 
-      <h3 id="ccpa-rights" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="ccpa-rights"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         CCPA/CPRA Rights for California Residents
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -306,19 +370,29 @@ export default function PrivacyPage() {
         CCPA/CPRA:
       </p>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
-        <li>Right to know what personal information is collected, used, and disclosed</li>
-        <li>Right to delete personal information held by us and our service providers</li>
+        <li>
+          Right to know what personal information is collected, used, and
+          disclosed
+        </li>
+        <li>
+          Right to delete personal information held by us and our service
+          providers
+        </li>
         <li>Right to correct inaccurate personal information</li>
         <li>Right to opt out of the sale or sharing of personal information</li>
         <li>Right to limit the use of sensitive personal information</li>
         <li>Right to non-discrimination for exercising privacy rights</li>
       </ul>
       <p className="mb-4 text-muted-foreground">
-        We collect the following categories of personal information: identifiers,
-        commercial information, internet activity data, professional information,
-        and inferences. We do not sell or share personal information for
-        cross-context behavioral advertising. For details, see our{" "}
-        <a href="/docs/compliance#ccpa" className="text-primary hover:underline">
+        We collect the following categories of personal information:
+        identifiers, commercial information, internet activity data,
+        professional information, and inferences. We do not sell or share
+        personal information for cross-context behavioral advertising. For
+        details, see our{" "}
+        <a
+          href="/docs/compliance#ccpa"
+          className="text-primary hover:underline"
+        >
           CCPA/CPRA Compliance
         </a>{" "}
         section.
@@ -328,18 +402,21 @@ export default function PrivacyPage() {
         Cookies and Tracking
       </h2>
       <p className="mb-4 text-muted-foreground">
-        We use cookies and similar tracking technologies to improve your experience:
+        We use cookies and similar tracking technologies to improve your
+        experience:
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
-          <strong>Essential Cookies:</strong> Required for the service to function
-          properly
+          <strong>Essential Cookies:</strong> Required for the service to
+          function properly
         </li>
         <li>
-          <strong>Analytics Cookies:</strong> Help us understand how you use AutoCrew
+          <strong>Analytics Cookies:</strong> Help us understand how you use
+          AutoCrew
         </li>
         <li>
-          <strong>Preference Cookies:</strong> Remember your settings and preferences
+          <strong>Preference Cookies:</strong> Remember your settings and
+          preferences
         </li>
         <li>
           <strong>Marketing Cookies:</strong> Track your activity for marketing
@@ -347,40 +424,50 @@ export default function PrivacyPage() {
         </li>
       </ul>
 
-      <h2 id="international-transfers" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="international-transfers"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         International Data Transfers
       </h2>
       <p className="mb-8 text-muted-foreground">
-        Your information may be transferred to and processed in countries other than
-        your own. We ensure appropriate safeguards are in place for such transfers,
-        including Standard Contractual Clauses approved by the European Commission.
+        Your information may be transferred to and processed in countries other
+        than your own. We ensure appropriate safeguards are in place for such
+        transfers, including Standard Contractual Clauses approved by the
+        European Commission.
       </p>
 
-      <h2 id="children-privacy" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="children-privacy"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Children's Privacy
       </h2>
       <p className="mb-8 text-muted-foreground">
-        AutoCrew is not intended for use by children under 16. We do not knowingly
-        collect personal information from children. If you believe we have collected
-        information from a child, please contact us immediately.
+        AutoCrew is not intended for use by children under 16. We do not
+        knowingly collect personal information from children. If you believe we
+        have collected information from a child, please contact us immediately.
       </p>
 
-      <h2 id="changes-policy" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="changes-policy"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Changes to This Policy
       </h2>
       <p className="mb-8 text-muted-foreground">
-        We may update this Privacy Policy from time to time. We will notify you of
-        any material changes by email or through a notice on our website. Your
-        continued use of AutoCrew after such changes constitutes acceptance of the
-        updated policy.
+        We may update this Privacy Policy from time to time. We will notify you
+        of any material changes by email or through a notice on our website.
+        Your continued use of AutoCrew after such changes constitutes acceptance
+        of the updated policy.
       </p>
 
       <h2 id="contact" className="mb-4 text-2xl font-semibold text-foreground">
         Contact Us
       </h2>
       <p className="mb-4 text-muted-foreground">
-        If you have questions about this Privacy Policy or our data practices, please
-        contact us:
+        If you have questions about this Privacy Policy or our data practices,
+        please contact us:
       </p>
       <div className="mb-8 rounded-lg border border-border bg-card p-6">
         <ul className="space-y-2 text-sm text-muted-foreground">
@@ -388,8 +475,8 @@ export default function PrivacyPage() {
             <strong>Email:</strong> support@autocrew-ai.com
           </li>
           <li>
-            <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San Francisco, CA
-            94105
+            <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San
+            Francisco, CA 94105
           </li>
           <li>
             <strong>Data Protection Officer:</strong> support@autocrew-ai.com
@@ -399,5 +486,5 @@ export default function PrivacyPage() {
 
       <DocNavigation />
     </div>
-  )
+  );
 }

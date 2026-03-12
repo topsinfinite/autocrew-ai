@@ -1,11 +1,12 @@
-import type { Metadata } from "next"
-import { DocNavigation } from "@/components/docs/doc-navigation"
+import type { Metadata } from "next";
+import { DocNavigation } from "@/components/docs/doc-navigation";
 
 export const metadata: Metadata = {
   title: "Security",
   description:
     "Learn about AutoCrew's security practices, infrastructure, encryption, access controls, and incident response procedures.",
-}
+  alternates: { canonical: "/docs/security" },
+};
 
 export default function SecurityPage() {
   return (
@@ -23,18 +24,21 @@ export default function SecurityPage() {
       </p>
 
       {/* Security Overview */}
-      <h2 id="security-overview" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="security-overview"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Security Overview
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew is built with a security-first architecture designed to meet the
-        demands of enterprise customers handling sensitive data. Our security
-        program encompasses:
+        AutoCrew is built with a security-first architecture designed to meet
+        the demands of enterprise customers handling sensitive data. Our
+        security program encompasses:
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
-          <strong>Defense in depth:</strong> Multiple layers of security controls
-          across infrastructure, application, and data layers
+          <strong>Defense in depth:</strong> Multiple layers of security
+          controls across infrastructure, application, and data layers
         </li>
         <li>
           <strong>Zero-trust principles:</strong> Every request is authenticated
@@ -51,7 +55,10 @@ export default function SecurityPage() {
       </ul>
 
       {/* Encryption */}
-      <h2 id="encryption" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="encryption"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Encryption
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -59,38 +66,71 @@ export default function SecurityPage() {
         industry-leading cryptographic standards.
       </p>
 
-      <h3 id="data-at-rest" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="data-at-rest"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Data at Rest
       </h3>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
-        <li>AES-256 encryption for all stored data including databases, file storage, and backups</li>
-        <li>Encrypted database volumes with provider-managed or customer-managed keys</li>
+        <li>
+          AES-256 encryption for all stored data including databases, file
+          storage, and backups
+        </li>
+        <li>
+          Encrypted database volumes with provider-managed or customer-managed
+          keys
+        </li>
         <li>Encrypted backups stored in geographically separate regions</li>
         <li>Secure key storage using Hardware Security Modules (HSMs)</li>
       </ul>
 
-      <h3 id="data-in-transit" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="data-in-transit"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Data in Transit
       </h3>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
-        <li>TLS 1.3 enforced for all client-to-server and server-to-server communications</li>
-        <li>HTTP Strict Transport Security (HSTS) with long-duration max-age directives</li>
+        <li>
+          TLS 1.3 enforced for all client-to-server and server-to-server
+          communications
+        </li>
+        <li>
+          HTTP Strict Transport Security (HSTS) with long-duration max-age
+          directives
+        </li>
         <li>Certificate pinning for API connections to critical services</li>
         <li>Forward secrecy enabled on all TLS connections</li>
       </ul>
 
-      <h3 id="key-management" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="key-management"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Key Management
       </h3>
       <ul className="mb-8 list-disc space-y-1 pl-6 text-muted-foreground">
-        <li>Encryption keys managed through dedicated Hardware Security Modules (HSMs)</li>
+        <li>
+          Encryption keys managed through dedicated Hardware Security Modules
+          (HSMs)
+        </li>
         <li>Automated key rotation on a 90-day cycle</li>
-        <li>Strict separation between key management infrastructure and data storage</li>
-        <li>Key access restricted to authorized security personnel with audit logging</li>
+        <li>
+          Strict separation between key management infrastructure and data
+          storage
+        </li>
+        <li>
+          Key access restricted to authorized security personnel with audit
+          logging
+        </li>
       </ul>
 
       {/* Infrastructure */}
-      <h2 id="infrastructure" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="infrastructure"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Infrastructure and Architecture
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -129,7 +169,10 @@ export default function SecurityPage() {
       </ul>
 
       {/* Access Control */}
-      <h2 id="access-control" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="access-control"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Access Control
       </h2>
 
@@ -137,34 +180,53 @@ export default function SecurityPage() {
         Role-Based Access Control
       </h3>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
-        <li>Granular, role-based permissions following the principle of least privilege</li>
+        <li>
+          Granular, role-based permissions following the principle of least
+          privilege
+        </li>
         <li>Workspace-level access controls for team management</li>
         <li>API key scoping with fine-grained permission sets</li>
         <li>Regular access reviews and automated deprovisioning</li>
       </ul>
 
-      <h3 id="authentication" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="authentication"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Authentication
       </h3>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
         <li>Multi-factor authentication (MFA) enforced for all accounts</li>
-        <li>Single Sign-On (SSO) support via SAML 2.0 and OpenID Connect (OIDC)</li>
+        <li>
+          Single Sign-On (SSO) support via SAML 2.0 and OpenID Connect (OIDC)
+        </li>
         <li>Secure session management with configurable timeout policies</li>
-        <li>Brute-force protection with progressive rate limiting and account lockout</li>
+        <li>
+          Brute-force protection with progressive rate limiting and account
+          lockout
+        </li>
       </ul>
 
-      <h3 id="admin-access" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="admin-access"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Administrative Access
       </h3>
       <ul className="mb-8 list-disc space-y-1 pl-6 text-muted-foreground">
-        <li>Just-in-time (JIT) privileged access — no standing admin credentials</li>
+        <li>
+          Just-in-time (JIT) privileged access — no standing admin credentials
+        </li>
         <li>All administrative actions logged with immutable audit trails</li>
         <li>Separate authentication for production system access</li>
         <li>Mandatory peer approval for sensitive operations</li>
       </ul>
 
       {/* Incident Response */}
-      <h2 id="incident-response" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="incident-response"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Incident Response
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -197,7 +259,10 @@ export default function SecurityPage() {
       </ul>
 
       {/* Monitoring */}
-      <h2 id="monitoring" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="monitoring"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Monitoring and Logging
       </h2>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -215,8 +280,8 @@ export default function SecurityPage() {
           detection to identify suspicious patterns and potential threats
         </li>
         <li>
-          <strong>Audit trail retention:</strong> Security-relevant logs retained
-          for a minimum of 12 months with integrity protections
+          <strong>Audit trail retention:</strong> Security-relevant logs
+          retained for a minimum of 12 months with integrity protections
         </li>
         <li>
           <strong>Real-time alerting:</strong> Automated alerts for suspicious
@@ -226,7 +291,10 @@ export default function SecurityPage() {
       </ul>
 
       {/* Vulnerability Management */}
-      <h2 id="vulnerability-management" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="vulnerability-management"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Vulnerability Management
       </h2>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -249,13 +317,16 @@ export default function SecurityPage() {
           deployment
         </li>
         <li>
-          <strong>Static analysis:</strong> Automated static application security
-          testing (SAST) as part of the development workflow
+          <strong>Static analysis:</strong> Automated static application
+          security testing (SAST) as part of the development workflow
         </li>
       </ul>
 
       {/* Employee Security */}
-      <h2 id="employee-security" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="employee-security"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Employee Security
       </h2>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -270,8 +341,8 @@ export default function SecurityPage() {
         </li>
         <li>
           <strong>Endpoint protection:</strong> Company-managed devices with
-          full-disk encryption, endpoint detection and response (EDR), and mobile
-          device management (MDM)
+          full-disk encryption, endpoint detection and response (EDR), and
+          mobile device management (MDM)
         </li>
         <li>
           <strong>Offboarding:</strong> Immediate access revocation upon
@@ -280,7 +351,10 @@ export default function SecurityPage() {
       </ul>
 
       {/* Third-Party Risk */}
-      <h2 id="third-party" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="third-party"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Third-Party Risk Management
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -307,7 +381,10 @@ export default function SecurityPage() {
       </ul>
 
       {/* Data Handling */}
-      <h2 id="data-handling" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="data-handling"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Data Handling and Privacy Safeguards
       </h2>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -317,8 +394,8 @@ export default function SecurityPage() {
           corresponding handling requirements
         </li>
         <li>
-          <strong>Data minimization:</strong> We collect and retain only the data
-          necessary to deliver our services
+          <strong>Data minimization:</strong> We collect and retain only the
+          data necessary to deliver our services
         </li>
         <li>
           <strong>Tenant isolation:</strong> Strict logical separation of
@@ -326,12 +403,11 @@ export default function SecurityPage() {
         </li>
         <li>
           <strong>Secure deletion:</strong> Cryptographic erasure and secure
-          overwrite procedures when data is deleted or when a customer
-          offboards
+          overwrite procedures when data is deleted or when a customer offboards
         </li>
         <li>
-          <strong>Privacy safeguards:</strong> For detailed information about how
-          we handle personal data, see our{" "}
+          <strong>Privacy safeguards:</strong> For detailed information about
+          how we handle personal data, see our{" "}
           <a href="/docs/privacy" className="text-primary hover:underline">
             Privacy Policy
           </a>
@@ -339,7 +415,10 @@ export default function SecurityPage() {
       </ul>
 
       {/* Contact */}
-      <h2 id="contact-security" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="contact-security"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Contact Us
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -363,5 +442,5 @@ export default function SecurityPage() {
 
       <DocNavigation />
     </div>
-  )
+  );
 }

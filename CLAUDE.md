@@ -23,6 +23,7 @@ npm run validate     # Run typecheck + lint + format:check
 ## Architecture
 
 ### Tech Stack
+
 - **Framework**: Next.js 16 with App Router, React 19, Turbopack
 - **Language**: TypeScript (strict mode)
 - **Styling**: Tailwind CSS v4 with custom dark mode theme

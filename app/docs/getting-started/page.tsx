@@ -1,9 +1,9 @@
-import type { Metadata } from "next"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { CodeBlock } from "@/components/docs/code-block"
-import { DocNavigation } from "@/components/docs/doc-navigation"
-import { CheckCircle, Info } from "lucide-react"
-import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
+import type { Metadata } from "next";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { CodeBlock } from "@/components/docs/code-block";
+import { DocNavigation } from "@/components/docs/doc-navigation";
+import { CheckCircle, Info } from "lucide-react";
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Getting Started",
@@ -12,34 +12,44 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/docs/getting-started",
   },
-}
+};
 
 export default function GettingStartedPage() {
   return (
     <div>
-      <DocsBreadcrumbSchema currentPath="/docs/getting-started" currentTitle="Getting Started" />
-      <h1 id="getting-started" className="mb-4 text-4xl font-bold text-foreground">
+      <DocsBreadcrumbSchema
+        currentPath="/docs/getting-started"
+        currentTitle="Getting Started"
+      />
+      <h1
+        id="getting-started"
+        className="mb-4 text-4xl font-bold text-foreground"
+      >
         Getting Started
       </h1>
       <p className="mb-8 text-lg text-muted-foreground">
-        Get up and running with AutoCrew in just a few minutes. This guide will walk
-        you through setting up your account and creating your first AI crew.
+        Get up and running with AutoCrew in just a few minutes. This guide will
+        walk you through setting up your account and creating your first AI
+        crew.
       </p>
 
       <Alert className="mb-8">
         <Info className="h-4 w-4" />
         <AlertDescription>
-          This is a UI demonstration using mock data. No actual account creation or
-          backend integration is required.
+          This is a UI demonstration using mock data. No actual account creation
+          or backend integration is required.
         </AlertDescription>
       </Alert>
 
-      <h2 id="step-1-create-account" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="step-1-create-account"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Step 1: Create Your Account
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Visit the AutoCrew homepage and click the "Request Access" button. You'll be
-        guided through a simple signup process.
+        Visit the AutoCrew homepage and click the "Request Access" button.
+        You'll be guided through a simple signup process.
       </p>
       <div className="mb-8 space-y-2">
         <div className="flex items-start gap-2">
@@ -50,7 +60,9 @@ export default function GettingStartedPage() {
         </div>
         <div className="flex items-start gap-2">
           <CheckCircle className="mt-1 h-5 w-5 text-green-500" />
-          <p className="text-muted-foreground">Choose your plan (Starter, Professional, or Enterprise)</p>
+          <p className="text-muted-foreground">
+            Choose your plan (Starter, Professional, or Enterprise)
+          </p>
         </div>
         <div className="flex items-start gap-2">
           <CheckCircle className="mt-1 h-5 w-5 text-green-500" />
@@ -58,7 +70,10 @@ export default function GettingStartedPage() {
         </div>
       </div>
 
-      <h2 id="step-2-access-dashboard" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="step-2-access-dashboard"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Step 2: Access Your Dashboard
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -72,11 +87,15 @@ export default function GettingStartedPage() {
         <li>Access analytics and reports</li>
       </ul>
 
-      <h2 id="step-3-create-crew" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="step-3-create-crew"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Step 3: Create Your First Crew
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Navigate to the Crews section and click "Create New Crew". You'll need to:
+        Navigate to the Crews section and click "Create New Crew". You'll need
+        to:
       </p>
       <ol className="mb-4 list-decimal space-y-2 pl-6 text-muted-foreground">
         <li>Choose your crew type (Healthcare, Support, or LeadGen)</li>
@@ -85,14 +104,19 @@ export default function GettingStartedPage() {
         <li>Set up integration channels (voice, email, chat, etc.)</li>
       </ol>
 
-      <h2 id="step-4-configure-settings" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="step-4-configure-settings"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Step 4: Configure Crew Settings
       </h2>
       <p className="mb-4 text-muted-foreground">
         Customize your crew's behavior to match your business needs:
       </p>
       <div className="mb-8">
-        <h3 className="mb-2 text-lg font-semibold text-foreground">Healthcare Crew Settings</h3>
+        <h3 className="mb-2 text-lg font-semibold text-foreground">
+          Healthcare Crew Settings
+        </h3>
         <ul className="mb-4 list-disc space-y-1 pl-6 text-muted-foreground">
           <li>EHR/FHIR integration parameters</li>
           <li>Patient identification requirements</li>
@@ -100,7 +124,9 @@ export default function GettingStartedPage() {
           <li>Escalation protocols</li>
         </ul>
 
-        <h3 className="mb-2 text-lg font-semibold text-foreground">Support Crew Settings</h3>
+        <h3 className="mb-2 text-lg font-semibold text-foreground">
+          Support Crew Settings
+        </h3>
         <ul className="mb-4 list-disc space-y-1 pl-6 text-muted-foreground">
           <li>Response tone (Professional, Friendly, Technical)</li>
           <li>Knowledge base RAG sources</li>
@@ -108,7 +134,9 @@ export default function GettingStartedPage() {
           <li>Business hours and availability</li>
         </ul>
 
-        <h3 className="mb-2 text-lg font-semibold text-foreground">LeadGen Crew Settings</h3>
+        <h3 className="mb-2 text-lg font-semibold text-foreground">
+          LeadGen Crew Settings
+        </h3>
         <ul className="list-disc space-y-1 pl-6 text-muted-foreground">
           <li>Lead qualification criteria</li>
           <li>Scoring thresholds</li>
@@ -117,7 +145,10 @@ export default function GettingStartedPage() {
         </ul>
       </div>
 
-      <h2 id="step-5-test-crew" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="step-5-test-crew"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Step 5: Test Your Crew
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -133,12 +164,15 @@ export default function GettingStartedPage() {
         className="mb-8"
       />
 
-      <h2 id="step-6-go-live" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="step-6-go-live"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Step 6: Go Live
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Once you're satisfied with your crew's configuration, activate it to start
-        handling real conversations:
+        Once you're satisfied with your crew's configuration, activate it to
+        start handling real conversations:
       </p>
       <div className="mb-8 space-y-2">
         <div className="flex items-start gap-2">
@@ -161,7 +195,10 @@ export default function GettingStartedPage() {
         </div>
       </div>
 
-      <h2 id="next-steps" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="next-steps"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Next Steps
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -185,5 +222,5 @@ export default function GettingStartedPage() {
 
       <DocNavigation />
     </div>
-  )
+  );
 }

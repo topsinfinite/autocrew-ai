@@ -1,15 +1,15 @@
-import type { Metadata } from "next"
-import { DocNavigation } from "@/components/docs/doc-navigation"
-import { faqData } from "@/lib/mock-data/docs-content"
+import type { Metadata } from "next";
+import { DocNavigation } from "@/components/docs/doc-navigation";
+import { faqData } from "@/lib/mock-data/docs-content";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { JsonLd } from "@/components/seo/json-ld"
-import { faqPageSchema } from "@/lib/seo/schemas"
-import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
+} from "@/components/ui/accordion";
+import { JsonLd } from "@/components/seo/json-ld";
+import { faqPageSchema } from "@/lib/seo/schemas";
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/docs/faq",
   },
-}
+};
 
 export default function FAQPage() {
   return (
@@ -29,11 +29,14 @@ export default function FAQPage() {
         Frequently Asked Questions
       </h1>
       <p className="mb-8 text-lg text-muted-foreground">
-        Find answers to common questions about AutoCrew, our AI crews, pricing, and
-        more.
+        Find answers to common questions about AutoCrew, our AI crews, pricing,
+        and more.
       </p>
 
-      <h2 id="general-questions" className="mb-6 text-2xl font-semibold text-foreground">
+      <h2
+        id="general-questions"
+        className="mb-6 text-2xl font-semibold text-foreground"
+      >
         General Questions
       </h2>
 
@@ -50,11 +53,15 @@ export default function FAQPage() {
         ))}
       </Accordion>
 
-      <h2 id="still-have-questions" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="still-have-questions"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Still Have Questions?
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Can't find the answer you're looking for? Our support team is here to help.
+        Can't find the answer you're looking for? Our support team is here to
+        help.
       </p>
       <div className="mb-8 rounded-lg border border-border bg-card p-6">
         <h3 className="mb-2 text-lg font-semibold text-foreground">
@@ -76,7 +83,10 @@ export default function FAQPage() {
         </ul>
       </div>
 
-      <h2 id="additional-resources" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="additional-resources"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Additional Resources
       </h2>
       <div className="mb-8 grid gap-4 md:grid-cols-2">
@@ -112,5 +122,5 @@ export default function FAQPage() {
 
       <DocNavigation />
     </div>
-  )
+  );
 }

@@ -1,11 +1,11 @@
 const ALLOWED_MIME_TYPES = [
-  'application/pdf',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
-  'text/plain',
-  'text/markdown',
-  'text/csv',
-  'application/vnd.ms-excel',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
+  "application/pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // DOCX
+  "text/plain",
+  "text/markdown",
+  "text/csv",
+  "application/vnd.ms-excel",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // XLSX
 ] as const;
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -25,7 +25,7 @@ export function validateFile(file: File): FileValidationResult {
   if (!file) {
     return {
       valid: false,
-      error: 'No file provided',
+      error: "No file provided",
     };
   }
 
@@ -43,7 +43,7 @@ export function validateFile(file: File): FileValidationResult {
   if (file.size === 0) {
     return {
       valid: false,
-      error: 'File is empty',
+      error: "File is empty",
     };
   }
 
@@ -67,9 +67,9 @@ export function validateFile(file: File): FileValidationResult {
  * @returns The file extension (e.g., "pdf", "docx") or empty string if no extension
  */
 export function getFileExtension(filename: string): string {
-  const lastDotIndex = filename.lastIndexOf('.');
+  const lastDotIndex = filename.lastIndexOf(".");
   if (lastDotIndex === -1 || lastDotIndex === filename.length - 1) {
-    return '';
+    return "";
   }
   return filename.slice(lastDotIndex + 1).toLowerCase();
 }
@@ -80,13 +80,13 @@ export function getFileExtension(filename: string): string {
  * @returns Formatted string (e.g., "1.5 MB", "245 KB")
  */
 export function formatFileSize(bytes: number): string {
-  if (bytes === 0) return '0 Bytes';
+  if (bytes === 0) return "0 Bytes";
 
   const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const sizes = ["Bytes", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
 }
 
 /**
@@ -96,13 +96,15 @@ export function formatFileSize(bytes: number): string {
  */
 export function getMimeTypeLabel(mimeType: string): string {
   const mimeTypeMap: Record<string, string> = {
-    'application/pdf': 'PDF',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'DOCX',
-    'text/plain': 'Text',
-    'text/markdown': 'Markdown',
-    'text/csv': 'CSV',
-    'application/vnd.ms-excel': 'Excel',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'Excel',
+    "application/pdf": "PDF",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      "DOCX",
+    "text/plain": "Text",
+    "text/markdown": "Markdown",
+    "text/csv": "CSV",
+    "application/vnd.ms-excel": "Excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+      "Excel",
   };
 
   return mimeTypeMap[mimeType] || mimeType;

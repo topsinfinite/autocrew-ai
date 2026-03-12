@@ -11,8 +11,10 @@ import { JsonLd } from "@/components/seo/json-ld";
 import {
   softwareApplicationSchema,
   faqPageSchema,
+  howToSchema,
 } from "@/lib/seo/schemas";
 import { faqData } from "@/lib/mock-data/docs-content";
+import { howItWorksData } from "@/lib/mock-data/landing-data";
 
 export const metadata: Metadata = {
   title: "AutoCrew – AI Voice Agents for Healthcare & Customer Support",
@@ -20,6 +22,10 @@ export const metadata: Metadata = {
     "Deploy HIPAA-aware healthcare agents and intelligent customer support crews that work 24/7. Voice, chat, and multi-channel AI automation. Start free.",
   alternates: {
     canonical: "/",
+  },
+  other: {
+    "article:published_time": "2025-01-15",
+    "article:modified_time": "2026-03-10",
   },
 };
 
@@ -30,6 +36,7 @@ export default function LandingPage() {
     <>
       <JsonLd data={softwareApplicationSchema()} />
       <JsonLd data={faqPageSchema(landingFaqItems)} />
+      <JsonLd data={howToSchema(howItWorksData)} />
       <HeroSection />
       <StatsSection />
       <FeaturesSection />

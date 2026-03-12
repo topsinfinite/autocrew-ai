@@ -1,9 +1,9 @@
-import type { Metadata } from "next"
-import { DocNavigation } from "@/components/docs/doc-navigation"
-import { CodeBlock } from "@/components/docs/code-block"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Lightbulb } from "lucide-react"
-import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema"
+import type { Metadata } from "next";
+import { DocNavigation } from "@/components/docs/doc-navigation";
+import { CodeBlock } from "@/components/docs/code-block";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Lightbulb } from "lucide-react";
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "LeadGen Crew",
@@ -12,12 +12,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/docs/leadgen-crew",
   },
-}
+};
 
 export default function LeadGenCrewPage() {
   return (
     <div>
-      <DocsBreadcrumbSchema currentPath="/docs/leadgen-crew" currentTitle="LeadGen Crew" />
+      <DocsBreadcrumbSchema
+        currentPath="/docs/leadgen-crew"
+        currentTitle="LeadGen Crew"
+      />
       <div className="mb-6 flex items-center gap-3">
         <h1 id="leadgen-crew" className="text-4xl font-bold text-foreground">
           LeadGen Crew
@@ -35,26 +38,32 @@ export default function LeadGenCrewPage() {
         Overview
       </h2>
       <p className="mb-4 text-muted-foreground">
-        LeadGen Crew is an AI-powered system that monitors your customer interactions
-        to identify potential leads, qualify them based on your criteria, and
-        seamlessly integrate them into your sales process.
+        LeadGen Crew is an AI-powered system that monitors your customer
+        interactions to identify potential leads, qualify them based on your
+        criteria, and seamlessly integrate them into your sales process.
       </p>
       <p className="mb-8 text-muted-foreground">
-        By automating lead identification and qualification, LeadGen Crew ensures
-        your sales team focuses on the highest-quality opportunities while never
-        missing a potential customer.
+        By automating lead identification and qualification, LeadGen Crew
+        ensures your sales team focuses on the highest-quality opportunities
+        while never missing a potential customer.
       </p>
 
-      <h2 id="key-features" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="key-features"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Key Features
       </h2>
 
-      <h3 id="lead-identification" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="lead-identification"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Intelligent Lead Identification
       </h3>
       <p className="mb-4 text-muted-foreground">
-        LeadGen Crew analyzes conversations to detect buying signals and potential
-        leads:
+        LeadGen Crew analyzes conversations to detect buying signals and
+        potential leads:
       </p>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>Intent detection from natural language conversations</li>
@@ -63,7 +72,10 @@ export default function LeadGenCrewPage() {
         <li>Detection of decision-maker indicators</li>
       </ul>
 
-      <h3 id="lead-qualification" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="lead-qualification"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Automated Lead Qualification
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -76,7 +88,10 @@ export default function LeadGenCrewPage() {
         <li>Engagement level assessment</li>
       </ul>
 
-      <h3 id="data-enrichment" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="data-enrichment"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Lead Data Enrichment
       </h3>
       <p className="mb-8 text-muted-foreground">
@@ -88,11 +103,17 @@ export default function LeadGenCrewPage() {
         <li>Social media profiles and professional information</li>
       </ul>
 
-      <h2 id="configuration" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="configuration"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Configuration
       </h2>
 
-      <h3 id="qualification-criteria" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="qualification-criteria"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Qualification Criteria
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -118,7 +139,10 @@ Required Fields:
         className="mb-6"
       />
 
-      <h3 id="lead-routing" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="lead-routing"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Lead Routing Rules
       </h3>
       <p className="mb-4 text-muted-foreground">
@@ -149,7 +173,10 @@ Priority: Medium`}
         className="mb-8"
       />
 
-      <h2 id="lead-scoring" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="lead-scoring"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Lead Scoring System
       </h2>
       <p className="mb-4 text-muted-foreground">
@@ -157,7 +184,8 @@ Priority: Medium`}
       </p>
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
-          <strong>Fit Score (40 points):</strong> Match to ideal customer profile
+          <strong>Fit Score (40 points):</strong> Match to ideal customer
+          profile
         </li>
         <li>
           <strong>Intent Score (30 points):</strong> Strength of buying signals
@@ -170,32 +198,50 @@ Priority: Medium`}
         </li>
       </ul>
 
-      <h2 id="integrations" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="integrations"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Integrations
       </h2>
 
-      <h3 id="crm-integration" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="crm-integration"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         CRM Integration
       </h3>
       <p className="mb-4 text-muted-foreground">
-        Seamlessly sync leads to your CRM system (Salesforce, HubSpot, Pipedrive).
+        Seamlessly sync leads to your CRM system (Salesforce, HubSpot,
+        Pipedrive).
       </p>
 
-      <h3 id="notification-setup" className="mb-3 text-xl font-semibold text-foreground">
+      <h3
+        id="notification-setup"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
         Notification Setup
       </h3>
       <p className="mb-4 text-muted-foreground">
-        Configure real-time notifications for new qualified leads via Email, Slack, or Webhooks.
+        Configure real-time notifications for new qualified leads via Email,
+        Slack, or Webhooks.
       </p>
 
-      <h2 id="analytics" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="analytics"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Analytics & Reporting
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Track key metrics: Lead Volume, Qualification Rate, Average Lead Score, Conversion Rate.
+        Track key metrics: Lead Volume, Qualification Rate, Average Lead Score,
+        Conversion Rate.
       </p>
 
-      <h2 id="best-practices" className="mb-4 text-2xl font-semibold text-foreground">
+      <h2
+        id="best-practices"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
         Best Practices
       </h2>
       <Alert className="mb-6">
@@ -213,11 +259,12 @@ Priority: Medium`}
           <strong>Regular Reviews:</strong> Optimize scoring weekly
         </li>
         <li>
-          <strong>Speed to Lead:</strong> Instant notifications for high-priority leads
+          <strong>Speed to Lead:</strong> Instant notifications for
+          high-priority leads
         </li>
       </ul>
 
       <DocNavigation />
     </div>
-  )
+  );
 }

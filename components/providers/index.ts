@@ -6,4 +6,4 @@
  * Usage: import { ThemeProvider } from '@/components/providers'
  */
 
-export * from './theme-provider';
+export * from "./theme-provider";

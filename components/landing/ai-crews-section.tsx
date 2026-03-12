@@ -23,13 +23,25 @@ export function AiCrewsSection() {
             >
               {/* Medical Pulse Decoration for Healthcare Card */}
               {index === 0 && (
-                <div className="absolute top-0 right-0 w-24 h-24 overflow-hidden pointer-events-none opacity-20" aria-hidden="true">
-                    <svg className="w-full h-full text-[#FF6B35]" viewBox="0 0 100 100">
-                        <path d="M0 50 L 20 50 L 30 20 L 50 80 L 70 50 L 100 50" fill="none" stroke="currentColor" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-                    </svg>
+                <div
+                  className="absolute top-0 right-0 w-24 h-24 overflow-hidden pointer-events-none opacity-20"
+                  aria-hidden="true"
+                >
+                  <svg
+                    className="w-full h-full text-[#FF6B35]"
+                    viewBox="0 0 100 100"
+                  >
+                    <path
+                      d="M0 50 L 20 50 L 30 20 L 50 80 L 70 50 L 100 50"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  </svg>
                 </div>
               )}
-            
+
               <div className="relative z-10 flex-1 flex flex-col">
                 {/* Badge */}
                 <SectionBadge className="self-start mb-6">

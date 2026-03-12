@@ -23,7 +23,9 @@ export default function ContactPage() {
     }, 3000);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -36,21 +38,26 @@ export default function ContactPage() {
             Get in Touch
           </h1>
           <p className="text-xl text-muted-foreground font-geist leading-relaxed">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            Have questions? We'd love to hear from you. Send us a message and
+            we'll respond as soon as possible.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
           <div className="bg-card border border-border rounded-3xl p-8">
-            <h2 className="text-2xl font-semibold font-space-grotesk tracking-tight mb-6">Send us a message</h2>
+            <h2 className="text-2xl font-semibold font-space-grotesk tracking-tight mb-6">
+              Send us a message
+            </h2>
 
             {submitted ? (
               <div className="bg-primary/10 border border-primary/20 rounded-xl p-6 text-center">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-primary/20 text-primary mb-4">
                   <MessageSquare className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-semibold font-space-grotesk mb-2">Message Sent!</h3>
+                <h3 className="text-xl font-semibold font-space-grotesk mb-2">
+                  Message Sent!
+                </h3>
                 <p className="text-muted-foreground font-geist">
                   Thank you for reaching out. We'll get back to you shortly.
                 </p>
@@ -58,7 +65,10 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium font-geist mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium font-geist mb-2"
+                  >
                     Full Name
                   </label>
                   <input
@@ -74,7 +84,10 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium font-geist mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium font-geist mb-2"
+                  >
                     Email Address
                   </label>
                   <input
@@ -90,7 +103,10 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="company" className="block text-sm font-medium font-geist mb-2">
+                  <label
+                    htmlFor="company"
+                    className="block text-sm font-medium font-geist mb-2"
+                  >
                     Company Name
                   </label>
                   <input
@@ -105,7 +121,10 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium font-geist mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium font-geist mb-2"
+                  >
                     Message
                   </label>
                   <textarea
@@ -120,7 +139,12 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <Button variant="pill" size="pill-lg" type="submit" className="w-full group">
+                <Button
+                  variant="pill"
+                  size="pill-lg"
+                  type="submit"
+                  className="w-full group"
+                >
                   Send Message
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </Button>
@@ -131,9 +155,12 @@ export default function ContactPage() {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-2xl font-semibold font-space-grotesk tracking-tight mb-6">Contact Information</h2>
+              <h2 className="text-2xl font-semibold font-space-grotesk tracking-tight mb-6">
+                Contact Information
+              </h2>
               <p className="text-muted-foreground font-geist mb-8 leading-relaxed">
-                Reach out to us through any of these channels, and our team will be happy to assist you.
+                Reach out to us through any of these channels, and our team will
+                be happy to assist you.
               </p>
             </div>
 
@@ -143,9 +170,15 @@ export default function ContactPage() {
                   <Mail className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold font-space-grotesk mb-1">Email</h3>
-                  <p className="text-muted-foreground font-geist">support@autocrew-ai.com</p>
-                  <p className="text-sm text-muted-foreground font-geist">We'll respond within 24 hours</p>
+                  <h3 className="font-semibold font-space-grotesk mb-1">
+                    Email
+                  </h3>
+                  <p className="text-muted-foreground font-geist">
+                    support@autocrew-ai.com
+                  </p>
+                  <p className="text-sm text-muted-foreground font-geist">
+                    We'll respond within 24 hours
+                  </p>
                 </div>
               </div>
 
@@ -154,9 +187,15 @@ export default function ContactPage() {
                   <Phone className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold font-space-grotesk mb-1">Phone</h3>
-                  <p className="text-muted-foreground font-geist">+1 (555) 123-4567</p>
-                  <p className="text-sm text-muted-foreground font-geist">Mon-Fri 9am-6pm EST</p>
+                  <h3 className="font-semibold font-space-grotesk mb-1">
+                    Phone
+                  </h3>
+                  <p className="text-muted-foreground font-geist">
+                    +1 (555) 123-4567
+                  </p>
+                  <p className="text-sm text-muted-foreground font-geist">
+                    Mon-Fri 9am-6pm EST
+                  </p>
                 </div>
               </div>
 
@@ -165,9 +204,15 @@ export default function ContactPage() {
                   <MapPin className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold font-space-grotesk mb-1">Office</h3>
-                  <p className="text-muted-foreground font-geist">123 AI Street</p>
-                  <p className="text-muted-foreground font-geist">San Francisco, CA 94102</p>
+                  <h3 className="font-semibold font-space-grotesk mb-1">
+                    Office
+                  </h3>
+                  <p className="text-muted-foreground font-geist">
+                    123 AI Street
+                  </p>
+                  <p className="text-muted-foreground font-geist">
+                    San Francisco, CA 94102
+                  </p>
                 </div>
               </div>
 
@@ -176,9 +221,15 @@ export default function ContactPage() {
                   <MessageSquare className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold font-space-grotesk mb-1">Live Chat</h3>
-                  <p className="text-muted-foreground font-geist">Available 24/7</p>
-                  <p className="text-sm text-muted-foreground font-geist">Click the chat icon in the bottom right</p>
+                  <h3 className="font-semibold font-space-grotesk mb-1">
+                    Live Chat
+                  </h3>
+                  <p className="text-muted-foreground font-geist">
+                    Available 24/7
+                  </p>
+                  <p className="text-sm text-muted-foreground font-geist">
+                    Click the chat icon in the bottom right
+                  </p>
                 </div>
               </div>
             </div>

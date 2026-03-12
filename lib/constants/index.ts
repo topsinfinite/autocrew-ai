@@ -11,11 +11,11 @@
 //
 
 export const APP_CONFIG = {
-  name: 'AutoCrew',
-  description: 'B2B digital labor platform for managing Agentic Crews',
-  tagline: 'Automate your business with AI-powered crews',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-  supportEmail: 'support@autocrew-ai.com',
+  name: "AutoCrew",
+  description: "B2B digital labor platform for managing Agentic Crews",
+  tagline: "Automate your business with AI-powered crews",
+  url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  supportEmail: "support@autocrew-ai.com",
 } as const;
 
 // ============================================================================
@@ -24,29 +24,29 @@ export const APP_CONFIG = {
 
 export const ROUTES = {
   // Public routes
-  HOME: '/',
-  LOGIN: 'https://app.autocrew-ai.com/login',
-  SIGNUP: 'https://app.autocrew-ai.com/signup',
-  ABOUT: '/about',
-  CONTACT: '/contact',
-  CONTACT_SUPPORT: '/contact-support',
-  DESIGN_SYSTEM: '/design-system',
+  HOME: "/",
+  LOGIN: "https://app.autocrew-ai.com/login",
+  SIGNUP: "https://app.autocrew-ai.com/signup",
+  ABOUT: "/about",
+  CONTACT: "/contact",
+  CONTACT_SUPPORT: "/contact-support",
+  DESIGN_SYSTEM: "/design-system",
 
   // Industry routes
-  INDUSTRY_COACHING: '/industry/coaching',
-  INDUSTRY_RESTAURANT: '/industry/restaurant',
+  INDUSTRY_COACHING: "/industry/coaching",
+  INDUSTRY_RESTAURANT: "/industry/restaurant",
 
   // Documentation routes
-  DOCS: '/docs',
-  DOCS_GETTING_STARTED: '/docs/getting-started',
-  DOCS_USER_GUIDE: '/docs/user-guide',
-  DOCS_SUPPORT_CREW: '/docs/support-crew',
-  DOCS_LEADGEN_CREW: '/docs/leadgen-crew',
-  DOCS_FAQ: '/docs/faq',
-  DOCS_PRIVACY: '/docs/privacy',
-  DOCS_TERMS: '/docs/terms',
-  DOCS_SECURITY: '/docs/security',
-  DOCS_COMPLIANCE: '/docs/compliance',
+  DOCS: "/docs",
+  DOCS_GETTING_STARTED: "/docs/getting-started",
+  DOCS_USER_GUIDE: "/docs/user-guide",
+  DOCS_SUPPORT_CREW: "/docs/support-crew",
+  DOCS_LEADGEN_CREW: "/docs/leadgen-crew",
+  DOCS_FAQ: "/docs/faq",
+  DOCS_PRIVACY: "/docs/privacy",
+  DOCS_TERMS: "/docs/terms",
+  DOCS_SECURITY: "/docs/security",
+  DOCS_COMPLIANCE: "/docs/compliance",
 } as const;
 
 // ============================================================================
@@ -54,9 +54,9 @@ export const ROUTES = {
 // ============================================================================
 
 export const DATE_FORMATS = {
-  SHORT: 'MMM d, yyyy',
-  LONG: 'MMMM d, yyyy',
-  WITH_TIME: 'MMM d, yyyy h:mm a',
+  SHORT: "MMM d, yyyy",
+  LONG: "MMMM d, yyyy",
+  WITH_TIME: "MMM d, yyyy h:mm a",
   ISO: "yyyy-MM-dd'T'HH:mm:ss",
 } as const;
 

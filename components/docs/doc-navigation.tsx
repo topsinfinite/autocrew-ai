@@ -1,21 +1,24 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { getAdjacentRoutes, getDocTitleMap } from "@/lib/mock-data/docs-content"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  getAdjacentRoutes,
+  getDocTitleMap,
+} from "@/lib/mock-data/docs-content";
+import { Button } from "@/components/ui/button";
 
 export function DocNavigation() {
-  const pathname = usePathname()
-  const { previous, next } = getAdjacentRoutes(pathname)
+  const pathname = usePathname();
+  const { previous, next } = getAdjacentRoutes(pathname);
 
   if (!previous && !next) {
-    return null
+    return null;
   }
 
-  const titleMap = getDocTitleMap()
-  const getPageTitle = (path: string) => titleMap[path] || path
+  const titleMap = getDocTitleMap();
+  const getPageTitle = (path: string) => titleMap[path] || path;
 
   return (
     <div className="mt-12 flex items-center justify-between border-t border-border pt-8">
@@ -46,5 +49,5 @@ export function DocNavigation() {
         )}
       </div>
     </div>
-  )
+  );
 }

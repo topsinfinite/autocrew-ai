@@ -11,7 +11,7 @@ export interface ThemeContextValue {
 }
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(
-  undefined
+  undefined,
 );
 
 export function useThemeContext() {

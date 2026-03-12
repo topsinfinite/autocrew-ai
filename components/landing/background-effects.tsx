@@ -23,7 +23,7 @@ export function BackgroundEffects({
     <div
       className={cn(
         "pointer-events-none fixed inset-0 -z-10 overflow-hidden transition-opacity duration-500",
-        className
+        className,
       )}
       style={{ opacity: isDark ? 1 : 0 }}
     >
@@ -32,8 +32,10 @@ export function BackgroundEffects({
         <div
           className="absolute inset-0 h-[800px]"
           style={{
-            maskImage: "linear-gradient(transparent, black 0%, black 80%, transparent)",
-            WebkitMaskImage: "linear-gradient(transparent, black 0%, black 80%, transparent)",
+            maskImage:
+              "linear-gradient(transparent, black 0%, black 80%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(transparent, black 0%, black 80%, transparent)",
           }}
         >
           <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-secondary/5 animate-pulse" />

@@ -15,7 +15,10 @@ interface ShineButtonProps extends ButtonProps {
 }
 
 export const ShineButton = forwardRef<HTMLButtonElement, ShineButtonProps>(
-  ({ className, children, shineColor = "rgba(255, 255, 255, 0.15)", ...props }, ref) => {
+  (
+    { className, children, shineColor = "rgba(255, 255, 255, 0.15)", ...props },
+    ref,
+  ) => {
     return (
       <Button
         ref={ref}
@@ -24,7 +27,7 @@ export const ShineButton = forwardRef<HTMLButtonElement, ShineButtonProps>(
           // Default styling for primary CTA appearance
           "bg-foreground text-background hover:bg-foreground/80",
           "font-medium",
-          className
+          className,
         )}
         {...props}
       >
@@ -37,7 +40,7 @@ export const ShineButton = forwardRef<HTMLButtonElement, ShineButtonProps>(
         />
       </Button>
     );
-  }
+  },
 );
 
 ShineButton.displayName = "ShineButton";

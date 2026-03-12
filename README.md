@@ -5,6 +5,7 @@ A B2B digital labor platform that allows small businesses to manage "Agentic Cre
 ## Design Language
 
 **Professional, Industrious, High-Trust**
+
 - **Dark Mode Primary Theme**: Professional slate tones for an industrious feel
 - **Cyan/Teal Primary** (#16A085): Main CTAs and interactive elements
 - **Cyber Blue** (#0EA5E9): Secondary accent for information and status
@@ -25,10 +26,12 @@ A B2B digital labor platform that allows small businesses to manage "Agentic Cre
 ### Multi-Tenant Design
 
 The platform supports two user roles:
+
 - **Super Admin**: Platform-wide access, can manage all clients and create client admins
 - **Client Admin**: Organization-scoped access, can only view/manage their own organization's data
 
 **Data Isolation:**
+
 - All data models include `clientId` for tenant separation
 - Middleware enforces route protection
 - API routes validate authorization before queries
@@ -104,6 +107,7 @@ The platform supports two user roles:
 ## Features
 
 ### Multi-Tenant Client Management (Super Admin)
+
 - Create and manage client organizations
 - Automatic organization creation in Better Auth
 - Generate unique client codes and slugs
@@ -111,6 +115,7 @@ The platform supports two user roles:
 - Track client status and subscription plans
 
 ### User Management
+
 - Better Auth integration with email/password
 - Organization-based multi-tenancy
 - Role-based access control (Super Admin / Client Admin)
@@ -118,6 +123,7 @@ The platform supports two user roles:
 - Password reset flow via email
 
 ### Crew Management
+
 - Provision crews with dynamic database tables
 - Support for Customer Support and Lead Generation crew types
 - n8n webhook integration
@@ -126,12 +132,14 @@ The platform supports two user roles:
 - Automatic table creation and cleanup
 
 ### Conversation Discovery
+
 - Background job to discover conversations from crew histories tables
 - Automatic metadata extraction (sentiment, duration, customer email)
 - Multi-crew conversation aggregation per client
 - Optimized queries with proper indexing
 
 ### Analytics & Insights
+
 - Interactive date range filtering
 - Conversation volume trends
 - Lead generation metrics
@@ -139,6 +147,7 @@ The platform supports two user roles:
 - Real-time KPIs
 
 ### Knowledge Base (Customer Support Crews)
+
 - Document upload to crew-specific vector stores
 - Automatic chunking and embedding via n8n
 - Document status tracking (processing, indexed, error)
@@ -184,6 +193,7 @@ EMAIL_SERVER_PASSWORD=your-smtp-password
 ### Installation
 
 1. Clone the repository and install dependencies:
+
 ```bash
 git clone <repository-url>
 cd AutoCrew-SaaS
@@ -191,6 +201,7 @@ npm install
 ```
 
 2. Set up the database:
+
 ```bash
 # Run migrations
 npm run db:migrate
@@ -200,6 +211,7 @@ npm run db:seed
 ```
 
 3. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -207,6 +219,7 @@ npm run dev
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 **Default Super Admin Credentials:**
+
 - Email: `support@autocrew-ai.com`
 - Password: `Admin123!@#`
 
@@ -220,6 +233,7 @@ npm start
 ## Database Schema
 
 ### Authentication Tables (Better Auth)
+
 - `user` - User accounts with role field
 - `session` - Active user sessions
 - `account` - OAuth accounts (future)
@@ -227,18 +241,21 @@ npm start
 - `member` - Organization membership (for multi-tenant filtering)
 
 ### Core Tables
+
 - `clients` - Client organizations (mapped to Better Auth organizations)
 - `crews` - AI crews with dynamic table references
 - `conversations` - Indexed conversation metadata
 - `knowledge_base_documents` - Document metadata for knowledge bases
 
 ### Dynamic Tables (per crew)
+
 - `{client}_{type}_vector_{seq}` - Vector embeddings for RAG
 - `{client}_{type}_histories_{seq}` - Conversation histories
 
 ## Available Scripts
 
 ### Development
+
 - `npm run dev` - Start development server with Turbopack
 - `npm run build` - Build for production
 - `npm start` - Start production server
@@ -247,17 +264,20 @@ npm start
 - `npm run typecheck` - Run TypeScript compiler check
 
 ### Database
+
 - `npm run db:generate` - Generate new migration from schema changes
 - `npm run db:migrate` - Apply migrations to database
 - `npm run db:seed` - Seed database with initial data
 - `npm run db:studio` - Open Drizzle Studio (database GUI)
 
 ### Code Quality
+
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check code formatting
 - `npm run validate` - Run typecheck + lint + format check
 
 ### Testing
+
 - `npm run test` - Run all tests with Jest
 - `npm run test:watch` - Run tests in watch mode
 - `npm run test:coverage` - Generate coverage report
@@ -307,11 +327,13 @@ All tests use mock data factories from `__tests__/test-utils.ts` and `__tests__/
 ## API Routes
 
 ### Public Routes
+
 - `POST /api/auth/signin` - User login
 - `POST /api/auth/signup` - User registration
 - `POST /api/auth/reset-password` - Password reset
 
 ### Protected Routes
+
 - `GET /api/clients` - List clients (SuperAdmin only)
 - `POST /api/clients` - Create client (SuperAdmin only)
 - `GET /api/clients/:id` - Get client details
@@ -335,17 +357,20 @@ All tests use mock data factories from `__tests__/test-utils.ts` and `__tests__/
 ### Build Issues
 
 **Error: "Module not found: Can't resolve 'fs'"**
+
 - This usually means a server-only module is being imported by a client component
 - Check that database utilities are not exported in barrel exports
 - Import server utilities directly: `import { provisionCrew } from '@/lib/utils/crew'`
 
 **Error: "Dynamic server usage: Route couldn't be rendered statically"**
+
 - This is expected for routes using `headers()` or `cookies()`
 - These routes will be server-rendered on demand (marked with ƒ in build output)
 
 ### Database Issues
 
 **Migration fails**
+
 ```bash
 # Reset database and start fresh
 npm run db:generate
@@ -354,6 +379,7 @@ npm run db:seed
 ```
 
 **Orphaned tables after crew deletion**
+
 ```bash
 # Run cleanup script (to be implemented)
 npm run db:cleanup
@@ -362,18 +388,21 @@ npm run db:cleanup
 ### Authentication Issues
 
 **"Unauthorized" errors after login**
+
 - Check that `BETTER_AUTH_SECRET` is set in `.env.local`
 - Verify session cookie is being set (check browser dev tools)
 - Ensure middleware is not blocking the route
 
 **Email not sending**
-- Verify EMAIL_SERVER_* environment variables are correct
+
+- Verify EMAIL*SERVER*\* environment variables are correct
 - Check SMTP credentials and server accessibility
 - Review logs for detailed error messages
 
 ### n8n Integration Issues
 
 **Document upload fails**
+
 - Verify `N8N_API_KEY` and `N8N_DOCUMENT_UPLOAD_WEBHOOK` are correct
 - Check n8n webhook is active and accessible
 - Review n8n workflow logs for errors

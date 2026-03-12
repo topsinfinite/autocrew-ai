@@ -3,10 +3,10 @@
  */
 
 // Tailwind className utility
-export * from './cn';
+export * from "./cn";
 
 // Code generators
-export * from './generators';
+export * from "./generators";
 
 // Validators
-export * from './validators';
+export * from "./validators";

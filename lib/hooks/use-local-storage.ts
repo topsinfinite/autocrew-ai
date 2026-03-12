@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 export function useLocalStorage<T>(
   key: string,
-  initialValue: T
+  initialValue: T,
 ): [T, (value: T | ((val: T) => T)) => void] {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once

@@ -13,7 +13,11 @@ const waveBars = Array.from({ length: 24 }, (_, i) => ({
   delay: (i * 0.05).toFixed(2),
 }));
 
-export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => void }) {
+export function TabChatVoicePanel({
+  onInteraction,
+}: {
+  onInteraction?: () => void;
+}) {
   const { voicePanel } = dashboardPreviewData.chat;
   const [elapsed, setElapsed] = useState(134); // Start at 2:14
   const [transcriptIndex, setTranscriptIndex] = useState(0);
@@ -85,7 +89,8 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
       <div
         className="sm:hidden flex flex-col gap-3 p-3 sticky top-0 z-10 backdrop-blur-md"
         style={{
-          background: "linear-gradient(180deg, rgba(255,107,53,0.06) 0%, rgba(10,12,20,0.95) 100%)",
+          background:
+            "linear-gradient(180deg, rgba(255,107,53,0.06) 0%, rgba(10,12,20,0.95) 100%)",
         }}
       >
         {/* Top row: avatar + info + controls */}
@@ -113,7 +118,9 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
           {/* Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <p className="text-xs font-medium text-white truncate">AutoCrew is speaking</p>
+              <p className="text-xs font-medium text-white truncate">
+                AutoCrew is speaking
+              </p>
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
             </div>
             <div className="flex items-center gap-2">
@@ -128,10 +135,16 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
 
           {/* Compact controls */}
           <div className="flex items-center gap-1.5 flex-shrink-0">
-            <button aria-label="Microphone" className="w-7 h-7 rounded-full bg-white/[0.04] flex items-center justify-center border border-white/[0.05]">
+            <button
+              aria-label="Microphone"
+              className="w-7 h-7 rounded-full bg-white/[0.04] flex items-center justify-center border border-white/[0.05]"
+            >
               <Mic className="w-3 h-3 text-white/50" />
             </button>
-            <button aria-label="End call" className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/15">
+            <button
+              aria-label="End call"
+              className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/15"
+            >
               <PhoneOff className="w-3.5 h-3.5 text-red-400" />
             </button>
             {muteButton}
@@ -155,7 +168,8 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
       <div
         className="hidden sm:flex w-[280px] lg:w-[320px] flex-col items-center justify-center relative p-6 flex-shrink-0"
         style={{
-          background: "linear-gradient(180deg, rgba(255,107,53,0.06) 0%, rgba(0,0,0,0) 100%)",
+          background:
+            "linear-gradient(180deg, rgba(255,107,53,0.06) 0%, rgba(0,0,0,0) 100%)",
         }}
       >
         {/* Live indicator */}
@@ -205,7 +219,9 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
         </div>
 
         {/* Agent info */}
-        <p className="text-sm font-medium text-white mb-1">AutoCrew is speaking</p>
+        <p className="text-sm font-medium text-white mb-1">
+          AutoCrew is speaking
+        </p>
         <span className="font-space-mono text-xs text-neutral-500 mb-1">
           {voicePanel.agentName} &middot; {voicePanel.agentRole}
         </span>
@@ -241,10 +257,16 @@ export function TabChatVoicePanel({ onInteraction }: { onInteraction?: () => voi
 
         {/* Control buttons */}
         <div className="flex items-center gap-3 mt-5">
-          <button aria-label="Microphone" className="w-9 h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.05]">
+          <button
+            aria-label="Microphone"
+            className="w-9 h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.05]"
+          >
             <Mic className="w-4 h-4 text-white/50" />
           </button>
-          <button aria-label="End call" className="w-11 h-11 rounded-full bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center transition-colors border border-red-500/15">
+          <button
+            aria-label="End call"
+            className="w-11 h-11 rounded-full bg-red-500/10 hover:bg-red-500/20 flex items-center justify-center transition-colors border border-red-500/15"
+          >
             <PhoneOff className="w-[18px] h-[18px] text-red-400" />
           </button>
           {muteButton}

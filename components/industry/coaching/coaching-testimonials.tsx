@@ -61,14 +61,16 @@ export function CoachingTestimonials() {
                   {testimonial.initials}
                 </div>
 
-                <div>
-                  <p className="text-sm font-semibold font-space-grotesk text-foreground">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground font-geist">
-                    {testimonial.role}
-                  </p>
-                </div>
+                <footer>
+                  <cite className="not-italic">
+                    <p className="text-sm font-semibold font-space-grotesk text-foreground">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground font-geist">
+                      {testimonial.role}
+                    </p>
+                  </cite>
+                </footer>
               </div>
             </div>
           ))}
