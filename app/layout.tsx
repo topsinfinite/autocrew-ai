@@ -71,12 +71,21 @@ export const metadata: Metadata = {
     title: "AutoCrew – Agentic Crews Management Platform",
     description:
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AutoCrew – AI-Powered Crews That Work 24/7",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AutoCrew – Agentic Crews Management Platform",
     description:
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
+    images: ["/images/og-image.png"],
   },
 };
 

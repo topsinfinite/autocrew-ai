@@ -40,3 +40,6 @@ next-env.d.ts
 *.swo
 *~
 widget/node_modules
+
+# content marketing (internal content ops, not source code)
+/content-marketing
