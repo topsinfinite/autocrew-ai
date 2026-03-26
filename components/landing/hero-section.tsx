@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck, ArrowRight, PlayCircle } from "lucide-react";
+import { ShieldCheck, ArrowRight } from "lucide-react";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { SectionBadge } from "@/components/landing/section-badge";
 import { Button } from "@/components/ui/button";
+import { AudioPlayer } from "@/components/landing/audio-player";
 import { heroData } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
 
@@ -109,13 +110,7 @@ export function HeroSection() {
               </Link>
             </Button>
 
-            <Link
-              href={heroData.secondaryCta.href}
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
-              {heroData.secondaryCta.text}
-            </Link>
+            <AudioPlayer />
           </div>
 
           {/* Trust Indicator */}
