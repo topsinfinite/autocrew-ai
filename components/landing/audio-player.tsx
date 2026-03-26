@@ -227,7 +227,7 @@ export function AudioPlayer({
         aria-label={isPlaying ? "Pause audio" : "Play AI voice sample"}
         className={cn(
           "group relative flex items-center gap-3 p-1.5 pr-4 rounded-full cursor-pointer transition-all duration-500 overflow-hidden",
-          "w-full sm:w-[260px] h-[60px]",
+          "w-full sm:w-[320px] h-[60px]",
           "backdrop-blur-2xl",
           isPlaying
             ? "bg-[#18181f]/90 border border-[#FF6B35]/50"
@@ -247,10 +247,10 @@ export function AudioPlayer({
                 : "translate-y-0 opacity-100",
             )}
           >
-            <span className="text-sm font-semibold text-gray-100 tracking-wide font-space-grotesk text-left">
+            <span className="text-sm font-semibold text-gray-100 tracking-wide font-space-grotesk text-left whitespace-nowrap">
               {label}
             </span>
-            <span className="text-[11px] text-gray-500 font-medium mt-0.5 text-left">
+            <span className="text-[11px] text-gray-500 font-medium mt-0.5 text-left whitespace-nowrap">
               Tap to listen • {duration}
             </span>
           </div>
