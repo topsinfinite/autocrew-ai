@@ -139,7 +139,7 @@ interface AudioPlayerProps {
 export function AudioPlayer({
   src = "/audio/Demo Call with Sarah.mp3",
   label = "Listen to real-life demo",
-  duration = "5:07",
+  duration = "4:32",
 }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const playerRef = useRef<HTMLButtonElement>(null);
