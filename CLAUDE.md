@@ -77,3 +77,40 @@ lib/
 - Landing page data comes from `lib/mock-data/landing-data.ts`
 - Docs content comes from `lib/mock-data/docs-content.ts`
 - Theme toggle uses localStorage (no backend)
+
+## gstack
+
+Use the `/browse` skill from gstack for all web browsing. Never use `mcp__claude-in-chrome__*` tools.
+
+Available gstack skills:
+- `/office-hours` - Office hours workflow
+- `/plan-ceo-review` - CEO review planning
+- `/plan-eng-review` - Engineering review planning
+- `/plan-design-review` - Design review planning
+- `/design-consultation` - Design consultation
+- `/design-shotgun` - Design shotgun
+- `/design-html` - Design to HTML
+- `/review` - Code review
+- `/ship` - Ship workflow
+- `/land-and-deploy` - Land and deploy
+- `/canary` - Canary deployment
+- `/benchmark` - Benchmarking
+- `/browse` - Web browsing (use this for ALL web browsing)
+- `/connect-chrome` - Connect to Chrome
+- `/qa` - QA testing
+- `/qa-only` - QA only testing
+- `/design-review` - Design review
+- `/setup-browser-cookies` - Setup browser cookies
+- `/setup-deploy` - Setup deployment
+- `/retro` - Retrospective
+- `/investigate` - Investigation
+- `/document-release` - Document a release
+- `/codex` - Codex workflow
+- `/cso` - CSO workflow
+- `/autoplan` - Auto planning
+- `/careful` - Careful mode
+- `/freeze` - Freeze deployments
+- `/guard` - Guard mode
+- `/unfreeze` - Unfreeze deployments
+- `/gstack-upgrade` - Upgrade gstack
+- `/learn` - Learn workflow

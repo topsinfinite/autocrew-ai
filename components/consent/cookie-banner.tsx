@@ -21,7 +21,7 @@ export function CookieBanner() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-[90] sm:max-w-sm rounded-xl bg-card/80 backdrop-blur-xl border border-border/50 p-4 shadow-[0_-4px_24px_-4px_rgba(0,0,0,0.3)] animate-in slide-in-from-bottom-4 fade-in duration-500"
+      className="fixed bottom-4 left-4 right-4 sm:right-auto sm:left-6 sm:bottom-6 z-[90] sm:max-w-sm rounded-xl bg-card/80 backdrop-blur-xl border border-border/50 p-4 shadow-[0_-4px_24px_-4px_rgba(0,0,0,0.3)] animate-in slide-in-from-bottom-4 fade-in duration-500"
     >
       <p className="text-sm text-muted-foreground leading-relaxed">
         We use cookies to improve your experience.{" "}
