@@ -4,6 +4,9 @@ import { Space_Grotesk, Space_Mono } from "next/font/google";
 import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ConsentProvider } from "@/components/providers/consent-provider";
+import { CookieBanner } from "@/components/consent/cookie-banner";
+import { CookiePreferencesDialog } from "@/components/consent/cookie-preferences-dialog";
 import { APP_CONFIG } from "@/lib/constants";
 import { JsonLd } from "@/components/seo/json-ld";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schemas";
@@ -102,15 +105,27 @@ export default function RootLayout({
       style={{ colorScheme: "dark" } as React.CSSProperties}
     >
       <head>
+        <Script id="gtag-consent-default" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'functionality_storage': 'denied',
+  'wait_for_update': 500
+});`}
+        </Script>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HMHN49KVBJ"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-HMHN49KVBJ');`}
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HMHN49KVBJ');`}
         </Script>
       </head>
       <body
@@ -125,7 +140,13 @@ export default function RootLayout({
         </a>
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
-        <ThemeProvider defaultTheme="dark">{children}</ThemeProvider>
+        <ThemeProvider defaultTheme="dark">
+          <ConsentProvider>
+            {children}
+            <CookieBanner />
+            <CookiePreferencesDialog />
+          </ConsentProvider>
+        </ThemeProvider>
         <Script id="autocrew-config" strategy="beforeInteractive">
           {`window.AutoCrewConfig = {
             crewCode: 'AUTOCREW-001-SUP-001',

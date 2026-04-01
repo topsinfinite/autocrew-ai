@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { footerData } from "@/lib/mock-data/landing-data";
+import { CookiePreferencesButton } from "@/components/consent/cookie-preferences-button";
 
 export function PublicFooter() {
   const pathname = usePathname();
@@ -51,6 +52,7 @@ export function PublicFooter() {
           >
             Contact
           </Link>
+          <CookiePreferencesButton className="hover:text-foreground transition-colors" />
         </nav>
       </div>
     </footer>

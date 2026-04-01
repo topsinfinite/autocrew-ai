@@ -3,6 +3,7 @@ import { ArrowRight, Mail, Calendar, Github, Linkedin } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { ctaData, footerData } from "@/lib/mock-data/landing-data";
+import { CookiePreferencesButton } from "@/components/consent/cookie-preferences-button";
 
 export function CtaSection() {
   return (
@@ -254,6 +255,7 @@ export function CtaSection() {
                       >
                         Compliance
                       </Link>
+                      <CookiePreferencesButton className="hover:text-foreground transition-colors text-left" />
                     </div>
                   </div>
 
@@ -298,6 +300,7 @@ export function CtaSection() {
                   >
                     Terms of Service
                   </Link>
+                  <CookiePreferencesButton className="hover:text-foreground transition-colors" />
                 </div>
               </div>
             </footer>
