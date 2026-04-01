@@ -73,7 +73,7 @@ export const metadata: Metadata = {
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
     images: [
       {
-        url: "/images/og-image.png",
+        url: `${baseUrl}/images/og-image.png?v=2`,
         width: 1200,
         height: 630,
         alt: "AutoCrew – AI-Powered Crews That Work 24/7",
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     title: "AutoCrew – Agentic Crews Management Platform",
     description:
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
-    images: ["/images/og-image.png"],
+    images: [`${baseUrl}/images/og-image.png?v=2`],
   },
 };
 
