@@ -101,6 +101,18 @@ export default function RootLayout({
       className="dark"
       style={{ colorScheme: "dark" } as React.CSSProperties}
     >
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-HMHN49KVBJ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-HMHN49KVBJ');`}
+        </Script>
+      </head>
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} ${spaceGrotesk.variable} ${spaceMono.variable} font-sans antialiased`}
         suppressHydrationWarning
