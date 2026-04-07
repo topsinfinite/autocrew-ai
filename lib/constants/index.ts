@@ -36,6 +36,7 @@ export const ROUTES = {
   INDUSTRY_COACHING: "/industry/coaching",
   INDUSTRY_RESTAURANT: "/industry/restaurant",
   INDUSTRY_LEGAL: "/industry/legal",
+  INDUSTRY_HEALTHCARE: "/industry/healthcare",
 
   // Documentation routes
   DOCS: "/docs",

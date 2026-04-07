@@ -13,16 +13,16 @@ import { faqPageSchema, serviceSchema, howToSchema } from "@/lib/seo/schemas";
 import { legalFaqItems, legalSteps } from "@/lib/mock-data/legal-data";
 
 export const metadata: Metadata = {
-  title: "AI Automation for Legal Aid & Legal Operations",
+  title: "AI Automation for Law Firms, Legal Ops & Legal Aid",
   description:
-    "Automate intake, client communication, and case operations for legal teams. Built to work with tools like LegalServer — so staff spend less time on admin and more on advocacy.",
+    "Automate intake, client communication, and case operations across the legal industry. Works with Clio, LegalServer, MyCase, PracticePanther, and similar CMS platforms — less admin, more substantive legal work.",
   alternates: {
     canonical: "/industry/legal",
   },
   openGraph: {
-    title: "AI Automation for Legal Aid & Legal Operations",
+    title: "AI Automation for Law Firms, Legal Ops & Legal Aid",
     description:
-      "Automate intake, conflict checks, and client communication so your team can focus on advocacy.",
+      "Automate intake, conflict checks, and client communication for firms, in-house teams, and legal aid — more time for real legal work.",
     url: "/industry/legal",
     images: [
       {
@@ -46,7 +46,7 @@ export default function LegalIndustryPage() {
       <JsonLd
         data={serviceSchema(
           "AutoCrew for Legal",
-          "AI-powered automation for legal aid, public interest, and legal operations. Intake screening, client communication, deadline and reporting workflows with LegalServer and Microsoft 365 integrations.",
+          "AI-powered automation for law firms, corporate legal, and legal aid. Intake screening, client communication, deadlines, and reporting — integrated with leading case management platforms (Clio, LegalServer, MyCase, PracticePanther, and similar) plus Microsoft 365 and Google Workspace.",
           "AI Automation",
         )}
       />
