@@ -20,7 +20,7 @@ const industries = [
   },
   {
     name: "Healthcare",
-    href: "/industry/healthcare",
+    href: "/",
     description:
       "AI scheduling, patient communication, and operations for healthcare providers",
   },
