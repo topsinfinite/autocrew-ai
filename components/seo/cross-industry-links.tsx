@@ -12,6 +12,12 @@ const industries = [
     description:
       "AI reservations, guest communication, and operations for restaurants",
   },
+  {
+    name: "Legal",
+    href: "/industry/legal",
+    description:
+      "AI intake, case communication, and operations for legal professionals",
+  },
 ];
 
 interface CrossIndustryLinksProps {

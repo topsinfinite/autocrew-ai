@@ -22,14 +22,14 @@ import {
 } from "@/lib/mock-data/restaurant-data";
 
 export const metadata: Metadata = {
-  title: "AI Automation for Restaurants – AutoCrew",
+  title: "AI Automation for Restaurants",
   description:
     "Fill every seat with AI-powered reservations, guest communication, and review management. Save 15+ hours per week on admin. Start your free trial.",
   alternates: {
     canonical: "/industry/restaurant",
   },
   openGraph: {
-    title: "AI Automation for Restaurants – AutoCrew",
+    title: "AI Automation for Restaurants",
     description:
       "Fill every seat with AI-powered reservations, guest communication, and review management. Save 15+ hours per week on admin.",
     url: "/industry/restaurant",

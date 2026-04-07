@@ -309,6 +309,7 @@ export const navLinks: NavLinkItem[] = [
     children: [
       { label: "Coaching", href: "/industry/coaching" },
       { label: "Restaurant", href: "/industry/restaurant" },
+      { label: "Legal", href: "/industry/legal" },
     ],
   },
   { label: "Pricing", href: "/#contact-sales" },
