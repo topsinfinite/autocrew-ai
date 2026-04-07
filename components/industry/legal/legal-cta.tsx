@@ -104,10 +104,11 @@ export function LegalCta() {
                 <div className="flex flex-col max-w-sm gap-6">
                   <Logo height={22} className="text-foreground" />
                   <p className="text-sm leading-relaxed text-muted-foreground font-geist">
-                    AI-powered automation for legal aid, public interest, and
-                    in-house legal ops. Deploy crews that handle intake, client
-                    communication, and ops workflows alongside tools like
-                    LegalServer.
+                    AI-powered automation for law firms, corporate legal, and
+                    legal aid teams. Deploy crews that handle intake, client
+                    communication, and ops workflows alongside major case
+                    management platforms — Clio, LegalServer, MyCase,
+                    PracticePanther, and similar.
                   </p>
                   <div className="flex gap-2">
                     <a

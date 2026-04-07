@@ -28,8 +28,8 @@ export function LegalFaq() {
             </h2>
 
             <p className="text-lg leading-relaxed text-muted-foreground font-geist mb-8">
-              Common questions from legal aid and legal ops leaders before
-              getting started with AutoCrew.
+              Common questions from firms, in-house teams, legal aid leaders, and
+              legal ops before getting started with AutoCrew.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">

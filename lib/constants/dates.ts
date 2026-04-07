@@ -8,6 +8,7 @@ export const PAGE_DATES: Record<
   "/industry/coaching": { published: "2025-11-01", modified: "2026-03-10" },
   "/industry/restaurant": { published: "2025-12-01", modified: "2026-03-10" },
   "/industry/legal": { published: "2026-04-07", modified: "2026-04-07" },
+  "/industry/healthcare": { published: "2026-04-07", modified: "2026-04-07" },
   "/docs": { published: "2025-01-15", modified: "2026-03-04" },
   "/docs/compliance": { published: "2025-06-01", modified: "2026-03-04" },
   "/docs/security": { published: "2025-06-01", modified: "2026-03-04" },

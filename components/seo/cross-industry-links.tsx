@@ -18,6 +18,12 @@ const industries = [
     description:
       "AI intake, case communication, and operations for legal professionals",
   },
+  {
+    name: "Healthcare",
+    href: "/",
+    description:
+      "AI scheduling, patient communication, and operations for healthcare providers",
+  },
 ];
 
 interface CrossIndustryLinksProps {
@@ -37,7 +43,7 @@ export function CrossIndustryLinks({
         <h2 className="text-2xl sm:text-3xl font-semibold font-space-grotesk text-foreground text-center mb-8">
           AutoCrew for Other Industries
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {otherIndustries.map((industry) => (
             <Link
               key={industry.href}
