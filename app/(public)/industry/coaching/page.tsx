@@ -22,14 +22,14 @@ import {
 } from "@/lib/mock-data/coaching-data";
 
 export const metadata: Metadata = {
-  title: "AI Automation for Coaches – AutoCrew",
+  title: "AI Automation for Coaches",
   description:
     "Scale your coaching practice with AI-powered scheduling, client intake, and intelligent follow-ups. Save 10+ hours per week on admin. Start your free trial.",
   alternates: {
     canonical: "/industry/coaching",
   },
   openGraph: {
-    title: "AI Automation for Coaches – AutoCrew",
+    title: "AI Automation for Coaches",
     description:
       "Scale your coaching practice with AI-powered scheduling, client intake, and intelligent follow-ups. Save 10+ hours per week on admin.",
     url: "/industry/coaching",

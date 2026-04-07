@@ -10,7 +10,8 @@ export function PublicFooter() {
   if (
     pathname === "/" ||
     pathname === "/industry/coaching" ||
-    pathname === "/industry/restaurant"
+    pathname === "/industry/restaurant" ||
+    pathname === "/industry/legal"
   )
     return null;
 
