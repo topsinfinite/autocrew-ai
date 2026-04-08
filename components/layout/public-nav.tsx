@@ -277,36 +277,32 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             {/* Theme toggle */}
             <ThemeToggle />
 
-            {/* Primary CTA — desktop only (mobile: FAB + menu pill) */}
-            <Button
-              variant="pill"
-              size="pill-sm"
-              className="hidden lg:inline-flex gap-2 h-auto py-1.5"
-              asChild
-            >
-              <a
-                href={APP_CONFIG.supportPhoneTel}
-                className="inline-flex items-center gap-2"
+            {/* Speak to Sarah + Sign In — lg+ only (mobile: FAB + hamburger menu) */}
+            <div className="hidden lg:flex items-center gap-3">
+              <Button
+                variant="pill"
+                size="pill-sm"
+                className="gap-2 h-auto py-1.5"
+                asChild
               >
-                <Phone className="w-4 h-4 shrink-0 self-center" aria-hidden />
-                <span className="flex flex-col items-start gap-0.5 text-left leading-tight">
-                  <span>Speak to Sarah</span>
-                  <span className="text-[10px] font-normal font-geist opacity-90 max-w-[10rem]">
-                    {APP_CONFIG.speakToSarahSubtitle}
+                <a
+                  href={APP_CONFIG.supportPhoneTel}
+                  className="inline-flex items-center gap-2"
+                >
+                  <Phone className="w-4 h-4 shrink-0 self-center" aria-hidden />
+                  <span className="flex flex-col items-start gap-0.5 text-left leading-tight">
+                    <span>Speak to Sarah</span>
+                    <span className="text-[10px] font-normal font-geist opacity-90 max-w-[10rem]">
+                      {APP_CONFIG.speakToSarahSubtitle}
+                    </span>
                   </span>
-                </span>
-              </a>
-            </Button>
+                </a>
+              </Button>
 
-            {/* Sign In — desktop only */}
-            <Button
-              variant="pill-outline"
-              size="pill-sm"
-              className="hidden lg:inline-flex"
-              asChild
-            >
-              <Link href="https://app.autocrew-ai.com/login">Sign In</Link>
-            </Button>
+              <Button variant="pill-outline" size="pill-sm" asChild>
+                <Link href="https://app.autocrew-ai.com/login">Sign In</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>

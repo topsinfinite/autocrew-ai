@@ -531,6 +531,37 @@ body {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
+/* Phone call FAB — subtle expanding ring ripples */
+@keyframes phone-fab-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+.phone-fab-ripple {
+  pointer-events: none;
+  border-radius: 9999px;
+  border: 2px solid hsl(var(--primary) / 0.45);
+  animation: phone-fab-ring 2.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.phone-fab-ripple-delay {
+  animation-delay: 1.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phone-fab-ripple,
+  .phone-fab-ripple-delay {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* Audio player wave bar animation */
 @keyframes audio-wave {
   0% { transform: scaleY(0.15); opacity: 0.4; }

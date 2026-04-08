@@ -48,7 +48,7 @@ export default function GettingStartedPage() {
         Step 1: Create Your Account
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Visit the Autocrew homepage and click the "Request Access" button.
+        Visit the Autocrew homepage and click the "Book a Demo" button.
         You'll be guided through a simple signup process.
       </p>
       <div className="mb-8 space-y-2">

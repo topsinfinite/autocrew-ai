@@ -10,18 +10,44 @@ export function PhoneCallFab() {
   const { hasConsented } = useConsent();
 
   return (
-    <Link
-      href={APP_CONFIG.supportPhoneTel}
+    <div
       className={cn(
-        "lg:hidden fixed left-4 z-[80] flex h-14 w-14 min-h-[56px] min-w-[56px] items-center justify-center rounded-full",
-        "bg-primary text-primary-foreground shadow-lg shadow-primary/25",
-        "hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        "transition-[bottom] duration-300",
+        "lg:hidden fixed left-3 sm:left-4 z-[80] transition-[bottom] duration-300 max-w-[calc(100vw-1.5rem)]",
         hasConsented ? "bottom-4 sm:bottom-6" : "bottom-44 sm:bottom-40",
       )}
-      aria-label={`Speak to Sarah, ${APP_CONFIG.speakToSarahSubtitle}, call us`}
     >
-      <Phone className="h-6 w-6 shrink-0" aria-hidden />
-    </Link>
+      <div className="relative inline-flex max-w-full">
+        <span
+          className="phone-fab-ripple absolute inset-0 z-0"
+          aria-hidden
+        />
+        <span
+          className="phone-fab-ripple phone-fab-ripple-delay absolute inset-0 z-0"
+          aria-hidden
+        />
+        <Link
+          href={APP_CONFIG.supportPhoneTel}
+          className={cn(
+            "relative z-[1] flex min-h-[52px] items-center gap-2.5 rounded-full pl-3.5 pr-4 py-2",
+            "bg-primary text-primary-foreground shadow-lg shadow-primary/30",
+            "hover:bg-primary/90 active:scale-[0.98] transition-transform",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          )}
+          aria-label={`Speak to Sarah, ${APP_CONFIG.speakToSarahSubtitle}, call us`}
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-foreground/15">
+            <Phone className="h-5 w-5" aria-hidden />
+          </span>
+          <span className="flex min-w-0 flex-col items-start text-left leading-tight">
+            <span className="font-space-grotesk text-sm font-semibold tracking-tight">
+              Speak to Sarah
+            </span>
+            <span className="font-geist text-[10px] font-normal opacity-90 max-w-[9.5rem] leading-snug">
+              {APP_CONFIG.speakToSarahSubtitle}
+            </span>
+          </span>
+        </Link>
+      </div>
+    </div>
   );
 }

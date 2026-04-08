@@ -11,7 +11,7 @@ export const heroData = {
   subheadline:
     "AI voice agents answer every call, book appointments, and check records — HIPAA-aware and live in under a week.",
   primaryCta: {
-    text: "Request Access",
+    text: "Book a Demo",
     href: "https://app.autocrew-ai.com/signup",
   },
   secondaryCta: {
