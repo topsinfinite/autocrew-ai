@@ -37,7 +37,7 @@ export default function DocsPage() {
     },
     {
       title: "User Guide",
-      description: "Complete guide to using AutoCrew features",
+      description: "Complete guide to using Autocrew features",
       icon: BookOpen,
       href: "/docs/user-guide",
     },
@@ -76,10 +76,10 @@ export default function DocsPage() {
           id="introduction"
           className="mb-4 text-4xl font-bold text-foreground"
         >
-          AutoCrew Documentation
+          Autocrew Documentation
         </h1>
         <p className="text-lg text-muted-foreground">
-          Welcome to AutoCrew documentation. Learn how to automate your business
+          Welcome to Autocrew documentation. Learn how to automate your business
           processes with AI-powered crews that work 24/7 to support your
           customers and generate leads.
         </p>
@@ -93,13 +93,13 @@ export default function DocsPage() {
           Overview
         </h2>
         <p className="mb-4 text-muted-foreground">
-          AutoCrew is a multi-tenant SaaS platform that provides AI-powered
+          Autocrew is a multi-tenant SaaS platform that provides AI-powered
           automation for businesses. Our intelligent crews can handle customer
           support inquiries, identify and qualify leads, and integrate
           seamlessly with your existing tools.
         </p>
         <p className="mb-4 text-muted-foreground">
-          Whether you're a small startup or a large enterprise, AutoCrew scales
+          Whether you're a small startup or a large enterprise, Autocrew scales
           with your needs and provides the automation capabilities you need to
           grow your business efficiently.
         </p>
@@ -149,7 +149,7 @@ export default function DocsPage() {
         <div className="space-y-4">
           <div>
             <h3 className="mb-2 text-lg font-semibold text-foreground">
-              New to AutoCrew?
+              New to Autocrew?
             </h3>
             <p className="text-muted-foreground">
               Start with our{" "}

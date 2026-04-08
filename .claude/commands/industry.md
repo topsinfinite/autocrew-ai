@@ -1,5 +1,5 @@
 ---
-description: "Generate a complete industry-specific landing page following AutoCrew's design system and the coaching page pattern. Triggers on: industry page, new industry, create industry page, vertical page, industry landing page."
+description: "Generate a complete industry-specific landing page following Autocrew's design system and the coaching page pattern. Triggers on: industry page, new industry, create industry page, vertical page, industry landing page."
 ---
 
 # Industry Landing Page Generator
@@ -72,7 +72,7 @@ Plan each section with specific content:
 After plan approval, create all files. **IMPORTANT: Before writing any component code, invoke the `/frontend-design` skill:**
 
 ```
-/frontend-design {Industry} industry landing page for AutoCrew AI automation platform - need to design a high-quality, conversion-optimized landing page at /industry/{name}
+/frontend-design {Industry} industry landing page for Autocrew AI automation platform - need to design a high-quality, conversion-optimized landing page at /industry/{name}
 ```
 
 This ensures the design thinking framework is active and all components follow the aesthetics guidelines.
@@ -160,7 +160,7 @@ Create 8 component files. **Each one must clone its coaching counterpart exactly
 - **Max width**: `max-w-7xl mx-auto px-4 sm:px-6`
 - **SectionBadge**: Import from `@/components/landing/section-badge`
 - **Buttons**: `variant="pill"` / `variant="pill-outline"`, sizes `pill-md` / `pill-lg`
-- **CTA section**: Must include the full contact grid (email, schedule demo, try AutoCrew) + embedded footer (logo, nav columns, social links, copyright) — matching `coaching-cta.tsx` and `cta-section.tsx` layout exactly
+- **CTA section**: Must include the full contact grid (email, schedule demo, try Autocrew) + embedded footer (logo, nav columns, social links, copyright) — matching `coaching-cta.tsx` and `cta-section.tsx` layout exactly
 - **Icons**: Use `lucide-react` — choose icons relevant to the industry
 
 ---

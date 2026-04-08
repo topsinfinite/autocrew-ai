@@ -119,7 +119,7 @@ export function TabChatVoicePanel({
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <p className="text-xs font-medium text-white truncate">
-                AutoCrew is speaking
+                Autocrew is speaking
               </p>
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
             </div>
@@ -220,7 +220,7 @@ export function TabChatVoicePanel({
 
         {/* Agent info */}
         <p className="text-sm font-medium text-white mb-1">
-          AutoCrew is speaking
+          Autocrew is speaking
         </p>
         <span className="font-space-mono text-xs text-neutral-500 mb-1">
           {voicePanel.agentName} &middot; {voicePanel.agentRole}

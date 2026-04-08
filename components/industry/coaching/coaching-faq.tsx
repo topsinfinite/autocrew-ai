@@ -30,7 +30,7 @@ export function CoachingFaq() {
 
             <p className="text-lg leading-relaxed text-muted-foreground font-geist mb-8">
               Common questions from coaching professionals before getting
-              started with AutoCrew.
+              started with Autocrew.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">

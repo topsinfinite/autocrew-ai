@@ -35,8 +35,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "AutoCrew – Agentic Crews Management Platform",
-    template: "%s | AutoCrew",
+    default: "Autocrew – Agentic Crews Management Platform",
+    template: "%s | Autocrew",
   },
   description:
     "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
@@ -70,8 +70,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: baseUrl,
-    siteName: "AutoCrew",
-    title: "AutoCrew – Agentic Crews Management Platform",
+    siteName: "Autocrew",
+    title: "Autocrew – Agentic Crews Management Platform",
     description:
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
     images: [
@@ -79,13 +79,13 @@ export const metadata: Metadata = {
         url: `${baseUrl}/images/og-image.png?v=2`,
         width: 1200,
         height: 630,
-        alt: "AutoCrew – AI-Powered Crews That Work 24/7",
+        alt: "Autocrew – AI-Powered Crews That Work 24/7",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AutoCrew – Agentic Crews Management Platform",
+    title: "Autocrew – Agentic Crews Management Platform",
     description:
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required. Trusted by teams of all sizes. Start free.",
     images: [`${baseUrl}/images/og-image.png?v=2`],

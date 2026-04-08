@@ -4,7 +4,7 @@ import { DocNavigation } from "@/components/docs/doc-navigation";
 export const metadata: Metadata = {
   title: "Security",
   description:
-    "Learn about AutoCrew's security practices, infrastructure, encryption, access controls, and incident response procedures.",
+    "Learn about Autocrew's security practices, infrastructure, encryption, access controls, and incident response procedures.",
   alternates: { canonical: "/docs/security" },
 };
 
@@ -18,7 +18,7 @@ export default function SecurityPage() {
         Last Updated: March 4, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
-        At AutoCrew, security is foundational to everything we build. This page
+        At Autocrew, security is foundational to everything we build. This page
         describes the technical and organizational measures we use to protect
         your data and ensure the integrity of our platform.
       </p>
@@ -31,7 +31,7 @@ export default function SecurityPage() {
         Security Overview
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew is built with a security-first architecture designed to meet
+        Autocrew is built with a security-first architecture designed to meet
         the demands of enterprise customers handling sensitive data. Our
         security program encompasses:
       </p>
@@ -134,7 +134,7 @@ export default function SecurityPage() {
         Infrastructure and Architecture
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew runs on enterprise-grade cloud infrastructure with multiple
+        Autocrew runs on enterprise-grade cloud infrastructure with multiple
         layers of protection:
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -230,7 +230,7 @@ export default function SecurityPage() {
         Incident Response
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew maintains a comprehensive incident response program to detect,
+        Autocrew maintains a comprehensive incident response program to detect,
         contain, and remediate security events:
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -434,7 +434,7 @@ export default function SecurityPage() {
             <strong>Responsible Disclosure:</strong> support@autocrew-ai.com
           </li>
           <li>
-            <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San
+            <strong>Address:</strong> Autocrew Inc., 123 AI Street, San
             Francisco, CA 94105
           </li>
         </ul>

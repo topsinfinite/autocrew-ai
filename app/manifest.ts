@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "AutoCrew – Agentic Crews Management Platform",
-    short_name: "AutoCrew",
+    name: "Autocrew – Agentic Crews Management Platform",
+    short_name: "Autocrew",
     description:
       "Deploy AI crews that automate customer support and lead generation 24/7. No code required.",
     start_url: "/",

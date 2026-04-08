@@ -1,7 +1,7 @@
 # Contextual AI: Highlight-to-Chat
 
-**Product:** AutoCrew Widget — Contextual AI Feature  
-**Author:** AutoCrew Product Team  
+**Product:** Autocrew Widget — Contextual AI Feature  
+**Author:** Autocrew Product Team  
 **Date:** April 2026  
 **Status:** PROPOSAL — awaiting eng review  
 **Version:** 1.0
@@ -10,13 +10,13 @@
 
 ## TL;DR
 
-When a visitor highlights any text on a webpage where the AutoCrew widget is embedded, a lightweight "Ask Sarah" popover appears. Clicking it opens the widget with the highlighted text — and its surrounding context — pre-loaded as a question. This turns every word on every page into an interactive entry point for a contextual AI conversation.
+When a visitor highlights any text on a webpage where the Autocrew widget is embedded, a lightweight "Ask Sarah" popover appears. Clicking it opens the widget with the highlighted text — and its surrounding context — pre-loaded as a question. This turns every word on every page into an interactive entry point for a contextual AI conversation.
 
 ---
 
 ## 1. The Problem
 
-### For AutoCrew customers (website owners)
+### For Autocrew customers (website owners)
 
 Most website copy is **dense and passive**. Visitors encounter unfamiliar terms, skeptical claims, or complex features and they do one of three things: re-read it, google it, or leave. None of these outcomes are good for conversion.
 
@@ -39,7 +39,7 @@ Or they just move on.
 
 ## 2. The Solution
 
-**Contextual AI** — a Highlight-to-Chat interaction layer that connects any text on a page to the AutoCrew widget.
+**Contextual AI** — a Highlight-to-Chat interaction layer that connects any text on a page to the Autocrew widget.
 
 ### User experience
 
@@ -74,14 +74,14 @@ Or they just move on.
 
 ## 4. Target Users
 
-### Primary: AutoCrew customers deploying widgets in content-rich environments
+### Primary: Autocrew customers deploying widgets in content-rich environments
 
 - **SaaS landing pages** — complex feature descriptions, technical differentiators
 - **Healthcare websites** — compliance terms, treatment explanations, appointment flows
 - **Professional services** — legal, financial, coaching — where language is specialized
 - **E-commerce PDPs** — product specifications, policies, shipping terms
 
-### Secondary: AutoCrew's own marketing site
+### Secondary: Autocrew's own marketing site
 
 The feature will be **dogfooded on autocrew-ai.com** first. This site is the proving ground. Every hero headline, features section, pricing table, and FAQ becomes a live demo of Contextual AI.
 
@@ -280,7 +280,7 @@ Recommend: **"Ask Anywhere"** for marketing surfaces, **"Contextual AI"** in the
 ### Pitch to potential customers
 
 > **Pitch:**
-> Right now, your visitors read your page, get confused, and leave. AutoCrew's **Ask Anywhere** turns every sentence on your site into a conversation starter. When someone highlights your pricing tiers or your HIPAA compliance section, they instantly get a contextual answer — without leaving the page or starting from scratch.
+> Right now, your visitors read your page, get confused, and leave. Autocrew's **Ask Anywhere** turns every sentence on your site into a conversation starter. When someone highlights your pricing tiers or your HIPAA compliance section, they instantly get a contextual answer — without leaving the page or starting from scratch.
 
 **Customer segments who will pay for this:**
 
@@ -430,7 +430,7 @@ Customer-configurable from the dashboard:
 ## 11. Open Questions
 
 1. Should the popover also appear on mobile, using a different trigger (e.g. share sheet)?
-2. Should AutoCrew track which selections are made most frequently, and surface that data to customers as "what your visitors are confused about"?
+2. Should Autocrew track which selections are made most frequently, and surface that data to customers as "what your visitors are confused about"?
 3. Is there a version of this for images/diagrams — hover + ask about an element?
 4. Should the popover appear for all visitors or only after some engagement threshold?
 5. Can the section-level prompt framing be AI-generated based on the page content itself?
@@ -453,9 +453,9 @@ Customer-configurable from the dashboard:
 | Medium                   | Highlight → quote/respond (social, not AI) |
 
 
-**Key finding:** No embedded chat widget offers this. It exists in browser-level AI tools (Arc, Kagi, Perplexity extension) but never as a feature of a website widget that a business can own and brand. AutoCrew has a clear first-mover window.
+**Key finding:** No embedded chat widget offers this. It exists in browser-level AI tools (Arc, Kagi, Perplexity extension) but never as a feature of a website widget that a business can own and brand. Autocrew has a clear first-mover window.
 
 ---
 
-*Document owner: AutoCrew Product Team*  
+*Document owner: Autocrew Product Team*  
 *Next review: After Phase 1 dogfood data is collected*

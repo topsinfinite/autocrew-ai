@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { navLinks, isDropdownLink } from "@/lib/mock-data/landing-data";
 import type { NavLinkItem } from "@/lib/mock-data/landing-data";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/layout/logo";
+import { APP_CONFIG } from "@/lib/constants";
 
 const docsLinks = [
   { label: "Home", href: "/" },
@@ -26,6 +27,10 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const links = variant === "docs" ? docsLinks : navLinks;
+  const desktopLinks =
+    variant === "docs"
+      ? links
+      : links.filter((item) => !(item.label === "Pricing"));
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -248,7 +253,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex items-center gap-1 text-sm font-medium text-muted-foreground">
-            {links.map((link) => renderDesktopLink(link as NavLinkItem))}
+            {desktopLinks.map((link) => renderDesktopLink(link as NavLinkItem))}
           </ul>
 
           {/* Actions */}
@@ -272,7 +277,28 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             {/* Theme toggle */}
             <ThemeToggle />
 
-            {/* Sign In button - desktop only */}
+            {/* Primary CTA — desktop only (mobile: FAB + menu pill) */}
+            <Button
+              variant="pill"
+              size="pill-sm"
+              className="hidden lg:inline-flex gap-2 h-auto py-1.5"
+              asChild
+            >
+              <a
+                href={APP_CONFIG.supportPhoneTel}
+                className="inline-flex items-center gap-2"
+              >
+                <Phone className="w-4 h-4 shrink-0 self-center" aria-hidden />
+                <span className="flex flex-col items-start gap-0.5 text-left leading-tight">
+                  <span>Speak to Sarah</span>
+                  <span className="text-[10px] font-normal font-geist opacity-90 max-w-[10rem]">
+                    {APP_CONFIG.speakToSarahSubtitle}
+                  </span>
+                </span>
+              </a>
+            </Button>
+
+            {/* Sign In — desktop only */}
             <Button
               variant="pill-outline"
               size="pill-sm"
@@ -280,18 +306,6 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
               asChild
             >
               <Link href="https://app.autocrew-ai.com/login">Sign In</Link>
-            </Button>
-
-            {/* Primary CTA - desktop only */}
-            <Button
-              variant="pill"
-              size="pill-sm"
-              className="hidden lg:inline-flex"
-              asChild
-            >
-              <Link href="https://app.autocrew-ai.com/signup">
-                Start for free
-              </Link>
             </Button>
           </div>
         </div>
@@ -335,6 +349,33 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             <nav className="flex flex-col gap-1">
               {links.map((link) => renderMobileLink(link as NavLinkItem))}
             </nav>
+            <div className="rounded-xl border border-border bg-foreground/[0.03] p-4 mt-4 space-y-3">
+              <div>
+                <p className="text-sm font-semibold font-space-grotesk text-foreground">
+                  Speak to Sarah
+                </p>
+                <p className="text-xs text-muted-foreground font-geist mt-1">
+                  {APP_CONFIG.speakToSarahSubtitle}
+                </p>
+              </div>
+              <Button
+                variant="pill"
+                size="pill-md"
+                className="w-full justify-center gap-2"
+                asChild
+              >
+                <a href={APP_CONFIG.supportPhoneTel}>
+                  <Phone className="w-4 h-4 shrink-0" aria-hidden />
+                  Speak to Sarah
+                </a>
+              </Button>
+              <p className="text-sm text-muted-foreground font-geist text-center break-all">
+                {APP_CONFIG.supportPhoneDisplay}
+              </p>
+              <p className="text-xs text-muted-foreground font-geist text-center">
+                {APP_CONFIG.supportPhoneHours}
+              </p>
+            </div>
             <div className="flex flex-col gap-2 pt-4 mt-4 border-t border-border">
               <Button
                 variant="pill-outline"
@@ -347,19 +388,6 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
                   onClick={closeMobileMenu}
                 >
                   Sign In
-                </Link>
-              </Button>
-              <Button
-                variant="pill"
-                size="pill-md"
-                className="w-full justify-center"
-                asChild
-              >
-                <Link
-                  href="https://app.autocrew-ai.com/signup"
-                  onClick={closeMobileMenu}
-                >
-                  Start for free
                 </Link>
               </Button>
             </div>

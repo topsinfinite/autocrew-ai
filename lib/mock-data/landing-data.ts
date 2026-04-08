@@ -220,7 +220,7 @@ export const howItWorksData: Step[] = [
   },
 ];
 
-// Why AutoCrew Section Data
+// Why Autocrew Section Data
 // NOTE: Replaced by Stats Section in functionality, but keeping data structure if needed for legacy compatibility
 export interface WhyFeature {
   title: string;
@@ -229,7 +229,7 @@ export interface WhyFeature {
 }
 
 export const whyAutocrewData = {
-  badge: "Why AutoCrew",
+  badge: "Why Autocrew",
   title: "Engineered for Autonomy & Impact",
   description:
     "We don't just automate tasks; we deploy intelligent digital workforces that scale your operations 24/7 without manual intervention.",
@@ -275,7 +275,7 @@ export const ctaData = {
     line2: "Patient Call",
   },
   subheadline:
-    "Join healthcare practices using AutoCrew for HIPAA-aware patient engagement and 24/7 intelligent support.",
+    "Join healthcare practices using Autocrew for HIPAA-aware patient engagement and 24/7 intelligent support.",
   email: {
     label: "SEND US AN EMAIL",
     address: "support@autocrew-ai.com",
@@ -285,7 +285,7 @@ export const ctaData = {
     ctaText: "Book a Demo",
   },
   tryIt: {
-    label: "Try AutoCrew",
+    label: "Try Autocrew",
     ctaText: "Request Access",
   },
 };
@@ -318,7 +318,7 @@ export const navLinks: NavLinkItem[] = [
 
 // Footer Data (simplified - just copyright)
 export const footerData = {
-  copyright: "© 2026 AutoCrew. All rights reserved.",
+  copyright: "© 2026 Autocrew. All rights reserved.",
 };
 
 // ============================================
@@ -525,7 +525,7 @@ export const dashboardPreviewData = {
         isActive: false,
         timeAgo: "1h ago",
         preview:
-          "How do I integrate AutoCrew with my Salesforce CRM? Need API docs.",
+          "How do I integrate Autocrew with my Salesforce CRM? Need API docs.",
         agentName: "Robin",
         agentRole: "Support Agent",
       },

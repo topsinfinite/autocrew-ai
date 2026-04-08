@@ -1,4 +1,5 @@
 import { PublicNav } from "@/components/layout/public-nav";
+import { PhoneCallFab } from "@/components/layout/phone-call-fab";
 import { DocsSidebar } from "@/components/layout/docs-sidebar";
 import { TableOfContents } from "@/components/docs/table-of-contents";
 
@@ -26,6 +27,7 @@ export default function DocsLayout({
           <TableOfContents />
         </div>
       </div>
+      <PhoneCallFab />
     </div>
   );
 }

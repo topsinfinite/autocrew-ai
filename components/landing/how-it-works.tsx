@@ -16,7 +16,7 @@ export function HowItWorks() {
             How It Works
           </h2>
           <p className="text-lg font-geist text-muted-foreground">
-            Get started with AutoCrew in four simple steps.
+            Get started with Autocrew in four simple steps.
           </p>
         </div>
 

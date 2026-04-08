@@ -62,7 +62,7 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
         >
           {/* Visually-hidden description for LLM crawlers and screen readers */}
           <div className="sr-only">
-            AutoCrew dashboard interface showing: AI-powered chat conversations
+            Autocrew dashboard interface showing: AI-powered chat conversations
             with automated patient scheduling and support responses achieving
             94.7% resolution rate, team inbox managing customer inquiries across
             voice, chat, and email channels, real-time analytics dashboard with

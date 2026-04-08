@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the AutoCrew Marketing Site are documented here.
+All notable changes to the Autocrew Marketing Site are documented here.
 
 ---
 

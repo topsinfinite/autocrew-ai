@@ -4,7 +4,7 @@ import { DocNavigation } from "@/components/docs/doc-navigation";
 export const metadata: Metadata = {
   title: "Compliance",
   description:
-    "AutoCrew's compliance with GDPR, CCPA/CPRA, SOC 2, ISO 27001, EU AI Act, and other regulatory frameworks.",
+    "Autocrew's compliance with GDPR, CCPA/CPRA, SOC 2, ISO 27001, EU AI Act, and other regulatory frameworks.",
   alternates: { canonical: "/docs/compliance" },
 };
 
@@ -18,7 +18,7 @@ export default function CompliancePage() {
         Last Updated: March 4, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
-        AutoCrew is committed to meeting and exceeding regulatory requirements
+        Autocrew is committed to meeting and exceeding regulatory requirements
         across the jurisdictions we operate in. This page outlines our
         compliance posture and the frameworks we adhere to.
       </p>
@@ -60,7 +60,7 @@ export default function CompliancePage() {
         GDPR Compliance
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew complies with the General Data Protection Regulation (GDPR) for
+        Autocrew complies with the General Data Protection Regulation (GDPR) for
         all processing of personal data of individuals in the European Economic
         Area (EEA) and United Kingdom.
       </p>
@@ -77,7 +77,7 @@ export default function CompliancePage() {
       <ul className="mb-6 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
           <strong>Contract performance:</strong> Processing necessary to deliver
-          the AutoCrew platform and services you have subscribed to
+          the Autocrew platform and services you have subscribed to
         </li>
         <li>
           <strong>Legitimate interest:</strong> Processing for service
@@ -101,7 +101,7 @@ export default function CompliancePage() {
         Data Subject Rights
       </h3>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew supports the exercise of all GDPR data subject rights. We
+        Autocrew supports the exercise of all GDPR data subject rights. We
         provide mechanisms for individuals to:
       </p>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
@@ -168,7 +168,7 @@ export default function CompliancePage() {
         CCPA/CPRA Compliance
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew complies with the California Consumer Privacy Act (CCPA) as
+        Autocrew complies with the California Consumer Privacy Act (CCPA) as
         amended by the California Privacy Rights Act (CPRA) for California
         residents.
       </p>
@@ -221,7 +221,7 @@ export default function CompliancePage() {
         &quot;Do Not Sell or Share&quot; Commitment
       </h3>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew does not sell personal information to third parties. We do not
+        Autocrew does not sell personal information to third parties. We do not
         share personal information for cross-context behavioral advertising. Our
         data processing is limited to providing and improving our services.
       </p>
@@ -245,7 +245,7 @@ export default function CompliancePage() {
         SOC 2 Framework
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew&apos;s security controls are aligned with the SOC 2 Trust
+        Autocrew&apos;s security controls are aligned with the SOC 2 Trust
         Service Criteria established by the American Institute of Certified
         Public Accountants (AICPA).
       </p>
@@ -289,7 +289,7 @@ export default function CompliancePage() {
         ISO 27001 Alignment
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew&apos;s Information Security Management System (ISMS) is aligned
+        Autocrew&apos;s Information Security Management System (ISMS) is aligned
         with the ISO/IEC 27001 standard:
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -325,7 +325,7 @@ export default function CompliancePage() {
         EU AI Act Awareness
       </h3>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew monitors developments under the EU AI Act and proactively
+        Autocrew monitors developments under the EU AI Act and proactively
         assesses our AI systems against its risk classification framework:
       </p>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
@@ -373,7 +373,7 @@ export default function CompliancePage() {
         Data Protection Impact Assessments
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew conducts Data Protection Impact Assessments (DPIAs) for
+        Autocrew conducts Data Protection Impact Assessments (DPIAs) for
         processing activities that are likely to result in a high risk to
         individuals:
       </p>
@@ -482,7 +482,7 @@ export default function CompliancePage() {
             <strong>Data Protection Officer:</strong> support@autocrew-ai.com
           </li>
           <li>
-            <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San
+            <strong>Address:</strong> Autocrew Inc., 123 AI Street, San
             Francisco, CA 94105
           </li>
         </ul>

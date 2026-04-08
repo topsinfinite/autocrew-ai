@@ -307,7 +307,7 @@ const TYPOGRAPHY_SAMPLES: TypoSample[] = [
     font: "Geist Sans",
     fontClass: "font-geist",
     sampleText:
-      "AutoCrew helps businesses automate customer interactions at scale. Our AI-powered crews handle support, lead generation, and more with human-like precision and empathy.",
+      "Autocrew helps businesses automate customer interactions at scale. Our AI-powered crews handle support, lead generation, and more with human-like precision and empathy.",
   },
   {
     level: "Small",
@@ -850,13 +850,13 @@ export default function DesignSystemPage() {
             <SectionBadge className="mb-6">Design System</SectionBadge>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-space-grotesk text-foreground mb-6 leading-[1.1]">
-              AutoCrew <span className="text-[#FF6B35]">Design System</span>
+              Autocrew <span className="text-[#FF6B35]">Design System</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground font-geist leading-relaxed max-w-2xl">
               A comprehensive reference of every design token, typography scale,
               color, spacing value, and component pattern used across the
-              AutoCrew brand. Use this guide to maintain visual consistency
+              Autocrew brand. Use this guide to maintain visual consistency
               across all products.
             </p>
           </div>

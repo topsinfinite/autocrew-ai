@@ -7,7 +7,7 @@ import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 export const metadata: Metadata = {
   title: "User Guide",
   description:
-    "Complete guide to AutoCrew features. Maximize your AI crews—dashboard, analytics, conversations, and workflows.",
+    "Complete guide to Autocrew features. Maximize your AI crews—dashboard, analytics, conversations, and workflows.",
   alternates: {
     canonical: "/docs/user-guide",
   },
@@ -24,7 +24,7 @@ export default function UserGuidePage() {
         User Guide
       </h1>
       <p className="mb-8 text-lg text-muted-foreground">
-        Complete guide to using AutoCrew's features and capabilities. Learn how
+        Complete guide to using Autocrew's features and capabilities. Learn how
         to maximize the value of your AI crews and streamline your business
         operations.
       </p>
@@ -36,7 +36,7 @@ export default function UserGuidePage() {
         Dashboard Overview
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Your AutoCrew dashboard provides a comprehensive view of your AI crew
+        Your Autocrew dashboard provides a comprehensive view of your AI crew
         performance and activities. The main sections include:
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
@@ -238,7 +238,7 @@ export default function UserGuidePage() {
         Integrations
       </h3>
       <p className="mb-4 text-muted-foreground">
-        Connect AutoCrew with your existing tools and platforms:
+        Connect Autocrew with your existing tools and platforms:
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>Email platforms (Gmail, Outlook, etc.)</li>

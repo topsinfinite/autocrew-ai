@@ -34,7 +34,7 @@ export function FaqSection() {
 
             <p className="text-lg leading-relaxed text-muted-foreground font-geist mb-8">
               The most common questions teams ask before deploying their first
-              AutoCrew workflow.
+              Autocrew workflow.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">

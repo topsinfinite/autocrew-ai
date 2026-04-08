@@ -14,7 +14,7 @@ import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Frequently asked questions about AutoCrew, AI crews, pricing, integrations, and support. Find answers fast.",
+    "Frequently asked questions about Autocrew, AI crews, pricing, integrations, and support. Find answers fast.",
   alternates: {
     canonical: "/docs/faq",
   },
@@ -29,7 +29,7 @@ export default function FAQPage() {
         Frequently Asked Questions
       </h1>
       <p className="mb-8 text-lg text-muted-foreground">
-        Find answers to common questions about AutoCrew, our AI crews, pricing,
+        Find answers to common questions about Autocrew, our AI crews, pricing,
         and more.
       </p>
 
@@ -109,7 +109,7 @@ export default function FAQPage() {
             Community Forum
           </h3>
           <p className="mb-3 text-sm text-muted-foreground">
-            Connect with other AutoCrew users and share insights.
+            Connect with other Autocrew users and share insights.
           </p>
           <a
             href="/contact"

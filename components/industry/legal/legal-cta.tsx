@@ -66,7 +66,7 @@ export function LegalCta() {
 
               <div className="flex flex-col items-start">
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#FF6B35] font-space mb-3">
-                  Try AutoCrew
+                  Try Autocrew
                 </p>
                 <div className="flex flex-col gap-4 w-full sm:w-auto">
                   <Button

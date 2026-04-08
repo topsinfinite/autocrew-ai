@@ -28,7 +28,7 @@ export default function HealthcareIndustryPage() {
             For healthcare providers
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight font-space-grotesk text-foreground mb-6">
-            AutoCrew for Healthcare
+            Autocrew for Healthcare
           </h1>
           <p className="text-lg text-muted-foreground font-geist leading-relaxed mb-10">
             We&apos;re building industry-specific automation for scheduling,

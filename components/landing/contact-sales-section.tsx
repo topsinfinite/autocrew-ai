@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, FileText, CheckCircle2 } from "lucide-react";
+import { ArrowRight, FileText, CheckCircle2, Phone } from "lucide-react";
 import { SectionBadge } from "@/components/landing/section-badge";
 import { Button } from "@/components/ui/button";
 import { contactSalesData } from "@/lib/mock-data/landing-data";
+import { APP_CONFIG } from "@/lib/constants";
 
 export function ContactSalesSection() {
   return (
@@ -36,7 +37,7 @@ export function ContactSalesSection() {
                 {contactSalesData.description}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
                 <Button variant="pill" size="pill-lg" className="group" asChild>
                   <Link href={contactSalesData.primaryCta.href}>
                     {contactSalesData.primaryCta.text}
@@ -49,6 +50,17 @@ export function ContactSalesSection() {
                     {contactSalesData.secondaryCta.text}
                   </Link>
                 </Button>
+                <div className="flex flex-col gap-1.5 items-stretch sm:items-start">
+                  <Button variant="pill-outline" size="pill-lg" asChild>
+                    <a href={APP_CONFIG.supportPhoneTel}>
+                      <Phone className="w-4 h-4" />
+                      Speak to Sarah
+                    </a>
+                  </Button>
+                  <p className="text-xs text-muted-foreground font-geist text-center sm:text-left max-w-[14rem]">
+                    {APP_CONFIG.speakToSarahSubtitle}
+                  </p>
+                </div>
               </div>
             </div>
 

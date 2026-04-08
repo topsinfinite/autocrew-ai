@@ -1,5 +1,6 @@
 import { PublicNav } from "@/components/layout/public-nav";
 import { PublicFooter } from "@/components/layout/public-footer";
+import { PhoneCallFab } from "@/components/layout/phone-call-fab";
 import { BackgroundEffects } from "@/components/landing/background-effects";
 
 export default function PublicLayout({
@@ -19,6 +20,7 @@ export default function PublicLayout({
           {children}
         </main>
         <PublicFooter />
+        <PhoneCallFab />
       </div>
     </div>
   );

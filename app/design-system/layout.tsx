@@ -3,9 +3,9 @@ import { PublicNav } from "@/components/layout/public-nav";
 import { PublicFooter } from "@/components/layout/public-footer";
 
 export const metadata: Metadata = {
-  title: "Design System | AutoCrew",
+  title: "Design System | Autocrew",
   description:
-    "AutoCrew design tokens, typography, colors, spacing, effects, and component reference.",
+    "Autocrew design tokens, typography, colors, spacing, effects, and component reference.",
   robots: {
     index: false,
     follow: false,

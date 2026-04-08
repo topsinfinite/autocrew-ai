@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1440">
-<title>AutoCrew Pitch Deck</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Autocrew Pitch Deck</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -577,6 +577,341 @@
   }
   .pricing-trial strong { color: var(--primary); font-weight: 700; }
 
+  /* ===== APP TOUR SLIDES (05–09) SHARED ===== */
+  .slide-app {
+    padding: 0;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    background: var(--bg);
+  }
+  .app-desc {
+    width: 370px;
+    min-width: 370px;
+    padding: 64px 40px 64px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--glass-border);
+    position: relative;
+    z-index: 2;
+  }
+  .app-desc .section-label { margin-bottom: 14px; }
+  .app-desc .app-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px; font-weight: 700; line-height: 1.18;
+    letter-spacing: -1px; color: #fff;
+    margin-bottom: 12px;
+  }
+  .app-desc .app-subtitle {
+    font-size: 13px; color: var(--gray-300); line-height: 1.65;
+    margin-bottom: 28px;
+  }
+  .app-feat-list { display: flex; flex-direction: column; gap: 14px; }
+  .app-feat { display: flex; align-items: flex-start; gap: 10px; }
+  .app-feat-icon {
+    width: 26px; height: 26px; min-width: 26px; border-radius: 7px;
+    background: var(--primary-dim);
+    border: 1px solid rgba(255,107,53,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+  }
+  .app-feat-text { font-size: 12px; color: var(--gray-300); line-height: 1.55; padding-top: 3px; }
+  .app-feat-text strong { color: var(--gray-100); font-weight: 600; }
+  .app-mockup-col {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 28px 24px 20px;
+    overflow: hidden;
+  }
+  .app-chrome {
+    width: 100%;
+    max-width: 870px;
+    height: 768px;
+    background: #0a0c14;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.7);
+  }
+  .app-sidebar {
+    width: 160px;
+    min-width: 160px;
+    background: #080a11;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+  }
+  .app-sidebar-logo {
+    padding: 16px 14px 12px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .app-logo-mark {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800; color: #000;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .app-logo-text-wrap { display: flex; flex-direction: column; }
+  .app-logo-text { font-size: 11px; font-weight: 700; color: #fff; font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+  .app-logo-sub { font-size: 8px; color: var(--gray-500); }
+  .app-org-block {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .app-org-label { font-size: 8px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; font-family: 'Space Mono', monospace; }
+  .app-org-row { display: flex; align-items: center; gap: 7px; }
+  .app-org-avatar {
+    width: 22px; height: 22px; border-radius: 5px;
+    background: linear-gradient(135deg, var(--primary), #d4561e);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800; color: #fff; font-family: 'Space Grotesk', sans-serif;
+  }
+  .app-org-avatar.star { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+  .app-org-name { font-size: 11px; font-weight: 600; color: var(--gray-100); font-family: 'Space Grotesk', sans-serif; }
+  .app-org-plan { font-size: 8px; color: var(--gray-500); }
+  .app-org-plan.enterprise { color: #8b5cf6; }
+  .app-nav { padding: 8px 6px; flex: 1; display: flex; flex-direction: column; gap: 1px; }
+  .app-nav-item {
+    display: flex; align-items: center; gap: 7px;
+    padding: 7px 9px; border-radius: 6px;
+    font-size: 11px; color: var(--gray-300);
+    font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+  }
+  .app-nav-item.active { background: var(--primary); color: #000; font-weight: 700; }
+  .nav-icon { font-size: 11px; }
+  .app-sidebar-footer {
+    padding: 8px 6px 12px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex; flex-direction: column; gap: 1px;
+  }
+  .app-status-dot {
+    display: flex; align-items: center; gap: 6px; padding: 5px 9px;
+    font-size: 9px; color: var(--gray-500); font-family: 'Space Grotesk', sans-serif;
+  }
+  .app-status-dot::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 5px var(--green); min-width: 6px;
+  }
+  .app-main {
+    flex: 1; overflow: hidden; display: flex; flex-direction: column; background: #0d0f1a;
+  }
+  .app-topbar {
+    padding: 16px 22px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: flex-start; justify-content: space-between;
+  }
+  .app-page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 2px;
+  }
+  .app-page-sub { font-size: 10px; color: var(--gray-500); }
+  .app-topbar-right { display: flex; align-items: center; gap: 8px; padding-top: 2px; }
+  .app-btn-sm {
+    padding: 5px 12px; border-radius: 6px;
+    font-size: 10px; font-weight: 600; font-family: 'Space Grotesk', sans-serif;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border); color: var(--gray-300);
+    display: flex; align-items: center; gap: 5px;
+  }
+  .app-content { flex: 1; padding: 14px 20px; overflow: hidden; }
+  .app-stat-row { display: flex; gap: 10px; margin-bottom: 14px; }
+  .app-stat-card {
+    flex: 1; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px; padding: 13px 14px;
+  }
+  .app-stat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .app-stat-label { font-size: 9px; color: var(--gray-500); font-weight: 500; font-family: 'Space Grotesk', sans-serif; }
+  .app-stat-icon { font-size: 11px; color: var(--gray-500); }
+  .app-stat-value { font-size: 20px; font-weight: 700; color: #fff; font-family: 'Space Grotesk', sans-serif; line-height: 1; }
+  .app-stat-sub { font-size: 9px; color: var(--gray-500); margin-top: 3px; }
+  .app-stat-sub.positive { color: var(--green); }
+  .app-section-hdr {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px; font-weight: 600; color: var(--gray-100); margin-bottom: 8px;
+  }
+  .app-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+  }
+  .abadge {
+    display: inline-flex; align-items: center;
+    padding: 2px 7px; border-radius: 100px;
+    font-size: 9px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 0.3px;
+  }
+  .abadge.orange { background: rgba(255,107,53,0.18); color: var(--primary); }
+  .abadge.green { background: rgba(34,197,94,0.15); color: var(--green); }
+  .abadge.yellow { background: rgba(245,158,11,0.15); color: var(--yellow); }
+  .abadge.red { background: rgba(239,68,68,0.15); color: var(--red); }
+  .abadge.blue { background: rgba(14,165,233,0.15); color: var(--secondary); }
+  .abadge.gray { background: rgba(100,116,139,0.1); color: var(--gray-300); }
+
+  /* ===== SLIDE 05: DASHBOARD ===== */
+  .dash-active-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 14px; border-radius: 7px;
+    background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 14px;
+  }
+  .dash-active-left { display: flex; align-items: center; gap: 10px; }
+  .dash-active-name { font-size: 11px; font-weight: 600; color: var(--gray-100); font-family: 'Space Grotesk', sans-serif; }
+  .dash-convo-list { display: flex; flex-direction: column; gap: 6px; }
+  .dash-convo-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 12px; border-radius: 6px;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+  }
+  .dash-convo-left { display: flex; align-items: center; gap: 8px; }
+  .dash-convo-name { font-size: 10px; font-weight: 600; color: var(--gray-100); font-family: 'Space Grotesk', sans-serif; }
+  .dash-convo-meta { font-size: 8px; color: var(--gray-500); margin-top: 1px; }
+  .dash-convo-date { font-size: 8px; color: var(--gray-500); white-space: nowrap; }
+
+  /* ===== SLIDE 06: AGENT CREWS ===== */
+  .crews-table { width: 100%; border-collapse: collapse; }
+  .crews-table th {
+    font-size: 9px; font-weight: 600; color: var(--gray-500);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    padding: 8px 10px; text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .crews-table td {
+    padding: 12px 10px; font-size: 10px; color: var(--gray-300);
+    border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle;
+  }
+  .crew-name-cell { font-size: 11px; font-weight: 600; color: var(--gray-100); font-family: 'Space Grotesk', sans-serif; }
+  .crew-code {
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+    padding: 3px 8px; border-radius: 5px; color: var(--gray-300);
+  }
+  .app-toggle {
+    width: 26px; height: 15px; border-radius: 100px;
+    background: var(--primary); position: relative; display: inline-block; vertical-align: middle; margin-right: 5px;
+  }
+  .app-toggle::after {
+    content: ''; position: absolute;
+    right: 2px; top: 2px;
+    width: 11px; height: 11px; border-radius: 50%; background: #fff;
+  }
+  .manage-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; color: var(--gray-300); font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* ===== SLIDE 07: CALL LOGS ===== */
+  .calls-search-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .calls-search-input {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px; padding: 5px 10px;
+    font-size: 10px; color: var(--gray-500); flex: 1; max-width: 220px;
+  }
+  .calls-filter-btn {
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 6px; padding: 5px 12px;
+    font-size: 10px; color: var(--gray-300); font-family: 'Space Grotesk', sans-serif;
+  }
+  .calls-table { width: 100%; border-collapse: collapse; }
+  .calls-table th {
+    font-size: 9px; font-weight: 600; color: var(--gray-500);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    padding: 7px 8px; text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .calls-table td {
+    padding: 8px 8px; font-size: 10px; color: var(--gray-300);
+    border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle;
+  }
+  .call-time-main { font-size: 10px; color: var(--gray-100); font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
+  .call-time-sub { font-size: 8px; color: var(--gray-500); }
+  .call-agent-name { font-size: 10px; color: var(--gray-100); font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
+  .call-agent-type { font-size: 8px; }
+  .call-agent-type.leadgen { color: var(--primary); }
+  .call-agent-type.support { color: var(--secondary); }
+  .dir-in { color: var(--secondary); font-size: 9px; }
+  .dir-out { color: var(--primary); font-size: 9px; }
+  .call-duration { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--gray-100); }
+  .call-rec { display: flex; align-items: center; gap: 4px; }
+  .rec-icon {
+    width: 20px; height: 20px; border-radius: 4px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: var(--gray-400);
+  }
+  .calls-footer {
+    padding: 8px 10px; display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.05); font-size: 9px; color: var(--gray-500);
+  }
+  .calls-pagination { display: flex; gap: 4px; }
+  .page-btn {
+    width: 20px; height: 20px; border-radius: 4px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: var(--gray-300);
+  }
+
+  /* ===== SLIDE 08: ANALYTICS ===== */
+  .chart-box {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; padding: 12px 16px; margin-bottom: 10px;
+  }
+  .chart-title { font-size: 11px; font-weight: 600; color: var(--gray-100); margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; }
+  .chart-x-labels {
+    display: flex; justify-content: space-between; margin-top: 4px;
+    font-size: 8px; color: var(--gray-500); font-family: 'Space Mono', monospace;
+  }
+  .chart-legend { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 9px; color: var(--gray-500); }
+  .chart-legend-dot { width: 14px; height: 2px; background: var(--primary); border-radius: 1px; }
+  .sentiment-row { margin-bottom: 8px; }
+  .sentiment-label-row { display: flex; justify-content: space-between; font-size: 10px; color: var(--gray-300); margin-bottom: 4px; }
+  .sentiment-bar-track { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+  .sentiment-bar-fill { height: 100%; border-radius: 3px; }
+  .sentiment-bar-fill.pos { background: var(--green); }
+  .sentiment-bar-fill.neu { background: var(--yellow); }
+  .sentiment-bar-fill.neg { background: var(--red); }
+  .date-range-pill {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 6px; padding: 5px 10px;
+    font-size: 10px; color: var(--gray-300); font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* ===== SLIDE 09: USAGE ===== */
+  .usage-section-label {
+    font-size: 8px; font-weight: 700; color: var(--gray-500);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 8px; margin-top: 14px;
+    font-family: 'Space Mono', monospace;
+  }
+  .usage-section-label:first-child { margin-top: 0; }
+  .usage-cards-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .usage-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 7px; padding: 12px 14px; min-width: 110px;
+  }
+  .usage-card-label { font-size: 9px; color: var(--gray-500); margin-bottom: 6px; font-family: 'Space Grotesk', sans-serif; }
+  .usage-card-value { font-size: 19px; font-weight: 700; color: #fff; font-family: 'Space Grotesk', sans-serif; line-height: 1; }
+  .usage-card-value span { font-size: 10px; font-weight: 400; color: var(--gray-500); }
+  .usage-card-sub { font-size: 9px; color: var(--gray-500); margin-top: 3px; }
+  .usage-month-picker {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; padding: 5px 10px;
+    font-size: 10px; color: var(--gray-300); font-family: 'Space Grotesk', sans-serif;
+  }
+
   /* ===== SLIDE 12: CTA ===== */
   .slide-cta {
     background:
@@ -607,6 +942,7 @@
   .cta-contact { font-size: 14px; color: var(--gray-500); }
   .cta-contact a { color: var(--primary); font-weight: 600; text-decoration: none; }
 </style>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
 
@@ -614,7 +950,7 @@
 <div class="slide slide-title">
   <div class="title-content">
     <div class="title-logo">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 46" width="280" height="35" aria-label="AutoCrew logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 46" width="280" height="35" aria-label="Autocrew logo">
         <path d="M24.1554 0.0350722C28.147 0.21846 32.4534 -0.37803 36.3731 0.470619C48.3819 3.07025 46.6049 15.592 46.587 24.6523L46.5958 45.9472C41.3711 45.9364 36.1464 45.9536 30.922 45.9999C29.4434 43.2148 24.0444 35.6277 21.9962 32.5907L15.7774 23.1142C15.8737 23.0779 15.9624 23.046 16.043 23.0185C10.7968 21.4462 5.46825 19.4975 0.173907 17.8573L0.194415 0.0331191C8.07258 0.200105 16.248 -0.0934163 24.1554 0.0350722ZM15.7032 45.9609L0.0782041 45.9726C0.0245158 40.9337 -0.00163556 35.8945 7.91436e-05 30.8554C2.63646 29.4133 12.6224 24.3281 15.6944 23.1464L15.7032 45.9609ZM15.7774 23.1142C15.7503 23.1244 15.7227 23.1355 15.6944 23.1464V22.9882L15.7774 23.1142ZM39.7745 7.26066C38.7262 5.91122 37.0328 5.2309 35.3429 5.48038C32.7801 5.85886 30.9964 8.22725 31.3389 10.7968C31.6816 13.3661 34.0235 15.1839 36.5958 14.8769C38.2918 14.6744 39.7479 13.5741 40.4063 11.997C41.0645 10.4198 40.8228 8.61007 39.7745 7.26066Z" fill="#FF6B35"/>
         <path d="M320.817 45.1257L311.857 9.61697H322.161L326.641 32.4152H327.153L333.553 9.61697H343.217L349.617 32.4152H350.129L354.609 9.61697H364.913L355.953 45.1257H345.073L338.609 23.4708H338.225L331.697 45.1257H320.817Z" fill="#ffffff"/>
         <path d="M292.529 46C282.737 46 275.377 38.2661 275.377 27.5731C275.377 16.4766 282.417 8.7427 292.721 8.7427C303.857 8.7427 309.681 17.3509 309.681 27.2368V30.2632H284.785C285.105 34.769 288.241 37.9971 292.913 37.9971C296.817 37.9971 299.441 35.9795 300.401 33.7602H309.361C307.825 41.2251 301.681 46 292.529 46ZM284.977 23.3363H300.465C300.081 19.5702 297.137 16.6784 292.721 16.6784C288.497 16.6784 285.425 19.8392 284.977 23.3363Z" fill="#ffffff"/>
@@ -631,7 +967,7 @@
     <p class="title-sub">Deploy intelligent digital workforces that handle customer interactions 24/7 across voice, chat, SMS, and email &mdash; live in under a week.</p>
     <div class="pill-btn pill-btn-lg">Start Free Trial &rarr;</div>
   </div>
-  <div class="slide-number">01 / 12</div>
+  <div class="slide-number">01 / 17</div>
 </div>
 
 <!-- SLIDE 2: THE PROBLEM -->
@@ -668,7 +1004,7 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">02 / 12</div>
+  <div class="slide-number">02 / 17</div>
 </div>
 
 <!-- SLIDE 3: THE SOLUTION -->
@@ -676,7 +1012,7 @@
   <div class="solution-layout">
     <div class="solution-text">
       <div class="section-label">THE SOLUTION</div>
-      <h2 class="slide-h2">Meet <span class="gradient-text">AutoCrew</span></h2>
+      <h2 class="slide-h2">Meet <span class="gradient-text">Autocrew</span></h2>
       <p>AI-powered voice agents that handle customer interactions across every channel &mdash; with enterprise-grade security and HIPAA compliance built in from day one.</p>
       <div class="solution-channels">
         <span class="channel-tag">Voice Calls</span>
@@ -710,7 +1046,7 @@
       <div class="solution-live">Live in under a week &mdash; no code required</div>
     </div>
   </div>
-  <div class="slide-number">03 / 12</div>
+  <div class="slide-number">03 / 17</div>
 </div>
 
 <!-- SLIDE 4: HOW IT WORKS -->
@@ -739,7 +1075,705 @@
       <p>Use AI-driven analytics to improve performance and scale from zero to thousands of conversations.</p>
     </div>
   </div>
-  <div class="slide-number">04 / 12</div>
+  <div class="slide-number">04 / 17</div>
+</div>
+
+<!-- SLIDE 5: DASHBOARD -->
+<div class="slide slide-app">
+  <div class="app-desc">
+    <div class="section-label">PRODUCT TOUR</div>
+    <h2 class="app-title">Everything at a Glance</h2>
+    <p class="app-subtitle">Your command center — live crew status, recent conversations, and key performance metrics the moment you log in.</p>
+    <div class="app-feat-list">
+      <div class="app-feat">
+        <div class="app-feat-icon">📊</div>
+        <div class="app-feat-text"><strong>Live KPI cards</strong> — Total Crews, Conversations, Leads Generated, and Active Crews updated in real time.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">🤖</div>
+        <div class="app-feat-text"><strong>Active Agent Crews panel</strong> — see every running crew with its type badge and live status at a glance.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">💬</div>
+        <div class="app-feat-text"><strong>Recent Conversations feed</strong> — sentiment-tagged interactions with caller info and timestamps, always current.</div>
+      </div>
+    </div>
+  </div>
+  <div class="app-mockup-col">
+    <div class="app-chrome">
+      <!-- Sidebar -->
+      <div class="app-sidebar">
+        <div class="app-sidebar-logo">
+          <div class="app-logo-mark">A</div>
+          <div class="app-logo-text-wrap">
+            <div class="app-logo-text">Autocrew</div>
+            <div class="app-logo-sub">Agent Platform</div>
+          </div>
+        </div>
+        <div class="app-org-block">
+          <div class="app-org-label">Your Organization</div>
+          <div class="app-org-row">
+            <div class="app-org-avatar">R</div>
+            <div>
+              <div class="app-org-name">Rutz Co</div>
+              <div class="app-org-plan">starter plan</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-nav">
+          <div class="app-nav-item active"><span class="nav-icon">⊞</span> Dashboard</div>
+          <div class="app-nav-item"><span class="nav-icon">📈</span> Analytics</div>
+          <div class="app-nav-item"><span class="nav-icon">💬</span> Conversations</div>
+          <div class="app-nav-item"><span class="nav-icon">👥</span> Agent Crews</div>
+          <div class="app-nav-item"><span class="nav-icon">📞</span> Call Logs</div>
+          <div class="app-nav-item"><span class="nav-icon">📊</span> Usage</div>
+        </div>
+        <div class="app-sidebar-footer">
+          <div class="app-nav-item"><span class="nav-icon">⚙</span> Settings</div>
+          <div class="app-nav-item"><span class="nav-icon">☀</span> Theme</div>
+          <div class="app-nav-item"><span class="nav-icon">↪</span> Logout</div>
+          <div class="app-status-dot">All systems operational</div>
+        </div>
+      </div>
+      <!-- Main -->
+      <div class="app-main">
+        <div class="app-topbar">
+          <div>
+            <div class="app-page-title">Dashboard 🤖</div>
+            <div class="app-page-sub">Monitor your AI agent crews and performance metrics</div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="app-stat-row">
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Total Crews</div><div class="app-stat-icon">👥</div></div>
+              <div class="app-stat-value">1</div>
+              <div class="app-stat-sub">1 active</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Conversations</div><div class="app-stat-icon">💬</div></div>
+              <div class="app-stat-value">4</div>
+              <div class="app-stat-sub">Last 30 days</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Leads Generated</div><div class="app-stat-icon">📈</div></div>
+              <div class="app-stat-value">0</div>
+              <div class="app-stat-sub">0 qualified</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Active Crews</div><div class="app-stat-icon">⚡</div></div>
+              <div class="app-stat-value">1</div>
+              <div class="app-stat-sub">Running now</div>
+            </div>
+          </div>
+          <div class="app-section-hdr">Active Agent Crews</div>
+          <div class="dash-active-row">
+            <div class="dash-active-left">
+              <div class="dash-active-name">Customer support Chatbot</div>
+              <span class="abadge orange">Customer Support</span>
+            </div>
+            <span class="abadge green">Active</span>
+          </div>
+          <div class="app-section-hdr">Recent Conversations</div>
+          <div class="dash-convo-list">
+            <div class="dash-convo-item">
+              <div class="dash-convo-left">
+                <div>
+                  <div class="dash-convo-name">Anonymous <span class="abadge green" style="font-size:8px;">positive</span></div>
+                  <div class="dash-convo-meta">No email · Unknown duration</div>
+                </div>
+              </div>
+              <div class="dash-convo-date">Apr 2, 2026 at 9:38 AM</div>
+            </div>
+            <div class="dash-convo-item">
+              <div class="dash-convo-left">
+                <div>
+                  <div class="dash-convo-name">Anonymous <span class="abadge gray" style="font-size:8px;">neutral</span></div>
+                  <div class="dash-convo-meta">No email · Unknown duration</div>
+                </div>
+              </div>
+              <div class="dash-convo-date">Mar 16, 2026 at 10:21 AM</div>
+            </div>
+            <div class="dash-convo-item">
+              <div class="dash-convo-left">
+                <div>
+                  <div class="dash-convo-name">Anonymous <span class="abadge gray" style="font-size:8px;">neutral</span></div>
+                  <div class="dash-convo-meta">No email · Unknown duration</div>
+                </div>
+              </div>
+              <div class="dash-convo-date">Feb 9, 2026 at 4:50 PM</div>
+            </div>
+            <div class="dash-convo-item">
+              <div class="dash-convo-left">
+                <div>
+                  <div class="dash-convo-name">Anonymous <span class="abadge green" style="font-size:8px;">positive</span></div>
+                  <div class="dash-convo-meta">john@gmail.com · 10m 42s</div>
+                </div>
+              </div>
+              <div class="dash-convo-date">Jan 15, 2026 at 1:36 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">05 / 17</div>
+</div>
+
+<!-- SLIDE 6: AGENT CREWS -->
+<div class="slide slide-app">
+  <div class="app-desc">
+    <div class="section-label">PRODUCT TOUR</div>
+    <h2 class="app-title">Deploy and Manage Your AI Workforce</h2>
+    <p class="app-subtitle">Create, configure, and activate AI crews — each purpose-built for a specific function and assignable to any channel in minutes.</p>
+    <div class="app-feat-list">
+      <div class="app-feat">
+        <div class="app-feat-icon">📋</div>
+        <div class="app-feat-text"><strong>Crew-level stats</strong> — Total, Active, Support, and Lead Gen counts always visible at the top.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">🔑</div>
+        <div class="app-feat-text"><strong>Unique crew codes</strong> — each crew gets a traceable identifier (e.g. RULZ-001-SUP-001) for audit and routing.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">⚡</div>
+        <div class="app-feat-text"><strong>One-click activate/deactivate</strong> — live toggle with instant status change, plus a Manage action to configure behavior and knowledge base.</div>
+      </div>
+    </div>
+  </div>
+  <div class="app-mockup-col">
+    <div class="app-chrome">
+      <div class="app-sidebar">
+        <div class="app-sidebar-logo">
+          <div class="app-logo-mark">A</div>
+          <div class="app-logo-text-wrap">
+            <div class="app-logo-text">Autocrew</div>
+            <div class="app-logo-sub">Agent Platform</div>
+          </div>
+        </div>
+        <div class="app-org-block">
+          <div class="app-org-label">Your Organization</div>
+          <div class="app-org-row">
+            <div class="app-org-avatar">R</div>
+            <div>
+              <div class="app-org-name">Rutz Co</div>
+              <div class="app-org-plan">starter plan</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-nav">
+          <div class="app-nav-item"><span class="nav-icon">⊞</span> Dashboard</div>
+          <div class="app-nav-item"><span class="nav-icon">📈</span> Analytics</div>
+          <div class="app-nav-item"><span class="nav-icon">💬</span> Conversations</div>
+          <div class="app-nav-item active"><span class="nav-icon">👥</span> Agent Crews</div>
+          <div class="app-nav-item"><span class="nav-icon">📞</span> Call Logs</div>
+          <div class="app-nav-item"><span class="nav-icon">📊</span> Usage</div>
+        </div>
+        <div class="app-sidebar-footer">
+          <div class="app-nav-item"><span class="nav-icon">⚙</span> Settings</div>
+          <div class="app-nav-item"><span class="nav-icon">☀</span> Theme</div>
+          <div class="app-nav-item"><span class="nav-icon">↪</span> Logout</div>
+          <div class="app-status-dot">All systems operational</div>
+        </div>
+      </div>
+      <div class="app-main">
+        <div class="app-topbar">
+          <div>
+            <div class="app-page-title">Agent Crews</div>
+            <div class="app-page-sub">Manage your AI agent crews for Rutz Co</div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="app-stat-row">
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Total Crews</div></div>
+              <div class="app-stat-value">1</div>
+              <div class="app-stat-sub">Assigned to you</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Active</div></div>
+              <div class="app-stat-value">1</div>
+              <div class="app-stat-sub">Currently running</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Support</div></div>
+              <div class="app-stat-value">1</div>
+              <div class="app-stat-sub">Customer support</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Lead Gen</div></div>
+              <div class="app-stat-value">0</div>
+              <div class="app-stat-sub">Lead generation</div>
+            </div>
+          </div>
+          <div class="app-section-hdr">Your Crews (1)</div>
+          <div class="app-card" style="padding:0; overflow:hidden;">
+            <table class="crews-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Crew Code</th>
+                  <th>Type</th>
+                  <th>Phone</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="crew-name-cell">Customer support Chatbot</div></td>
+                  <td><span class="crew-code">RULZ-001-SUP-001</span></td>
+                  <td><span class="abadge orange">Customer Support</span></td>
+                  <td style="color:var(--gray-500)">—</td>
+                  <td>
+                    <span class="app-toggle"></span>
+                    <span class="abadge green">active</span>
+                  </td>
+                  <td style="color:var(--gray-500); font-size:10px;">Jan 15, 2026</td>
+                  <td><span class="manage-btn">↗ Manage</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">06 / 17</div>
+</div>
+
+<!-- SLIDE 7: CALL LOGS -->
+<div class="slide slide-app">
+  <div class="app-desc">
+    <div class="section-label">PRODUCT TOUR</div>
+    <h2 class="app-title">Full Visibility Into Every Interaction</h2>
+    <p class="app-subtitle">A complete, searchable record of every call your AI crews handle — with transcripts, recordings, and per-call cost tracking built in.</p>
+    <div class="app-feat-list">
+      <div class="app-feat">
+        <div class="app-feat-icon">📞</div>
+        <div class="app-feat-text"><strong>Real-time call log</strong> — inbound and outbound calls across all crews with caller ID, agent, direction, and duration.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">🔴</div>
+        <div class="app-feat-text"><strong>Status tracking</strong> — every call flagged as Completed, Voicemail, or Failed with transcript and playback icons per row.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">💰</div>
+        <div class="app-feat-text"><strong>Cost & billing visibility</strong> — total minutes billed, average duration, and estimated cost for the current cycle. Export CSV for compliance.</div>
+      </div>
+    </div>
+  </div>
+  <div class="app-mockup-col">
+    <div class="app-chrome">
+      <div class="app-sidebar">
+        <div class="app-sidebar-logo">
+          <div class="app-logo-mark">A</div>
+          <div class="app-logo-text-wrap">
+            <div class="app-logo-text">Autocrew</div>
+            <div class="app-logo-sub">Agent Platform</div>
+          </div>
+        </div>
+        <div class="app-org-block">
+          <div class="app-org-label">Your Organization</div>
+          <div class="app-org-row">
+            <div class="app-org-avatar star">S</div>
+            <div>
+              <div class="app-org-name">Starfish Family Ser…</div>
+              <div class="app-org-plan">Non-profit Plan</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-nav">
+          <div class="app-nav-item"><span class="nav-icon">⊞</span> Dashboard</div>
+          <div class="app-nav-item"><span class="nav-icon">📈</span> Analytics</div>
+          <div class="app-nav-item"><span class="nav-icon">💬</span> Conversations</div>
+          <div class="app-nav-item"><span class="nav-icon">👥</span> Agent Crews</div>
+          <div class="app-nav-item active"><span class="nav-icon">📞</span> Call Logs</div>
+          <div class="app-nav-item"><span class="nav-icon">📊</span> Usage</div>
+        </div>
+        <div class="app-sidebar-footer">
+          <div class="app-nav-item"><span class="nav-icon">⚙</span> Settings</div>
+          <div class="app-nav-item"><span class="nav-icon">☀</span> Theme</div>
+          <div class="app-nav-item"><span class="nav-icon">↪</span> Logout</div>
+          <div class="app-status-dot">All systems operational</div>
+        </div>
+      </div>
+      <div class="app-main">
+        <div class="app-topbar">
+          <div>
+            <div class="app-page-title">Call Logs</div>
+            <div class="app-page-sub">Review recent AI agent conversations and interactions</div>
+          </div>
+          <div class="app-topbar-right">
+            <div class="app-btn-sm">↑ Export CSV</div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="app-stat-row">
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Total Calls</div></div>
+              <div class="app-stat-value">1,248</div>
+              <div class="app-stat-sub positive">+12% from last month</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Total Minutes</div></div>
+              <div class="app-stat-value">4,120</div>
+              <div class="app-stat-sub">Billed this month</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Avg. Duration</div></div>
+              <div class="app-stat-value" style="font-size:16px;">3m 18s</div>
+              <div class="app-stat-sub">Per conversation</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-header"><div class="app-stat-label">Est. Cost</div></div>
+              <div class="app-stat-value" style="font-size:16px;">$124.50</div>
+              <div class="app-stat-sub">Current billing cycle</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <div class="app-section-hdr" style="margin-bottom:0;">Recent Activity</div>
+            <div style="display:flex;gap:8px;">
+              <div class="calls-search-input">🔍 Search phone or agent...</div>
+              <div class="calls-filter-btn">⚙ Filters</div>
+            </div>
+          </div>
+          <div class="app-card" style="padding:0;overflow:hidden;">
+            <table class="calls-table">
+              <thead>
+                <tr>
+                  <th>Time</th><th>Agent</th><th>Phone / Caller</th><th>Direction</th><th>Duration</th><th>Status</th><th>Recording</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="call-time-main">Just now</div><div class="call-time-sub">10:45 AM</div></td>
+                  <td><div class="call-agent-name">Foster Parent Lead Gen</div><div class="call-agent-type leadgen">Lead Gen</div></td>
+                  <td style="font-size:10px;">+1 (555) 999-0000</td>
+                  <td><span class="dir-out">↗</span> Outbound</td>
+                  <td><span class="call-duration">02:45</span></td>
+                  <td><span class="abadge green">Completed</span></td>
+                  <td><div class="call-rec"><div class="rec-icon">☰</div><div class="rec-icon">▶</div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="call-time-main">10m ago</div><div class="call-time-sub">10:35 AM</div></td>
+                  <td><div class="call-agent-name">Counseling Intake Agent</div><div class="call-agent-type support">Customer Support</div></td>
+                  <td style="font-size:10px;">+1 (555) 111-2222</td>
+                  <td><span class="dir-in">↙</span> Inbound</td>
+                  <td><span class="call-duration">14:20</span></td>
+                  <td><span class="abadge green">Completed</span></td>
+                  <td><div class="call-rec"><div class="rec-icon">☰</div><div class="rec-icon">▶</div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="call-time-main">1h ago</div><div class="call-time-sub">09:42 AM</div></td>
+                  <td><div class="call-agent-name">Foster Parent Lead Gen</div><div class="call-agent-type leadgen">Lead Gen</div></td>
+                  <td style="font-size:10px;">+1 (555) 333-4444</td>
+                  <td><span class="dir-out">↗</span> Outbound</td>
+                  <td><span class="call-duration">00:45</span></td>
+                  <td><span class="abadge yellow">Voicemail</span></td>
+                  <td><div class="call-rec"><div class="rec-icon">☰</div><div class="rec-icon">▶</div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="call-time-main">2h ago</div><div class="call-time-sub">08:15 AM</div></td>
+                  <td><div class="call-agent-name">Family Support Chatbot</div><div class="call-agent-type support">Customer Support</div></td>
+                  <td style="font-size:10px;">Anonymous</td>
+                  <td><span class="dir-in">↙</span> Inbound</td>
+                  <td><span class="call-duration">05:10</span></td>
+                  <td><span class="abadge green">Completed</span></td>
+                  <td><div class="call-rec"><div class="rec-icon">☰</div><div class="rec-icon">▶</div></div></td>
+                </tr>
+                <tr>
+                  <td><div class="call-time-main">Yesterday</div><div class="call-time-sub">04:30 PM</div></td>
+                  <td><div class="call-agent-name">Counseling Intake Agent</div><div class="call-agent-type support">Customer Support</div></td>
+                  <td style="font-size:10px;">+1 (555) 555-6666</td>
+                  <td><span class="dir-in">↙</span> Inbound</td>
+                  <td><span class="call-duration">00:00</span></td>
+                  <td><span class="abadge red">Failed</span></td>
+                  <td style="color:var(--gray-500);font-size:9px;">No recording</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="calls-footer">
+              <span>Showing 1 to 5 of 1,248 calls</span>
+              <div class="calls-pagination">
+                <div class="page-btn">‹</div>
+                <div class="page-btn">›</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">07 / 17</div>
+</div>
+
+<!-- SLIDE 8: ANALYTICS -->
+<div class="slide slide-app">
+  <div class="app-desc">
+    <div class="section-label">PRODUCT TOUR</div>
+    <h2 class="app-title">Data-Driven Decisions, Built In</h2>
+    <p class="app-subtitle">Track performance trends, understand conversation sentiment, and measure lead generation — all filterable by date range in one dashboard.</p>
+    <div class="app-feat-list">
+      <div class="app-feat">
+        <div class="app-feat-icon">📅</div>
+        <div class="app-feat-text"><strong>Date-range KPIs</strong> — Total Conversations, Leads, Avg Duration, and Resolution Rate scoped to any custom period.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">📉</div>
+        <div class="app-feat-text"><strong>Conversation Volume Over Time</strong> — orange line chart with dot markers across a 30-day window, pinpointing activity spikes.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">😊</div>
+        <div class="app-feat-text"><strong>Sentiment Distribution</strong> — horizontal bar breakdown of Positive, Neutral, and Negative interactions with percentage labels.</div>
+      </div>
+    </div>
+  </div>
+  <div class="app-mockup-col">
+    <div class="app-chrome">
+      <div class="app-sidebar">
+        <div class="app-sidebar-logo">
+          <div class="app-logo-mark">A</div>
+          <div class="app-logo-text-wrap">
+            <div class="app-logo-text">Autocrew</div>
+            <div class="app-logo-sub">Agent Platform</div>
+          </div>
+        </div>
+        <div class="app-org-block">
+          <div class="app-org-label">Your Organization</div>
+          <div class="app-org-row">
+            <div class="app-org-avatar">R</div>
+            <div>
+              <div class="app-org-name">Rutz Co</div>
+              <div class="app-org-plan">starter plan</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-nav">
+          <div class="app-nav-item"><span class="nav-icon">⊞</span> Dashboard</div>
+          <div class="app-nav-item active"><span class="nav-icon">📈</span> Analytics</div>
+          <div class="app-nav-item"><span class="nav-icon">💬</span> Conversations</div>
+          <div class="app-nav-item"><span class="nav-icon">👥</span> Agent Crews</div>
+          <div class="app-nav-item"><span class="nav-icon">📞</span> Call Logs</div>
+          <div class="app-nav-item"><span class="nav-icon">📊</span> Usage</div>
+        </div>
+        <div class="app-sidebar-footer">
+          <div class="app-nav-item"><span class="nav-icon">⚙</span> Settings</div>
+          <div class="app-nav-item"><span class="nav-icon">☀</span> Theme</div>
+          <div class="app-nav-item"><span class="nav-icon">↪</span> Logout</div>
+          <div class="app-status-dot">All systems operational</div>
+        </div>
+      </div>
+      <div class="app-main">
+        <div class="app-topbar">
+          <div>
+            <div class="app-page-title">Analytics &amp; Insights</div>
+            <div class="app-page-sub">Track performance metrics and gain actionable insights</div>
+          </div>
+          <div class="app-topbar-right">
+            <div class="date-range-pill">📅 Mar 09, 2026 – Apr 08, 2026</div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="app-stat-row">
+            <div class="app-stat-card">
+              <div class="app-stat-label" style="margin-bottom:6px;">Total Conversations</div>
+              <div class="app-stat-value">2</div>
+              <div class="app-stat-sub">In selected period</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-label" style="margin-bottom:6px;">Total Leads</div>
+              <div class="app-stat-value">0</div>
+              <div class="app-stat-sub">In selected period</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-label" style="margin-bottom:6px;">Avg. Conv. Duration</div>
+              <div class="app-stat-value" style="font-size:18px; color:var(--gray-500);">—</div>
+              <div class="app-stat-sub">In selected period</div>
+            </div>
+            <div class="app-stat-card">
+              <div class="app-stat-label" style="margin-bottom:6px;">Resolution Rate</div>
+              <div class="app-stat-value">0%</div>
+              <div class="app-stat-sub">In selected period</div>
+            </div>
+          </div>
+          <!-- Line chart: Conversation Volume -->
+          <div class="chart-box">
+            <div class="chart-title">Conversation Volume Over Time</div>
+            <svg class="line-chart-svg" viewBox="0 0 660 80" preserveAspectRatio="none">
+              <!-- Grid lines -->
+              <line x1="0" y1="20" x2="660" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+              <line x1="0" y1="40" x2="660" y2="40" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+              <line x1="0" y1="60" x2="660" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+              <!-- Flat baseline, two spikes matching screenshot -->
+              <polyline fill="none" stroke="#FF6B35" stroke-width="2"
+                points="0,75 60,75 120,75 160,75 200,75 240,5 280,75 320,75 360,75 400,75 440,75 480,75 510,75 540,5 580,75 620,75 660,75"/>
+              <!-- Dots at spikes -->
+              <circle cx="240" cy="5" r="4" fill="#FF6B35"/>
+              <circle cx="540" cy="5" r="4" fill="#FF6B35"/>
+              <circle cx="0" cy="75" r="3" fill="#FF6B35"/>
+              <circle cx="660" cy="75" r="3" fill="#FF6B35"/>
+            </svg>
+            <div class="chart-x-labels">
+              <span>3/9</span><span>3/13</span><span>3/17</span><span>3/21</span><span>3/25</span><span>3/29</span><span>4/2</span><span>4/6</span><span>4/8</span>
+            </div>
+            <div class="chart-legend"><div class="chart-legend-dot"></div> Conversations</div>
+          </div>
+          <!-- Sentiment Distribution -->
+          <div class="chart-box" style="margin-bottom:0;">
+            <div class="chart-title">Sentiment Distribution</div>
+            <div class="sentiment-row">
+              <div class="sentiment-label-row"><span>Positive</span><span style="color:var(--green);">1 (50%)</span></div>
+              <div class="sentiment-bar-track"><div class="sentiment-bar-fill pos" style="width:50%;"></div></div>
+            </div>
+            <div class="sentiment-row">
+              <div class="sentiment-label-row"><span>Neutral</span><span style="color:var(--yellow);">1 (50%)</span></div>
+              <div class="sentiment-bar-track"><div class="sentiment-bar-fill neu" style="width:50%;"></div></div>
+            </div>
+            <div class="sentiment-row" style="margin-bottom:0;">
+              <div class="sentiment-label-row"><span>Negative</span><span style="color:var(--red);">0 (0%)</span></div>
+              <div class="sentiment-bar-track"><div class="sentiment-bar-fill neg" style="width:0%;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">08 / 17</div>
+</div>
+
+<!-- SLIDE 9: USAGE -->
+<div class="slide slide-app">
+  <div class="app-desc">
+    <div class="section-label">PRODUCT TOUR</div>
+    <h2 class="app-title">Transparent Usage, No Surprises</h2>
+    <p class="app-subtitle">Monitor every resource your crews consume — conversations, voice minutes, LLM tokens, and tool calls — broken down by month.</p>
+    <div class="app-feat-list">
+      <div class="app-feat">
+        <div class="app-feat-icon">💬</div>
+        <div class="app-feat-text"><strong>Conversation &amp; duration tracking</strong> — total conversations with Chat sub-count, plus Voice and Phone minutes billed separately.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">🧠</div>
+        <div class="app-feat-text"><strong>LLM token visibility</strong> — Prompt, Completion, and Total token counts per period so you know exactly what's being consumed.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">🔧</div>
+        <div class="app-feat-text"><strong>Tool-level granularity</strong> — RAG queries, FHIR API calls, escalations, and calendar bookings all tracked individually by month.</div>
+      </div>
+    </div>
+  </div>
+  <div class="app-mockup-col">
+    <div class="app-chrome">
+      <div class="app-sidebar">
+        <div class="app-sidebar-logo">
+          <div class="app-logo-mark">A</div>
+          <div class="app-logo-text-wrap">
+            <div class="app-logo-text">Autocrew</div>
+            <div class="app-logo-sub">Agent Platform</div>
+          </div>
+        </div>
+        <div class="app-org-block">
+          <div class="app-org-label">Your Organization</div>
+          <div class="app-org-row">
+            <div class="app-org-avatar star">S</div>
+            <div>
+              <div class="app-org-name">Starfish Family Services</div>
+              <div class="app-org-plan enterprise">enterprise plan</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-nav">
+          <div class="app-nav-item"><span class="nav-icon">⊞</span> Dashboard</div>
+          <div class="app-nav-item"><span class="nav-icon">📈</span> Analytics</div>
+          <div class="app-nav-item"><span class="nav-icon">💬</span> Conversations</div>
+          <div class="app-nav-item"><span class="nav-icon">👥</span> Agent Crews</div>
+          <div class="app-nav-item"><span class="nav-icon">📞</span> Call Logs</div>
+          <div class="app-nav-item active"><span class="nav-icon">📊</span> Usage</div>
+        </div>
+        <div class="app-sidebar-footer">
+          <div class="app-nav-item"><span class="nav-icon">⚙</span> Settings</div>
+          <div class="app-nav-item"><span class="nav-icon">☀</span> Theme</div>
+          <div class="app-nav-item"><span class="nav-icon">↪</span> Logout</div>
+          <div class="app-status-dot">All systems operational</div>
+        </div>
+      </div>
+      <div class="app-main">
+        <div class="app-topbar">
+          <div>
+            <div class="app-page-title">Usage 📊</div>
+            <div class="app-page-sub">Monitor your resource consumption and plan limits</div>
+          </div>
+          <div class="app-topbar-right">
+            <div class="usage-month-picker">April 2024 ▾</div>
+          </div>
+        </div>
+        <div class="app-content" style="overflow-y:auto;">
+          <div class="usage-section-label">CONVERSATIONS</div>
+          <div class="usage-cards-row">
+            <div class="usage-card" style="min-width:200px;">
+              <div class="usage-card-label">Conversations</div>
+              <div class="usage-card-value">14,285 <span>total</span></div>
+              <div class="usage-card-sub">Chat: 8,421</div>
+            </div>
+          </div>
+          <div class="usage-section-label">DURATION</div>
+          <div class="usage-cards-row">
+            <div class="usage-card">
+              <div class="usage-card-label">Voice Duration</div>
+              <div class="usage-card-value">4,250 <span>minutes</span></div>
+            </div>
+            <div class="usage-card">
+              <div class="usage-card-label">Phone Duration</div>
+              <div class="usage-card-value">12,840 <span>minutes</span></div>
+            </div>
+          </div>
+          <div class="usage-section-label">LLM TOKENS</div>
+          <div class="usage-cards-row">
+            <div class="usage-card">
+              <div class="usage-card-label">LLM Prompt Tokens</div>
+              <div class="usage-card-value">18.5M <span>tokens</span></div>
+            </div>
+            <div class="usage-card">
+              <div class="usage-card-label">LLM Completion Tokens</div>
+              <div class="usage-card-value">6.2M <span>tokens</span></div>
+            </div>
+            <div class="usage-card">
+              <div class="usage-card-label">Total LLM Tokens</div>
+              <div class="usage-card-value">24.7M <span>tokens</span></div>
+            </div>
+          </div>
+          <div class="usage-section-label">TOOL USAGE</div>
+          <div class="usage-cards-row">
+            <div class="usage-card">
+              <div class="usage-card-label">Tool Calls</div>
+              <div class="usage-card-value">145.2K <span>calls</span></div>
+            </div>
+            <div class="usage-card">
+              <div class="usage-card-label">RAG Queries</div>
+              <div class="usage-card-value">84.3K <span>queries</span></div>
+            </div>
+            <div class="usage-card">
+              <div class="usage-card-label">FHIR API Calls</div>
+              <div class="usage-card-value">212.5K <span>calls</span></div>
+            </div>
+            <div class="usage-card">
+              <div class="usage-card-label">Escalations</div>
+              <div class="usage-card-value">423 <span>escalations</span></div>
+            </div>
+          </div>
+          <div class="usage-cards-row" style="margin-top:8px;">
+            <div class="usage-card">
+              <div class="usage-card-label">Calendar Bookings</div>
+              <div class="usage-card-value">3,150 <span>bookings</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">09 / 17</div>
 </div>
 
 <!-- SLIDE 5: CORE CAPABILITIES -->
@@ -784,7 +1818,7 @@
       <span class="cap-tag gray">ENTERPRISE</span>
     </div>
   </div>
-  <div class="slide-number">05 / 12</div>
+  <div class="slide-number">10 / 17</div>
 </div>
 
 <!-- SLIDE 6: HEALTHCARE -->
@@ -793,7 +1827,7 @@
   <h2 class="slide-h2">Built for Healthcare</h2>
   <div class="health-layout">
     <div class="health-text">
-      <p>AutoCrew is HIPAA-first &mdash; not bolted on. Our healthcare agents integrate directly with your EHR systems, handle patient identification securely, and maintain complete audit trails for every interaction.</p>
+      <p>Autocrew is HIPAA-first &mdash; not bolted on. Our healthcare agents integrate directly with your EHR systems, handle patient identification securely, and maintain complete audit trails for every interaction.</p>
       <div class="health-features">
         <div class="health-feat"><div class="check">&#x2713;</div> Patient appointment scheduling &amp; reminders</div>
         <div class="health-feat"><div class="check">&#x2713;</div> Medication refill status checks</div>
@@ -822,7 +1856,7 @@
       <div class="hipaa-badge">HIPAA COMPLIANT &bull; SOC 2 TYPE II</div>
     </div>
   </div>
-  <div class="slide-number">06 / 12</div>
+  <div class="slide-number">11 / 17</div>
 </div>
 
 <!-- SLIDE 7: CUSTOMER SUPPORT -->
@@ -855,7 +1889,7 @@
       <ul><li>Real-time language detection</li><li>Culturally aware responses</li><li>Consistent brand voice</li></ul>
     </div>
   </div>
-  <div class="slide-number">07 / 12</div>
+  <div class="slide-number">12 / 17</div>
 </div>
 
 <!-- SLIDE 8: MORE INDUSTRIES -->
@@ -888,7 +1922,7 @@
       <p>Proactive lead engagement, intelligent qualification, CRM sync, and automated appointment scheduling.</p>
     </div>
   </div>
-  <div class="slide-number">08 / 12</div>
+  <div class="slide-number">13 / 17</div>
 </div>
 
 <!-- SLIDE 9: RESULTS & SOCIAL PROOF -->
@@ -903,14 +1937,14 @@
   </div>
   <div class="testimonials-row">
     <div class="testimonial glass-card">
-      <blockquote>We were missing 40% of dinner calls during Friday rush. AutoCrew now handles every call &mdash; covers up 25%.</blockquote>
+      <blockquote>We were missing 40% of dinner calls during Friday rush. Autocrew now handles every call &mdash; covers up 25%.</blockquote>
       <div class="testimonial-author">
         <div class="author-avatar a1">M</div>
         <div class="author-info"><div class="name">Marco T.</div><div class="role">Owner, Italian Bistro</div></div>
       </div>
     </div>
     <div class="testimonial glass-card">
-      <blockquote>I went from 15 clients to 22 without hiring an assistant. AutoCrew handles all my scheduling and follow-ups.</blockquote>
+      <blockquote>I went from 15 clients to 22 without hiring an assistant. Autocrew handles all my scheduling and follow-ups.</blockquote>
       <div class="testimonial-author">
         <div class="author-avatar a2">S</div>
         <div class="author-info"><div class="name">Sarah M.</div><div class="role">Life Coach</div></div>
@@ -924,13 +1958,13 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">09 / 12</div>
+  <div class="slide-number">14 / 17</div>
 </div>
 
 <!-- SLIDE 10: WHY AUTOCREW -->
 <div class="slide slide-why">
   <div class="section-label">COMPETITIVE EDGE</div>
-  <h2 class="slide-h2">Why <span class="gradient-text">AutoCrew</span> Wins</h2>
+  <h2 class="slide-h2">Why <span class="gradient-text">Autocrew</span> Wins</h2>
   <div class="why-grid">
     <div class="why-card glass-card">
       <div class="why-icon">&#x1F3E5;</div>
@@ -963,7 +1997,7 @@
       <p>Voice, chat, SMS, WhatsApp, email &mdash; same AI intelligence across every channel, managed from one dashboard.</p>
     </div>
   </div>
-  <div class="slide-number">10 / 12</div>
+  <div class="slide-number">15 / 17</div>
 </div>
 
 <!-- SLIDE 11: PRICING -->
@@ -1014,7 +2048,7 @@
     </div>
   </div>
   <div class="pricing-trial"><strong>14-day free trial</strong> &bull; No credit card required</div>
-  <div class="slide-number">11 / 12</div>
+  <div class="slide-number">16 / 17</div>
 </div>
 
 <!-- SLIDE 12: CTA -->
@@ -1022,14 +2056,14 @@
   <div class="cta-content">
     <div class="section-label">GET STARTED</div>
     <h2 class="slide-h2">Ready to Deploy Your<br>AI Workforce?</h2>
-    <p>Join hundreds of businesses scaling their operations with AutoCrew. Start your free trial today &mdash; no credit card required.</p>
+    <p>Join hundreds of businesses scaling their operations with Autocrew. Start your free trial today &mdash; no credit card required.</p>
     <div class="cta-buttons">
       <div class="pill-btn pill-btn-lg">Start Free Trial &rarr;</div>
       <div class="pill-btn-outline">Book a Demo</div>
     </div>
     <div class="cta-contact">Questions? Reach out at <a href="#">hello@autocrew.ai</a></div>
   </div>
-  <div class="slide-number">12 / 12</div>
+  <div class="slide-number">17 / 17</div>
 </div>
 
 </body>
