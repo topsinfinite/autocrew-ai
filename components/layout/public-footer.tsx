@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { APP_CONFIG } from "@/lib/constants";
 import { footerData } from "@/lib/mock-data/landing-data";
 import { CookiePreferencesButton } from "@/components/consent/cookie-preferences-button";
 
@@ -53,6 +54,12 @@ export function PublicFooter() {
           >
             Contact
           </Link>
+          <a
+            href={APP_CONFIG.supportPhoneTel}
+            className="hover:text-foreground transition-colors"
+          >
+            {APP_CONFIG.supportPhoneDisplay}
+          </a>
           <CookiePreferencesButton className="hover:text-foreground transition-colors" />
         </nav>
       </div>

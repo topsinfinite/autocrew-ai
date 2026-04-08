@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Mail, MessageSquare, Phone, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { APP_CONFIG } from "@/lib/constants";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -190,11 +191,14 @@ export default function ContactPage() {
                   <h3 className="font-semibold font-space-grotesk mb-1">
                     Phone
                   </h3>
-                  <p className="text-muted-foreground font-geist">
-                    +1 (555) 123-4567
-                  </p>
-                  <p className="text-sm text-muted-foreground font-geist">
-                    Mon-Fri 9am-6pm EST
+                  <a
+                    href={APP_CONFIG.supportPhoneTel}
+                    className="text-muted-foreground font-geist hover:text-primary hover:underline underline-offset-2 transition-colors"
+                  >
+                    {APP_CONFIG.supportPhoneDisplay}
+                  </a>
+                  <p className="text-sm text-muted-foreground font-geist mt-1">
+                    {APP_CONFIG.supportPhoneHours}
                   </p>
                 </div>
               </div>

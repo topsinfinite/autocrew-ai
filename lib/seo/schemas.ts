@@ -14,6 +14,7 @@ export function organizationSchema() {
     contactPoint: {
       "@type": "ContactPoint",
       email: APP_CONFIG.supportEmail,
+      telephone: APP_CONFIG.supportPhoneE164,
       contactType: "customer support",
     },
   };

@@ -1,8 +1,16 @@
 import Link from "next/link";
-import { ArrowRight, Mail, Calendar, Github, Linkedin } from "lucide-react";
+import {
+  ArrowRight,
+  Mail,
+  Calendar,
+  Github,
+  Linkedin,
+  Phone,
+} from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { ctaData, footerData } from "@/lib/mock-data/landing-data";
+import { APP_CONFIG } from "@/lib/constants";
 import { CookiePreferencesButton } from "@/components/consent/cookie-preferences-button";
 
 export function CtaSection() {
@@ -36,7 +44,7 @@ export function CtaSection() {
             </p>
 
             {/* Contact Grid */}
-            <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
+            <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-10">
               {/* Email */}
               <div className="flex flex-col items-start">
                 <p className="uppercase text-xs font-semibold text-[#FF6B35] tracking-wider font-space mb-3">
@@ -53,7 +61,26 @@ export function CtaSection() {
                 </a>
               </div>
 
-              {/* Call */}
+              {/* Phone */}
+              <div className="flex flex-col items-start">
+                <p className="uppercase text-xs font-semibold text-[#FF6B35] tracking-wider font-space mb-3">
+                  Speak to Autocrew
+                </p>
+                <a
+                  href={APP_CONFIG.supportPhoneTel}
+                  className="inline-flex items-center gap-3 text-lg sm:text-xl font-medium tracking-tight text-foreground hover:text-[#FF6B35] transition-colors font-geist group/link"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-foreground/[0.05] dark:bg-white/5 border border-border flex items-center justify-center text-[#FF6B35] group-hover/link:bg-[#FF6B35]/10 group-hover/link:border-[#FF6B35]/20 transition-colors">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <span>{APP_CONFIG.supportPhoneDisplay}</span>
+                </a>
+                <p className="text-sm text-muted-foreground font-geist mt-2">
+                  {APP_CONFIG.supportPhoneHours}
+                </p>
+              </div>
+
+              {/* Demo */}
               <div className="flex flex-col items-start">
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#FF6B35] font-space mb-3">
                   {ctaData.schedule.label}
@@ -72,7 +99,7 @@ export function CtaSection() {
                 </Button>
               </div>
 
-              {/* Try AutoCrew */}
+              {/* Try Autocrew */}
               <div className="flex flex-col items-start">
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#FF6B35] font-space mb-3">
                   {ctaData.tryIt.label}

@@ -11,11 +11,16 @@
 //
 
 export const APP_CONFIG = {
-  name: "AutoCrew",
+  name: "Autocrew",
   description: "B2B digital labor platform for managing Agentic Crews",
   tagline: "Automate your business with AI-powered crews",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   supportEmail: "support@autocrew-ai.com",
+  /** E.164 without prefix, for schema.org / tel */
+  supportPhoneE164: "+13135045880",
+  supportPhoneTel: "tel:+13135045880",
+  supportPhoneDisplay: "+1 (313) 504-5880",
+  supportPhoneHours: "Mon–Fri 9am–6pm EST",
 } as const;
 
 // ============================================================================
