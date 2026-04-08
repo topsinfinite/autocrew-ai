@@ -3,7 +3,7 @@ name: carousel
 description: "Content operating system for LinkedIn and Instagram carousel posts. Creates carousel content with markdown drafts, HTML rendering, and Figma export. Supports multiple layouts, variable slide counts, build-in-public mode, and learns from past performance. Triggers on: carousel, create a carousel, daily content, single post about, build in public post, carousel about, social media post, make a post, content for today."
 ---
 
-# AutoCrew Carousel Content Engine
+# Autocrew Carousel Content Engine
 
 Generate LinkedIn + Instagram carousel posts using the content operating system at `content-marketing/`.
 
@@ -216,13 +216,13 @@ Follow `content-marketing/_templates/captions.md` structure.
 - Structure: Hook line → Problem → Solution → Proof point → CTA → Hashtags
 - Tone: Professional, thought-leadership, data-driven
 - End with: `autocrew-ai.com` link
-- Always include `#AutoCrew` + 5-8 relevant hashtags
+- Always include `#Autocrew` + 5-8 relevant hashtags
 
 **Instagram** (300-500 chars):
 - Structure: Hook → Key benefit → CTA → Hashtags
 - Tone: Concise, visual-first, action-oriented
 - End with: "Link in bio"
-- Always include `#AutoCrew` + 5-8 relevant hashtags
+- Always include `#Autocrew` + 5-8 relevant hashtags
 
 ### 3.4 Build-in-Public Special Rules
 
@@ -279,7 +279,7 @@ If the user provides edits:
 2. Generate a new `slides.html` in `content-marketing/posts/YYYY-MM-DD_slug/` by writing the complete HTML with the approved carousel.md content injected into the layout structure
 3. Adapt slide count — add or remove slide `<div>` blocks as needed
 4. Update all slide counters to reflect actual count (`01/05`, `02/05`, etc. for Default; `01`, `02`, etc. for Pipeline)
-5. Use the actual AutoCrew SVG logo from `components/layout/logo.tsx` (the full logo with wordmark, not the Iconify icon placeholder)
+5. Use the actual Autocrew SVG logo from `components/layout/logo.tsx` (the full logo with wordmark, not the Iconify icon placeholder)
 6. Ensure the Figma capture script is present: `<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>`
 
 ### 5.2 Serve Locally
@@ -294,7 +294,7 @@ Run in background.
 
 ### 5.3 Figma Capture
 
-1. Call `mcp__figma__generate_figma_design` with `outputMode: "existingFile"` and `fileKey: "UW1wcgPNEr74lGBz8TTGkU"` (AutoCrew AI file)
+1. Call `mcp__figma__generate_figma_design` with `outputMode: "existingFile"` and `fileKey: "UW1wcgPNEr74lGBz8TTGkU"` (Autocrew AI file)
    - If user requests a new file: use `outputMode: "newFile"` with auto-generated fileName from the post slug
 2. This returns a captureId and capture URL hash
 3. Open the browser: `open "http://localhost:8888/slides.html#figmacapture={captureId}&figmaendpoint={endpoint}&figmadelay=3000"`
@@ -337,7 +337,7 @@ When generating content, draw from these product data sources for accuracy:
 | `components/layout/logo.tsx` | SVG logo (icon mark #FF6B35, wordmark currentColor) |
 
 Key product facts:
-- AutoCrew deploys AI-powered digital workforces for customer interactions and business operations
+- Autocrew deploys AI-powered digital workforces for customer interactions and business operations
 - Three AI crews: Healthcare (HIPAA-aware), Support, LeadGen (coming soon)
 - Multi-channel: voice, chat, email, SMS, WhatsApp
 - Enterprise security: SOC2 Type II, AES-256, audit trails

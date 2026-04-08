@@ -41,7 +41,7 @@ export function CrossIndustryLinks({
     <section className="py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <h2 className="text-2xl sm:text-3xl font-semibold font-space-grotesk text-foreground text-center mb-8">
-          AutoCrew for Other Industries
+          Autocrew for Other Industries
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {otherIndustries.map((industry) => (

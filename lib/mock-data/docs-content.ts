@@ -68,9 +68,9 @@ export interface FAQItem {
 
 export const faqData: FAQItem[] = [
   {
-    question: "What is AutoCrew?",
+    question: "What is Autocrew?",
     answer:
-      "AutoCrew is an AI-powered automation platform that provides 24/7 intelligent support and lead generation capabilities for businesses. Our AI crews work around the clock to handle customer inquiries and identify potential leads.",
+      "Autocrew is an AI-powered automation platform that provides 24/7 intelligent support and lead generation capabilities for businesses. Our AI crews work around the clock to handle customer inquiries and identify potential leads.",
   },
   {
     question: "How does the Support Crew work?",
@@ -85,12 +85,12 @@ export const faqData: FAQItem[] = [
   {
     question: "Can I customize the AI crews for my business?",
     answer:
-      "Yes! AutoCrew allows you to customize crew behavior, response templates, and qualification criteria to match your business needs. You can configure tone, language, industry-specific terminology, and integration preferences.",
+      "Yes! Autocrew allows you to customize crew behavior, response templates, and qualification criteria to match your business needs. You can configure tone, language, industry-specific terminology, and integration preferences.",
   },
   {
-    question: "What integrations does AutoCrew support?",
+    question: "What integrations does Autocrew support?",
     answer:
-      "AutoCrew integrates with popular communication platforms including email, live chat, Slack, and more. We also support CRM integrations to sync lead data and customer information seamlessly.",
+      "Autocrew integrates with popular communication platforms including email, live chat, Slack, and more. We also support CRM integrations to sync lead data and customer information seamlessly.",
   },
   {
     question: "Is my data secure?",
@@ -100,7 +100,7 @@ export const faqData: FAQItem[] = [
   {
     question: "What pricing plans are available?",
     answer:
-      "AutoCrew offers three pricing tiers designed for businesses of all sizes. The Starter plan begins at $49/month and includes one AI crew with up to 500 conversations per month, basic analytics, and email support. The Professional plan starts at $149/month and adds unlimited crews, advanced analytics, priority support, custom knowledge base training, and CRM integrations. The Enterprise plan offers custom pricing with dedicated infrastructure, SLA guarantees, HIPAA compliance, SSO, and a dedicated customer success manager. All plans include a 14-day free trial with no credit card required. Contact our sales team for a custom quote tailored to your business needs.",
+      "Autocrew offers three pricing tiers designed for businesses of all sizes. The Starter plan begins at $49/month and includes one AI crew with up to 500 conversations per month, basic analytics, and email support. The Professional plan starts at $149/month and adds unlimited crews, advanced analytics, priority support, custom knowledge base training, and CRM integrations. The Enterprise plan offers custom pricing with dedicated infrastructure, SLA guarantees, HIPAA compliance, SSO, and a dedicated customer success manager. All plans include a 14-day free trial with no credit card required. Contact our sales team for a custom quote tailored to your business needs.",
   },
   {
     question: "How quickly can I get started?",
@@ -108,14 +108,14 @@ export const faqData: FAQItem[] = [
       "You can get started in minutes! Simply sign up, configure your first crew, and connect your communication channels. Our quick start guide walks you through the entire setup process, and our support team is available to help.",
   },
   {
-    question: "Do I need technical expertise to use AutoCrew?",
+    question: "Do I need technical expertise to use Autocrew?",
     answer:
-      "No technical expertise required! AutoCrew is designed with a user-friendly interface that makes it easy for anyone to set up and manage AI crews. Our comprehensive documentation and support team ensure you can get the most out of the platform.",
+      "No technical expertise required! Autocrew is designed with a user-friendly interface that makes it easy for anyone to set up and manage AI crews. Our comprehensive documentation and support team ensure you can get the most out of the platform.",
   },
   {
-    question: "Can I try AutoCrew before committing?",
+    question: "Can I try Autocrew before committing?",
     answer:
-      "Yes! We offer a free trial that gives you access to core features so you can experience AutoCrew's capabilities firsthand. No credit card required to start your trial.",
+      "Yes! We offer a free trial that gives you access to core features so you can experience Autocrew's capabilities firsthand. No credit card required to start your trial.",
   },
 ];
 

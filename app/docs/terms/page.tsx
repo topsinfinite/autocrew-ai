@@ -5,7 +5,7 @@ import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Terms governing your access to and use of AutoCrew's platform and services. Please read before using our product.",
+    "Terms governing your access to and use of Autocrew's platform and services. Please read before using our product.",
   alternates: {
     canonical: "/docs/terms",
   },
@@ -28,7 +28,7 @@ export default function TermsPage() {
         Last Updated: March 4, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
-        These Terms of Service govern your access to and use of AutoCrew's
+        These Terms of Service govern your access to and use of Autocrew's
         platform and services. Please read them carefully.
       </p>
 
@@ -39,7 +39,7 @@ export default function TermsPage() {
         Acceptance of Terms
       </h2>
       <p className="mb-8 text-muted-foreground">
-        By accessing or using AutoCrew, you agree to be bound by these Terms of
+        By accessing or using Autocrew, you agree to be bound by these Terms of
         Service and all applicable laws and regulations. If you do not agree
         with any of these terms, you are prohibited from using our services.
       </p>
@@ -52,7 +52,7 @@ export default function TermsPage() {
       </h2>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
-          <strong>"Service"</strong> refers to the AutoCrew platform, including
+          <strong>"Service"</strong> refers to the Autocrew platform, including
           all features, AI crews, and related services
         </li>
         <li>
@@ -65,7 +65,7 @@ export default function TermsPage() {
         </li>
         <li>
           <strong>"AI Crew"</strong> refers to the artificial intelligence
-          systems provided by AutoCrew
+          systems provided by Autocrew
         </li>
       </ul>
 
@@ -82,7 +82,7 @@ export default function TermsPage() {
       >
         Eligibility
       </h3>
-      <p className="mb-4 text-muted-foreground">To use AutoCrew, you must:</p>
+      <p className="mb-4 text-muted-foreground">To use Autocrew, you must:</p>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
         <li>Be at least 18 years old</li>
         <li>Have the legal capacity to enter into a binding agreement</li>
@@ -176,7 +176,7 @@ export default function TermsPage() {
         <li>
           <strong>No guarantee of accuracy:</strong> AI outputs are generated
           probabilistically and may contain errors, omissions, or inaccuracies.
-          AutoCrew makes no warranty regarding the accuracy, completeness, or
+          Autocrew makes no warranty regarding the accuracy, completeness, or
           suitability of AI-generated content.
         </li>
         <li>
@@ -210,7 +210,7 @@ export default function TermsPage() {
         Subscription Plans
       </h3>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew offers various subscription plans with different features and
+        Autocrew offers various subscription plans with different features and
         pricing. Details are available on our pricing page.
       </p>
 
@@ -249,11 +249,11 @@ export default function TermsPage() {
       </h2>
 
       <h3 id="our-ip" className="mb-3 text-xl font-semibold text-foreground">
-        AutoCrew's Intellectual Property
+        Autocrew's Intellectual Property
       </h3>
       <p className="mb-4 text-muted-foreground">
         The Service, including all software, designs, text, graphics, and other
-        materials, is owned by AutoCrew and protected by intellectual property
+        materials, is owned by Autocrew and protected by intellectual property
         laws. You receive a limited, non-exclusive license to use the Service.
       </p>
 
@@ -265,7 +265,7 @@ export default function TermsPage() {
       </h3>
       <p className="mb-8 text-muted-foreground">
         You retain ownership of all content you upload to the Service. By using
-        AutoCrew, you grant us a limited license to process, store, and transmit
+        Autocrew, you grant us a limited license to process, store, and transmit
         your content solely to provide the Service. We will not use your content
         for any other purpose without your consent.
       </p>
@@ -283,7 +283,7 @@ export default function TermsPage() {
           these Terms
         </li>
         <li>
-          <strong>Our models:</strong> AutoCrew retains all rights to the
+          <strong>Our models:</strong> Autocrew retains all rights to the
           underlying AI models, algorithms, training methodologies, and platform
           technology. Nothing in these Terms grants you any ownership interest
           in our AI systems.
@@ -295,7 +295,7 @@ export default function TermsPage() {
         </li>
         <li>
           <strong>Feedback:</strong> Any feedback, suggestions, or ideas you
-          provide about our AI systems may be used by AutoCrew to improve the
+          provide about our AI systems may be used by Autocrew to improve the
           Service without obligation to you
         </li>
       </ul>
@@ -308,7 +308,7 @@ export default function TermsPage() {
       </h2>
       <p className="mb-4 text-muted-foreground">
         Our use of your personal information is governed by our Privacy Policy.
-        By using AutoCrew, you consent to our data processing practices as
+        By using Autocrew, you consent to our data processing practices as
         described in the Privacy Policy.
       </p>
 
@@ -377,7 +377,7 @@ export default function TermsPage() {
       </p>
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
-          AutoCrew shall not be liable for any indirect, incidental, special, or
+          Autocrew shall not be liable for any indirect, incidental, special, or
           consequential damages
         </li>
         <li>
@@ -389,7 +389,7 @@ export default function TermsPage() {
           loss, or service interruptions
         </li>
         <li>
-          You agree to indemnify AutoCrew against claims arising from your use
+          You agree to indemnify Autocrew against claims arising from your use
           of the Service
         </li>
       </ul>
@@ -460,7 +460,7 @@ export default function TermsPage() {
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
           <strong>Entire Agreement:</strong> These Terms constitute the entire
-          agreement between you and AutoCrew
+          agreement between you and Autocrew
         </li>
         <li>
           <strong>Severability:</strong> If any provision is found invalid, the
@@ -495,7 +495,7 @@ export default function TermsPage() {
             <strong>Email:</strong> support@autocrew-ai.com
           </li>
           <li>
-            <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San
+            <strong>Address:</strong> Autocrew Inc., 123 AI Street, San
             Francisco, CA 94105
           </li>
           <li>

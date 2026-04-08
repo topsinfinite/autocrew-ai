@@ -1,4 +1,4 @@
-# AutoCrew SaaS Platform
+# Autocrew SaaS Platform
 
 A B2B digital labor platform that allows small businesses to manage "Agentic Crews" powered by n8n workflows.
 
@@ -196,7 +196,7 @@ EMAIL_SERVER_PASSWORD=your-smtp-password
 
 ```bash
 git clone <repository-url>
-cd AutoCrew-SaaS
+cd Autocrew-SaaS
 npm install
 ```
 

@@ -24,7 +24,7 @@ const CATEGORIES = [
   {
     key: "analytics" as const,
     label: "Analytics Cookies",
-    description: "Help us understand how you use AutoCrew.",
+    description: "Help us understand how you use Autocrew.",
     locked: false,
   },
   {

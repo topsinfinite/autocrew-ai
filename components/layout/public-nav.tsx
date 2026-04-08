@@ -281,12 +281,20 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             <Button
               variant="pill"
               size="pill-sm"
-              className="hidden lg:inline-flex gap-2"
+              className="hidden lg:inline-flex gap-2 h-auto py-1.5"
               asChild
             >
-              <a href={APP_CONFIG.supportPhoneTel}>
-                <Phone className="w-4 h-4 shrink-0" aria-hidden />
-                Speak to Autocrew
+              <a
+                href={APP_CONFIG.supportPhoneTel}
+                className="inline-flex items-center gap-2"
+              >
+                <Phone className="w-4 h-4 shrink-0 self-center" aria-hidden />
+                <span className="flex flex-col items-start gap-0.5 text-left leading-tight">
+                  <span>Speak to Sarah</span>
+                  <span className="text-[10px] font-normal font-geist opacity-90 max-w-[10rem]">
+                    {APP_CONFIG.speakToSarahSubtitle}
+                  </span>
+                </span>
               </a>
             </Button>
 
@@ -342,9 +350,14 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
               {links.map((link) => renderMobileLink(link as NavLinkItem))}
             </nav>
             <div className="rounded-xl border border-border bg-foreground/[0.03] p-4 mt-4 space-y-3">
-              <p className="text-sm font-semibold font-space-grotesk text-foreground">
-                Speak to Autocrew
-              </p>
+              <div>
+                <p className="text-sm font-semibold font-space-grotesk text-foreground">
+                  Speak to Sarah
+                </p>
+                <p className="text-xs text-muted-foreground font-geist mt-1">
+                  {APP_CONFIG.speakToSarahSubtitle}
+                </p>
+              </div>
               <Button
                 variant="pill"
                 size="pill-md"
@@ -353,7 +366,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
               >
                 <a href={APP_CONFIG.supportPhoneTel}>
                   <Phone className="w-4 h-4 shrink-0" aria-hidden />
-                  Speak to Autocrew
+                  Speak to Sarah
                 </a>
               </Button>
               <p className="text-sm text-muted-foreground font-geist text-center break-all">

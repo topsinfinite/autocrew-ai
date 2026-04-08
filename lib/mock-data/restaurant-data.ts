@@ -150,7 +150,7 @@ export const restaurantSteps: Step[] = [
     number: "02",
     title: "Connect Your Tools",
     description:
-      "Link your reservation system, POS, and review platforms. AutoCrew integrates with OpenTable, Toast, Google, and more.",
+      "Link your reservation system, POS, and review platforms. Autocrew integrates with OpenTable, Toast, Google, and more.",
   },
   {
     number: "03",
@@ -181,7 +181,7 @@ export const restaurantTestimonialsData = {
   items: [
     {
       quote:
-        "We were missing 40% of dinner reservation calls during Friday rush. AutoCrew now handles every call — our covers are up 25%.",
+        "We were missing 40% of dinner reservation calls during Friday rush. Autocrew now handles every call — our covers are up 25%.",
       name: "Marco T.",
       role: "Owner, Italian Bistro",
       initials: "MT",
@@ -211,7 +211,7 @@ export const restaurantFaqItems: FAQItem[] = [
   {
     question: "Will guests feel like they're talking to a robot?",
     answer:
-      "Not at all. AutoCrew uses natural language that matches your restaurant's brand voice. Guests get fast, friendly responses — and the AI seamlessly escalates to your team when a personal touch is needed.",
+      "Not at all. Autocrew uses natural language that matches your restaurant's brand voice. Guests get fast, friendly responses — and the AI seamlessly escalates to your team when a personal touch is needed.",
   },
   {
     question: "How long does setup take?",
@@ -221,7 +221,7 @@ export const restaurantFaqItems: FAQItem[] = [
   {
     question: "Does it work with my existing reservation system?",
     answer:
-      "Yes. AutoCrew integrates with OpenTable, Resy, Yelp Reservations, Google Reserve, Toast, and more. We're adding new integrations regularly.",
+      "Yes. Autocrew integrates with OpenTable, Resy, Yelp Reservations, Google Reserve, Toast, and more. We're adding new integrations regularly.",
   },
   {
     question: "Can it handle special requests and dietary accommodations?",

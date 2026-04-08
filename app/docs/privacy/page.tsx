@@ -5,7 +5,7 @@ import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How AutoCrew collects, uses, and protects your personal information. Read our full privacy policy and data practices.",
+    "How Autocrew collects, uses, and protects your personal information. Read our full privacy policy and data practices.",
   alternates: {
     canonical: "/docs/privacy",
   },
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
         Last Updated: March 4, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
-        This Privacy Policy describes how AutoCrew collects, uses, and protects
+        This Privacy Policy describes how Autocrew collects, uses, and protects
         your personal information when you use our services.
       </p>
 
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
         Account Information
       </h3>
       <p className="mb-4 text-muted-foreground">
-        When you create an AutoCrew account, we collect:
+        When you create an Autocrew account, we collect:
       </p>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
         <li>Full name and email address</li>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
         Usage Data
       </h3>
       <p className="mb-4 text-muted-foreground">
-        We automatically collect information about how you use AutoCrew:
+        We automatically collect information about how you use Autocrew:
       </p>
       <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
         <li>
@@ -84,7 +84,7 @@ export default function PrivacyPage() {
         Customer Data
       </h3>
       <p className="mb-6 text-muted-foreground">
-        When you use AutoCrew to interact with your customers, we process
+        When you use Autocrew to interact with your customers, we process
         conversation data, customer contact information, and related metadata on
         your behalf. You retain ownership of this data.
       </p>
@@ -101,7 +101,7 @@ export default function PrivacyPage() {
       <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
         <li>
           <strong>Service Delivery:</strong> To provide, maintain, and improve
-          AutoCrew features and functionality
+          Autocrew features and functionality
         </li>
         <li>
           <strong>AI Processing:</strong> To train and improve our AI models for
@@ -132,7 +132,7 @@ export default function PrivacyPage() {
         Automated Decision-Making and AI Processing
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew uses artificial intelligence to process data on your behalf.
+        Autocrew uses artificial intelligence to process data on your behalf.
         This section explains how automated processing works within our
         platform:
       </p>
@@ -412,7 +412,7 @@ export default function PrivacyPage() {
         </li>
         <li>
           <strong>Analytics Cookies:</strong> Help us understand how you use
-          AutoCrew
+          Autocrew
         </li>
         <li>
           <strong>Preference Cookies:</strong> Remember your settings and
@@ -444,7 +444,7 @@ export default function PrivacyPage() {
         Children's Privacy
       </h2>
       <p className="mb-8 text-muted-foreground">
-        AutoCrew is not intended for use by children under 16. We do not
+        Autocrew is not intended for use by children under 16. We do not
         knowingly collect personal information from children. If you believe we
         have collected information from a child, please contact us immediately.
       </p>
@@ -458,7 +458,7 @@ export default function PrivacyPage() {
       <p className="mb-8 text-muted-foreground">
         We may update this Privacy Policy from time to time. We will notify you
         of any material changes by email or through a notice on our website.
-        Your continued use of AutoCrew after such changes constitutes acceptance
+        Your continued use of Autocrew after such changes constitutes acceptance
         of the updated policy.
       </p>
 
@@ -475,7 +475,7 @@ export default function PrivacyPage() {
             <strong>Email:</strong> support@autocrew-ai.com
           </li>
           <li>
-            <strong>Address:</strong> AutoCrew Inc., 123 AI Street, San
+            <strong>Address:</strong> Autocrew Inc., 123 AI Street, San
             Francisco, CA 94105
           </li>
           <li>

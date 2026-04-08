@@ -50,12 +50,17 @@ export function ContactSalesSection() {
                     {contactSalesData.secondaryCta.text}
                   </Link>
                 </Button>
-                <Button variant="pill-outline" size="pill-lg" asChild>
-                  <a href={APP_CONFIG.supportPhoneTel}>
-                    <Phone className="w-4 h-4" />
-                    Speak to Autocrew
-                  </a>
-                </Button>
+                <div className="flex flex-col gap-1.5 items-stretch sm:items-start">
+                  <Button variant="pill-outline" size="pill-lg" asChild>
+                    <a href={APP_CONFIG.supportPhoneTel}>
+                      <Phone className="w-4 h-4" />
+                      Speak to Sarah
+                    </a>
+                  </Button>
+                  <p className="text-xs text-muted-foreground font-geist text-center sm:text-left max-w-[14rem]">
+                    {APP_CONFIG.speakToSarahSubtitle}
+                  </p>
+                </div>
               </div>
             </div>
 

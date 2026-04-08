@@ -150,7 +150,7 @@ export const coachingSteps: Step[] = [
     number: "02",
     title: "Connect Your Tools",
     description:
-      "Link your calendar, email, and CRM. AutoCrew integrates with Google Calendar, Outlook, Calendly, and more.",
+      "Link your calendar, email, and CRM. Autocrew integrates with Google Calendar, Outlook, Calendly, and more.",
   },
   {
     number: "03",
@@ -181,7 +181,7 @@ export const coachingTestimonialsData = {
   items: [
     {
       quote:
-        "I went from 15 clients to 22 without hiring an assistant. AutoCrew handles all my scheduling and follow-ups.",
+        "I went from 15 clients to 22 without hiring an assistant. Autocrew handles all my scheduling and follow-ups.",
       name: "Sarah M.",
       role: "Life Coach",
       initials: "SM",
@@ -209,9 +209,9 @@ export const coachingTestimonialsData = {
 // FAQ Data
 export const coachingFaqItems: FAQItem[] = [
   {
-    question: "Will AutoCrew replace the personal touch in my coaching?",
+    question: "Will Autocrew replace the personal touch in my coaching?",
     answer:
-      "Not at all. AutoCrew handles the administrative side — scheduling, intake forms, follow-up reminders — so you can be more present and focused during actual coaching sessions. AI enhances your practice, it never replaces you.",
+      "Not at all. Autocrew handles the administrative side — scheduling, intake forms, follow-up reminders — so you can be more present and focused during actual coaching sessions. AI enhances your practice, it never replaces you.",
   },
   {
     question: "How long does setup take?",
@@ -221,7 +221,7 @@ export const coachingFaqItems: FAQItem[] = [
   {
     question: "What tools does it integrate with?",
     answer:
-      "AutoCrew integrates with Google Calendar, Outlook, Calendly, Zoom, and major CRMs like HubSpot and Salesforce. We're adding new integrations regularly.",
+      "Autocrew integrates with Google Calendar, Outlook, Calendly, Zoom, and major CRMs like HubSpot and Salesforce. We're adding new integrations regularly.",
   },
   {
     question: "Can I customize the client intake questions?",

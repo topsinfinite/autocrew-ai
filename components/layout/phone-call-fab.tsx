@@ -19,7 +19,7 @@ export function PhoneCallFab() {
         "transition-[bottom] duration-300",
         hasConsented ? "bottom-4 sm:bottom-6" : "bottom-44 sm:bottom-40",
       )}
-      aria-label="Speak to Autocrew, call us"
+      aria-label={`Speak to Sarah, ${APP_CONFIG.speakToSarahSubtitle}, call us`}
     >
       <Phone className="h-6 w-6 shrink-0" aria-hidden />
     </Link>

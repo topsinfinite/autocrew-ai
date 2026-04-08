@@ -6,21 +6,21 @@ import { JsonLd } from "@/components/seo/json-ld";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about AutoCrew's mission to make AI automation accessible to every business. Our values, vision, and the story behind our platform.",
+    "Learn about Autocrew's mission to make AI automation accessible to every business. Our values, vision, and the story behind our platform.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About AutoCrew",
+    title: "About Autocrew",
     description:
-      "Learn about AutoCrew's mission to make AI automation accessible to every business.",
+      "Learn about Autocrew's mission to make AI automation accessible to every business.",
     url: "/about",
     images: [
       {
         url: "/about/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "About AutoCrew",
+        alt: "About Autocrew",
       },
     ],
   },
@@ -36,7 +36,7 @@ export default function AboutPage() {
       <JsonLd
         data={webPageSchema(
           "/about",
-          "About AutoCrew",
+          "About Autocrew",
           "2025-01-15",
           "2026-02-15",
         )}
@@ -45,7 +45,7 @@ export default function AboutPage() {
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto text-center mb-20">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight font-space-grotesk text-foreground mb-6 leading-[1.1]">
-            About AutoCrew
+            About Autocrew
           </h1>
           <p className="text-xl text-muted-foreground font-geist leading-relaxed">
             We're on a mission to make AI automation accessible to every
@@ -140,7 +140,7 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-4 text-muted-foreground font-geist leading-relaxed">
             <p>
-              AutoCrew was born from a simple observation: businesses were
+              Autocrew was born from a simple observation: businesses were
               struggling to keep up with customer demands while managing limited
               resources. Support teams were overwhelmed, leads were slipping
               through the cracks, and growth was constrained by manual
@@ -154,7 +154,7 @@ export default function AboutPage() {
               background.
             </p>
             <p>
-              Today, AutoCrew powers thousands of businesses worldwide, handling
+              Today, Autocrew powers thousands of businesses worldwide, handling
               millions of customer conversations and generating qualified leads
               around the clock. But we're just getting started. Our vision is to
               democratize AI automation, making it as accessible as email or

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-AutoCrew Marketing Site - Static Next.js 16 marketing website for the AutoCrew AI-powered automation platform. This repo contains only the marketing/public-facing pages. Login and signup pages are static demos (no backend).
+Autocrew Marketing Site - Static Next.js 16 marketing website for the Autocrew AI-powered automation platform. This repo contains only the marketing/public-facing pages. Login and signup pages are static demos (no backend).
 
 ## Key Commands
 

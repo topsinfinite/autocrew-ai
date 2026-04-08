@@ -8,7 +8,7 @@ export const legalHeroData = {
     accent: "More counsel.",
   },
   subheadline:
-    "AutoCrew handles intake, conflicts, and client comms — so your team stays on strategy, deals, and advocacy. Works for firms, legal ops, and in-house; legal aid teams get the same relief on eligibility and volume.",
+    "Autocrew handles intake, conflicts, and client comms — so your team stays on strategy, deals, and advocacy. Works for firms, legal ops, and in-house; legal aid teams get the same relief on eligibility and volume.",
   primaryCta: {
     text: "Start Free Trial",
     href: "https://app.autocrew-ai.com/signup",
@@ -147,7 +147,7 @@ export const legalSteps: Step[] = [
     number: "02",
     title: "Connect Your Tools",
     description:
-      "Link your case management system (Clio, LegalServer, MyCase, PracticePanther, or others), calendar, email, and documents. AutoCrew also integrates with Microsoft 365, Google Workspace, and common firm stacks.",
+      "Link your case management system (Clio, LegalServer, MyCase, PracticePanther, or others), calendar, email, and documents. Autocrew also integrates with Microsoft 365, Google Workspace, and common firm stacks.",
   },
   {
     number: "03",
@@ -209,7 +209,7 @@ export const legalFaqItems: FAQItem[] = [
   {
     question: "How does it integrate with our case management system?",
     answer:
-      "AutoCrew connects via APIs to major practice management platforms — including Clio, LegalServer, MyCase, PracticePanther, and similar tools — to create or update matters, run conflict checks aligned with your workflows, sync calendars, and pull reporting where your tenant allows. Setup is handled by our team — no coding required on your side.",
+      "Autocrew connects via APIs to major practice management platforms — including Clio, LegalServer, MyCase, PracticePanther, and similar tools — to create or update matters, run conflict checks aligned with your workflows, sync calendars, and pull reporting where your tenant allows. Setup is handled by our team — no coding required on your side.",
   },
   {
     question: "Is client data secure and confidential?",

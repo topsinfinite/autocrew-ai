@@ -63,8 +63,11 @@ export function CtaSection() {
 
               {/* Phone */}
               <div className="flex flex-col items-start">
-                <p className="uppercase text-xs font-semibold text-[#FF6B35] tracking-wider font-space mb-3">
-                  Speak to Autocrew
+                <p className="uppercase text-xs font-semibold text-[#FF6B35] tracking-wider font-space mb-1">
+                  Speak to Sarah
+                </p>
+                <p className="text-xs text-muted-foreground font-geist mb-3">
+                  {APP_CONFIG.speakToSarahSubtitle}
                 </p>
                 <a
                   href={APP_CONFIG.supportPhoneTel}

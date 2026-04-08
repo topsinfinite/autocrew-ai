@@ -17,7 +17,7 @@ import { faqData } from "@/lib/mock-data/docs-content";
 import { howItWorksData } from "@/lib/mock-data/landing-data";
 
 export const metadata: Metadata = {
-  title: "AutoCrew – AI Voice Agents for Healthcare & Customer Support",
+  title: "Autocrew – AI Voice Agents for Healthcare & Customer Support",
   description:
     "Deploy HIPAA-aware healthcare agents and intelligent customer support crews that work 24/7. Voice, chat, and multi-channel AI automation. Start free.",
   alternates: {

@@ -56,7 +56,7 @@ export default function HealthcareCrewPage() {
         HIPAA Compliance
       </h2>
       <p className="mb-4 text-muted-foreground">
-        <strong>Security First:</strong> AutoCrew implements comprehensive
+        <strong>Security First:</strong> Autocrew implements comprehensive
         HIPAA-aware safeguards across every layer of the healthcare workflow.
       </p>
 
@@ -103,7 +103,7 @@ export default function HealthcareCrewPage() {
         EHR Integration
       </h2>
       <p className="mb-4 text-muted-foreground">
-        AutoCrew connects to your EHR using the FHIR R4 standard with SMART
+        Autocrew connects to your EHR using the FHIR R4 standard with SMART
         Backend Services authorization. This enables secure, automated
         system-to-system communication.
       </p>

@@ -38,7 +38,7 @@ export const metadata: Metadata = {
         url: "/industry/restaurant/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "AI Automation for Restaurants – AutoCrew",
+        alt: "AI Automation for Restaurants – Autocrew",
       },
     ],
   },
@@ -54,7 +54,7 @@ export default function RestaurantPage() {
       <JsonLd data={faqPageSchema(restaurantFaqItems)} />
       <JsonLd
         data={serviceSchema(
-          "AutoCrew for Restaurants",
+          "Autocrew for Restaurants",
           "AI-powered automation platform for restaurant professionals. Handles reservations, guest communication, review management, and operations 24/7.",
           "AI Automation",
         )}

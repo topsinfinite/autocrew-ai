@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         url: "/industry/legal/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "AutoCrew for Legal Professionals",
+        alt: "Autocrew for Legal Professionals",
       },
     ],
   },
@@ -45,7 +45,7 @@ export default function LegalIndustryPage() {
       <JsonLd data={faqPageSchema(legalFaqItems)} />
       <JsonLd
         data={serviceSchema(
-          "AutoCrew for Legal",
+          "Autocrew for Legal",
           "AI-powered automation for law firms, corporate legal, and legal aid. Intake screening, client communication, deadlines, and reporting — integrated with leading case management platforms (Clio, LegalServer, MyCase, PracticePanther, and similar) plus Microsoft 365 and Google Workspace.",
           "AI Automation",
         )}

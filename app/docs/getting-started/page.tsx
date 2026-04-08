@@ -8,7 +8,7 @@ import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 export const metadata: Metadata = {
   title: "Getting Started",
   description:
-    "Quick start guide to set up your first AI crew with AutoCrew. Create crews, connect tools, and go live in minutes.",
+    "Quick start guide to set up your first AI crew with Autocrew. Create crews, connect tools, and go live in minutes.",
   alternates: {
     canonical: "/docs/getting-started",
   },
@@ -28,7 +28,7 @@ export default function GettingStartedPage() {
         Getting Started
       </h1>
       <p className="mb-8 text-lg text-muted-foreground">
-        Get up and running with AutoCrew in just a few minutes. This guide will
+        Get up and running with Autocrew in just a few minutes. This guide will
         walk you through setting up your account and creating your first AI
         crew.
       </p>
@@ -48,7 +48,7 @@ export default function GettingStartedPage() {
         Step 1: Create Your Account
       </h2>
       <p className="mb-4 text-muted-foreground">
-        Visit the AutoCrew homepage and click the "Request Access" button.
+        Visit the Autocrew homepage and click the "Request Access" button.
         You'll be guided through a simple signup process.
       </p>
       <div className="mb-8 space-y-2">

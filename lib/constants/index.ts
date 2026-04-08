@@ -21,6 +21,8 @@ export const APP_CONFIG = {
   supportPhoneTel: "tel:+13135045880",
   supportPhoneDisplay: "+1 (313) 504-5880",
   supportPhoneHours: "Mon–Fri 9am–6pm EST",
+  /** Short line under “Speak to Sarah” phone CTAs */
+  speakToSarahSubtitle: "(Autocrew's AI receptionist)",
 } as const;
 
 // ============================================================================

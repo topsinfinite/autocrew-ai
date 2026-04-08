@@ -47,7 +47,7 @@ export default function LoginPage() {
           <div className="relative z-10 mt-12">
             <div className="max-w-md">
               <p className="text-xl font-medium font-space-grotesk text-white mb-4">
-                "AutoCrew transformed our support workflow overnight. We're
+                "Autocrew transformed our support workflow overnight. We're
                 handling 5x the volume with zero additional headcount."
               </p>
               <div className="flex items-center gap-3">

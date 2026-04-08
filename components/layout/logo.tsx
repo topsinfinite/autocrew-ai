@@ -22,7 +22,7 @@ export function Logo({ height = 22, className, iconOnly = false }: LogoProps) {
       width={width}
       height={height}
       className={cn("shrink-0", className)}
-      aria-label="AutoCrew logo"
+      aria-label="Autocrew logo"
       role="img"
     >
       {/* Icon mark — always orange */}

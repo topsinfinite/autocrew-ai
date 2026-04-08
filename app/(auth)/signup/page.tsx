@@ -38,7 +38,7 @@ export default function SignUpPage() {
         <div className="relative z-10 mt-12">
           <div className="max-w-md">
             <p className="text-xl font-medium font-space-grotesk text-white mb-4">
-              &ldquo;AutoCrew transformed our support workflow overnight.
+              &ldquo;Autocrew transformed our support workflow overnight.
               We&apos;re handling 5x the volume with zero additional
               headcount.&rdquo;
             </p>
@@ -69,7 +69,7 @@ export default function SignUpPage() {
               Getting started - request access
             </h1>
             <p className="text-base text-slate-400">
-              Fill out the details below to request access to the AutoCrew
+              Fill out the details below to request access to the Autocrew
               workspace.
             </p>
           </div>
@@ -128,7 +128,7 @@ export default function SignUpPage() {
               </label>
               <textarea
                 rows={3}
-                placeholder="I plan to use AutoCrew to automate our customer support tickets..."
+                placeholder="I plan to use Autocrew to automate our customer support tickets..."
                 className="w-full bg-white/[0.02] border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-white/20 focus:bg-white/[0.04] transition-all resize-none"
               />
             </div>
@@ -172,7 +172,7 @@ export default function SignUpPage() {
                   Existing Team?
                 </h4>
                 <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                  If your organization is already on AutoCrew, ask your admin
+                  If your organization is already on Autocrew, ask your admin
                   for an invite link.
                 </p>
               </div>
