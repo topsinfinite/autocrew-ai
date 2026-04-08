@@ -12,8 +12,12 @@ export function PhoneCallFab() {
   return (
     <div
       className={cn(
-        "lg:hidden fixed left-3 sm:left-4 z-[80] transition-[bottom] duration-300 max-w-[calc(100vw-1.5rem)]",
-        hasConsented ? "bottom-4 sm:bottom-6" : "bottom-44 sm:bottom-40",
+        "lg:hidden fixed z-[80] max-w-[calc(100vw-2rem)] transition-[bottom,left] duration-300 ease-out",
+        // Before consent: lift above cookie strip (banner is bottom-left, z-90).
+        // After accept/reject/save: tuck into bottom-left to mirror chat widget insets on the right.
+        hasConsented
+          ? "bottom-5 left-4 sm:bottom-6 sm:left-6"
+          : "bottom-44 left-4 sm:bottom-40 sm:left-4",
       )}
     >
       <div className="relative inline-flex max-w-full">
