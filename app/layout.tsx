@@ -5,6 +5,7 @@ import { GeistSans, GeistMono } from "geist/font";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConsentProvider } from "@/components/providers/consent-provider";
+import { CookieBannerLayoutProvider } from "@/lib/contexts/cookie-banner-layout-context";
 import { CookieBanner } from "@/components/consent/cookie-banner";
 import { CookiePreferencesDialog } from "@/components/consent/cookie-preferences-dialog";
 import { APP_CONFIG } from "@/lib/constants";
@@ -142,9 +143,11 @@ gtag('config', 'G-HMHN49KVBJ');`}
         <JsonLd data={websiteSchema()} />
         <ThemeProvider defaultTheme="dark">
           <ConsentProvider>
-            {children}
-            <CookieBanner />
-            <CookiePreferencesDialog />
+            <CookieBannerLayoutProvider>
+              {children}
+              <CookieBanner />
+              <CookiePreferencesDialog />
+            </CookieBannerLayoutProvider>
           </ConsentProvider>
         </ThemeProvider>
         <Script id="autocrew-config" strategy="beforeInteractive">

@@ -3,28 +3,25 @@
 import Link from "next/link";
 import { Phone } from "lucide-react";
 import { APP_CONFIG } from "@/lib/constants";
-import { useConsent } from "@/lib/hooks/use-consent";
+import { useCookieBannerLayout } from "@/lib/contexts/cookie-banner-layout-context";
 import { cn } from "@/lib/utils";
 
 export function PhoneCallFab() {
-  const { hasConsented } = useConsent();
+  const { fabStackBottomPx } = useCookieBannerLayout();
+  const useStackOffset = fabStackBottomPx != null;
 
   return (
     <div
       className={cn(
         "lg:hidden fixed z-[80] max-w-[calc(100vw-2rem)] transition-[bottom,left] duration-300 ease-out",
-        // Before consent: lift above cookie strip (banner is bottom-left, z-90).
-        // After accept/reject/save: tuck into bottom-left to mirror chat widget insets on the right.
-        hasConsented
-          ? "bottom-5 left-4 sm:bottom-6 sm:left-6"
-          : "bottom-44 left-4 sm:bottom-40 sm:left-4",
+        useStackOffset
+          ? "left-4 sm:left-6"
+          : "bottom-5 left-4 sm:bottom-6 sm:left-6",
       )}
+      style={useStackOffset ? { bottom: fabStackBottomPx } : undefined}
     >
       <div className="relative inline-flex max-w-full">
-        <span
-          className="phone-fab-ripple absolute inset-0 z-0"
-          aria-hidden
-        />
+        <span className="phone-fab-ripple absolute inset-0 z-0" aria-hidden />
         <span
           className="phone-fab-ripple phone-fab-ripple-delay absolute inset-0 z-0"
           aria-hidden
