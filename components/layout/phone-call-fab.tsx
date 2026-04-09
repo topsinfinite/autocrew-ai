@@ -2,13 +2,18 @@
 
 import Link from "next/link";
 import { Phone } from "lucide-react";
+import { useEffect, useState } from "react";
 import { APP_CONFIG } from "@/lib/constants";
 import { useCookieBannerLayout } from "@/lib/contexts/cookie-banner-layout-context";
 import { cn } from "@/lib/utils";
 
 export function PhoneCallFab() {
   const { fabStackBottomPx } = useCookieBannerLayout();
-  const useStackOffset = fabStackBottomPx != null;
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+  const useStackOffset = hydrated && fabStackBottomPx != null;
 
   return (
     <div
