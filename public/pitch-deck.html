@@ -860,7 +860,37 @@
     font-size: 9px; color: var(--gray-300);
   }
 
-  /* ===== SLIDE 08: ANALYTICS ===== */
+  /* ===== SLIDE 08: CONVERSATIONS ===== */
+  .conv-filters {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .conv-table-wrap { overflow-x: auto; max-height: 420px; }
+  .conv-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  .conv-table th {
+    font-size: 7px; font-weight: 600; color: var(--gray-500);
+    text-transform: uppercase; letter-spacing: 0.4px;
+    padding: 6px 4px; text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .conv-table td {
+    padding: 6px 4px; font-size: 8px; color: var(--gray-300);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+    line-height: 1.35;
+  }
+  .conv-customer { font-weight: 600; color: var(--gray-100); font-family: 'Space Grotesk', sans-serif; font-size: 9px; }
+  .conv-email { font-size: 7px; color: var(--gray-500); margin-top: 1px; }
+  .conv-channel {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 8px; font-weight: 600; font-family: 'Space Grotesk', sans-serif;
+  }
+  .conv-channel.chat { color: var(--secondary); }
+  .conv-channel.voice { color: var(--green); }
+  .conv-summary { font-size: 7px; color: var(--gray-400); max-width: 100%; }
+  .conv-warn { color: var(--primary); margin-right: 2px; }
+
+  /* ===== SLIDE 09: ANALYTICS ===== */
   .chart-box {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.06);
@@ -887,7 +917,7 @@
     font-size: 10px; color: var(--gray-300); font-family: 'Space Grotesk', sans-serif;
   }
 
-  /* ===== SLIDE 09: USAGE ===== */
+  /* ===== SLIDE 10: USAGE ===== */
   .usage-section-label {
     font-size: 8px; font-weight: 700; color: var(--gray-500);
     text-transform: uppercase; letter-spacing: 1.5px;
@@ -912,7 +942,7 @@
     font-size: 10px; color: var(--gray-300); font-family: 'Space Grotesk', sans-serif;
   }
 
-  /* ===== SLIDE 12: CTA ===== */
+  /* ===== SLIDE 18: CTA ===== */
   .slide-cta {
     background:
       radial-gradient(ellipse at 50% 50%, rgba(255,107,53,0.08) 0%, transparent 60%),
@@ -967,7 +997,7 @@
     <p class="title-sub">Deploy intelligent digital workforces that handle customer interactions 24/7 across voice, chat, SMS, and email &mdash; live in under a week.</p>
     <div class="pill-btn pill-btn-lg">Start Free Trial &rarr;</div>
   </div>
-  <div class="slide-number">01 / 17</div>
+  <div class="slide-number">01 / 18</div>
 </div>
 
 <!-- SLIDE 2: THE PROBLEM -->
@@ -1004,7 +1034,7 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">02 / 17</div>
+  <div class="slide-number">02 / 18</div>
 </div>
 
 <!-- SLIDE 3: THE SOLUTION -->
@@ -1046,7 +1076,7 @@
       <div class="solution-live">Live in under a week &mdash; no code required</div>
     </div>
   </div>
-  <div class="slide-number">03 / 17</div>
+  <div class="slide-number">03 / 18</div>
 </div>
 
 <!-- SLIDE 4: HOW IT WORKS -->
@@ -1075,7 +1105,7 @@
       <p>Use AI-driven analytics to improve performance and scale from zero to thousands of conversations.</p>
     </div>
   </div>
-  <div class="slide-number">04 / 17</div>
+  <div class="slide-number">04 / 18</div>
 </div>
 
 <!-- SLIDE 5: DASHBOARD -->
@@ -1217,7 +1247,7 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">05 / 17</div>
+  <div class="slide-number">05 / 18</div>
 </div>
 
 <!-- SLIDE 6: AGENT CREWS -->
@@ -1340,7 +1370,7 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">06 / 17</div>
+  <div class="slide-number">06 / 18</div>
 </div>
 
 <!-- SLIDE 7: CALL LOGS -->
@@ -1506,10 +1536,153 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">07 / 17</div>
+  <div class="slide-number">07 / 18</div>
 </div>
 
-<!-- SLIDE 8: ANALYTICS -->
+<!-- SLIDE 8: CONVERSATIONS -->
+<div class="slide slide-app">
+  <div class="app-desc">
+    <div class="section-label">PRODUCT TOUR</div>
+    <h2 class="app-title">Conversation Transcripts &amp; History</h2>
+    <p class="app-subtitle">Search and analyze every chat and voice interaction — AI summaries, sentiment, resolution status, and one-click access to full transcripts.</p>
+    <div class="app-feat-list">
+      <div class="app-feat">
+        <div class="app-feat-icon">🔍</div>
+        <div class="app-feat-text"><strong>Search &amp; filters</strong> — find any conversation by keyword, channel (Chat / Voice), or date range in seconds.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">📋</div>
+        <div class="app-feat-text"><strong>AI summaries &amp; sentiment</strong> — each row shows crew, auto-generated summary, and positive / neutral / negative tags.</div>
+      </div>
+      <div class="app-feat">
+        <div class="app-feat-icon">👁</div>
+        <div class="app-feat-text"><strong>Open &amp; resolve</strong> — resolution badges (Open / Closed) plus View to read the full transcript and take action.</div>
+      </div>
+    </div>
+  </div>
+  <div class="app-mockup-col">
+    <div class="app-chrome">
+      <div class="app-sidebar">
+        <div class="app-sidebar-logo">
+          <div class="app-logo-mark">A</div>
+          <div class="app-logo-text-wrap">
+            <div class="app-logo-text">Autocrew</div>
+            <div class="app-logo-sub">Agent Platform</div>
+          </div>
+        </div>
+        <div class="app-org-block">
+          <div class="app-org-label">Your Organization</div>
+          <div class="app-org-row">
+            <div class="app-org-avatar">R</div>
+            <div>
+              <div class="app-org-name">Rutz Co</div>
+              <div class="app-org-plan">starter plan</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-nav">
+          <div class="app-nav-item"><span class="nav-icon">⊞</span> Dashboard</div>
+          <div class="app-nav-item"><span class="nav-icon">📈</span> Analytics</div>
+          <div class="app-nav-item active"><span class="nav-icon">💬</span> Conversations</div>
+          <div class="app-nav-item"><span class="nav-icon">👥</span> Agent Crews</div>
+          <div class="app-nav-item"><span class="nav-icon">📞</span> Call Logs</div>
+          <div class="app-nav-item"><span class="nav-icon">📊</span> Usage</div>
+        </div>
+        <div class="app-sidebar-footer">
+          <div class="app-nav-item"><span class="nav-icon">⚙</span> Settings</div>
+          <div class="app-nav-item"><span class="nav-icon">☀</span> Theme</div>
+          <div class="app-nav-item"><span class="nav-icon">↪</span> Logout</div>
+          <div class="app-status-dot">All systems operational</div>
+        </div>
+      </div>
+      <div class="app-main">
+        <div class="app-topbar">
+          <div>
+            <div class="app-page-title">Conversations</div>
+            <div class="app-page-sub">View and analyze all customer conversations</div>
+          </div>
+        </div>
+        <div class="app-content">
+          <div class="conv-filters">
+            <div class="calls-search-input" style="max-width:200px;flex:1;">🔍 Search conversations…</div>
+            <div class="calls-filter-btn">All Channels ▾</div>
+            <div class="calls-filter-btn">📅 Pick a date range</div>
+          </div>
+          <div class="app-section-hdr">All Conversations (4)</div>
+          <div class="app-card conv-table-wrap" style="padding:0;">
+            <table class="conv-table">
+              <thead>
+                <tr>
+                  <th style="width:11%;">Customer</th>
+                  <th style="width:9%;">Channel</th>
+                  <th style="width:12%;">Crew</th>
+                  <th style="width:8%;">Sentiment</th>
+                  <th style="width:28%;">Summary</th>
+                  <th style="width:8%;">Resolution</th>
+                  <th style="width:11%;">Date</th>
+                  <th style="width:7%;">Duration</th>
+                  <th style="width:6%;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="conv-customer">Anonymous</div>
+                    <div class="conv-email">john@gmail.com</div>
+                  </td>
+                  <td><span class="conv-channel chat">💬 Chat</span></td>
+                  <td style="font-size:8px;">Customer support Chatbot</td>
+                  <td><span class="abadge green">positive</span></td>
+                  <td><span class="conv-summary">Customer inquired about available services and pricing options…</span></td>
+                  <td><span class="abadge orange">Open</span></td>
+                  <td style="font-size:7px;">Apr 2, 2026, 9:38 AM</td>
+                  <td style="font-family:'Space Mono',monospace;">10m 42s</td>
+                  <td><span class="manage-btn">👁 View</span></td>
+                </tr>
+                <tr>
+                  <td><div class="conv-customer">Anonymous</div><div class="conv-email">—</div></td>
+                  <td><span class="conv-channel chat">💬 Chat</span></td>
+                  <td style="font-size:8px;">Customer support Chatbot</td>
+                  <td><span class="abadge blue" style="background:rgba(14,165,233,0.15);color:var(--secondary);">neutral</span></td>
+                  <td><span class="conv-summary"><span class="conv-warn">⚠</span> User asked about refund policy…</span></td>
+                  <td><span class="abadge orange">Open</span></td>
+                  <td style="font-size:7px;">Mar 16, 2026, 10:21 AM</td>
+                  <td style="font-family:'Space Mono',monospace;">N/A</td>
+                  <td><span class="manage-btn">👁 View</span></td>
+                </tr>
+                <tr>
+                  <td><div class="conv-customer">Anonymous</div><div class="conv-email">—</div></td>
+                  <td><span class="conv-channel voice">🎙 Voice</span></td>
+                  <td style="font-size:8px;">Customer support Chatbot</td>
+                  <td><span class="abadge green">positive</span></td>
+                  <td><span class="conv-summary">Caller requested appointment rescheduling assistance…</span></td>
+                  <td><span class="abadge orange">Open</span></td>
+                  <td style="font-size:7px;">Feb 9, 2026, 4:50 PM</td>
+                  <td style="font-family:'Space Mono',monospace;">4m 12s</td>
+                  <td><span class="manage-btn">👁 View</span></td>
+                </tr>
+                <tr>
+                  <td><div class="conv-customer">Anonymous</div><div class="conv-email">—</div></td>
+                  <td><span class="conv-channel chat">💬 Chat</span></td>
+                  <td style="font-size:8px;">Customer support Chatbot</td>
+                  <td><span class="abadge blue" style="background:rgba(14,165,233,0.15);color:var(--secondary);">neutral</span></td>
+                  <td><span class="conv-summary">General product FAQ and onboarding questions…</span></td>
+                  <td><span class="abadge orange">Open</span></td>
+                  <td style="font-size:7px;">Jan 15, 2026, 1:36 PM</td>
+                  <td style="font-family:'Space Mono',monospace;">N/A</td>
+                  <td><span class="manage-btn">👁 View</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">08 / 18</div>
+</div>
+
+<!-- SLIDE 9: ANALYTICS -->
 <div class="slide slide-app">
   <div class="app-desc">
     <div class="section-label">PRODUCT TOUR</div>
@@ -1640,10 +1813,10 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">08 / 17</div>
+  <div class="slide-number">09 / 18</div>
 </div>
 
-<!-- SLIDE 9: USAGE -->
+<!-- SLIDE 10: USAGE -->
 <div class="slide slide-app">
   <div class="app-desc">
     <div class="section-label">PRODUCT TOUR</div>
@@ -1773,10 +1946,10 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">09 / 17</div>
+  <div class="slide-number">10 / 18</div>
 </div>
 
-<!-- SLIDE 5: CORE CAPABILITIES -->
+<!-- SLIDE 11: CORE CAPABILITIES -->
 <div class="slide slide-capabilities">
   <div class="section-label">PLATFORM</div>
   <h2 class="slide-h2">Core Capabilities</h2>
@@ -1818,10 +1991,10 @@
       <span class="cap-tag gray">ENTERPRISE</span>
     </div>
   </div>
-  <div class="slide-number">10 / 17</div>
+  <div class="slide-number">11 / 18</div>
 </div>
 
-<!-- SLIDE 6: HEALTHCARE -->
+<!-- SLIDE 12: HEALTHCARE -->
 <div class="slide slide-healthcare">
   <div class="section-label">INDUSTRY FOCUS</div>
   <h2 class="slide-h2">Built for Healthcare</h2>
@@ -1856,10 +2029,10 @@
       <div class="hipaa-badge">HIPAA COMPLIANT &bull; SOC 2 TYPE II</div>
     </div>
   </div>
-  <div class="slide-number">11 / 17</div>
+  <div class="slide-number">12 / 18</div>
 </div>
 
-<!-- SLIDE 7: CUSTOMER SUPPORT -->
+<!-- SLIDE 13: CUSTOMER SUPPORT -->
 <div class="slide slide-support">
   <div class="section-label">INDUSTRY FOCUS</div>
   <h2 class="slide-h2">Supercharge Customer Support</h2>
@@ -1889,10 +2062,10 @@
       <ul><li>Real-time language detection</li><li>Culturally aware responses</li><li>Consistent brand voice</li></ul>
     </div>
   </div>
-  <div class="slide-number">12 / 17</div>
+  <div class="slide-number">13 / 18</div>
 </div>
 
-<!-- SLIDE 8: MORE INDUSTRIES -->
+<!-- SLIDE 14: MORE INDUSTRIES -->
 <div class="slide slide-industries">
   <div class="section-label">VERTICALS</div>
   <h2 class="slide-h2">Purpose-Built for Your Industry</h2>
@@ -1922,10 +2095,10 @@
       <p>Proactive lead engagement, intelligent qualification, CRM sync, and automated appointment scheduling.</p>
     </div>
   </div>
-  <div class="slide-number">13 / 17</div>
+  <div class="slide-number">14 / 18</div>
 </div>
 
-<!-- SLIDE 9: RESULTS & SOCIAL PROOF -->
+<!-- SLIDE 15: RESULTS & SOCIAL PROOF -->
 <div class="slide slide-proof">
   <div class="section-label">RESULTS</div>
   <h2 class="slide-h2">Proven Impact, Real Numbers</h2>
@@ -1958,10 +2131,10 @@
       </div>
     </div>
   </div>
-  <div class="slide-number">14 / 17</div>
+  <div class="slide-number">15 / 18</div>
 </div>
 
-<!-- SLIDE 10: WHY AUTOCREW -->
+<!-- SLIDE 16: WHY AUTOCREW -->
 <div class="slide slide-why">
   <div class="section-label">COMPETITIVE EDGE</div>
   <h2 class="slide-h2">Why <span class="gradient-text">Autocrew</span> Wins</h2>
@@ -1997,10 +2170,10 @@
       <p>Voice, chat, SMS, WhatsApp, email &mdash; same AI intelligence across every channel, managed from one dashboard.</p>
     </div>
   </div>
-  <div class="slide-number">15 / 17</div>
+  <div class="slide-number">16 / 18</div>
 </div>
 
-<!-- SLIDE 11: PRICING -->
+<!-- SLIDE 17: PRICING -->
 <div class="slide slide-pricing">
   <div class="section-label">PRICING</div>
   <h2 class="slide-h2">Simple, Transparent Pricing</h2>
@@ -2048,10 +2221,10 @@
     </div>
   </div>
   <div class="pricing-trial"><strong>14-day free trial</strong> &bull; No credit card required</div>
-  <div class="slide-number">16 / 17</div>
+  <div class="slide-number">17 / 18</div>
 </div>
 
-<!-- SLIDE 12: CTA -->
+<!-- SLIDE 18: CTA -->
 <div class="slide slide-cta">
   <div class="cta-content">
     <div class="section-label">GET STARTED</div>
@@ -2063,7 +2236,7 @@
     </div>
     <div class="cta-contact">Questions? Reach out at <a href="#">hello@autocrew.ai</a></div>
   </div>
-  <div class="slide-number">17 / 17</div>
+  <div class="slide-number">18 / 18</div>
 </div>
 
 </body>
