@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck, ArrowRight } from "lucide-react";
+import { ShieldCheck, ArrowRight, PlayCircle } from "lucide-react";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
 import { SectionBadge } from "@/components/landing/section-badge";
 import { Button } from "@/components/ui/button";
@@ -90,27 +90,37 @@ export function HeroSection() {
             {heroData.subheadline}
           </p>
 
-          {/* CTA */}
+          {/* CTAs — match production: Book + Sarah demo audio (no email capture) */}
           <div
             className={cn(
-              "flex flex-col sm:flex-row mt-10 items-center justify-center gap-4",
+              "flex flex-col mt-10 items-center justify-center gap-4",
               "animate-fade-up opacity-0",
             )}
             style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
           >
-            <Button
-              variant="pill"
-              size="pill-lg"
-              className="w-full sm:w-auto group"
-              asChild
-            >
-              <Link href={heroData.primaryCta.href}>
-                {heroData.primaryCta.text}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+              <Button
+                variant="pill"
+                size="pill-lg"
+                className="group w-full sm:w-auto shadow-[0_0_15px_rgba(255,107,53,0.4)] hover:shadow-[0_0_18px_rgba(255,107,53,0.45)]"
+                asChild
+              >
+                <Link href={heroData.primaryCta.href}>
+                  {heroData.primaryCta.text}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              </Button>
 
-            <AudioPlayer />
+              <AudioPlayer />
+            </div>
+
+            <Link
+              href={heroData.secondaryCta.href}
+              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
+              {heroData.secondaryCta.text}
+            </Link>
           </div>
 
           {/* Trust Indicator */}
@@ -126,9 +136,10 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Dashboard Preview - forced dark context (product mockup) */}
+      {/* Dashboard Preview - forced dark context (product mockup); anchor for hero secondary CTA */}
       <div
-        className="animate-scale-in opacity-0 max-w-[1200px] mx-auto px-4 mt-12 pb-20 relative z-20"
+        id="demo"
+        className="animate-scale-in opacity-0 max-w-[1200px] mx-auto px-4 mt-12 pb-20 relative z-20 scroll-mt-24"
         style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
         data-theme="dark"
       >

@@ -57,7 +57,7 @@ export function softwareApplicationSchema() {
       "HIPAA-Aware Healthcare Agents",
       "Multi-Channel Voice Access",
       "Knowledge Base RAG",
-      "Smart Escalation",
+      "Smart Escalation (live voice handoffs, agent briefings, email fallbacks)",
       "Real-Time Analytics",
       "Enterprise Security",
       "24/7 Automated Scheduling",

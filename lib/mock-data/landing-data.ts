@@ -1,7 +1,7 @@
 // Hero Section Data
 export const heroData = {
   announcement: {
-    text: "Now Onboarding Healthcare Practices",
+    text: "New: Smart Escalation — live voice handoffs to your team",
     icon: "ShieldCheck",
   },
   headline: {
@@ -9,7 +9,7 @@ export const heroData = {
     accent: "Patient Call Again",
   },
   subheadline:
-    "AI voice agents answer every call, book appointments, and check records — HIPAA-aware and live in under a week.",
+    "AI voice agents answer every call, book appointments, and check records — with Smart Escalation when callers need a human, including live bridge, agent briefing, and graceful fallbacks. HIPAA-aware and live in under a week.",
   primaryCta: {
     text: "Book a Demo",
     href: "https://app.autocrew-ai.com/signup",
@@ -19,7 +19,8 @@ export const heroData = {
     href: "/#demo",
     icon: "PlayCircle",
   },
-  trustText: "HIPAA Aware  |  EHR Integrated  |  Live in Days",
+  trustText:
+    "Smart Escalation  |  HIPAA Aware  |  EHR Integrated  |  Live in Days",
 };
 
 // Stats Data
@@ -75,7 +76,15 @@ export const featuresData: Feature[] = [
       "Reach your AI agents via phone calls or web voice widgets — same intelligence, multiple touchpoints.",
     icon: "PhoneCall",
     extendedDescription:
-      "Patients and customers can reach your AI crew via phone calls, web chat, SMS, or WhatsApp. Voice agents use natural language processing to understand intent and provide human-like responses. Supports call transfer to live agents with full context preservation.",
+      "Patients and customers can reach your AI crew via phone calls, web chat, SMS, or WhatsApp. Voice agents use natural language processing to understand intent and provide human-like responses. Pair with Smart Escalation for live transfers when a human should take over.",
+  },
+  {
+    title: "Smart Escalation",
+    description:
+      "Live voice bridges to your team — with an AI briefing for agents, professional hold for callers, and email fallbacks if no one picks up.",
+    icon: "UserCheck",
+    extendedDescription:
+      "When a caller asks for a person or the request is out of scope, Smart Escalation can bridge the call to your team’s line. Agents hear a spoken summary before pickup; callers hear a professional hold while the transfer connects. If no one answers, the AI sets expectations and your team gets an email with number, reason, time, and an AI-generated summary — so callbacks land with context.",
   },
   {
     title: "Knowledge Base RAG",
@@ -84,14 +93,6 @@ export const featuresData: Feature[] = [
     icon: "Database",
     extendedDescription:
       "Upload your documentation, FAQs, and policies to create a custom knowledge base. Our retrieval-augmented generation system ensures AI responses are grounded in your actual content, reducing hallucinations and improving accuracy. Automatically stays current as you update your docs.",
-  },
-  {
-    title: "Smart Escalation",
-    description:
-      "Automatic escalation to human teams with conversation context, urgency levels, and email notifications.",
-    icon: "UserCheck",
-    extendedDescription:
-      "When an interaction exceeds AI capabilities, smart escalation routes the conversation to the right human agent with full context. Escalation rules are customizable by topic, sentiment, or customer tier. Reduces average handle time by providing agents with conversation summaries.",
   },
   {
     title: "Real-Time Analytics",
@@ -142,11 +143,11 @@ export const aiCrewsData: AiCrew[] = [
     badge: "Support",
     title: "Support Crew",
     description:
-      "AI-powered customer support with voice and chat — agents search your knowledge base and escalate to humans when needed.",
+      "AI-powered customer support with voice and chat — knowledge-grounded answers plus Smart Escalation for live handoffs, agent briefings, and email fallbacks when your team can’t pick up.",
     features: [
       "Voice agent via phone & web widget",
       "Knowledge base RAG search",
-      "Smart escalation with context",
+      "Smart Escalation — live bridge, agent briefing, email fallback",
       "Multi-language support",
     ],
     ctaText: "Learn More",
@@ -262,7 +263,7 @@ export const whyAutocrewData = {
     {
       title: "Smart Handoff",
       description:
-        "Smooth escalation protocols ensure complex queries reach human experts immediately. AI and humans in perfect harmony.",
+        "Smart Escalation bridges voice calls to your team with briefings and fallbacks — so complex moments reach humans without dropping the ball.",
       icon: "Headphones",
     },
   ] as WhyFeature[],
@@ -303,6 +304,7 @@ export function isDropdownLink(
 
 export const navLinks: NavLinkItem[] = [
   { label: "Features", href: "/#features" },
+  { label: "AI Receptionist", href: "/ai-receptionist" },
   { label: "Solutions", href: "/#solutions" },
   {
     label: "Industry",

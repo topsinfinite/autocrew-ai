@@ -15,3 +15,4 @@ export * from "./how-it-works";
 export * from "./contact-sales-section";
 export * from "./section-badge";
 export * from "./stats-section";
+export * from "./newsletter-form";

@@ -35,6 +35,7 @@ export const ROUTES = {
   LOGIN: "https://app.autocrew-ai.com/login",
   SIGNUP: "https://app.autocrew-ai.com/signup",
   ABOUT: "/about",
+  AI_RECEPTIONIST: "/ai-receptionist",
   CONTACT: "/contact",
   CONTACT_SUPPORT: "/contact-support",
   DESIGN_SYSTEM: "/design-system",

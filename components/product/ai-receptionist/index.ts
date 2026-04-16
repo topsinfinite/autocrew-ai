@@ -1,0 +1,12 @@
+export { AiReceptionistHero } from "./ai-receptionist-hero";
+export { AiReceptionistHeroFlow } from "./ai-receptionist-hero-flow";
+export { AiReceptionistProductStack } from "./ai-receptionist-product-stack";
+export { AiReceptionistPersonas } from "./ai-receptionist-personas";
+export { AiReceptionistPainStrip } from "./ai-receptionist-pain-strip";
+export { AiReceptionistFlow } from "./ai-receptionist-flow";
+export { AiReceptionistOutcomes } from "./ai-receptionist-outcomes";
+export { AiReceptionistRollout } from "./ai-receptionist-rollout";
+export { AiReceptionistDemo } from "./ai-receptionist-demo";
+export { AiReceptionistFaq } from "./ai-receptionist-faq";
+export { AiReceptionistIndustryBridge } from "./ai-receptionist-industry-bridge";
+export { AiReceptionistCta } from "./ai-receptionist-cta";

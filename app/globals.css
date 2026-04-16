@@ -515,6 +515,32 @@ body {
   animation: scale-in 0.6s ease-out forwards;
 }
 
+/* AI receptionist hero — traveling dash along signal path (stroke only; respects motion) */
+@keyframes hero-signal-path-shift {
+  to {
+    stroke-dashoffset: -92;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-hero-signal-path {
+    animation: hero-signal-path-shift 2.8s linear infinite;
+  }
+}
+
+/* AI receptionist hero workflow — bright packet travels along spine (pathLength-normalized) */
+@keyframes hero-flow-beam-shift {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-hero-flow-beam {
+    animation: hero-flow-beam-shift 5s linear infinite;
+  }
+}
+
 .animate-spin-slow {
   animation: spin-slow 8s linear infinite;
 }
