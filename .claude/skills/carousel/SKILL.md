@@ -33,12 +33,15 @@ Read these files in parallel:
 | 5 | `content-marketing/_templates/captions.md` | LinkedIn + Instagram caption structure |
 | 6 | `content-marketing/_feedback/performance-log.md` | Past engagement data (if exists) |
 | 7 | `content-marketing/_feedback/style-notes.md` | Design/copy corrections (if exists) |
-| 8 | `content-marketing/_layouts/README.md` | Available layouts catalog |
+| 8 | `content-marketing/_layouts/index.json` | List of layout manifests to load |
+
+Then load every manifest listed in `index.json` in parallel:
+- `content-marketing/_layouts/{manifest}.json` for each entry — these are the source of truth for layout metadata.
 
 Also:
-- List `content-marketing/_layouts/*.html` to know available layouts
-- List `content-marketing/posts/` to check existing posts and avoid duplicate topics
-- Read `components/layout/logo.tsx` for the SVG logo data (needed for HTML generation)
+- Read `content-marketing/_layouts/README.md` only if you need human-readable descriptions beyond what the manifests provide.
+- List `content-marketing/posts/` to check existing posts and avoid duplicate topics.
+- Read `components/layout/logo.tsx` for the SVG logo data (needed for HTML generation).
 
 **If `--bip` mode:**
 - Run `git log --oneline -15` to get recent work
@@ -107,62 +110,58 @@ Wait for user confirmation before moving to Phase 2.
 
 **Always present layout options to the user.** Use AskUserQuestion to let them choose.
 
-### Available Layouts
+Layouts are data-driven. The manifests loaded in Phase 0 (`_layouts/*.json`) are the source of truth for every layout's metadata, slide structure, and recommendations. **Do not hardcode layout data in this skill.**
 
-Read `content-marketing/_layouts/README.md` for the current catalog. At launch:
+### 2.1 Recommend a Layout
 
-| Layout | Style | Best For |
-|--------|-------|----------|
-| **Default** | Editorial, clean top rail `01/05`, chat UI showcase, vertical features, hero metric + testimonial, orange CTA | Brand awareness, value props, industry spotlights, social proof, culture |
-| **Pipeline** | Technical, glass-panels, workflow pipeline diagram, bento grid, comparison bars, terminal CTA, white button | Build-in-public, feature deep-dives, behind-the-tech, dev audience, launches |
+For each loaded manifest, check whether the current theme (from Phase 1.1) appears in its `recommendFor` array. If multiple match, prefer the layout with the narrowest/most-specific match. If none match, default to the manifest whose `recommendFor` includes the broadest theme closest to the topic.
 
-### Recommendation Logic
+### 2.2 Present Options
 
-- Core Value Prop / Vision / Culture / Industry Spotlight / Social Proof → recommend **Default**
-- Behind the Tech / Build-in-Public / Feature Highlight / Problem-Solution → recommend **Pipeline**
-- User can always override
+Show the user every available layout using AskUserQuestion. For each layout, display:
+- `displayName` as the option label
+- `style` and top 2-3 items from `bestFor` as the description
+- Slide count (and whether variable)
+- Mark the recommendation from 2.1 as "recommended"
 
-### Slide Content Adapts to Layout
+Example presentation:
 
-The chosen layout determines slide structure:
+```
+Which layout should we use?
+ 1. Default (recommended) — Editorial, brand-forward. Best for brand awareness, value props. 5 slides (3-7).
+ 2. Pipeline — Technical, glass-panel. Best for build-in-public, feature deep-dives. 5 slides (3-7).
+ 3. Pipeline Extended — Deep-dive architecture walkthroughs. Fixed 8 slides.
+ 4. Dispatch — Voice/phone operations, editorial-warm. Fixed 8 slides.
+```
 
-**Default layout slides:**
-- Slide 1: 3-line headline (white/zinc-500/#FF4500), subtitle, status line
-- Slide 2: Agent chat conversation (2 agent messages + 1 user message)
-- Slide 3: 3 features vertical list with icon boxes
-- Slide 4: Single big metric + testimonial quote with attribution
-- Slide 5: Glass card CTA with orange button
+### 2.3 Slide Structure Comes From the Manifest
 
-**Pipeline layout slides:**
-- Slide 1: Glass card with left border, 2-line headline, task label
-- Slide 2: Workflow pipeline (user request → router agent → resolution agents with labels)
-- Slide 3: Bento grid (2 top cards + 1 full-width bottom card with badge)
-- Slide 4: Comparison bars (before/after) + 2-stat metric grid
-- Slide 5: Terminal window with CLI commands + white CTA button
+Once the user picks a layout, read `slides[]` from its manifest to know each slide's `type` and `description`. Do NOT use memorized per-layout slide structures — always pull from the manifest so adding a new layout (or editing an existing one) requires no SKILL.md changes.
 
-### Variable Slide Counts (3-7)
+### 2.4 Variable Slide Counts
 
-Hero (always first) and CTA (always last) are fixed. For middle slides, present the slide type menu:
+If the chosen manifest has `variableSlides: true`:
+- Requested count must fall within `slideCountMin`..`slideCountMax`.
+- Slides flagged `fixed: true` (hero, CTA) always remain in position.
+- For the middle slides, pick from the manifest's `availableMiddleSlideTypes[]`. Reorder or swap to match the topic/hook.
+- When the total differs from the manifest's default, update the `slideCounterFormat` (e.g. `01/05` → `01/06`) consistently across all slides.
 
-| Slide Type | Available In | Description |
-|-----------|-------------|-------------|
-| Chat UI Showcase | Default | Agent conversation mock |
-| Workflow Pipeline | Pipeline | Request routing diagram |
-| Features (Vertical) | Default | 3 features with icon boxes |
-| Features (Bento) | Pipeline | 2x2 grid + full-width card |
-| Metrics/Proof | Both | Stats + testimonial (Default) or comparison bars (Pipeline) |
-| Step-by-Step | Both | Numbered process steps |
+If `variableSlides: false`, use the manifest's fixed `slideCount` and `slides[]` exactly.
 
-### New Layout Generation
+### 2.5 New Layout Generation
 
-If the user requests a layout that doesn't exist, generate one following the shared style system:
+If the user requests a layout that doesn't exist yet, generate one following the shared style system (see `_layouts/README.md` → "Shared Style System"):
 - 1080x1350px per slide (use `transform: scale(2.7)` on 400px base OR direct pixel dimensions)
 - Background: `#0F0F0F`, body: `#0A0A0A`, accent: `#FF4500`
 - Font: Inter via Google Fonts CDN
 - Icons: Iconify Solar set via CDN
 - Include Tailwind CDN and Figma capture script
-- Save to `content-marketing/_layouts/{name}-{N}slide.html`
-- Update `content-marketing/_layouts/README.md`
+
+Then register it so future runs pick it up automatically:
+1. Save HTML to `content-marketing/_layouts/{name}-{N}slide.html`
+2. Create the matching manifest at `content-marketing/_layouts/{name}-{N}slide.json` (see `_layouts/README.md` → "Manifest schema" for required fields)
+3. Append the manifest filename to `content-marketing/_layouts/index.json` → `layouts[]`
+4. Add a section to `_layouts/README.md` describing the layout (human docs)
 
 ---
 
