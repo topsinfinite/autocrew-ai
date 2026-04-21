@@ -7,6 +7,8 @@ export interface EnrichedContext {
   sectionLabel?: string;
   /** location.pathname — no search, no hash. */
   url: string;
+  /** User-typed message accompanying the quoted selection, set by the composer. */
+  userPrompt?: string;
 }
 
 export interface ContextualAIAdapter {
@@ -31,4 +33,21 @@ export type ContextualAIEvent =
       name: "contextual_ai_dismissed";
       reason: "click_away" | "escape";
     }
-  | { name: "contextual_ai_adapter_missing"; path: string };
+  | { name: "contextual_ai_adapter_missing"; path: string }
+  | {
+      name: "contextual_ai_composer_opened";
+      chars: number;
+      sectionLabel?: string;
+      path: string;
+    }
+  | {
+      name: "contextual_ai_composer_sent";
+      chars: number;
+      userPromptChars: number;
+      sectionLabel?: string;
+      path: string;
+    }
+  | {
+      name: "contextual_ai_composer_dismissed";
+      reason: "escape" | "click_away" | "remove_quote" | "cancel";
+    };

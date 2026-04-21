@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Quote, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SelectionPopoverProps {
@@ -23,10 +23,10 @@ export function SelectionPopover({
 }: SelectionPopoverProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
-  const [position, setPosition] = useState<{ top: number; left: number }>({
-    top: 0,
-    left: 0,
-  });
+  const [position, setPosition] = useState<{
+    top: number;
+    left: number;
+  } | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -77,9 +77,16 @@ export function SelectionPopover({
       className={cn(
         "fixed z-50 flex items-center gap-1.5 rounded-full border border-border",
         "bg-card/95 backdrop-blur px-3 py-1.5 shadow-lg",
-        "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-1 motion-safe:duration-150",
+        "motion-safe:transition-[opacity,transform] motion-safe:duration-150 motion-safe:ease-out",
       )}
-      style={{ top: position.top, left: position.left }}
+      style={{
+        top: position?.top ?? 0,
+        left: position?.left ?? 0,
+        opacity: position ? 1 : 0,
+        transform: position ? "translateY(0)" : "translateY(4px)",
+        visibility: position ? "visible" : "hidden",
+        pointerEvents: position ? "auto" : "none",
+      }}
     >
       <button
         type="button"
@@ -89,7 +96,7 @@ export function SelectionPopover({
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full",
         )}
       >
-        <Sparkles className="h-3.5 w-3.5 text-primary" aria-hidden />
+        <Quote className="h-3.5 w-3.5 text-primary" aria-hidden />
         <span>Ask Sarah</span>
         <ArrowRight className="h-3.5 w-3.5 opacity-70" aria-hidden />
       </button>

@@ -12,9 +12,15 @@ import {
   type EnrichedContext,
 } from "@/lib/contextual-ai";
 import { useTextSelection } from "./use-text-selection";
+import type { ComposerDismissReason } from "./selection-composer";
 
 const SelectionPopover = dynamic(
   () => import("./selection-popover").then((m) => m.SelectionPopover),
+  { ssr: false },
+);
+
+const SelectionComposer = dynamic(
+  () => import("./selection-composer").then((m) => m.SelectionComposer),
   { ssr: false },
 );
 
@@ -22,6 +28,11 @@ const StubDebugCard = dynamic(
   () => import("./stub-debug-card").then((m) => m.StubDebugCard),
   { ssr: false },
 );
+
+interface ComposerState {
+  ctx: EnrichedContext;
+  rect: DOMRect;
+}
 
 export function ContextualAIProvider({
   children,
@@ -32,6 +43,7 @@ export function ContextualAIProvider({
   const [hydrated, setHydrated] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [stubPayload, setStubPayload] = useState<EnrichedContext | null>(null);
+  const [composer, setComposer] = useState<ComposerState | null>(null);
   const lastTrackedTextRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -41,10 +53,11 @@ export function ContextualAIProvider({
 
   useEffect(() => {
     setStubPayload(null);
+    setComposer(null);
     lastTrackedTextRef.current = null;
   }, [pathname]);
 
-  const active = useTextSelection(hydrated && enabled);
+  const active = useTextSelection(hydrated && enabled && !composer);
 
   useEffect(() => {
     if (!active) return;
@@ -69,33 +82,77 @@ export function ContextualAIProvider({
       path: ctx.url,
       hasSurrounding: Boolean(ctx.surrounding),
     });
+    track({
+      name: "contextual_ai_composer_opened",
+      chars: ctx.selection.length,
+      sectionLabel: ctx.sectionLabel,
+      path: ctx.url,
+    });
 
-    const adapter = resolveAdapter();
-    if (!adapter) {
-      track({ name: "contextual_ai_adapter_missing", path: ctx.url });
-      return;
-    }
-
-    void adapter.prefillWithContext(ctx);
-    if (isStubEnabled()) {
-      setStubPayload(ctx);
-    }
+    setComposer({ ctx, rect: active.rect });
     window.getSelection()?.removeAllRanges();
   }, [active]);
 
-  const handleDismiss = useCallback(() => {
+  const handlePopoverDismiss = useCallback(() => {
     window.getSelection()?.removeAllRanges();
     track({ name: "contextual_ai_dismissed", reason: "escape" });
   }, []);
 
+  const handleComposerSubmit = useCallback(
+    (userPrompt: string) => {
+      if (!composer) return;
+      const ctx: EnrichedContext = userPrompt
+        ? { ...composer.ctx, userPrompt }
+        : composer.ctx;
+
+      track({
+        name: "contextual_ai_composer_sent",
+        chars: ctx.selection.length,
+        userPromptChars: userPrompt.length,
+        sectionLabel: ctx.sectionLabel,
+        path: ctx.url,
+      });
+
+      const adapter = resolveAdapter();
+      if (!adapter) {
+        track({ name: "contextual_ai_adapter_missing", path: ctx.url });
+        setComposer(null);
+        return;
+      }
+
+      void adapter.prefillWithContext(ctx);
+      if (isStubEnabled()) {
+        setStubPayload(ctx);
+      }
+      setComposer(null);
+    },
+    [composer],
+  );
+
+  const handleComposerDismiss = useCallback(
+    (reason: ComposerDismissReason) => {
+      track({ name: "contextual_ai_composer_dismissed", reason });
+      setComposer(null);
+    },
+    [],
+  );
+
   return (
     <>
       {children}
-      {hydrated && enabled && active && (
+      {hydrated && enabled && active && !composer && (
         <SelectionPopover
           rect={active.rect}
           onClick={handleOpen}
-          onDismiss={handleDismiss}
+          onDismiss={handlePopoverDismiss}
+        />
+      )}
+      {hydrated && composer && (
+        <SelectionComposer
+          ctx={composer.ctx}
+          rect={composer.rect}
+          onSubmit={handleComposerSubmit}
+          onDismiss={handleComposerDismiss}
         />
       )}
       {hydrated && stubPayload && (
