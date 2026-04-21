@@ -134,3 +134,24 @@ Key routing rules:
 - Architecture review → invoke plan-eng-review
 - Save progress, checkpoint, resume → invoke checkpoint
 - Code quality, health check → invoke health
+
+## Contextual AI (Highlight-to-Chat)
+
+Phase 1 prototype that turns any highlighted text on a marketing page into a pre-loaded chat prompt. Mounted under `app/(public)/layout.tsx`; every current and future `(public)/*` page inherits it automatically.
+
+**Toggle**
+- Global: `NEXT_PUBLIC_CONTEXTUAL_AI_ENABLED=false` in env.
+- Per-session: append `?contextual-ai=off` (or `=on`) to any URL.
+- Per-visitor: `localStorage.setItem('contextual-ai:disabled', '1')` in the browser console.
+
+**Dogfood locally**
+1. Set `NEXT_PUBLIC_CONTEXTUAL_AI_STUB=true` in `.env.local`.
+2. `npm run dev`.
+3. Highlight text (≥15 chars) anywhere on a `(public)/*` page.
+4. Click "Ask Sarah →". A debug card appears bottom-right showing the exact `EnrichedContext` payload.
+
+**How it wires to the real widget**
+The external `widget.js` from `app.autocrew-ai.com` is loaded in `app/layout.tsx`. When the widget team ships `window.AutoCrew.prefillWithContext(ctx: EnrichedContext)`, the adapter auto-resolves to the real API at click time — no changes needed in this repo. The type signature is exported from `lib/contextual-ai`.
+
+**Opt an element out**
+Stamp `data-contextual-ai="off"` on any element; selections inside it are ignored.
