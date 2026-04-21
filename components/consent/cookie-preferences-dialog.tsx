@@ -76,7 +76,7 @@ export function CookiePreferencesDialog() {
 
   return (
     <Dialog open={isPreferencesOpen} onOpenChange={closePreferences}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent data-contextual-ai="off" className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Cookie Preferences</DialogTitle>
           <DialogDescription>
