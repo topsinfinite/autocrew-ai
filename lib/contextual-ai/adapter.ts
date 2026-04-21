@@ -9,7 +9,6 @@ export const stubAdapter: ContextualAIAdapter = {
     document.dispatchEvent(
       new CustomEvent("contextual_ai_stub", { detail: ctx }),
     );
-    // eslint-disable-next-line no-console
     console.info("[contextual-ai:stub]", ctx);
   },
 };
