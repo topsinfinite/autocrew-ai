@@ -29,6 +29,6 @@ export type ContextualAIEvent =
     }
   | {
       name: "contextual_ai_dismissed";
-      reason: "click_away" | "escape" | "scroll" | "resize" | "route_change";
+      reason: "click_away" | "escape";
     }
   | { name: "contextual_ai_adapter_missing"; path: string };

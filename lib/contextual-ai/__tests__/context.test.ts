@@ -133,4 +133,9 @@ describe("inferSectionLabel", () => {
     withId.id = "faq";
     expect(inferSectionLabel(withId)).toBe("faq");
   });
+
+  it("returns undefined when boundary has no label, heading, aria-label, or id", () => {
+    const bare = document.createElement("section");
+    expect(inferSectionLabel(bare)).toBeUndefined();
+  });
 });

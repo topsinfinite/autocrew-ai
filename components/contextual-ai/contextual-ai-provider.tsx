@@ -50,10 +50,12 @@ export function ContextualAIProvider({
     if (!active) return;
     if (lastTrackedTextRef.current === active.text) return;
     lastTrackedTextRef.current = active.text;
+    const ctx = buildContext(active.range, active.text);
     track({
       name: "contextual_ai_selection",
       chars: active.text.length,
-      path: typeof window !== "undefined" ? window.location.pathname : "",
+      sectionLabel: ctx.sectionLabel,
+      path: ctx.url,
     });
   }, [active]);
 
@@ -83,7 +85,7 @@ export function ContextualAIProvider({
 
   const handleDismiss = useCallback(() => {
     window.getSelection()?.removeAllRanges();
-    track({ name: "contextual_ai_dismissed", reason: "click_away" });
+    track({ name: "contextual_ai_dismissed", reason: "escape" });
   }, []);
 
   return (

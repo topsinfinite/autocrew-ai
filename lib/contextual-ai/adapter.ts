@@ -17,9 +17,10 @@ export function resolveAdapter(): ContextualAIAdapter | null {
   if (typeof window === "undefined") return null;
 
   const api = (window as unknown as { AutoCrew?: AutoCrewGlobal }).AutoCrew;
-  if (api && typeof api.prefillWithContext === "function") {
+  const fn = api?.prefillWithContext;
+  if (typeof fn === "function") {
     return {
-      prefillWithContext: (ctx) => api.prefillWithContext!(ctx),
+      prefillWithContext: (ctx) => fn(ctx),
     };
   }
 

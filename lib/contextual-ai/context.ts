@@ -68,5 +68,7 @@ export function inferSectionLabel(
       .slice(0, SECTION_LABEL_CAP);
   }
 
-  return boundary.getAttribute("aria-label") ?? boundary.id ?? undefined;
+  return (
+    boundary.getAttribute("aria-label") ?? (boundary.id || undefined)
+  );
 }

@@ -74,8 +74,8 @@ export function useTextSelection(enabled: boolean): ActiveSelection | null {
           return;
         }
 
-        const range = sel.getRangeAt(0);
-        if (isExcluded(range.commonAncestorContainer)) {
+        const liveRange = sel.getRangeAt(0);
+        if (isExcluded(liveRange.commonAncestorContainer)) {
           setActive(null);
           return;
         }
@@ -84,8 +84,8 @@ export function useTextSelection(enabled: boolean): ActiveSelection | null {
           raw.length > MAX_SELECTION_CHARS
             ? raw.slice(0, MAX_SELECTION_CHARS)
             : raw;
-        const rect = range.getBoundingClientRect();
-        setActive({ text, rect, range });
+        const rect = liveRange.getBoundingClientRect();
+        setActive({ text, rect, range: liveRange.cloneRange() });
       }, DEBOUNCE_MS);
     };
 

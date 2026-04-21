@@ -60,16 +60,9 @@ export function SelectionPopover({
         onDismiss();
       }
     };
-    const handleClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        onDismiss();
-      }
-    };
     document.addEventListener("keydown", handleKey);
-    document.addEventListener("mousedown", handleClick);
     return () => {
       document.removeEventListener("keydown", handleKey);
-      document.removeEventListener("mousedown", handleClick);
     };
   }, [onDismiss]);
 
