@@ -56,44 +56,56 @@ export function useTextSelection(enabled: boolean): ActiveSelection | null {
     if (!enabled) return;
     if (isTouchPrimary()) return;
 
-    const handle = () => {
+    const evaluate = () => {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
+        setActive(null);
+        return;
+      }
+
+      const raw = sel.toString();
+      const trimmed = raw.trim();
+      if (trimmed.length < MIN_CHARS) {
+        setActive(null);
+        return;
+      }
+
+      const liveRange = sel.getRangeAt(0);
+      if (isExcluded(liveRange.commonAncestorContainer)) {
+        setActive(null);
+        return;
+      }
+
+      const text =
+        raw.length > MAX_SELECTION_CHARS
+          ? raw.slice(0, MAX_SELECTION_CHARS)
+          : raw;
+      const rect = liveRange.getBoundingClientRect();
+      setActive({ text, rect, range: liveRange.cloneRange() });
+    };
+
+    // mouseup/keyup signal the user is done selecting — evaluate immediately.
+    const handleImmediate = () => {
+      if (timerRef.current != null) {
+        window.clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+      evaluate();
+    };
+
+    // selectionchange fires continuously during drag — debounce to batch.
+    const handleDebounced = () => {
       if (timerRef.current != null) {
         window.clearTimeout(timerRef.current);
       }
-      timerRef.current = window.setTimeout(() => {
-        const sel = window.getSelection();
-        if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
-          setActive(null);
-          return;
-        }
-
-        const raw = sel.toString();
-        const trimmed = raw.trim();
-        if (trimmed.length < MIN_CHARS) {
-          setActive(null);
-          return;
-        }
-
-        const liveRange = sel.getRangeAt(0);
-        if (isExcluded(liveRange.commonAncestorContainer)) {
-          setActive(null);
-          return;
-        }
-
-        const text =
-          raw.length > MAX_SELECTION_CHARS
-            ? raw.slice(0, MAX_SELECTION_CHARS)
-            : raw;
-        const rect = liveRange.getBoundingClientRect();
-        setActive({ text, rect, range: liveRange.cloneRange() });
-      }, DEBOUNCE_MS);
+      timerRef.current = window.setTimeout(evaluate, DEBOUNCE_MS);
     };
 
     const clearOnScroll = () => setActive(null);
 
-    document.addEventListener("mouseup", handle);
-    document.addEventListener("selectionchange", handle);
-    document.addEventListener("keyup", handle);
+    document.addEventListener("mouseup", handleImmediate);
+    document.addEventListener("keyup", handleImmediate);
+    document.addEventListener("selectionchange", handleDebounced);
     window.addEventListener("scroll", clearOnScroll, { passive: true });
     window.addEventListener("resize", clearOnScroll);
 
@@ -101,9 +113,9 @@ export function useTextSelection(enabled: boolean): ActiveSelection | null {
       if (timerRef.current != null) {
         window.clearTimeout(timerRef.current);
       }
-      document.removeEventListener("mouseup", handle);
-      document.removeEventListener("selectionchange", handle);
-      document.removeEventListener("keyup", handle);
+      document.removeEventListener("mouseup", handleImmediate);
+      document.removeEventListener("keyup", handleImmediate);
+      document.removeEventListener("selectionchange", handleDebounced);
       window.removeEventListener("scroll", clearOnScroll);
       window.removeEventListener("resize", clearOnScroll);
     };
