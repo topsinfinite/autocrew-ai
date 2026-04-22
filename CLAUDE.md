@@ -83,6 +83,7 @@ lib/
 Use the `/browse` skill from gstack for all web browsing. Never use `mcp__claude-in-chrome__*` tools.
 
 Available gstack skills:
+
 - `/office-hours` - Office hours workflow
 - `/plan-ceo-review` - CEO review planning
 - `/plan-eng-review` - Engineering review planning
@@ -122,6 +123,7 @@ tool as your FIRST action. Do NOT answer directly, do NOT use other tools first.
 The skill has specialized workflows that produce better results than ad-hoc answers.
 
 Key routing rules:
+
 - Product ideas, "is this worth building", brainstorming → invoke office-hours
 - Bugs, errors, "why is this broken", 500 errors → invoke investigate
 - Ship, deploy, push, create PR → invoke ship

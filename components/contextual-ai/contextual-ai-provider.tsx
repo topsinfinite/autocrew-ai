@@ -118,13 +118,10 @@ export function ContextualAIProvider({
     [composer],
   );
 
-  const handleComposerDismiss = useCallback(
-    (reason: ComposerDismissReason) => {
-      track({ name: "contextual_ai_composer_dismissed", reason });
-      setComposer(null);
-    },
-    [],
-  );
+  const handleComposerDismiss = useCallback((reason: ComposerDismissReason) => {
+    track({ name: "contextual_ai_composer_dismissed", reason });
+    setComposer(null);
+  }, []);
 
   return (
     <>
