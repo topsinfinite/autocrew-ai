@@ -137,21 +137,25 @@ Key routing rules:
 
 ## Contextual AI (Highlight-to-Chat)
 
-Phase 1 prototype that turns any highlighted text on a marketing page into a pre-loaded chat prompt. Mounted under `app/(public)/layout.tsx`; every current and future `(public)/*` page inherits it automatically.
+Phase 1 feature that turns any highlighted text on a marketing page into a live AutoCrew conversation. Mounted under `app/(public)/layout.tsx`; every current and future `(public)/*` page inherits it automatically.
 
 **Toggle**
+
 - Global: `NEXT_PUBLIC_CONTEXTUAL_AI_ENABLED=false` in env.
 - Per-session: append `?contextual-ai=off` (or `=on`) to any URL.
 - Per-visitor: `localStorage.setItem('contextual-ai:disabled', '1')` in the browser console.
 
-**Dogfood locally**
-1. Set `NEXT_PUBLIC_CONTEXTUAL_AI_STUB=true` in `.env.local`.
-2. `npm run dev`.
-3. Highlight text (≥15 chars) anywhere on a `(public)/*` page.
-4. Click "Ask Sarah →". A debug card appears bottom-right showing the exact `EnrichedContext` payload.
+**How it works**
 
-**How it wires to the real widget**
-The external `widget.js` from `app.autocrew-ai.com` is loaded in `app/layout.tsx`. When the widget team ships `window.AutoCrew.prefillWithContext(ctx: EnrichedContext)`, the adapter auto-resolves to the real API at click time — no changes needed in this repo. The type signature is exported from `lib/contextual-ai`.
+On submit, `lib/contextual-ai/adapter.ts` composes the selection, section label, and user prompt into a single message and calls `window.AutoCrew.ask(message, { autoSend: true, mode: 'chat' })` — the API exposed by `widget.js` (loaded from `app.autocrew-ai.com` in `app/layout.tsx`). A tiny `beforeInteractive` queue stub in the root layout buffers any calls made before `widget.js` finishes loading; the widget drains the queue on init.
+
+**Dogfood locally**
+
+1. `npm run dev`.
+2. Highlight any paragraph of text (≥15 chars) on a `(public)/*` page.
+3. Click "Ask Sarah →", optionally type a question, press Enter.
+4. The AutoCrew widget opens with your composed message already submitted and Sarah answering.
 
 **Opt an element out**
+
 Stamp `data-contextual-ai="off"` on any element; selections inside it are ignored.
