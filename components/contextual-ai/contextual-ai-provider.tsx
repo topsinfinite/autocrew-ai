@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import {
   buildContext,
   isEnabled,
-  isStubEnabled,
   resolveAdapter,
   track,
   type EnrichedContext,
@@ -24,11 +23,6 @@ const SelectionComposer = dynamic(
   { ssr: false },
 );
 
-const StubDebugCard = dynamic(
-  () => import("./stub-debug-card").then((m) => m.StubDebugCard),
-  { ssr: false },
-);
-
 interface ComposerState {
   ctx: EnrichedContext;
   rect: DOMRect;
@@ -42,7 +36,6 @@ export function ContextualAIProvider({
   const pathname = usePathname();
   const [hydrated, setHydrated] = useState(false);
   const [enabled, setEnabled] = useState(false);
-  const [stubPayload, setStubPayload] = useState<EnrichedContext | null>(null);
   const [composer, setComposer] = useState<ComposerState | null>(null);
   const lastTrackedTextRef = useRef<string | null>(null);
 
@@ -52,7 +45,6 @@ export function ContextualAIProvider({
   }, []);
 
   useEffect(() => {
-    setStubPayload(null);
     setComposer(null);
     lastTrackedTextRef.current = null;
   }, [pathname]);
@@ -120,10 +112,7 @@ export function ContextualAIProvider({
         return;
       }
 
-      void adapter.prefillWithContext(ctx);
-      if (isStubEnabled()) {
-        setStubPayload(ctx);
-      }
+      void adapter.send(ctx);
       setComposer(null);
     },
     [composer],
@@ -153,12 +142,6 @@ export function ContextualAIProvider({
           rect={composer.rect}
           onSubmit={handleComposerSubmit}
           onDismiss={handleComposerDismiss}
-        />
-      )}
-      {hydrated && stubPayload && (
-        <StubDebugCard
-          payload={stubPayload}
-          onClose={() => setStubPayload(null)}
         />
       )}
     </>

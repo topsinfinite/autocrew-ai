@@ -12,7 +12,8 @@ export interface EnrichedContext {
 }
 
 export interface ContextualAIAdapter {
-  prefillWithContext(ctx: EnrichedContext): Promise<void> | void;
+  /** Hand the enriched context to the widget. Composes + submits via AutoCrew.ask. */
+  send(ctx: EnrichedContext): void | Promise<void>;
 }
 
 export type ContextualAIEvent =

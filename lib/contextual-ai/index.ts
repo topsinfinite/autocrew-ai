@@ -1,6 +1,6 @@
 export { buildContext, inferSectionLabel, SURROUNDING_CAP } from "./context";
-export { resolveAdapter, stubAdapter } from "./adapter";
-export { isEnabled, isStubEnabled, hasAnalyticsConsent } from "./flags";
+export { resolveAdapter } from "./adapter";
+export { isEnabled, hasAnalyticsConsent } from "./flags";
 export { track } from "./events";
 export type {
   ContextualAIAdapter,

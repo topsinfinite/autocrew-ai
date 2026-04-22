@@ -150,6 +150,9 @@ gtag('config', 'G-HMHN49KVBJ');`}
             </CookieBannerLayoutProvider>
           </ConsentProvider>
         </ThemeProvider>
+        <Script id="autocrew-queue-stub" strategy="beforeInteractive">
+          {`window.AutoCrew=window.AutoCrew||{q:[],ask:function(){(this.q=this.q||[]).push(['ask',arguments])},open:function(){(this.q=this.q||[]).push(['open',arguments])},close:function(){(this.q=this.q||[]).push(['close',arguments])},onReady:function(){(this.q=this.q||[]).push(['onReady',arguments])}};`}
+        </Script>
         <Script id="autocrew-config" strategy="beforeInteractive">
           {`window.AutoCrewConfig = {
             crewCode: 'AUTOCREW-001-SUP-001',

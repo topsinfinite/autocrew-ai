@@ -24,10 +24,6 @@ export function isEnabled(): boolean {
   return true;
 }
 
-export function isStubEnabled(): boolean {
-  return process.env.NEXT_PUBLIC_CONTEXTUAL_AI_STUB === "true";
-}
-
 interface StoredConsent {
   essential?: boolean;
   analytics?: boolean;
