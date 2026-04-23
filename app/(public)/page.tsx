@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { HeroSection } from "@/components/landing/hero-section";
+import { HeroVariantSwitcher } from "@/components/landing/hero-variants/hero-variant-switcher";
 import { StatsSection } from "@/components/landing/stats-section";
-import { FeaturesSection } from "@/components/landing/features-section";
+import { FeaturesVariantSwitcher } from "@/components/landing/features-variants/features-variant-switcher";
 import { AiCrewsSection } from "@/components/landing/ai-crews-section";
 import { ContactSalesSection } from "@/components/landing/contact-sales-section";
 import { HowItWorks } from "@/components/landing/how-it-works";
@@ -37,9 +37,9 @@ export default function LandingPage() {
       <JsonLd data={softwareApplicationSchema()} />
       <JsonLd data={faqPageSchema(landingFaqItems)} />
       <JsonLd data={howToSchema(howItWorksData)} />
-      <HeroSection />
+      <HeroVariantSwitcher />
       <StatsSection />
-      <FeaturesSection />
+      <FeaturesVariantSwitcher />
       <AiCrewsSection />
       <ContactSalesSection />
       <HowItWorks />
