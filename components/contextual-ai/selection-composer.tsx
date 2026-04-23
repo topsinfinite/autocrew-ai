@@ -31,7 +31,8 @@ const GAP_PX = 12;
 const EDGE_PADDING_PX = 12;
 const ESTIMATED_HEIGHT_PX = 180;
 const COMPOSER_WIDTH_PX = 420;
-const MAX_TEXTAREA_PX = 140;
+const MAX_TEXTAREA_PX = 160;
+const MIN_TEXTAREA_PX = 56;
 
 export function SelectionComposer({
   ctx,
@@ -98,7 +99,7 @@ export function SelectionComposer({
     const el = textareaRef.current;
     if (!el) return;
     el.style.height = "auto";
-    el.style.height = `${Math.min(el.scrollHeight, MAX_TEXTAREA_PX)}px`;
+    el.style.height = `${Math.min(Math.max(el.scrollHeight, MIN_TEXTAREA_PX), MAX_TEXTAREA_PX)}px`;
   }, []);
 
   useEffect(() => {
@@ -200,12 +201,12 @@ export function SelectionComposer({
           aria-label="Your message"
           aria-describedby={quoteId}
           className={cn(
-            "w-full resize-none bg-transparent text-sm text-foreground",
-            "rounded-md outline-none",
+            "w-full resize-none bg-transparent text-sm leading-relaxed text-foreground",
+            "rounded-md px-3 py-2.5 outline-none",
             "focus-visible:ring-2 focus-visible:ring-ring",
             "placeholder:text-muted-foreground",
           )}
-          style={{ maxHeight: MAX_TEXTAREA_PX }}
+          style={{ maxHeight: MAX_TEXTAREA_PX, minHeight: MIN_TEXTAREA_PX }}
         />
         <div className="mt-2 flex items-center justify-between">
           <span className="text-[10px] font-space-mono uppercase tracking-wider text-muted-foreground">
