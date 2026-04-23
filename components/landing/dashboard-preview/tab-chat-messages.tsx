@@ -1,8 +1,15 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, type KeyboardEvent } from "react";
 import { MessageCircle, Star, Play, ArrowUp } from "lucide-react";
 import { dashboardPreviewData } from "@/lib/mock-data/landing-data";
+
+interface AutoCrewAPI {
+  ask?: (
+    message: string,
+    options?: { mode?: "chat" | "voice"; autoSend?: boolean },
+  ) => void;
+}
 
 const miniWaveBars = [4, 8, 6, 12, 5, 10, 7, 3, 9, 6, 11, 4, 8, 5];
 
@@ -18,6 +25,33 @@ export function TabChatMessages() {
   // Total items: 1 (timestamp) + messages.length + 1 (typing indicator)
   const totalItems = 1 + messages.length + 1;
   const [visibleCount, setVisibleCount] = useState(0);
+
+  const [input, setInput] = useState("");
+
+  const sendToWidget = useCallback((text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    if (typeof window === "undefined") return;
+    const api = (window as unknown as { AutoCrew?: AutoCrewAPI }).AutoCrew;
+    if (typeof api?.ask === "function") {
+      api.ask(trimmed, { autoSend: true, mode: "chat" });
+    }
+  }, []);
+
+  const handleSubmit = useCallback(() => {
+    sendToWidget(input);
+    setInput("");
+  }, [input, sendToWidget]);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSubmit();
+      }
+    },
+    [handleSubmit],
+  );
 
   const resetAndReplay = useCallback(() => {
     setVisibleCount(0);
@@ -180,14 +214,23 @@ export function TabChatMessages() {
         )}
       </div>
 
-      {/* Input */}
+      {/* Input — live, routes to the AutoCrew widget on submit */}
       <div className="px-5 py-3 border-t border-white/[0.05] flex items-center gap-2 flex-shrink-0">
-        <div className="flex-1 bg-white/[0.02] border border-white/[0.04] rounded-xl px-4 py-2.5">
-          <span className="text-sm text-neutral-500">Message...</span>
-        </div>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Message..."
+          aria-label="Send a message to AutoCrew"
+          className="flex-1 bg-white/[0.02] border border-white/[0.04] rounded-xl px-4 py-2.5 text-sm text-neutral-200 placeholder:text-neutral-500 outline-none transition-colors focus:border-[#FF6B35]/40 focus:bg-white/[0.04]"
+        />
         <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={!input.trim()}
           aria-label="Send message"
-          className="w-9 h-9 rounded-xl bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center shadow-lg shadow-[#FF6B35]/20"
+          className="w-9 h-9 rounded-xl bg-linear-to-br from-[#FF6B35] to-[#FF8C5A] flex items-center justify-center shadow-lg shadow-[#FF6B35]/20 transition-opacity hover:opacity-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
         >
           <ArrowUp className="w-4 h-4 text-white" />
         </button>

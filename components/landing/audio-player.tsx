@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
+import { Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Stagger config for 20 wave bars: [delay (s), duration (s)]
@@ -134,12 +135,18 @@ interface AudioPlayerProps {
   src?: string;
   label?: string;
   duration?: string;
+  /** When true, the player fills 100% of its parent's width at every breakpoint. */
+  fullWidth?: boolean;
+  /** When true, audio auto-plays muted on mount and exposes a mute/unmute toggle. */
+  autoPlay?: boolean;
 }
 
 export function AudioPlayer({
   src = "/audio/Demo Call with Sarah.mp3",
   label = "Listen to real-life demo",
   duration = "4:32",
+  fullWidth = false,
+  autoPlay = false,
 }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const playerRef = useRef<HTMLButtonElement>(null);
@@ -149,11 +156,40 @@ export function AudioPlayer({
   const [renderPortal, setRenderPortal] = useState(false);
   const [stickyIn, setStickyIn] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isMuted, setIsMuted] = useState(autoPlay);
+  const [showUnmuteTooltip, setShowUnmuteTooltip] = useState(false);
 
   // SSR safety — only render portals on client
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Auto-play muted on mount (browsers block unmuted autoplay)
+  useEffect(() => {
+    if (!autoPlay) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.muted = true;
+    setIsMuted(true);
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise
+        .then(() => {
+          setIsPlaying(true);
+          setShowUnmuteTooltip(true);
+        })
+        .catch(() => {
+          // Autoplay blocked — leave the user to start manually
+        });
+    }
+  }, [autoPlay]);
+
+  // Hide the unmute tooltip after a few seconds
+  useEffect(() => {
+    if (!showUnmuteTooltip) return;
+    const t = setTimeout(() => setShowUnmuteTooltip(false), 6000);
+    return () => clearTimeout(t);
+  }, [showUnmuteTooltip]);
 
   // Wire up audio events
   useEffect(() => {
@@ -214,6 +250,26 @@ export function AudioPlayer({
     }
   };
 
+  const handleMuteToggle = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const audio = audioRef.current;
+    if (!audio) return;
+    const nextMuted = !audio.muted;
+    audio.muted = nextMuted;
+    setIsMuted(nextMuted);
+    setShowUnmuteTooltip(false);
+    // When unmuting, restart from the beginning so the visitor hears the
+    // intro of the demo call, not whatever was playing silently.
+    if (!nextMuted) {
+      audio.currentTime = 0;
+      setCurrentTime(0);
+    }
+    if (audio.paused) {
+      audio.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
+
   return (
     <>
       {/* Hidden native audio element */}
@@ -227,7 +283,7 @@ export function AudioPlayer({
         aria-label={isPlaying ? "Pause audio" : "Play AI voice sample"}
         className={cn(
           "group relative flex items-center gap-3 p-1.5 pr-4 rounded-full cursor-pointer transition-all duration-500 overflow-hidden",
-          "w-full sm:w-[320px] h-[60px]",
+          fullWidth ? "w-full h-[60px]" : "w-full sm:w-[320px] h-[60px]",
           "backdrop-blur-2xl",
           isPlaying
             ? "bg-[#18181f]/90 border border-[#FF6B35]/50"
@@ -267,6 +323,47 @@ export function AudioPlayer({
             <WaveBars isPlaying={isPlaying} />
           </div>
         </div>
+
+        {/* Mute toggle — only when auto-play is enabled */}
+        {autoPlay ? (
+          <span className="relative z-20 shrink-0">
+            {isMuted && showUnmuteTooltip ? (
+              <span className="pointer-events-none absolute -top-9 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center animate-bounce">
+                <span className="whitespace-nowrap rounded bg-[#FF6B35] px-2 py-1 text-[10px] font-medium text-white shadow-lg">
+                  Tap to unmute
+                </span>
+                <span className="h-0 w-0 border-l-[4px] border-r-[4px] border-t-[4px] border-l-transparent border-r-transparent border-t-[#FF6B35]" />
+              </span>
+            ) : null}
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={handleMuteToggle as unknown as (e: MouseEvent<HTMLSpanElement>) => void}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleMuteToggle(
+                    e as unknown as MouseEvent<HTMLButtonElement>,
+                  );
+                }
+              }}
+              aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+              className={cn(
+                "flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
+                isMuted
+                  ? "border-[#FF6B35]/40 bg-[#FF6B35]/10 hover:bg-[#FF6B35]/20"
+                  : "border-white/10 bg-white/[0.04] hover:bg-white/[0.08]",
+              )}
+            >
+              {isMuted ? (
+                <VolumeX className="h-4 w-4 text-[#FF6B35]" />
+              ) : (
+                <Volume2 className="h-4 w-4 text-white/70" />
+              )}
+            </span>
+          </span>
+        ) : null}
 
         {/* Time counter badge */}
         <span
@@ -311,7 +408,7 @@ export function AudioPlayer({
               <WaveBars isPlaying={isPlaying} />
 
               {/* Label + time */}
-              <div className="flex items-center gap-2 ml-2 min-w-0">
+              <div className="flex items-center gap-2 ml-2 min-w-0 flex-1">
                 <span className="text-sm font-semibold text-gray-100 font-space-grotesk truncate">
                   {label}
                 </span>
@@ -319,6 +416,27 @@ export function AudioPlayer({
                   {formatTime(currentTime)}
                 </span>
               </div>
+
+              {/* Mute toggle (sticky) — only when auto-play is enabled */}
+              {autoPlay ? (
+                <button
+                  type="button"
+                  onClick={handleMuteToggle}
+                  aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+                  className={cn(
+                    "ml-auto flex h-8 w-8 items-center justify-center rounded-full border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]",
+                    isMuted
+                      ? "border-[#FF6B35]/40 bg-[#FF6B35]/10 hover:bg-[#FF6B35]/20"
+                      : "border-white/10 bg-white/[0.04] hover:bg-white/[0.08]",
+                  )}
+                >
+                  {isMuted ? (
+                    <VolumeX className="h-4 w-4 text-[#FF6B35]" />
+                  ) : (
+                    <Volume2 className="h-4 w-4 text-white/70" />
+                  )}
+                </button>
+              ) : null}
             </div>
           </div>,
           document.body,
