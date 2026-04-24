@@ -1062,3 +1062,15 @@ body {
 .rdp-week {
   background-color: transparent;
 }
+
+/* Note: dark-theme overrides for <autocrew-search> are injected via an inline
+   <style> tag in AutocrewSearchStyles (components/landing/hero-variants).
+   Lightning CSS (Tailwind v4) strips ::part() selectors during build, so
+   inlining bypasses the preprocessor. */
+
+/* Terminal-style blinking caret for the typewriter effect in Hero Direction A. */
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}

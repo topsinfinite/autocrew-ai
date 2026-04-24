@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
+import { Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Stagger config for 20 wave bars: [delay (s), duration (s)]
@@ -134,26 +135,62 @@ interface AudioPlayerProps {
   src?: string;
   label?: string;
   duration?: string;
+  /** When true, the player fills 100% of its parent's width at every breakpoint. */
+  fullWidth?: boolean;
+  /** When true, audio auto-plays muted on mount and exposes a mute/unmute toggle. */
+  autoPlay?: boolean;
 }
 
 export function AudioPlayer({
   src = "/audio/Demo Call with Sarah.mp3",
   label = "Listen to real-life demo",
   duration = "4:32",
+  fullWidth = false,
+  autoPlay = false,
 }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const playerRef = useRef<HTMLButtonElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
   const [heroVisible, setHeroVisible] = useState(true);
   const [renderPortal, setRenderPortal] = useState(false);
   const [stickyIn, setStickyIn] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isMuted, setIsMuted] = useState(autoPlay);
+  const [showUnmuteTooltip, setShowUnmuteTooltip] = useState(false);
 
   // SSR safety — only render portals on client
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Auto-play muted on mount (browsers block unmuted autoplay)
+  useEffect(() => {
+    if (!autoPlay) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.muted = true;
+    setIsMuted(true);
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise
+        .then(() => {
+          setIsPlaying(true);
+          setShowUnmuteTooltip(true);
+        })
+        .catch(() => {
+          // Autoplay blocked — leave the user to start manually
+        });
+    }
+  }, [autoPlay]);
+
+  // Hide the unmute tooltip after a few seconds
+  useEffect(() => {
+    if (!showUnmuteTooltip) return;
+    const t = setTimeout(() => setShowUnmuteTooltip(false), 6000);
+    return () => clearTimeout(t);
+  }, [showUnmuteTooltip]);
 
   // Wire up audio events
   useEffect(() => {
@@ -165,12 +202,20 @@ export function AudioPlayer({
       setIsPlaying(false);
       setTimeout(() => setCurrentTime(0), 500);
     };
+    const onLoadedMetadata = () => {
+      if (Number.isFinite(audio.duration)) setAudioDuration(audio.duration);
+    };
 
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("ended", onEnded);
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    if (audio.readyState >= 1 && Number.isFinite(audio.duration)) {
+      setAudioDuration(audio.duration);
+    }
     return () => {
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("ended", onEnded);
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
     };
   }, []);
 
@@ -214,6 +259,26 @@ export function AudioPlayer({
     }
   };
 
+  const handleMuteToggle = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const audio = audioRef.current;
+    if (!audio) return;
+    const nextMuted = !audio.muted;
+    audio.muted = nextMuted;
+    setIsMuted(nextMuted);
+    setShowUnmuteTooltip(false);
+    // When unmuting, restart from the beginning so the visitor hears the
+    // intro of the demo call, not whatever was playing silently.
+    if (!nextMuted) {
+      audio.currentTime = 0;
+      setCurrentTime(0);
+    }
+    if (audio.paused) {
+      audio.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
+
   return (
     <>
       {/* Hidden native audio element */}
@@ -227,7 +292,7 @@ export function AudioPlayer({
         aria-label={isPlaying ? "Pause audio" : "Play AI voice sample"}
         className={cn(
           "group relative flex items-center gap-3 p-1.5 pr-4 rounded-full cursor-pointer transition-all duration-500 overflow-hidden",
-          "w-full sm:w-[320px] h-[60px]",
+          fullWidth ? "w-full h-[60px]" : "w-full sm:w-[320px] h-[60px]",
           "backdrop-blur-2xl",
           isPlaying
             ? "bg-[#18181f]/90 border border-[#FF6B35]/50"
@@ -268,6 +333,47 @@ export function AudioPlayer({
           </div>
         </div>
 
+        {/* Mute toggle — only when auto-play is enabled */}
+        {autoPlay ? (
+          <span className="relative z-20 shrink-0">
+            {isMuted && showUnmuteTooltip ? (
+              <span className="pointer-events-none absolute -top-9 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center animate-bounce">
+                <span className="whitespace-nowrap rounded bg-[#FF6B35] px-2 py-1 text-[10px] font-medium text-white shadow-lg">
+                  Tap to unmute
+                </span>
+                <span className="h-0 w-0 border-l-[4px] border-r-[4px] border-t-[4px] border-l-transparent border-r-transparent border-t-[#FF6B35]" />
+              </span>
+            ) : null}
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={handleMuteToggle as unknown as (e: MouseEvent<HTMLSpanElement>) => void}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleMuteToggle(
+                    e as unknown as MouseEvent<HTMLButtonElement>,
+                  );
+                }
+              }}
+              aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+              className={cn(
+                "flex h-9 w-9 items-center justify-center rounded-full border transition-colors",
+                isMuted
+                  ? "border-[#FF6B35]/40 bg-[#FF6B35]/10 hover:bg-[#FF6B35]/20"
+                  : "border-white/10 bg-white/[0.04] hover:bg-white/[0.08]",
+              )}
+            >
+              {isMuted ? (
+                <VolumeX className="h-4 w-4 text-[#FF6B35]" />
+              ) : (
+                <Volume2 className="h-4 w-4 text-white/70" />
+              )}
+            </span>
+          </span>
+        ) : null}
+
         {/* Time counter badge */}
         <span
           className={cn(
@@ -283,46 +389,118 @@ export function AudioPlayer({
         </span>
       </button>
 
-      {/* Sticky top bar — portal, mounted only on client */}
+      {/* Floating dock — mini play/pause circle with a progress ring.
+          Appears when the hero player scrolls out of view and audio is
+          playing. Docked bottom-left so it doesn't collide with the nav
+          (top) or the widget chat bubble (bottom-right). */}
       {isMounted &&
         renderPortal &&
-        createPortal(
-          <div
-            className={cn(
-              "fixed top-0 inset-x-0 z-[100] transition-transform duration-300 ease-out",
-              "bg-[#09090b]/95 backdrop-blur-xl border-b border-[#FF6B35]/20",
-              stickyIn ? "translate-y-0" : "-translate-y-full",
-            )}
-            role="region"
-            aria-label="Audio player"
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-[56px]">
-              {/* Play/pause */}
-              <button
-                type="button"
-                onClick={handleClick}
-                aria-label="Pause audio"
-                className="shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] rounded-full"
-              >
-                <PlayPauseButton isPlaying={isPlaying} size="sm" />
-              </button>
+        (() => {
+          const ringRadius = 28;
+          const ringCircumference = 2 * Math.PI * ringRadius;
+          const progress =
+            audioDuration > 0
+              ? Math.min(1, Math.max(0, currentTime / audioDuration))
+              : 0;
+          const dashOffset = ringCircumference * (1 - progress);
+          return createPortal(
+            <div
+              className={cn(
+                "fixed bottom-6 left-6 z-[60] transition-all duration-300 ease-out",
+                "[padding-bottom:env(safe-area-inset-bottom)]",
+                stickyIn
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-[calc(100%+1.5rem)] opacity-0",
+              )}
+              role="region"
+              aria-label="Audio player — docked"
+            >
+              <div className="group relative">
+                {/* Progress ring around the button */}
+                <svg
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -rotate-90"
+                  width="60"
+                  height="60"
+                  viewBox="0 0 60 60"
+                >
+                  <circle
+                    cx="30"
+                    cy="30"
+                    r={ringRadius}
+                    fill="none"
+                    stroke="rgba(255, 107, 53, 0.18)"
+                    strokeWidth="1.5"
+                  />
+                  <circle
+                    cx="30"
+                    cy="30"
+                    r={ringRadius}
+                    fill="none"
+                    stroke="#FF6B35"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeDasharray={ringCircumference}
+                    strokeDashoffset={dashOffset}
+                    style={{ transition: "stroke-dashoffset 0.25s linear" }}
+                  />
+                </svg>
 
-              {/* Wave bars */}
-              <WaveBars isPlaying={isPlaying} />
+                {/* Play/pause — reuses the in-page PlayPauseButton */}
+                <button
+                  type="button"
+                  onClick={handleClick}
+                  aria-label={isPlaying ? "Pause audio" : "Play audio"}
+                  className="relative block h-[60px] w-[60px] rounded-full p-[6px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]"
+                >
+                  <PlayPauseButton isPlaying={isPlaying} size="lg" />
+                </button>
 
-              {/* Label + time */}
-              <div className="flex items-center gap-2 ml-2 min-w-0">
-                <span className="text-sm font-semibold text-gray-100 font-space-grotesk truncate">
-                  {label}
-                </span>
-                <span className="shrink-0 text-xs font-mono font-medium text-[#FF6B35] bg-[#18181f] border border-white/5 px-2 py-0.5 rounded">
-                  {formatTime(currentTime)}
-                </span>
+                {/* Tooltip — reveals label + time on hover/focus */}
+                <div
+                  className={cn(
+                    "pointer-events-none absolute bottom-full left-0 mb-2 whitespace-nowrap",
+                    "rounded-full border border-white/10 bg-[#0a0a10]/95 backdrop-blur-xl",
+                    "px-3 py-1.5 font-space-mono text-[10px] uppercase tracking-[0.18em] text-white/75",
+                    "opacity-0 translate-y-1 transition-all duration-200",
+                    "group-hover:opacity-100 group-hover:translate-y-0",
+                    "group-focus-within:opacity-100 group-focus-within:translate-y-0",
+                  )}
+                  role="tooltip"
+                >
+                  {label} &middot; {formatTime(currentTime)}
+                  {audioDuration > 0
+                    ? ` / ${formatTime(audioDuration)}`
+                    : ""}
+                </div>
+
+                {/* Mute toggle — hover-revealed, docks at top-right of the dot */}
+                {autoPlay ? (
+                  <button
+                    type="button"
+                    onClick={handleMuteToggle}
+                    aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+                    className={cn(
+                      "absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border shadow-md transition-all",
+                      "opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0",
+                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]",
+                      isMuted
+                        ? "bg-[#FF6B35] border-[#FF6B35] hover:bg-[#ff7a45]"
+                        : "bg-[#18181f] border-white/15 hover:bg-[#22222a]",
+                    )}
+                  >
+                    {isMuted ? (
+                      <VolumeX className="h-3 w-3 text-white" />
+                    ) : (
+                      <Volume2 className="h-3 w-3 text-white/85" />
+                    )}
+                  </button>
+                ) : null}
               </div>
-            </div>
-          </div>,
-          document.body,
-        )}
+            </div>,
+            document.body,
+          );
+        })()}
     </>
   );
 }

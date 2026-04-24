@@ -17,6 +17,7 @@ export function PhoneCallFab() {
 
   return (
     <div
+      data-contextual-ai="off"
       className={cn(
         "lg:hidden fixed z-[80] max-w-[calc(100vw-2rem)] transition-[bottom,left] duration-300 ease-out",
         useStackOffset

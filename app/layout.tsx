@@ -11,6 +11,7 @@ import { CookiePreferencesDialog } from "@/components/consent/cookie-preferences
 import { APP_CONFIG } from "@/lib/constants";
 import { JsonLd } from "@/components/seo/json-ld";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schemas";
+import { AutocrewSearchStyles } from "@/components/landing/autocrew-search-styles";
 
 // Display font - Space Grotesk
 const spaceGrotesk = Space_Grotesk({
@@ -141,6 +142,7 @@ gtag('config', 'G-HMHN49KVBJ');`}
         </a>
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
+        <AutocrewSearchStyles />
         <ThemeProvider defaultTheme="dark">
           <ConsentProvider>
             <CookieBannerLayoutProvider>
@@ -150,6 +152,9 @@ gtag('config', 'G-HMHN49KVBJ');`}
             </CookieBannerLayoutProvider>
           </ConsentProvider>
         </ThemeProvider>
+        <Script id="autocrew-queue-stub" strategy="beforeInteractive">
+          {`window.AutoCrew=window.AutoCrew||{q:[],ask:function(){(this.q=this.q||[]).push(['ask',arguments])},open:function(){(this.q=this.q||[]).push(['open',arguments])},close:function(){(this.q=this.q||[]).push(['close',arguments])},onReady:function(){(this.q=this.q||[]).push(['onReady',arguments])}};`}
+        </Script>
         <Script id="autocrew-config" strategy="beforeInteractive">
           {`window.AutoCrewConfig = {
             crewCode: 'AUTOCREW-001-SUP-001',

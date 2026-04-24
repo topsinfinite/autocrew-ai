@@ -83,6 +83,7 @@ lib/
 Use the `/browse` skill from gstack for all web browsing. Never use `mcp__claude-in-chrome__*` tools.
 
 Available gstack skills:
+
 - `/office-hours` - Office hours workflow
 - `/plan-ceo-review` - CEO review planning
 - `/plan-eng-review` - Engineering review planning
@@ -122,6 +123,7 @@ tool as your FIRST action. Do NOT answer directly, do NOT use other tools first.
 The skill has specialized workflows that produce better results than ad-hoc answers.
 
 Key routing rules:
+
 - Product ideas, "is this worth building", brainstorming → invoke office-hours
 - Bugs, errors, "why is this broken", 500 errors → invoke investigate
 - Ship, deploy, push, create PR → invoke ship
@@ -134,3 +136,28 @@ Key routing rules:
 - Architecture review → invoke plan-eng-review
 - Save progress, checkpoint, resume → invoke checkpoint
 - Code quality, health check → invoke health
+
+## Contextual AI (Highlight-to-Chat)
+
+Phase 1 feature that turns any highlighted text on a marketing page into a live AutoCrew conversation. Mounted under `app/(public)/layout.tsx`; every current and future `(public)/*` page inherits it automatically.
+
+**Toggle**
+
+- Global: `NEXT_PUBLIC_CONTEXTUAL_AI_ENABLED=false` in env.
+- Per-session: append `?contextual-ai=off` (or `=on`) to any URL.
+- Per-visitor: `localStorage.setItem('contextual-ai:disabled', '1')` in the browser console.
+
+**How it works**
+
+On submit, `lib/contextual-ai/adapter.ts` composes the selection, section label, and user prompt into a single message and calls `window.AutoCrew.ask(message, { autoSend: true, mode: 'chat' })` — the API exposed by `widget.js` (loaded from `app.autocrew-ai.com` in `app/layout.tsx`). A tiny `beforeInteractive` queue stub in the root layout buffers any calls made before `widget.js` finishes loading; the widget drains the queue on init.
+
+**Dogfood locally**
+
+1. `npm run dev`.
+2. Highlight any paragraph of text (≥15 chars) on a `(public)/*` page.
+3. Click "Ask Sarah →", optionally type a question, press Enter.
+4. The AutoCrew widget opens with your composed message already submitted and Sarah answering.
+
+**Opt an element out**
+
+Stamp `data-contextual-ai="off"` on any element; selections inside it are ignored.
