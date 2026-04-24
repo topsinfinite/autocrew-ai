@@ -100,7 +100,7 @@ export function WidgetSectionVoice() {
       <div className="mx-auto max-w-[1320px] px-6 pb-24 pt-24 lg:pb-32 lg:pt-32">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Left — pitch + CTA */}
-          <div className="lg:col-span-5">
+          <div className="min-w-0 lg:col-span-5">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
               Voice mode
             </div>
@@ -170,7 +170,7 @@ export function WidgetSectionVoice() {
 
           {/* Right — animated state visualisation */}
           <aside
-            className="lg:col-span-7"
+            className="min-w-0 lg:col-span-7"
             aria-label="Voice agent state visualisation"
           >
             <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[#06070b]/95">
