@@ -1,8 +1,8 @@
 /**
  * Curated widget-ask questions per feature. Keyed by feature title.
  *
- *   main  → single "learn about this" question (variants 1, 3, 4)
- *   pills → two targeted follow-ups (variant 2)
+ *   main  → single "learn about this" question
+ *   pills → two targeted follow-ups (rendered as chip buttons on each card)
  */
 
 export interface FeatureQuestionSet {

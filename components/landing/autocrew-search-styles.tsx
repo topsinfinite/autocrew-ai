@@ -1,13 +1,13 @@
 /**
- * Theme-aware overrides for the `<autocrew-search>` custom element.
+ * Product-system overrides for the `<autocrew-search>` custom element.
  *
- * The widget ships with a white pill by default. In light mode that looks
- * right. In dark mode we swap to a visible dark pill with enough border
- * contrast to be identifiable as an input (≥3:1 non-text contrast).
+ * The widget ships with a white pill + system fonts. We route its exposed
+ * parts (form, input, button) through our type system and dark-mode
+ * surfaces so it reads as part of the site, not a bolted-on third-party
+ * component. Widget behaviour (submit, queue, mode switching) is untouched.
  *
- * Gated on the root `<html data-theme>` attribute so the widget auto-adapts
- * to theme without any prop plumbing — there is no need to mark individual
- * `<autocrew-search>` elements as dark.
+ * Gated on the root `<html data-theme>` for dark-mode overrides so the
+ * widget auto-adapts to theme without per-element props.
  *
  * Injected as a raw `<style>` because Tailwind v4's Lightning CSS compiler
  * strips `::part()` selectors during build; inlining bypasses the compiler.
@@ -34,10 +34,7 @@ export function AutocrewSearchStyles() {
           [data-theme="dark"] autocrew-search::part(input)::placeholder {
             color: rgba(255, 255, 255, 0.5);
           }
-          /* Theme-agnostic: widget ships with system fonts. Route the parts
-             through our product's type system so the widget reads as part
-             of the site, not a bolted-on third-party component. Core widget
-             behaviour (submit on enter, mode switching, queue) is untouched. */
+          /* Theme-agnostic: route the input + button through our type system. */
           autocrew-search::part(input) {
             font-family: var(--font-geist-sans), "Inter", system-ui,
               -apple-system, sans-serif;

@@ -11,6 +11,7 @@ import { CookiePreferencesDialog } from "@/components/consent/cookie-preferences
 import { APP_CONFIG } from "@/lib/constants";
 import { JsonLd } from "@/components/seo/json-ld";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schemas";
+import { AutocrewSearchStyles } from "@/components/landing/autocrew-search-styles";
 
 // Display font - Space Grotesk
 const spaceGrotesk = Space_Grotesk({
@@ -141,6 +142,7 @@ gtag('config', 'G-HMHN49KVBJ');`}
         </a>
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
+        <AutocrewSearchStyles />
         <ThemeProvider defaultTheme="dark">
           <ConsentProvider>
             <CookieBannerLayoutProvider>

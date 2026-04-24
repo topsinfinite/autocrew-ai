@@ -1,14 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { askSarah } from "@/lib/widget/ask-helpers";
 
-interface AutoCrewAPI {
-  ask?: (
-    message: string,
-    options?: { mode?: "chat" | "voice"; autoSend?: boolean },
-  ) => void;
-}
-
+/** Visual treatments for the suggested-question pill row. */
 export type PillVariant = "editorial" | "architectural" | "conversational";
 
 export interface SuggestedPillsProps {
@@ -60,14 +55,6 @@ export function SuggestedPills({
 }: SuggestedPillsProps) {
   const classes = classesFor(variant);
 
-  const handleClick = (question: string) => {
-    if (typeof window === "undefined") return;
-    const api = (window as unknown as { AutoCrew?: AutoCrewAPI }).AutoCrew;
-    if (typeof api?.ask === "function") {
-      api.ask(question, { autoSend: true, mode: "chat" });
-    }
-  };
-
   return (
     <ul
       className={cn(classes.list, className)}
@@ -77,7 +64,7 @@ export function SuggestedPills({
         <li key={question} className="inline-flex items-center gap-x-6">
           <button
             type="button"
-            onClick={() => handleClick(question)}
+            onClick={() => askSarah(question)}
             className={classes.item}
           >
             <span className={classes.dot} aria-hidden="true" />

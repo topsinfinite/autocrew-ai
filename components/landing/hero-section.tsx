@@ -1,151 +1,203 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck, ArrowRight, PlayCircle } from "lucide-react";
-import { DashboardPreview } from "@/components/landing/dashboard-preview";
-import { SectionBadge } from "@/components/landing/section-badge";
-import { Button } from "@/components/ui/button";
-import { AudioPlayer } from "@/components/landing/audio-player";
-import { heroData } from "@/lib/mock-data/landing-data";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AudioPlayer } from "@/components/landing/audio-player";
+import { DashboardPreview } from "@/components/landing/dashboard-preview";
+import { SuggestedPills } from "@/components/landing/suggested-pills";
+import { Button } from "@/components/ui/button";
+import { heroData } from "@/lib/mock-data/landing-data";
 
+const SUGGESTED_QUESTIONS = [
+  "How does it learn my business?",
+  "Can it escalate to a human?",
+  "What does a deploy look like?",
+] as const;
+
+/**
+ * Conversational / Live Stream hero.
+ *
+ * Left column: pitch + search CTA.
+ * Right column: live-stream card (Visitor/AutoCrew exchange) + suggested
+ * follow-up pills + audio demo paired with a primary Book a Demo CTA.
+ */
 export function HeroSection() {
   return (
-    <section className="relative z-10 section-glow-bottom overflow-hidden">
-      {/* Medical/Tech Vector Grid Background */}
-      <div className="absolute inset-0 pointer-events-none -z-5 overflow-hidden">
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+    <section className="relative z-10 overflow-hidden">
+      {/* Film-grain noise overlay — print-like texture */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-5 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "160px 160px",
+        }}
+      />
 
-        {/* Decorative Crosses */}
-        <div
-          className="absolute top-1/4 left-10 w-4 h-4 text-[#FF6B35]/20 animate-pulse"
-          aria-hidden="true"
-        >
-          +
-        </div>
-        <div
-          className="absolute top-1/3 right-20 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-700"
-          aria-hidden="true"
-        >
-          +
-        </div>
-        <div
-          className="absolute bottom-1/3 left-1/4 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-300"
-          aria-hidden="true"
-        >
-          +
-        </div>
-
-        {/* Waveform Line */}
-        <svg
-          className="absolute top-1/2 left-0 w-full h-24 stroke-[#FF6B35]/10 fill-none opacity-50"
-          viewBox="0 0 1200 100"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 50 Q 300 100 600 50 T 1200 50"
-            vectorEffect="non-scaling-stroke"
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 relative z-10">
-        <div className="text-center max-w-4xl mt-4 sm:mt-6 mx-auto">
-          {/* Announcement Badge */}
+      <div className="relative mx-auto grid max-w-[1320px] grid-cols-1 gap-12 px-6 pb-24 pt-16 lg:grid-cols-12 lg:gap-16 lg:pb-32 lg:pt-20">
+        {/* LEFT column: pitch + search */}
+        <div className="lg:col-span-7">
+          {/* Status line */}
           <div
-            className={cn("mb-6 animate-fade-up opacity-0")}
+            className={cn(
+              "flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/60",
+              "animate-fade-up opacity-0",
+            )}
             style={{ animationDelay: "0ms", animationFillMode: "forwards" }}
           >
-            <SectionBadge icon={<ShieldCheck className="w-3.5 h-3.5" />}>
-              {heroData.announcement.text}
-            </SectionBadge>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF6B35] opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FF6B35]" />
+            </span>
+            <span>Crew &middot; Online</span>
           </div>
 
-          {/* Main Headline */}
           <h1
             className={cn(
-              "text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight font-space-grotesk text-foreground mb-6 leading-[1.1]",
+              "mt-6 font-space-grotesk font-semibold text-foreground",
+              "text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.02] tracking-[-0.02em]",
               "animate-fade-up opacity-0",
             )}
             style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
           >
-            <span className="block">{heroData.headline.prefix}</span>
-            <span className="lg:whitespace-nowrap relative block">
-              {/* Accent underline/highlight - hidden when text wraps on small screens */}
-              <span className="hidden lg:block absolute bottom-2 left-0 w-full h-4 bg-[#FF6B35]/10 -skew-x-6 -z-10 rounded-sm" />
-              <span className="text-[#FF6B35]">{heroData.headline.accent}</span>
-            </span>
+            A crew that actually
+            <span className="text-[#FF6B35]"> answers</span>.
           </h1>
 
-          {/* Subheadline */}
           <p
             className={cn(
-              "md:text-xl text-lg text-muted-foreground font-geist max-w-2xl mx-auto leading-relaxed",
+              "mt-6 max-w-[56ch] font-geist text-[17px] leading-[1.65] text-foreground/75",
               "animate-fade-up opacity-0",
             )}
             style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
           >
-            {heroData.subheadline}
+            Type a question &mdash; Sarah answers live, on behalf of your
+            business. No forms, no hold times, no hiring.
           </p>
 
-          {/* CTAs — match production: Book + Sarah demo audio (no email capture) */}
+          {/* Search */}
           <div
-            className={cn(
-              "flex flex-col mt-10 items-center justify-center gap-4",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
+            className={cn("mt-10 max-w-[620px]", "animate-fade-up opacity-0")}
+            style={{ animationDelay: "320ms", animationFillMode: "forwards" }}
           >
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+            <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/50">
+              <span>&gt; Ask Sarah</span>
+            </div>
+            <div>
+              <autocrew-search
+                placeholder="Ask anything…"
+                button-label="Ask Sarah"
+                primary-color="#FF6B35"
+              />
+              <p className="mt-3 font-geist text-[12px] italic text-foreground/45">
+                She answers in real time &mdash; trained on your operations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT column: dialog stream + pills + audio */}
+        <aside
+          className={cn("lg:col-span-5", "animate-fade-up opacity-0")}
+          style={{ animationDelay: "260ms", animationFillMode: "forwards" }}
+          aria-label="Live conversation stream"
+        >
+          {/* Stream card */}
+          <div className="relative overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-white/[0.015]">
+            {/* Stream header */}
+            <div className="flex items-center justify-between border-b border-[var(--border-subtle)] px-5 py-3">
+              <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/55">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF6B35]/60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#FF6B35]" />
+                </span>
+                <span>Live stream</span>
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/40">
+                Now
+              </span>
+            </div>
+
+            {/* Visitor turn */}
+            <div className="grid grid-cols-[76px_1fr] items-start gap-x-4 px-5 py-4">
+              <span className="pt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
+                Visitor
+              </span>
+              <p className="font-space-grotesk text-[18px] font-medium leading-[1.4] tracking-[-0.005em] text-foreground/85">
+                What could your crew handle today?
+              </p>
+            </div>
+
+            <div className="mx-5 border-t border-[var(--border-subtle)]" />
+
+            {/* AutoCrew turn */}
+            <div className="grid grid-cols-[76px_1fr] items-start gap-x-4 px-5 py-4">
+              <span className="pt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-[#FF6B35]">
+                AutoCrew
+              </span>
+              <p className="font-space-grotesk text-[18px] font-medium leading-[1.4] tracking-[-0.005em] text-foreground">
+                Calls. Appointments. Intake. Lead qualification. Escalations.
+                <span className="text-foreground/65">
+                  {" "}
+                  All trained on your operations, and live within days.
+                </span>
+              </p>
+            </div>
+          </div>
+
+          {/* Pills */}
+          <div className="mt-5">
+            <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
+              Or ask
+            </div>
+            <SuggestedPills
+              questions={SUGGESTED_QUESTIONS}
+              variant="architectural"
+            />
+          </div>
+
+          {/* Audio player + Book a Demo — same row */}
+          <div className="mt-5">
+            <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
+              Or hear
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <div className="flex-1 min-w-0">
+                <AudioPlayer fullWidth autoPlay />
+              </div>
               <Button
                 variant="pill"
-                size="pill-lg"
-                className="group w-full sm:w-auto shadow-[0_0_15px_rgba(255,107,53,0.4)] hover:shadow-[0_0_18px_rgba(255,107,53,0.45)]"
+                size="pill-md"
                 asChild
+                className="group shrink-0 shadow-[0_0_15px_rgba(255,107,53,0.4)] hover:shadow-[0_0_18px_rgba(255,107,53,0.45)]"
               >
                 <Link href={heroData.primaryCta.href}>
                   {heroData.primaryCta.text}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </Button>
-
-              <AudioPlayer />
             </div>
-
-            <Link
-              href={heroData.secondaryCta.href}
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
-              {heroData.secondaryCta.text}
-            </Link>
+            <p className="mt-2 font-geist text-[12px] italic text-foreground/45">
+              A real call, handled by Sarah &mdash; no script.
+            </p>
           </div>
-
-          {/* Trust Indicator */}
-          <div
-            className={cn(
-              "flex text-sm mt-8 items-center justify-center text-muted-foreground",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
-          >
-            <span className="font-geist">{heroData.trustText}</span>
-          </div>
-        </div>
+        </aside>
       </div>
 
-      {/* Dashboard Preview - forced dark context (product mockup); anchor for hero secondary CTA */}
+      {/* Dashboard preview — proof artifact, forced dark context */}
       <div
         id="demo"
-        className="animate-scale-in opacity-0 max-w-[1200px] mx-auto px-4 mt-12 pb-20 relative z-20 scroll-mt-24"
-        style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
+        className={cn(
+          "relative z-20 mx-auto max-w-[1200px] px-4 pb-20 scroll-mt-24",
+          "animate-scale-in opacity-0",
+        )}
+        style={{ animationDelay: "600ms", animationFillMode: "forwards" }}
         data-theme="dark"
       >
         <div className="relative">
-          {/* Glow behind dashboard */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#FF6B35]/20 blur-[100px] -z-10 rounded-full" />
+          <div className="absolute left-1/2 top-1/2 -z-10 h-[80%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6B35]/20 blur-[100px]" />
           <DashboardPreview />
         </div>
       </div>
