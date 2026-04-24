@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { WidgetHero } from "@/components/widget-landing/widget-hero";
+import { WidgetSectionProblem } from "@/components/widget-landing/widget-section-problem";
+import { WidgetSectionSurfaces } from "@/components/widget-landing/widget-section-surfaces";
 
 export const metadata: Metadata = {
   title: "AutoCrew Widget — Turn every button into a live conversation",
@@ -11,5 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default function WidgetLandingPage() {
-  return <WidgetHero />;
+  return (
+    <>
+      <WidgetHero />
+      <WidgetSectionProblem />
+      <WidgetSectionSurfaces />
+    </>
+  );
 }
