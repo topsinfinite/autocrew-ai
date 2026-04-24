@@ -4,6 +4,8 @@ import { WidgetSectionProblem } from "@/components/widget-landing/widget-section
 import { WidgetSectionSurfaces } from "@/components/widget-landing/widget-section-surfaces";
 import { WidgetSectionVoice } from "@/components/widget-landing/widget-section-voice";
 import { WidgetSectionUseCases } from "@/components/widget-landing/widget-section-use-cases";
+import { WidgetSectionProduction } from "@/components/widget-landing/widget-section-production";
+import { WidgetSectionConfigure } from "@/components/widget-landing/widget-section-configure";
 
 export const metadata: Metadata = {
   title: "AutoCrew Widget — Turn every button into a live conversation",
@@ -22,6 +24,8 @@ export default function WidgetLandingPage() {
       <WidgetSectionSurfaces />
       <WidgetSectionVoice />
       <WidgetSectionUseCases />
+      <WidgetSectionProduction />
+      <WidgetSectionConfigure />
     </>
   );
 }
