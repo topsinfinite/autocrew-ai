@@ -1,8 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AudioPlayer } from "@/components/landing/audio-player";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
+import { Button } from "@/components/ui/button";
+import { heroData } from "@/lib/mock-data/landing-data";
 import { SuggestedPills } from "./suggested-pills";
 
 const SUGGESTED_QUESTIONS = [
@@ -182,13 +186,28 @@ export function HeroArchitectural() {
               ))}
             </ul>
 
-            {/* Panel footer — play Sarah's last call, blended into the panel */}
+            {/* Panel footer — play Sarah's last call + book a demo, on the same row */}
             <div className="border-t border-[var(--border-subtle)] bg-white/[0.015] px-4 py-4">
               <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/40">
                 <span>&rarr; Hear Sarah&rsquo;s last call</span>
                 <span className="hidden sm:inline">4:32</span>
               </div>
-              <AudioPlayer fullWidth autoPlay />
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                <div className="flex-1 min-w-0">
+                  <AudioPlayer fullWidth autoPlay />
+                </div>
+                <Button
+                  variant="pill"
+                  size="pill-md"
+                  asChild
+                  className="group shrink-0 shadow-[0_0_15px_rgba(255,107,53,0.4)] hover:shadow-[0_0_18px_rgba(255,107,53,0.45)]"
+                >
+                  <Link href={heroData.primaryCta.href}>
+                    {heroData.primaryCta.text}
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </aside>

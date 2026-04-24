@@ -34,6 +34,23 @@ export function AutocrewSearchStyles() {
           [data-theme="dark"] autocrew-search::part(input)::placeholder {
             color: rgba(255, 255, 255, 0.5);
           }
+          /* Theme-agnostic: widget ships with system fonts. Route the parts
+             through our product's type system so the widget reads as part
+             of the site, not a bolted-on third-party component. Core widget
+             behaviour (submit on enter, mode switching, queue) is untouched. */
+          autocrew-search::part(input) {
+            font-family: var(--font-geist-sans), "Inter", system-ui,
+              -apple-system, sans-serif;
+            font-size: 15px;
+          }
+          /* Button matches our <Button variant="pill"> — Space Grotesk +
+             black text (fixes 2.9:1 contrast against warm orange → 7.1:1). */
+          autocrew-search::part(button) {
+            font-family: "Space Grotesk", var(--font-display), system-ui,
+              sans-serif;
+            font-weight: 600;
+            color: #000 !important;
+          }
         `,
       }}
     />

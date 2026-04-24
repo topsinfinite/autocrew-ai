@@ -1,8 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AudioPlayer } from "@/components/landing/audio-player";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
+import { Button } from "@/components/ui/button";
+import { heroData } from "@/lib/mock-data/landing-data";
 import { SuggestedPills } from "./suggested-pills";
 
 const SUGGESTED_QUESTIONS = [
@@ -85,6 +89,7 @@ export function HeroConversational() {
               </p>
             </div>
           </div>
+
         </div>
 
         {/* RIGHT column: dialog stream + pills + audio */}
@@ -148,12 +153,27 @@ export function HeroConversational() {
             />
           </div>
 
-          {/* Audio player */}
+          {/* Audio player + Book a Demo — same row */}
           <div className="mt-5">
             <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
               Or hear
             </div>
-            <AudioPlayer fullWidth autoPlay />
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <div className="flex-1 min-w-0">
+                <AudioPlayer fullWidth autoPlay />
+              </div>
+              <Button
+                variant="pill"
+                size="pill-md"
+                asChild
+                className="group shrink-0 shadow-[0_0_15px_rgba(255,107,53,0.4)] hover:shadow-[0_0_18px_rgba(255,107,53,0.45)]"
+              >
+                <Link href={heroData.primaryCta.href}>
+                  {heroData.primaryCta.text}
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+            </div>
             <p className="mt-2 font-geist text-[12px] italic text-foreground/45">
               A real call, handled by Sarah &mdash; no script.
             </p>

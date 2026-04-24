@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AudioPlayer } from "@/components/landing/audio-player";
 import { DashboardPreview } from "@/components/landing/dashboard-preview";
+import { Button } from "@/components/ui/button";
+import { heroData } from "@/lib/mock-data/landing-data";
 import { SuggestedPills } from "./suggested-pills";
 import { TypewriterCaret } from "./typewriter-caret";
 import { usePrefersReducedMotion, useTypewriter } from "./use-typewriter";
@@ -241,19 +245,32 @@ export function HeroDialogue() {
           />
         </div>
 
-        {/* Audio demo — keeps the editorial label grammar */}
+        {/* Audio demo + Book a Demo — same row, keeps the editorial label grammar */}
         <div
           className={cn(
-            "mt-10 grid grid-cols-[72px_1fr] items-center gap-x-5 sm:grid-cols-[96px_1fr]",
+            "mt-10 grid grid-cols-[72px_1fr] items-start gap-x-5 sm:grid-cols-[96px_1fr]",
             "animate-fade-up opacity-0",
           )}
           style={{ animationDelay: "580ms", animationFillMode: "forwards" }}
         >
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/40">
+          <span className="pt-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/40">
             Or hear
           </span>
           <div>
-            <AudioPlayer autoPlay />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <AudioPlayer autoPlay />
+              <Button
+                variant="pill"
+                size="pill-md"
+                asChild
+                className="group shrink-0 shadow-[0_0_15px_rgba(255,107,53,0.4)] hover:shadow-[0_0_18px_rgba(255,107,53,0.45)]"
+              >
+                <Link href={heroData.primaryCta.href}>
+                  {heroData.primaryCta.text}
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+            </div>
             <p className="mt-3 font-geist text-[12px] italic text-foreground/45">
               A real call, handled by Sarah &mdash; no script.
             </p>
