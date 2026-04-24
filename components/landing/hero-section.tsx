@@ -41,8 +41,11 @@ export function HeroSection() {
       />
 
       <div className="relative mx-auto grid max-w-[1320px] grid-cols-1 gap-12 px-6 pb-24 pt-16 lg:grid-cols-12 lg:gap-16 lg:pb-32 lg:pt-20">
-        {/* LEFT column: pitch + search */}
-        <div className="lg:col-span-7">
+        {/* LEFT column: pitch + search.
+            On desktop, flex-col + mt-auto on the search pushes it to the
+            bottom of the column so the search aligns with the audio player
+            in the right column. */}
+        <div className="lg:col-span-7 lg:flex lg:flex-col">
           {/* Status line */}
           <div
             className={cn(
@@ -84,7 +87,10 @@ export function HeroSection() {
 
           {/* Search */}
           <div
-            className={cn("mt-10 max-w-[620px]", "animate-fade-up opacity-0")}
+            className={cn(
+              "mt-10 max-w-[620px] lg:mt-auto",
+              "animate-fade-up opacity-0",
+            )}
             style={{ animationDelay: "320ms", animationFillMode: "forwards" }}
           >
             <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/50">
