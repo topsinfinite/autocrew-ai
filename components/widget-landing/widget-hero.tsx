@@ -62,13 +62,14 @@ const TILES: TriggerTile[] = [
 ];
 
 /**
- * Concept C — Five-Tile Preview.
+ * Widget landing hero — Five-Tile Preview.
  *
  * Editorial headline + an immediate horizontal row of five working
- * trigger-surface tiles. Below the tiles, the live event log fills with
- * what the visitor just fired. The whole feature surface in 30 seconds.
+ * trigger-surface tiles (declarative / URL / API / search / voice).
+ * Below the tiles, the live event log fills with whatever the visitor
+ * just fired. The visitor sees the entire feature surface in 30s.
  */
-export function WidgetHeroCTiles() {
+export function WidgetHero() {
   return (
     <section className="relative z-10 overflow-hidden">
       <div

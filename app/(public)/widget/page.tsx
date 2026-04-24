@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { WidgetHeroVariantSwitcher } from "@/components/widget-landing/widget-hero-variant-switcher";
+import { WidgetHero } from "@/components/widget-landing/widget-hero";
 
 export const metadata: Metadata = {
   title: "AutoCrew Widget — Turn every button into a live conversation",
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function WidgetLandingPage() {
-  return <WidgetHeroVariantSwitcher />;
+  return <WidgetHero />;
 }
