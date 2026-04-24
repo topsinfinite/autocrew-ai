@@ -15,6 +15,10 @@ const SUGGESTED_QUESTIONS = [
   "What does a deploy look like?",
 ] as const;
 
+// Flip to true to re-enable the DashboardPreview proof artifact below the hero.
+// Currently hidden while we evaluate whether it earns its keep above the fold.
+const SHOW_DASHBOARD_PREVIEW = false;
+
 /**
  * Conversational / Live Stream hero.
  *
@@ -62,8 +66,8 @@ export function HeroSection() {
             )}
             style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
           >
-            A crew that actually
-            <span className="text-[#FF6B35]"> answers</span>.
+            AI crews, wired into your
+            <span className="text-[#FF6B35]"> operations</span>.
           </h1>
 
           <p
@@ -73,8 +77,9 @@ export function HeroSection() {
             )}
             style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
           >
-            Type a question &mdash; Sarah answers live, on behalf of your
-            business. No forms, no hold times, no hiring.
+            Pick a role, deploy an agent, watch it work. Voice, chat,
+            scheduling, and escalations&mdash;live in days, not quarters,
+            each one trained on your actual workflows.
           </p>
 
           {/* Search */}
@@ -186,21 +191,24 @@ export function HeroSection() {
         </aside>
       </div>
 
-      {/* Dashboard preview — proof artifact, forced dark context */}
-      <div
-        id="demo"
-        className={cn(
-          "relative z-20 mx-auto max-w-[1200px] px-4 pb-20 scroll-mt-24",
-          "animate-scale-in opacity-0",
-        )}
-        style={{ animationDelay: "600ms", animationFillMode: "forwards" }}
-        data-theme="dark"
-      >
-        <div className="relative">
-          <div className="absolute left-1/2 top-1/2 -z-10 h-[80%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6B35]/20 blur-[100px]" />
-          <DashboardPreview />
+      {/* Dashboard preview — proof artifact, forced dark context.
+          Toggle via SHOW_DASHBOARD_PREVIEW above. */}
+      {SHOW_DASHBOARD_PREVIEW && (
+        <div
+          id="demo"
+          className={cn(
+            "relative z-20 mx-auto max-w-[1200px] px-4 pb-20 scroll-mt-24",
+            "animate-scale-in opacity-0",
+          )}
+          style={{ animationDelay: "600ms", animationFillMode: "forwards" }}
+          data-theme="dark"
+        >
+          <div className="relative">
+            <div className="absolute left-1/2 top-1/2 -z-10 h-[80%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6B35]/20 blur-[100px]" />
+            <DashboardPreview />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

@@ -152,6 +152,7 @@ export function AudioPlayer({
   const playerRef = useRef<HTMLButtonElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
   const [heroVisible, setHeroVisible] = useState(true);
   const [renderPortal, setRenderPortal] = useState(false);
   const [stickyIn, setStickyIn] = useState(false);
@@ -201,12 +202,20 @@ export function AudioPlayer({
       setIsPlaying(false);
       setTimeout(() => setCurrentTime(0), 500);
     };
+    const onLoadedMetadata = () => {
+      if (Number.isFinite(audio.duration)) setAudioDuration(audio.duration);
+    };
 
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("ended", onEnded);
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    if (audio.readyState >= 1 && Number.isFinite(audio.duration)) {
+      setAudioDuration(audio.duration);
+    }
     return () => {
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("ended", onEnded);
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
     };
   }, []);
 
@@ -380,67 +389,118 @@ export function AudioPlayer({
         </span>
       </button>
 
-      {/* Sticky top bar — portal, mounted only on client */}
+      {/* Floating dock — mini play/pause circle with a progress ring.
+          Appears when the hero player scrolls out of view and audio is
+          playing. Docked bottom-left so it doesn't collide with the nav
+          (top) or the widget chat bubble (bottom-right). */}
       {isMounted &&
         renderPortal &&
-        createPortal(
-          <div
-            className={cn(
-              "fixed top-0 inset-x-0 z-[100] transition-transform duration-300 ease-out",
-              "bg-[#09090b]/95 backdrop-blur-xl border-b border-[#FF6B35]/20",
-              stickyIn ? "translate-y-0" : "-translate-y-full",
-            )}
-            role="region"
-            aria-label="Audio player"
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-[56px]">
-              {/* Play/pause */}
-              <button
-                type="button"
-                onClick={handleClick}
-                aria-label="Pause audio"
-                className="shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] rounded-full"
-              >
-                <PlayPauseButton isPlaying={isPlaying} size="sm" />
-              </button>
+        (() => {
+          const ringRadius = 28;
+          const ringCircumference = 2 * Math.PI * ringRadius;
+          const progress =
+            audioDuration > 0
+              ? Math.min(1, Math.max(0, currentTime / audioDuration))
+              : 0;
+          const dashOffset = ringCircumference * (1 - progress);
+          return createPortal(
+            <div
+              className={cn(
+                "fixed bottom-6 left-6 z-[60] transition-all duration-300 ease-out",
+                "[padding-bottom:env(safe-area-inset-bottom)]",
+                stickyIn
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-[calc(100%+1.5rem)] opacity-0",
+              )}
+              role="region"
+              aria-label="Audio player — docked"
+            >
+              <div className="group relative">
+                {/* Progress ring around the button */}
+                <svg
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 -rotate-90"
+                  width="60"
+                  height="60"
+                  viewBox="0 0 60 60"
+                >
+                  <circle
+                    cx="30"
+                    cy="30"
+                    r={ringRadius}
+                    fill="none"
+                    stroke="rgba(255, 107, 53, 0.18)"
+                    strokeWidth="1.5"
+                  />
+                  <circle
+                    cx="30"
+                    cy="30"
+                    r={ringRadius}
+                    fill="none"
+                    stroke="#FF6B35"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeDasharray={ringCircumference}
+                    strokeDashoffset={dashOffset}
+                    style={{ transition: "stroke-dashoffset 0.25s linear" }}
+                  />
+                </svg>
 
-              {/* Wave bars */}
-              <WaveBars isPlaying={isPlaying} />
-
-              {/* Label + time */}
-              <div className="flex items-center gap-2 ml-2 min-w-0 flex-1">
-                <span className="text-sm font-semibold text-gray-100 font-space-grotesk truncate">
-                  {label}
-                </span>
-                <span className="shrink-0 text-xs font-mono font-medium text-[#FF6B35] bg-[#18181f] border border-white/5 px-2 py-0.5 rounded">
-                  {formatTime(currentTime)}
-                </span>
-              </div>
-
-              {/* Mute toggle (sticky) — only when auto-play is enabled */}
-              {autoPlay ? (
+                {/* Play/pause — reuses the in-page PlayPauseButton */}
                 <button
                   type="button"
-                  onClick={handleMuteToggle}
-                  aria-label={isMuted ? "Unmute audio" : "Mute audio"}
-                  className={cn(
-                    "ml-auto flex h-8 w-8 items-center justify-center rounded-full border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]",
-                    isMuted
-                      ? "border-[#FF6B35]/40 bg-[#FF6B35]/10 hover:bg-[#FF6B35]/20"
-                      : "border-white/10 bg-white/[0.04] hover:bg-white/[0.08]",
-                  )}
+                  onClick={handleClick}
+                  aria-label={isPlaying ? "Pause audio" : "Play audio"}
+                  className="relative block h-[60px] w-[60px] rounded-full p-[6px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]"
                 >
-                  {isMuted ? (
-                    <VolumeX className="h-4 w-4 text-[#FF6B35]" />
-                  ) : (
-                    <Volume2 className="h-4 w-4 text-white/70" />
-                  )}
+                  <PlayPauseButton isPlaying={isPlaying} size="lg" />
                 </button>
-              ) : null}
-            </div>
-          </div>,
-          document.body,
-        )}
+
+                {/* Tooltip — reveals label + time on hover/focus */}
+                <div
+                  className={cn(
+                    "pointer-events-none absolute bottom-full left-0 mb-2 whitespace-nowrap",
+                    "rounded-full border border-white/10 bg-[#0a0a10]/95 backdrop-blur-xl",
+                    "px-3 py-1.5 font-space-mono text-[10px] uppercase tracking-[0.18em] text-white/75",
+                    "opacity-0 translate-y-1 transition-all duration-200",
+                    "group-hover:opacity-100 group-hover:translate-y-0",
+                    "group-focus-within:opacity-100 group-focus-within:translate-y-0",
+                  )}
+                  role="tooltip"
+                >
+                  {label} &middot; {formatTime(currentTime)}
+                  {audioDuration > 0
+                    ? ` / ${formatTime(audioDuration)}`
+                    : ""}
+                </div>
+
+                {/* Mute toggle — hover-revealed, docks at top-right of the dot */}
+                {autoPlay ? (
+                  <button
+                    type="button"
+                    onClick={handleMuteToggle}
+                    aria-label={isMuted ? "Unmute audio" : "Mute audio"}
+                    className={cn(
+                      "absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border shadow-md transition-all",
+                      "opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-focus-within:opacity-100 group-focus-within:translate-x-0",
+                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]",
+                      isMuted
+                        ? "bg-[#FF6B35] border-[#FF6B35] hover:bg-[#ff7a45]"
+                        : "bg-[#18181f] border-white/15 hover:bg-[#22222a]",
+                    )}
+                  >
+                    {isMuted ? (
+                      <VolumeX className="h-3 w-3 text-white" />
+                    ) : (
+                      <Volume2 className="h-3 w-3 text-white/85" />
+                    )}
+                  </button>
+                ) : null}
+              </div>
+            </div>,
+            document.body,
+          );
+        })()}
     </>
   );
 }
