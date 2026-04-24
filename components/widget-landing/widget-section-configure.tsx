@@ -94,7 +94,7 @@ export function WidgetSectionConfigure() {
       <div className="mx-auto max-w-[1320px] px-6 pb-24 pt-24 lg:pb-32 lg:pt-32">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Left — pitch */}
-          <div className="lg:col-span-5">
+          <div className="min-w-0 lg:col-span-5">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
               Configure without code
             </div>
@@ -138,7 +138,7 @@ export function WidgetSectionConfigure() {
 
           {/* Right — config panel mockup */}
           <aside
-            className="lg:col-span-7"
+            className="min-w-0 lg:col-span-7"
             aria-label="Widget config panel preview"
           >
             <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[#0a0c14]/95 shadow-2xl shadow-black/40">

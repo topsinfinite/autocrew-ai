@@ -198,7 +198,7 @@ function SurfaceBlock({
       )}
     >
       {/* Copy column */}
-      <div className="lg:col-span-5">
+      <div className="min-w-0 lg:col-span-5">
         <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/45">
           <span className="tabular-nums text-[#FF6B35]">{surface.index}</span>
           <span className="h-px w-6 bg-foreground/20" aria-hidden />
@@ -214,7 +214,7 @@ function SurfaceBlock({
           {surface.headline}
         </h3>
 
-        <p className="mt-4 max-w-[52ch] font-geist text-[15px] leading-[1.65] text-foreground/70">
+        <p className="mt-4 max-w-[52ch] break-words font-geist text-[15px] leading-[1.65] text-foreground/70">
           {surface.description}
         </p>
 
@@ -227,7 +227,7 @@ function SurfaceBlock({
             {surface.bestFor.map((bullet) => (
               <li
                 key={bullet}
-                className="flex items-baseline gap-3 font-geist text-[14px] leading-[1.55] text-foreground/75"
+                className="flex items-baseline gap-3 break-words font-geist text-[14px] leading-[1.55] text-foreground/75"
               >
                 <span
                   className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
@@ -241,19 +241,19 @@ function SurfaceBlock({
       </div>
 
       {/* Code + try-it column */}
-      <div className="lg:col-span-7">
+      <div className="min-w-0 lg:col-span-7">
         <div className="overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-[#06070b]/95">
           {/* Window chrome */}
-          <div className="flex items-center justify-between border-b border-[var(--border-subtle)] bg-white/[0.015] px-4 py-2.5">
-            <div className="flex items-center gap-3">
-              <span className="flex h-6 w-6 items-center justify-center rounded-md border border-[var(--border-subtle)] bg-card text-[#FF6B35]">
+          <div className="flex items-center justify-between gap-2 border-b border-[var(--border-subtle)] bg-white/[0.015] px-4 py-2.5">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-[var(--border-subtle)] bg-card text-[#FF6B35]">
                 <Icon className="h-3.5 w-3.5" />
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/50">
+              <span className="truncate font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/50">
                 {surface.label}
               </span>
             </div>
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/30">
+            <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] text-foreground/30">
               {surface.index} / 05
             </span>
           </div>
@@ -263,8 +263,8 @@ function SurfaceBlock({
             <code>{surface.code}</code>
           </pre>
 
-          {/* Try it footer */}
-          <div className="flex items-center justify-between gap-3 border-t border-[var(--border-subtle)] bg-white/[0.01] px-4 py-3">
+          {/* Try it footer — stacks on mobile so the button stays fully visible */}
+          <div className="flex flex-col items-start gap-2 border-t border-[var(--border-subtle)] bg-white/[0.01] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/40">
               {fired ? "↗ Triggered — check the widget" : "Try it on this page"}
             </span>
@@ -272,17 +272,17 @@ function SurfaceBlock({
               type="button"
               onClick={handleFire}
               className={cn(
-                "group inline-flex items-center gap-1.5 rounded-full",
+                "group inline-flex max-w-full items-center gap-1.5 self-stretch rounded-full sm:self-auto",
                 "border border-[#FF6B35]/40 bg-[#FF6B35]/[0.08]",
                 "hover:border-[#FF6B35]/60 hover:bg-[#FF6B35]/[0.16]",
-                "px-3 py-1.5 transition-colors",
+                "justify-center px-3 py-1.5 transition-colors sm:justify-start",
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]/60",
               )}
             >
-              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#FF6B35]">
+              <span className="truncate font-mono text-[11px] uppercase tracking-[0.16em] text-[#FF6B35]">
                 {surface.fireLabel ?? "Try it"}
               </span>
-              <ArrowRight className="h-3 w-3 text-[#FF6B35] transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="h-3 w-3 shrink-0 text-[#FF6B35] transition-transform group-hover:translate-x-0.5" />
             </button>
           </div>
         </div>
