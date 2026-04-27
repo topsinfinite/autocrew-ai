@@ -44,3 +44,6 @@ widget/node_modules
 # content marketing (internal content ops, not source code)
 /content-marketing
 .gstack/
+
+# pitch deck assets (internal sales material — never publish)
+/marketing
