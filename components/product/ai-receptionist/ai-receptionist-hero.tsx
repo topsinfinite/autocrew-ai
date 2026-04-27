@@ -97,9 +97,9 @@ export function AiReceptionistHero() {
         <div className="mt-8 grid gap-4 lg:mt-7 lg:grid-cols-12">
           {/* Live transcript */}
           <div className="min-w-0 lg:col-span-8">
-            <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[#06070b]/95">
+            <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-card">
               {/* Console header */}
-              <div className="flex items-center justify-between gap-4 border-b border-[var(--border-subtle)] bg-white/[0.015] px-5 py-3">
+              <div className="flex items-center justify-between gap-4 border-b border-[var(--border-subtle)] bg-foreground/[0.025] px-5 py-3">
                 <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
                   <Phone className="h-3.5 w-3.5 text-[#FF6B35]" aria-hidden />
                   Line 01 · Live
@@ -119,7 +119,7 @@ export function AiReceptionistHero() {
               {/* Transcript body — fixed height so the card never reflows */}
               <div
                 ref={scrollRef}
-                className="h-[200px] overflow-y-auto px-5 py-5 sm:px-7 sm:py-6 lg:h-[200px] xl:h-[220px] [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.08)_transparent]"
+                className="h-[200px] overflow-y-auto px-5 py-5 sm:px-7 sm:py-6 lg:h-[200px] xl:h-[220px] [scrollbar-width:thin] [scrollbar-color:var(--border-subtle)_transparent]"
               >
                 <ol className="space-y-5">
                   {visibleTurns.map((turn, i) => {
@@ -138,7 +138,7 @@ export function AiReceptionistHero() {
                             "rounded-full px-2.5 py-1",
                             turn.who === "sarah"
                               ? "bg-[#FF6B35]/10 text-[#FF6B35]"
-                              : "bg-white/[0.04] text-foreground/55",
+                              : "bg-foreground/[0.06] text-foreground/65",
                           )}
                         >
                           {turn.who === "sarah" ? "Sarah" : "Caller"}
@@ -166,7 +166,7 @@ export function AiReceptionistHero() {
               </div>
 
               {/* Prompt chips + input */}
-              <div className="border-t border-[var(--border-subtle)] bg-white/[0.015] px-5 py-4 sm:px-7">
+              <div className="border-t border-[var(--border-subtle)] bg-foreground/[0.025] px-5 py-4 sm:px-7">
                 <div className="flex flex-wrap gap-2">
                   {PROMPT_CHIPS.slice(0, 4).map((chip) => (
                     <button
@@ -186,7 +186,7 @@ export function AiReceptionistHero() {
                     name="q"
                     autoComplete="off"
                     placeholder="Ask Sarah anything a caller would…"
-                    className="min-w-0 flex-1 rounded-lg border border-[var(--border-subtle)] bg-[#04060c] px-4 py-3 font-geist text-[14.5px] text-foreground placeholder:text-foreground/35 focus:border-[#FF6B35]/50 focus:outline-none"
+                    className="min-w-0 flex-1 rounded-lg border border-[var(--border-subtle)] bg-background px-4 py-3 font-geist text-[14.5px] text-foreground placeholder:text-foreground/40 focus:border-[#FF6B35]/50 focus:outline-none"
                   />
                   <button
                     type="submit"
@@ -202,7 +202,7 @@ export function AiReceptionistHero() {
 
           {/* Shift card */}
           <aside className="min-w-0 lg:col-span-4">
-            <div className="flex h-full flex-col gap-4 rounded-2xl border border-[var(--border-subtle)] bg-[#06070b]/95 p-5 lg:p-5">
+            <div className="flex h-full flex-col gap-4 rounded-2xl border border-[var(--border-subtle)] bg-card p-5 lg:p-5">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
@@ -228,7 +228,7 @@ export function AiReceptionistHero() {
                 ].map(([label, value]) => (
                   <div
                     key={String(label)}
-                    className="rounded-lg border border-[var(--border-subtle)] bg-white/[0.015] px-2.5 py-2"
+                    className="rounded-lg border border-[var(--border-subtle)] bg-foreground/[0.025] px-2.5 py-2"
                   >
                     <dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-foreground/45">
                       {label}
