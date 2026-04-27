@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+/** Directory containing this config (repo root). Pins Turbopack when multiple lockfiles exist up the tree (e.g. ~/package-lock.json). */
+const turbopackRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: turbopackRoot,
+  },
+
   // Security: Hide X-Powered-By header
   poweredByHeader: false,
 
