@@ -1,5 +1,4 @@
 export { AiReceptionistHero } from "./ai-receptionist-hero";
-export { AiReceptionistHeroFlow } from "./ai-receptionist-hero-flow";
 export { AiReceptionistProductStack } from "./ai-receptionist-product-stack";
 export { AiReceptionistPersonas } from "./ai-receptionist-personas";
 export { AiReceptionistPainStrip } from "./ai-receptionist-pain-strip";
