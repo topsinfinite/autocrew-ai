@@ -58,7 +58,7 @@ export function AiReceptionistHero() {
         className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,#80808010_1px,transparent_1px),linear-gradient(to_bottom,#80808010_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,#000_55%,transparent_100%)]"
       />
 
-      <div className="relative mx-auto max-w-[1320px] px-6 pb-20 pt-14 lg:pb-28 lg:pt-20">
+      <div className="relative mx-auto max-w-[1320px] px-6 pb-16 pt-10 lg:pb-20 lg:pt-12">
         {/* Status masthead */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/55">
           <span className="flex items-center gap-2">
@@ -81,20 +81,20 @@ export function AiReceptionistHero() {
         </div>
 
         {/* Asymmetric headline */}
-        <div className="mt-7 grid gap-8 lg:grid-cols-12 lg:gap-16">
-          <h1 className="lg:col-span-8 font-space-grotesk font-semibold text-foreground text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.02] tracking-[-0.02em]">
+        <div className="mt-6 grid gap-6 lg:mt-5 lg:grid-cols-12 lg:gap-16">
+          <h1 className="lg:col-span-8 font-space-grotesk font-semibold text-foreground text-[clamp(2.25rem,3.8vw,3.5rem)] leading-[1.04] tracking-[-0.02em]">
             {aiReceptionistHeroData.headline.prefix}{" "}
             <span className="text-[#FF6B35]">
               {aiReceptionistHeroData.headline.accent}
             </span>
           </h1>
-          <p className="lg:col-span-4 max-w-[42ch] self-end font-geist text-[16px] leading-[1.6] text-foreground/70">
+          <p className="lg:col-span-4 max-w-[42ch] self-end font-geist text-[15px] leading-[1.55] text-foreground/70">
             {aiReceptionistHeroData.subheadline}
           </p>
         </div>
 
         {/* Console */}
-        <div className="mt-12 grid gap-4 lg:grid-cols-12">
+        <div className="mt-8 grid gap-4 lg:mt-7 lg:grid-cols-12">
           {/* Live transcript */}
           <div className="min-w-0 lg:col-span-8">
             <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[#06070b]/95">
@@ -119,7 +119,7 @@ export function AiReceptionistHero() {
               {/* Transcript body — fixed height so the card never reflows */}
               <div
                 ref={scrollRef}
-                className="h-[280px] overflow-y-auto px-5 py-6 sm:px-7 sm:py-8 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.08)_transparent]"
+                className="h-[200px] overflow-y-auto px-5 py-5 sm:px-7 sm:py-6 lg:h-[200px] xl:h-[220px] [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.08)_transparent]"
               >
                 <ol className="space-y-5">
                   {visibleTurns.map((turn, i) => {
@@ -202,25 +202,25 @@ export function AiReceptionistHero() {
 
           {/* Shift card */}
           <aside className="min-w-0 lg:col-span-4">
-            <div className="flex h-full flex-col gap-5 rounded-2xl border border-[var(--border-subtle)] bg-[#06070b]/95 p-6">
+            <div className="flex h-full flex-col gap-4 rounded-2xl border border-[var(--border-subtle)] bg-[#06070b]/95 p-5 lg:p-5">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
                     Today · so far
                   </div>
-                  <div className="mt-2 font-space-grotesk text-[40px] font-semibold leading-none tracking-tight text-foreground tabular-nums">
+                  <div className="mt-1 font-space-grotesk text-[32px] font-semibold leading-none tracking-tight text-foreground tabular-nums">
                     {SHIFT_STATS.callsToday}
                   </div>
-                  <div className="mt-1 font-geist text-[13px] text-foreground/55">
+                  <div className="mt-1 font-geist text-[12.5px] text-foreground/55">
                     calls handled
                   </div>
                 </div>
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#FF6B35]/40 bg-[#FF6B35]/10 text-[#FF6B35]">
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#FF6B35]/40 bg-[#FF6B35]/10 text-[#FF6B35]">
                   <Mic className="h-4 w-4" aria-hidden />
                 </span>
               </div>
 
-              <dl className="grid grid-cols-3 gap-3 text-left">
+              <dl className="grid grid-cols-3 gap-2.5 text-left">
                 {[
                   ["Booked", SHIFT_STATS.booked],
                   ["Avg", SHIFT_STATS.avgHandle],
@@ -228,19 +228,19 @@ export function AiReceptionistHero() {
                 ].map(([label, value]) => (
                   <div
                     key={String(label)}
-                    className="rounded-lg border border-[var(--border-subtle)] bg-white/[0.015] px-3 py-2.5"
+                    className="rounded-lg border border-[var(--border-subtle)] bg-white/[0.015] px-2.5 py-2"
                   >
                     <dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-foreground/45">
                       {label}
                     </dt>
-                    <dd className="mt-1 font-space-grotesk text-[18px] font-semibold tabular-nums text-foreground">
+                    <dd className="mt-0.5 font-space-grotesk text-[16px] font-semibold tabular-nums text-foreground">
                       {value}
                     </dd>
                   </div>
                 ))}
               </dl>
 
-              <div className="mt-auto flex flex-col gap-2.5">
+              <div className="mt-auto flex flex-col gap-2">
                 <Button
                   variant="pill"
                   size="pill-md"
@@ -270,7 +270,7 @@ export function AiReceptionistHero() {
           </aside>
         </div>
 
-        <p className="mt-7 font-geist text-[13px] text-foreground/50">
+        <p className="mt-5 font-geist text-[13px] text-foreground/50">
           {aiReceptionistHeroData.trustText}
         </p>
       </div>
