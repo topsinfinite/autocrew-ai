@@ -1,0 +1,247 @@
+"use client";
+
+import Link from "next/link";
+import {
+  ArrowRight,
+  Headset,
+  Mic,
+  Plug,
+  ShieldCheck,
+  Stethoscope,
+} from "lucide-react";
+import { AudioPlayer } from "@/components/landing/audio-player";
+import { Button } from "@/components/ui/button";
+import { openVoice } from "@/lib/widget/ask-helpers";
+import { healthcareHeroData } from "@/lib/mock-data/healthcare-data";
+
+/**
+ * Healthcare hero — "Tonight's shift" briefing.
+ *
+ * Editorial layout in the recent house style: status masthead in mono caps,
+ * asymmetric 8/4 headline split, and a working "shift card" anchored to the
+ * fold. The primary action is the product itself — clicking "Talk to Sarah
+ * live" opens the AutoCrew voice widget in-page so the visitor can hear the
+ * thing answer before they ever talk to a salesperson.
+ */
+export function HealthcareHero() {
+  const {
+    status,
+    badges,
+    headline,
+    subheadline,
+    audio,
+    shift,
+    primaryCta,
+    secondaryCta,
+  } = healthcareHeroData;
+  const badgeIcon = { shield: ShieldCheck, plug: Plug };
+
+  return (
+    <section className="relative z-10 overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(128,128,128,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.06)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,#000_55%,transparent_100%)]"
+      />
+
+      <div className="relative mx-auto max-w-[1320px] px-6 pb-16 pt-12 lg:pb-24 lg:pt-16">
+        {/* Status masthead */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/55">
+          <span className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60 motion-reduce:hidden" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            On-shift
+          </span>
+          <span className="text-foreground/30">·</span>
+          <span>{status.location}</span>
+          <span className="text-foreground/30">·</span>
+          <span>{status.role}</span>
+          <span className="text-foreground/30">·</span>
+          <span className="tabular-nums">{status.coverage}</span>
+          <span className="text-foreground/30">·</span>
+          <span>EHR · {status.standard}</span>
+        </div>
+
+        {/* Asymmetric headline */}
+        <div className="mt-8 grid gap-6 lg:mt-10 lg:grid-cols-12 lg:gap-16">
+          <h1 className="lg:col-span-8 font-space-grotesk font-semibold text-foreground text-[clamp(2.25rem,4.4vw,4rem)] leading-[1.04] tracking-[-0.02em]">
+            {headline.prefix}{" "}
+            <span className="text-[#FF6B35]">{headline.accent}</span>
+          </h1>
+          <p className="lg:col-span-4 max-w-[44ch] self-end font-geist text-[15px] leading-[1.6] text-foreground/70">
+            {subheadline}
+          </p>
+        </div>
+
+        {/* Compliance badge row */}
+        <ul className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 lg:mt-7">
+          {badges.map((b) => {
+            const Icon = badgeIcon[b.icon];
+            return (
+              <li
+                key={b.label}
+                className="inline-flex items-center gap-2 rounded-full border border-[#FF6B35]/25 bg-[#FF6B35]/[0.06] px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[#FF6B35]"
+              >
+                <Icon className="h-3.5 w-3.5" aria-hidden />
+                {b.label}
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Console grid: copy column + shift card */}
+        <div className="mt-10 grid gap-4 lg:mt-12 lg:grid-cols-12">
+          {/* Copy / CTAs column */}
+          <div className="min-w-0 lg:col-span-8">
+            <div className="rounded-2xl border border-[var(--border-subtle)] bg-card">
+              <div className="flex items-center justify-between gap-4 border-b border-[var(--border-subtle)] bg-foreground/[0.025] px-5 py-3">
+                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
+                  <Stethoscope
+                    className="h-3.5 w-3.5 text-[#FF6B35]"
+                    aria-hidden
+                  />
+                  Front desk · Healthcare
+                </div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/45">
+                  Patients first · always
+                </div>
+              </div>
+
+              <div className="px-5 py-7 sm:px-7 sm:py-8">
+                <ul className="grid gap-x-8 gap-y-4 font-geist text-[15px] leading-[1.55] text-foreground/80 sm:grid-cols-2">
+                  <li className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[9px] inline-block h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
+                    />
+                    <span>
+                      Books, reschedules, and triages{" "}
+                      <span className="text-foreground">in your EHR</span> —
+                      not a separate system to learn.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[9px] inline-block h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
+                    />
+                    <span>
+                      Answers refill and result questions for{" "}
+                      <span className="text-foreground">verified patients</span>
+                      , 24/7.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[9px] inline-block h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
+                    />
+                    <span>
+                      Completes intake before the patient walks in — no
+                      clipboard.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[9px] inline-block h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
+                    />
+                    <span>
+                      Hands the rare exception{" "}
+                      <span className="text-foreground">cleanly</span> to a
+                      human, with the chart already pulled.
+                    </span>
+                  </li>
+                </ul>
+
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <Button
+                    variant="pill"
+                    size="pill-lg"
+                    onClick={() => openVoice()}
+                    className="group shadow-[0_0_18px_rgba(255,107,53,0.35)] hover:shadow-[0_0_22px_rgba(255,107,53,0.5)]"
+                  >
+                    <Mic className="h-4 w-4" aria-hidden />
+                    {primaryCta.text}
+                  </Button>
+                  <Link
+                    href={secondaryCta.href}
+                    className="inline-flex items-center gap-2 font-geist text-[14px] text-foreground/70 transition-colors hover:text-foreground"
+                  >
+                    {secondaryCta.text}
+                    <ArrowRight className="h-4 w-4 text-[#FF6B35]" aria-hidden />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right rail — audio demo + shift card */}
+          <aside className="flex min-w-0 flex-col gap-4 lg:col-span-4">
+            {/* Audio demo */}
+            <div className="rounded-2xl border border-[var(--border-subtle)] bg-foreground/[0.02] p-5">
+              <div className="mb-3 flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#FF6B35]">
+                  {audio.eyebrow}
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
+                  {audio.duration} · real call
+                </span>
+              </div>
+              <p className="mb-4 font-geist text-[13.5px] leading-[1.55] text-foreground/70">
+                {audio.label}
+              </p>
+              <AudioPlayer
+                src={audio.src}
+                label={audio.label}
+                duration={audio.duration}
+                fullWidth
+              />
+            </div>
+
+            {/* Shift card */}
+            <div className="flex h-full flex-col gap-5 rounded-2xl border border-[var(--border-subtle)] bg-foreground/[0.02] p-5 lg:p-6">
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
+                    {shift.label}
+                  </div>
+                  <div className="mt-2 font-space-grotesk text-[44px] font-semibold leading-none tracking-tight text-foreground tabular-nums">
+                    {shift.figure}
+                  </div>
+                  <div className="mt-2 font-geist text-[12.5px] text-foreground/55">
+                    {shift.figureSub}
+                  </div>
+                </div>
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#FF6B35]/40 bg-[#FF6B35]/10 text-[#FF6B35]">
+                  <Headset className="h-4 w-4" aria-hidden />
+                </span>
+              </div>
+
+              <dl className="grid grid-cols-2 gap-2.5">
+                {shift.cells.map((cell) => (
+                  <div
+                    key={cell.label}
+                    className="rounded-lg border border-[var(--border-subtle)] bg-foreground/[0.015] px-3 py-2.5"
+                  >
+                    <dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-foreground/45">
+                      {cell.label}
+                    </dt>
+                    <dd className="mt-0.5 font-space-grotesk text-[18px] font-semibold tabular-nums text-foreground">
+                      {cell.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="mt-auto font-mono text-[9.5px] uppercase tracking-[0.2em] text-foreground/40">
+                {shift.footer}
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+}
