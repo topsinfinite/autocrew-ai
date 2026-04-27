@@ -1,129 +1,278 @@
 "use client";
 
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowRight, PlayCircle } from "lucide-react";
-import { SectionBadge } from "@/components/landing/section-badge";
+import { ArrowRight, Mic, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AiReceptionistHeroFlow } from "./ai-receptionist-hero-flow";
+import { askSarah, openVoice } from "@/lib/widget/ask-helpers";
+import {
+  PROMPT_CHIPS,
+  SARAH_TRANSCRIPT,
+  SHIFT_STATS,
+} from "@/lib/mock-data/ai-receptionist-hero-fixtures";
 import { aiReceptionistHeroData } from "@/lib/mock-data/ai-receptionist-data";
 import { cn } from "@/lib/utils";
+import { useTypedTranscript } from "./use-typewriter";
 
+/**
+ * AI Receptionist hero — Switchboard.
+ *
+ * The hero behaves like an operator's console: status masthead, asymmetric
+ * editorial headline, a live transcript that types itself out in a fixed
+ * scroll region, a persistent input that fires the real AutoCrew widget,
+ * and a shift card with running stats anchored above the fold.
+ */
 export function AiReceptionistHero() {
+  const [paused, setPaused] = useState(false);
+  const transcript = useTypedTranscript(SARAH_TRANSCRIPT, paused);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  const visibleTurns = SARAH_TRANSCRIPT.slice(0, transcript.index + 1);
+
+  // Pin the latest turn to the bottom of the scroll region so the outer
+  // card height never reflows as the transcript types itself out.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    if (transcript.index === 0 && transcript.rendered.length === 0) {
+      el.scrollTop = 0;
+    } else {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [transcript.index, transcript.rendered]);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formEl = event.currentTarget;
+    const data = new FormData(formEl);
+    const value = String(data.get("q") ?? "").trim();
+    if (!value) return;
+    askSarah(value);
+    formEl.reset();
+  };
+
   return (
-    <section className="relative z-10 section-glow-bottom overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none -z-5 overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-        <div
-          className="absolute top-1/4 left-10 w-4 h-4 text-[#FF6B35]/20 animate-pulse motion-reduce:animate-none"
-          aria-hidden="true"
-        >
-          +
-        </div>
-        <div
-          className="absolute top-1/3 right-20 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-700 motion-reduce:animate-none"
-          aria-hidden="true"
-        >
-          +
-        </div>
-        <div
-          className="absolute bottom-1/3 left-1/4 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-300 motion-reduce:animate-none"
-          aria-hidden="true"
-        >
-          +
-        </div>
-      </div>
+    <section className="relative z-10 overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,#80808010_1px,transparent_1px),linear-gradient(to_bottom,#80808010_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,#000_55%,transparent_100%)]"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 relative z-10">
-        <div className="text-center max-w-4xl mt-4 sm:mt-6 mx-auto">
-          <div
-            className="mb-6 animate-fade-up opacity-0"
-            style={{ animationDelay: "0ms", animationFillMode: "forwards" }}
-          >
-            <SectionBadge>{aiReceptionistHeroData.badge}</SectionBadge>
-          </div>
-
-          <h1
-            className={cn(
-              "text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight font-space-grotesk text-foreground mb-6 leading-[1.1]",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
-          >
-            <span className="block">
-              {aiReceptionistHeroData.headline.prefix}
+      <div className="relative mx-auto max-w-[1320px] px-6 pb-16 pt-10 lg:pb-20 lg:pt-12">
+        {/* Status masthead */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/55">
+          <span className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60 motion-reduce:hidden" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
-            <span className="lg:whitespace-nowrap relative block">
-              <span className="hidden lg:block absolute bottom-2 left-0 w-full h-4 bg-[#FF6B35]/10 -skew-x-6 -z-10 rounded-sm" />
-              <span className="text-[#FF6B35]">
-                {aiReceptionistHeroData.headline.accent}
-              </span>
+            On-shift
+          </span>
+          <span className="text-foreground/40">·</span>
+          <span>Sarah · Receptionist</span>
+          <span className="text-foreground/40">·</span>
+          <span className="tabular-nums">
+            {SHIFT_STATS.callsToday} calls today
+          </span>
+          <span className="text-foreground/40">·</span>
+          <span className="tabular-nums">
+            avg handle {SHIFT_STATS.avgHandle}
+          </span>
+        </div>
+
+        {/* Asymmetric headline */}
+        <div className="mt-6 grid gap-6 lg:mt-5 lg:grid-cols-12 lg:gap-16">
+          <h1 className="lg:col-span-8 font-space-grotesk font-semibold text-foreground text-[clamp(2.25rem,3.8vw,3.5rem)] leading-[1.04] tracking-[-0.02em]">
+            {aiReceptionistHeroData.headline.prefix}{" "}
+            <span className="text-[#FF6B35]">
+              {aiReceptionistHeroData.headline.accent}
             </span>
           </h1>
-
-          <p
-            className={cn(
-              "md:text-xl text-lg text-muted-foreground font-geist max-w-2xl mx-auto leading-relaxed",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
-          >
+          <p className="lg:col-span-4 max-w-[42ch] self-end font-geist text-[15px] leading-[1.55] text-foreground/70">
             {aiReceptionistHeroData.subheadline}
           </p>
+        </div>
 
-          <div
-            className={cn(
-              "flex flex-col mt-10 items-center justify-center gap-4",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
-          >
-            <Button
-              variant="pill"
-              size="pill-lg"
-              className="w-full sm:w-auto group shadow-[0_0_15px_rgba(255,107,53,0.4)] hover:shadow-[0_0_18px_rgba(255,107,53,0.45)] motion-safe:transition-shadow"
-              asChild
-            >
-              <Link href={aiReceptionistHeroData.primaryCta.href}>
-                {aiReceptionistHeroData.primaryCta.text}
-                <ArrowRight className="w-4 h-4 motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5" />
-              </Link>
-            </Button>
+        {/* Console */}
+        <div className="mt-8 grid gap-4 lg:mt-7 lg:grid-cols-12">
+          {/* Live transcript */}
+          <div className="min-w-0 lg:col-span-8">
+            <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[#06070b]/95">
+              {/* Console header */}
+              <div className="flex items-center justify-between gap-4 border-b border-[var(--border-subtle)] bg-white/[0.015] px-5 py-3">
+                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
+                  <Phone className="h-3.5 w-3.5 text-[#FF6B35]" aria-hidden />
+                  Line 01 · Live
+                </div>
+                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/45">
+                  <span>00:42</span>
+                  <button
+                    type="button"
+                    onClick={() => setPaused((p) => !p)}
+                    className="rounded-md border border-[var(--border-subtle)] px-2 py-1 transition-colors hover:border-[#FF6B35]/40 hover:text-[#FF6B35]"
+                  >
+                    {paused ? "Resume" : "Pause"}
+                  </button>
+                </div>
+              </div>
 
-            <Link
-              href={aiReceptionistHeroData.secondaryCta.href}
-              className="inline-flex items-center justify-center gap-1.5 rounded-md px-2 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background min-h-11 sm:min-h-0"
-            >
-              <PlayCircle
-                className="w-4 h-4 shrink-0 text-[#FF6B35]"
-                aria-hidden="true"
-              />
-              {aiReceptionistHeroData.secondaryCta.text}
-            </Link>
+              {/* Transcript body — fixed height so the card never reflows */}
+              <div
+                ref={scrollRef}
+                className="h-[200px] overflow-y-auto px-5 py-5 sm:px-7 sm:py-6 lg:h-[200px] xl:h-[220px] [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.08)_transparent]"
+              >
+                <ol className="space-y-5">
+                  {visibleTurns.map((turn, i) => {
+                    const isCurrent = i === transcript.index;
+                    const text = isCurrent ? transcript.rendered : turn.text;
+                    const showCaret =
+                      isCurrent && turn.who === "sarah" && !transcript.done;
+                    return (
+                      <li
+                        key={`${turn.who}-${i}-${turn.text.slice(0, 8)}`}
+                        className="flex gap-4"
+                      >
+                        <span
+                          className={cn(
+                            "mt-1 inline-flex shrink-0 items-center justify-center font-mono text-[10px] uppercase tracking-[0.18em]",
+                            "rounded-full px-2.5 py-1",
+                            turn.who === "sarah"
+                              ? "bg-[#FF6B35]/10 text-[#FF6B35]"
+                              : "bg-white/[0.04] text-foreground/55",
+                          )}
+                        >
+                          {turn.who === "sarah" ? "Sarah" : "Caller"}
+                        </span>
+                        <p
+                          className={cn(
+                            "min-w-0 font-geist text-[15px] leading-[1.6]",
+                            turn.who === "sarah"
+                              ? "text-foreground"
+                              : "text-foreground/70",
+                          )}
+                        >
+                          {text}
+                          {showCaret && (
+                            <span
+                              aria-hidden
+                              className="ml-1 inline-block h-[1.05em] w-[2px] translate-y-[3px] bg-[#FF6B35] motion-safe:animate-pulse"
+                            />
+                          )}
+                        </p>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+
+              {/* Prompt chips + input */}
+              <div className="border-t border-[var(--border-subtle)] bg-white/[0.015] px-5 py-4 sm:px-7">
+                <div className="flex flex-wrap gap-2">
+                  {PROMPT_CHIPS.slice(0, 4).map((chip) => (
+                    <button
+                      key={chip.id}
+                      type="button"
+                      onClick={() => askSarah(chip.prompt)}
+                      className="rounded-full border border-[var(--border-subtle)] bg-card px-3 py-1.5 font-geist text-[12.5px] text-foreground/75 transition-colors hover:border-[#FF6B35]/40 hover:text-[#FF6B35] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35]/60"
+                    >
+                      {chip.label}
+                    </button>
+                  ))}
+                </div>
+
+                <form onSubmit={handleSubmit} className="mt-4 flex gap-2">
+                  <input
+                    type="text"
+                    name="q"
+                    autoComplete="off"
+                    placeholder="Ask Sarah anything a caller would…"
+                    className="min-w-0 flex-1 rounded-lg border border-[var(--border-subtle)] bg-[#04060c] px-4 py-3 font-geist text-[14.5px] text-foreground placeholder:text-foreground/35 focus:border-[#FF6B35]/50 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="inline-flex items-center gap-2 rounded-lg bg-[#FF6B35] px-4 py-3 font-geist text-[13px] font-medium text-[#0a0a0a] shadow-[0_0_18px_rgba(255,107,53,0.35)] transition-shadow hover:shadow-[0_0_22px_rgba(255,107,53,0.5)]"
+                  >
+                    Send
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
 
-          <div
-            className={cn(
-              "flex text-sm mt-8 items-center justify-center text-muted-foreground",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
-          >
-            <span className="font-geist">
-              {aiReceptionistHeroData.trustText}
-            </span>
-          </div>
-        </div>
-      </div>
+          {/* Shift card */}
+          <aside className="min-w-0 lg:col-span-4">
+            <div className="flex h-full flex-col gap-4 rounded-2xl border border-[var(--border-subtle)] bg-[#06070b]/95 p-5 lg:p-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
+                    Today · so far
+                  </div>
+                  <div className="mt-1 font-space-grotesk text-[32px] font-semibold leading-none tracking-tight text-foreground tabular-nums">
+                    {SHIFT_STATS.callsToday}
+                  </div>
+                  <div className="mt-1 font-geist text-[12.5px] text-foreground/55">
+                    calls handled
+                  </div>
+                </div>
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#FF6B35]/40 bg-[#FF6B35]/10 text-[#FF6B35]">
+                  <Mic className="h-4 w-4" aria-hidden />
+                </span>
+              </div>
 
-      <div
-        className="animate-scale-in opacity-0 max-w-4xl mx-auto px-4 mt-12 pb-20 relative z-20 scroll-mt-24"
-        style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
-      >
-        <div className="relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#FF6B35]/15 blur-[100px] -z-10 rounded-full" />
+              <dl className="grid grid-cols-3 gap-2.5 text-left">
+                {[
+                  ["Booked", SHIFT_STATS.booked],
+                  ["Avg", SHIFT_STATS.avgHandle],
+                  ["Escalated", SHIFT_STATS.escalated],
+                ].map(([label, value]) => (
+                  <div
+                    key={String(label)}
+                    className="rounded-lg border border-[var(--border-subtle)] bg-white/[0.015] px-2.5 py-2"
+                  >
+                    <dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-foreground/45">
+                      {label}
+                    </dt>
+                    <dd className="mt-0.5 font-space-grotesk text-[16px] font-semibold tabular-nums text-foreground">
+                      {value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
 
-          <AiReceptionistHeroFlow steps={aiReceptionistHeroData.workflowSteps} />
+              <div className="mt-auto flex flex-col gap-2">
+                <Button
+                  variant="pill"
+                  size="pill-md"
+                  onClick={() => openVoice()}
+                  className="group justify-center shadow-[0_0_15px_rgba(255,107,53,0.4)] hover:shadow-[0_0_18px_rgba(255,107,53,0.45)]"
+                >
+                  <Mic className="h-4 w-4" aria-hidden />
+                  Talk to Sarah live
+                </Button>
+                <Button
+                  variant="pill-outline"
+                  size="pill-md"
+                  asChild
+                  className="group justify-center"
+                >
+                  <Link href={aiReceptionistHeroData.primaryCta.href}>
+                    {aiReceptionistHeroData.primaryCta.text}
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </Button>
+              </div>
+
+              <p className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-foreground/40">
+                Live, unscripted · widget loads on click
+              </p>
+            </div>
+          </aside>
         </div>
+
+        <p className="mt-5 font-geist text-[13px] text-foreground/50">
+          {aiReceptionistHeroData.trustText}
+        </p>
       </div>
     </section>
   );

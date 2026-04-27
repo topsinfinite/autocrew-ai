@@ -4,6 +4,28 @@ All notable changes to the Autocrew Marketing Site are documented here.
 
 ---
 
+## [v1.7.0] - 2026-04-27
+
+### New Features
+
+- **AI Receptionist hero — Switchboard.** Replaced the centered text + 3-step flow on `/ai-receptionist` with a live operator's-console hero. Status masthead ("On-shift · Sarah · 47 calls today · avg handle 1m 22s"), asymmetric editorial headline, and a console card with a self-typing fixture transcript anchored to the bottom of a fixed 280px scroll region. Right-side shift card surfaces calls handled, booked, avg handle, and escalated counts above the fold.
+- **Persistent input + prompt chips wired to the live AutoCrew widget.** Visitors can type a question or click "Book me an appointment / What are your hours? / Get a price quote / Have her call me back" and the existing `window.AutoCrew.ask()` API fires the real conversation — no new backend, no demo placeholder.
+- **"Talk to Sarah live" CTA in the hero.** Calls `openVoice()` against the production widget so visitors reach the voice agent in one click.
+
+### Changed
+
+- `components/product/ai-receptionist/ai-receptionist-hero.tsx` rewritten end-to-end. Removed the 3-step Call → KB → Handoff SVG flow component (`ai-receptionist-hero-flow.tsx` deleted). The flow content can be reintroduced as a "How it works" section below the hero in a follow-up.
+- New shared fixture: `lib/mock-data/ai-receptionist-hero-fixtures.ts` (sample transcript turns, prompt chips, shift stats).
+- New colocated hook: `components/product/ai-receptionist/use-typewriter.ts` types each Sarah turn at a per-character cadence, respects `prefers-reduced-motion`, and loops cleanly.
+- `next.config.ts` pins Turbopack `root` to the repo so the dev compiler picks the right lockfile when multiple exist up the tree.
+- `.claude/launch.json` adds a `next-prod` profile (`npm start`) for previewing built output.
+
+### Fixed
+
+- Right-column shift card no longer shifts as the transcript types itself out — the transcript region is now a fixed-height scroll container with auto-pin-to-bottom, so the "Talk to Sarah live" CTA stays anchored above the fold throughout the loop.
+
+---
+
 ## [v1.6.0] - 2026-03-12
 
 ### New Features
