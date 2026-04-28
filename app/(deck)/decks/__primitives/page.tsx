@@ -10,6 +10,7 @@ import { ACCENT_LIST, type AccentToken, type DisplayStyle } from "@/lib/deck/tok
 import { Cover } from "@/components/deck/slides/Cover";
 import { Problem } from "@/components/deck/slides/Problem";
 import { Solution } from "@/components/deck/slides/Solution";
+import { FiveCardGrid } from "@/components/deck/slides/FiveCardGrid";
 
 const STYLES: DisplayStyle[] = ["serif-italic", "bold-sans"];
 
@@ -103,6 +104,25 @@ export default function PrimitivesQAPage() {
                     ],
                     body: "Drop a single script tag and any element on the page becomes an entry point to your AI agent — buttons, links, images, sections, even the page itself.",
                     bullets: ["BUTTONS", "LINKS", "IMAGES", "SECTIONS", "PAGE"],
+                  }}
+                />
+              </div>
+              <div style={{ marginTop: 24 }}>
+                <FiveCardGrid
+                  positionLabel="04 / 15"
+                  content={{
+                    number: "03",
+                    label: "FIVE SURFACES",
+                    secondary: "ONE WIDGET",
+                    headline: "Every element is a trigger.",
+                    sub: "Five surface types map to five entry points. Stamp a single attribute and any element on the page becomes an entry point to your AI agent.",
+                    cards: [
+                      { number: "01", title: "Buttons", body: "Replace form CTAs with one-tap conversations." },
+                      { number: "02", title: "Links", body: "Inline anchors open Sarah with the right context." },
+                      { number: "03", title: "Images", body: "Product photos become guided shopping convos." },
+                      { number: "04", title: "Sections", body: "Whole sections become a “tap to ask” surface." },
+                      { number: "05", title: "Page", body: "The entire page is one giant smart surface." },
+                    ],
                   }}
                 />
               </div>
