@@ -1,54 +1,129 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowRight, Mail, Calendar, Github, Linkedin } from "lucide-react";
+import {
+  ArrowRight,
+  Calendar,
+  Github,
+  Linkedin,
+  Lock,
+  Mail,
+  Mic,
+  ShieldCheck,
+} from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
-import { legalCtaData } from "@/lib/mock-data/legal-data";
+import { openVoice } from "@/lib/widget/ask-helpers";
+import { legalCompliance, legalCta } from "@/lib/mock-data/legal-data";
 import { footerData } from "@/lib/mock-data/landing-data";
 
+const badgeIcon = { Confidential: ShieldCheck, "Privilege-safe": Lock };
+
+/**
+ * Legal CTA + footer.
+ *
+ * Mirrors the healthcare strong-footer pattern: large editorial card with a
+ * compliance badge row, a featured "spotlight" row (compliance ledger here,
+ * since legal's strongest trust signal is confidentiality/privilege), three-
+ * column contact grid, brand block + nav columns, and a bottom legal strip.
+ */
 export function LegalCta() {
   return (
     <section className="pt-16 pb-16 sm:pt-24 sm:pb-24 md:pt-32 md:pb-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-space-grotesk">
-        <div className="group overflow-hidden sm:p-10 transition-colors duration-500 text-card-foreground bg-card border-border border rounded-[40px] p-6 relative shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
-          <div className="absolute inset-0 pointer-events-none">
+      <div className="mx-auto max-w-7xl px-4 font-space-grotesk sm:px-6">
+        <div className="group relative overflow-hidden rounded-[40px] border border-border bg-card p-6 text-card-foreground shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] transition-colors duration-500 sm:p-10 dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+          {/* Background effects */}
+          <div className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(0,0,0,0.02),transparent_100%)] dark:bg-[radial-gradient(1000px_800px_at_0%_0%,rgba(255,255,255,0.02),transparent_100%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(1000px_800px_at_100%_100%,rgba(255,107,53,0.12),transparent_100%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(#0000000d_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.2]" />
+            <div className="absolute inset-0 bg-[radial-gradient(#0000000d_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.2] dark:bg-[radial-gradient(#ffffff0d_1px,transparent_1px)]" />
           </div>
 
           <div className="relative z-10">
-            <h2 className="text-[clamp(2rem,10vw,7rem)] sm:text-[clamp(2.5rem,9vw,7rem)] lg:text-[clamp(3rem,7vw,7rem)] leading-[0.9] font-semibold tracking-tighter font-geist mb-6 sm:mb-8">
+            {/* Badge row */}
+            <ul className="mb-6 flex flex-wrap gap-2 sm:mb-8">
+              {legalCta.badges.map((b) => {
+                const Icon = (badgeIcon as Record<string, typeof ShieldCheck>)[
+                  b.label
+                ] ?? ShieldCheck;
+                return (
+                  <li
+                    key={b.label}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#FF6B35]/25 bg-[#FF6B35]/[0.06] px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[#FF6B35]"
+                  >
+                    <Icon className="h-3.5 w-3.5" aria-hidden />
+                    <span>{b.label}</span>
+                    <span className="text-[#FF6B35]/55">·</span>
+                    <span className="text-[#FF6B35]/85">{b.value}</span>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* Headline */}
+            <h2 className="mb-6 font-geist text-[clamp(2rem,10vw,7rem)] font-semibold leading-[0.9] tracking-tighter sm:mb-8 sm:text-[clamp(2.5rem,9vw,7rem)] lg:text-[clamp(3rem,7vw,7rem)]">
               <span className="block font-space-grotesk text-foreground">
-                {legalCtaData.headline.line1}
+                {legalCta.headline.line1}
               </span>
-              <span className="block text-muted-foreground transition-colors duration-700 font-space-grotesk">
-                {legalCtaData.headline.line2}
+              <span className="block font-space-grotesk text-muted-foreground transition-colors duration-700">
+                {legalCta.headline.line2}
               </span>
             </h2>
 
-            <p className="text-xl text-muted-foreground font-geist mb-12 max-w-2xl">
-              {legalCtaData.subheadline}
+            <p className="mb-10 max-w-2xl font-geist text-xl text-muted-foreground">
+              {legalCta.subheadline}
             </p>
 
-            <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
+            {/* Compliance spotlight row */}
+            <div className="mb-12 grid gap-6 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-5">
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#FF6B35]">
+                  Built for the conversation with your ethics counsel
+                </p>
+                <p className="mt-3 max-w-[44ch] font-geist text-[15px] leading-[1.65] text-muted-foreground">
+                  Confidentiality, conflicts, privilege, and tenant isolation —
+                  designed in, not bolted on. Your client data is never used to
+                  train public models. We sign NDAs and DPAs.
+                </p>
+              </div>
+              <div className="lg:col-span-7">
+                <dl className="grid grid-cols-2 divide-x divide-y divide-[var(--border-subtle)] overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-foreground/[0.02] sm:grid-cols-3">
+                  {legalCompliance.ledger.map((cell) => (
+                    <div key={cell.label} className="px-5 py-4">
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
+                        {cell.label}
+                      </dt>
+                      <dd className="mt-1.5 font-space-grotesk text-[14px] font-semibold leading-[1.25] tracking-[-0.005em] text-foreground">
+                        {cell.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+
+            {/* Contact grid */}
+            <div className="mt-6 grid grid-cols-1 gap-6 sm:mt-8 sm:gap-10 md:grid-cols-3">
               <div className="flex flex-col items-start">
-                <p className="uppercase text-xs font-semibold text-[#FF6B35] tracking-wider font-space mb-3">
-                  Send Us an Email
+                <p className="mb-3 font-space text-xs font-semibold uppercase tracking-wider text-[#FF6B35]">
+                  {legalCta.contact.email.eyebrow}
                 </p>
                 <a
-                  href="mailto:support@autocrew-ai.com"
-                  className="inline-flex items-center gap-3 text-lg sm:text-xl font-medium tracking-tight text-foreground hover:text-[#FF6B35] transition-colors font-geist group/link"
+                  href={`mailto:${legalCta.contact.email.address}`}
+                  className="group/link inline-flex items-center gap-3 font-geist text-lg font-medium tracking-tight text-foreground transition-colors hover:text-[#FF6B35] sm:text-xl"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-foreground/[0.05] dark:bg-white/5 border border-border flex items-center justify-center text-[#FF6B35] group-hover/link:bg-[#FF6B35]/10 group-hover/link:border-[#FF6B35]/20 transition-colors">
-                    <Mail className="w-4 h-4" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-foreground/[0.05] text-[#FF6B35] transition-colors group-hover/link:border-[#FF6B35]/20 group-hover/link:bg-[#FF6B35]/10 dark:bg-white/5">
+                    <Mail className="h-4 w-4" />
                   </div>
-                  <span className="break-all">support@autocrew-ai.com</span>
+                  <span className="break-all">
+                    {legalCta.contact.email.address}
+                  </span>
                 </a>
               </div>
 
               <div className="flex flex-col items-start">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#FF6B35] font-space mb-3">
-                  Schedule a Demo
+                <p className="mb-3 font-space text-xs font-semibold uppercase tracking-wider text-[#FF6B35]">
+                  {legalCta.contact.demo.eyebrow}
                 </p>
                 <Button
                   variant="pill"
@@ -56,41 +131,40 @@ export function LegalCta() {
                   className="group/btn"
                   asChild
                 >
-                  <Link href={legalCtaData.secondaryCta.href}>
-                    <Calendar className="w-4 h-4" />
-                    {legalCtaData.secondaryCta.text}
-                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
+                  <Link href={legalCta.contact.demo.cta.href}>
+                    <Calendar className="h-4 w-4" />
+                    {legalCta.contact.demo.cta.text}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" />
                   </Link>
                 </Button>
               </div>
 
               <div className="flex flex-col items-start">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#FF6B35] font-space mb-3">
-                  Try Autocrew
+                <p className="mb-3 font-space text-xs font-semibold uppercase tracking-wider text-[#FF6B35]">
+                  {legalCta.contact.try.eyebrow}
                 </p>
-                <div className="flex flex-col gap-4 w-full sm:w-auto">
+                <div className="flex w-full flex-col gap-4 sm:w-auto">
                   <Button
                     variant="pill"
                     size="pill-md"
                     className="group/btn"
-                    asChild
+                    onClick={() => openVoice()}
                   >
-                    <Link href={legalCtaData.primaryCta.href}>
-                      {legalCtaData.primaryCta.text}
-                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
-                    </Link>
+                    <Mic className="h-4 w-4" />
+                    {legalCta.contact.try.voiceCta.text}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" />
                   </Button>
                   <Link
-                    href="https://app.autocrew-ai.com/login"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors pl-1 font-geist group/link"
+                    href={legalCta.contact.try.memberLink.href}
+                    className="group/link inline-flex items-center gap-2 pl-1 font-geist text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                   >
                     <span
-                      className="w-1.5 h-1.5 rounded-full bg-muted-foreground group-hover/link:bg-[#FF6B35] transition-colors"
-                      aria-hidden="true"
+                      aria-hidden
+                      className="h-1.5 w-1.5 rounded-full bg-muted-foreground transition-colors group-hover/link:bg-[#FF6B35]"
                     />
                     <span>
                       Already a member?{" "}
-                      <span className="text-foreground group-hover/link:text-[#FF6B35] transition-colors">
+                      <span className="text-foreground transition-colors group-hover/link:text-[#FF6B35]">
                         Sign in
                       </span>
                     </span>
@@ -99,21 +173,18 @@ export function LegalCta() {
               </div>
             </div>
 
-            <footer className="flex flex-col gap-8 sm:gap-12 mt-10 sm:mt-16 w-full">
-              <div className="flex flex-col lg:flex-row justify-between gap-8 sm:gap-12 lg:gap-24">
-                <div className="flex flex-col max-w-sm gap-6">
+            {/* Footer */}
+            <footer className="mt-10 flex w-full flex-col gap-8 sm:mt-16 sm:gap-12">
+              <div className="flex flex-col justify-between gap-8 sm:gap-12 lg:flex-row lg:gap-24">
+                <div className="flex max-w-sm flex-col gap-6">
                   <Logo height={22} className="text-foreground" />
-                  <p className="text-sm leading-relaxed text-muted-foreground font-geist">
-                    AI-powered automation for law firms, corporate legal, and
-                    legal aid teams. Deploy crews that handle intake, client
-                    communication, and ops workflows alongside major case
-                    management platforms — Clio, LegalServer, MyCase,
-                    PracticePanther, and similar.
+                  <p className="font-geist text-sm leading-relaxed text-muted-foreground">
+                    {legalCta.brand.blurb}
                   </p>
                   <div className="flex gap-2">
                     <a
                       href="#"
-                      className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                      className="flex min-h-[44px] min-w-[44px] items-center justify-center p-2 text-muted-foreground transition-colors hover:text-foreground"
                       aria-label="X (Twitter)"
                     >
                       <svg
@@ -126,86 +197,106 @@ export function LegalCta() {
                     </a>
                     <a
                       href="#"
-                      className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                      className="flex min-h-[44px] min-w-[44px] items-center justify-center p-2 text-muted-foreground transition-colors hover:text-foreground"
                       aria-label="GitHub"
                     >
-                      <Github className="w-5 h-5" />
+                      <Github className="h-5 w-5" />
                     </a>
                     <a
                       href="#"
-                      className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                      className="flex min-h-[44px] min-w-[44px] items-center justify-center p-2 text-muted-foreground transition-colors hover:text-foreground"
                       aria-label="LinkedIn"
                     >
-                      <Linkedin className="w-5 h-5" />
+                      <Linkedin className="h-5 w-5" />
                     </a>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-16 w-full lg:w-auto">
+                <div className="grid w-full grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4 lg:w-auto lg:gap-16">
                   <div className="flex flex-col gap-4">
-                    <p className="text-sm font-semibold text-foreground font-space-grotesk">
+                    <p className="font-space-grotesk text-sm font-semibold text-foreground">
                       Product
                     </p>
-                    <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
+                    <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
+                      <Link
+                        href="/ai-receptionist"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        AI Receptionist
+                      </Link>
                       <Link
                         href="/#features"
-                        className="hover:text-foreground transition-colors"
+                        className="transition-colors hover:text-foreground"
                       >
                         Features
                       </Link>
                       <Link
                         href="/#solutions"
-                        className="hover:text-foreground transition-colors"
+                        className="transition-colors hover:text-foreground"
                       >
-                        Support Crew
-                      </Link>
-                      <Link
-                        href="/#solutions"
-                        className="hover:text-foreground transition-colors"
-                      >
-                        LeadGen Crew
+                        Solutions
                       </Link>
                       <Link
                         href="/contact"
-                        className="hover:text-foreground transition-colors"
+                        className="transition-colors hover:text-foreground"
                       >
                         Pricing
-                      </Link>
-                      <Link
-                        href="/docs"
-                        className="hover:text-foreground transition-colors"
-                      >
-                        Changelog
                       </Link>
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    <p className="text-sm font-semibold text-foreground font-space-grotesk">
-                      Resources
+                    <p className="font-space-grotesk text-sm font-semibold text-foreground">
+                      Legal
                     </p>
-                    <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
+                    <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
                       <Link
                         href="/docs"
-                        className="hover:text-foreground transition-colors"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        Confidentiality
+                      </Link>
+                      <Link
+                        href="/docs"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        Conflicts &amp; privilege
+                      </Link>
+                      <Link
+                        href="/docs"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        CMS integrations
+                      </Link>
+                      <Link
+                        href="/contact"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        Request an NDA / DPA
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-4">
+                    <p className="font-space-grotesk text-sm font-semibold text-foreground">
+                      Resources
+                    </p>
+                    <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
+                      <Link
+                        href="/docs"
+                        className="transition-colors hover:text-foreground"
                       >
                         Documentation
                       </Link>
                       <Link
                         href="/docs/getting-started"
-                        className="hover:text-foreground transition-colors"
+                        className="transition-colors hover:text-foreground"
                       >
                         Getting Started
                       </Link>
                       <Link
-                        href="/docs/user-guide"
-                        className="hover:text-foreground transition-colors"
-                      >
-                        User Guide
-                      </Link>
-                      <Link
                         href="/docs/faq"
-                        className="hover:text-foreground transition-colors"
+                        className="transition-colors hover:text-foreground"
                       >
                         FAQ
                       </Link>
@@ -213,51 +304,19 @@ export function LegalCta() {
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    <p className="text-sm font-semibold text-foreground font-space-grotesk">
-                      Legal
-                    </p>
-                    <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
-                      <Link
-                        href="/docs/privacy"
-                        className="hover:text-foreground transition-colors"
-                      >
-                        Privacy Policy
-                      </Link>
-                      <Link
-                        href="/docs/terms"
-                        className="hover:text-foreground transition-colors"
-                      >
-                        Terms of Service
-                      </Link>
-                      <Link
-                        href="/docs/security"
-                        className="hover:text-foreground transition-colors"
-                      >
-                        Security
-                      </Link>
-                      <Link
-                        href="/docs/compliance"
-                        className="hover:text-foreground transition-colors"
-                      >
-                        Compliance
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-4">
-                    <p className="text-sm font-semibold text-foreground font-space-grotesk">
+                    <p className="font-space-grotesk text-sm font-semibold text-foreground">
                       Company
                     </p>
-                    <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
+                    <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
                       <Link
                         href="/about"
-                        className="hover:text-foreground transition-colors"
+                        className="transition-colors hover:text-foreground"
                       >
                         About
                       </Link>
                       <Link
                         href="/contact"
-                        className="hover:text-foreground transition-colors"
+                        className="transition-colors hover:text-foreground"
                       >
                         Contact
                       </Link>
@@ -266,20 +325,20 @@ export function LegalCta() {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border gap-4 mt-4">
-                <p className="text-sm text-muted-foreground font-geist">
+              <div className="mt-4 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
+                <p className="font-geist text-sm text-muted-foreground">
                   {footerData.copyright}
                 </p>
-                <div className="flex gap-6 text-sm text-muted-foreground font-geist">
+                <div className="flex gap-6 font-geist text-sm text-muted-foreground">
                   <Link
                     href="/docs/privacy"
-                    className="hover:text-foreground transition-colors"
+                    className="transition-colors hover:text-foreground"
                   >
                     Privacy Policy
                   </Link>
                   <Link
                     href="/docs/terms"
-                    className="hover:text-foreground transition-colors"
+                    className="transition-colors hover:text-foreground"
                   >
                     Terms of Service
                   </Link>
