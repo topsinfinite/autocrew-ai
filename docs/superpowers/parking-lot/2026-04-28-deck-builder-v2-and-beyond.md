@@ -228,3 +228,22 @@ This isn't parked — it's a hard constraint that the slide-kit primitives must 
 If a future template needs one of the avoided properties for visual punch, we either:
 1. Find a `html2canvas`-safe alternative, OR
 2. Render that single template via server-side chromium (Path B/C trigger).
+
+---
+
+## Inline contenteditable per slide template
+
+V1 ships with the JSON inspector as the only editing surface. It works, but it's
+friction: sales reps have to know the schema to edit a slide. Inline
+contenteditable per template (click a headline, type) was in the original spec
+(Section 4) but was deferred to keep Phase 7 scoped.
+
+**Trigger to revisit:** sales reports JSON editing is friction during real
+prospect prep — i.e., we hear "the JSON box scares me" or "I just want to click
+the title and type" more than once. At that point each slide template needs
+per-field click-to-edit overlays wired up.
+
+**Effort estimate:** ~1 day per slide template for proper inline editing
+surfaces (mark fields with `data-editable`, mount contenteditable spans, parse
+back to typed content). 13 templates × 1 day ≈ 2-3 weeks of focused work, or it
+can be rolled out template-by-template based on which slides sales edits most.
