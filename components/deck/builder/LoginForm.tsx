@@ -15,6 +15,7 @@ export function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    let nextError: string | null = null;
     try {
       const res = await fetch("/api/decks/auth", {
         method: "POST",
@@ -25,16 +26,22 @@ export function LoginForm() {
         router.push(from);
         return;
       }
-      if (res.status === 429) {
-        setError("Too many attempts — try again in a minute.");
-      } else {
-        setError("Access denied.");
-      }
+      if (res.status === 429) nextError = "Too many attempts — try again in a minute.";
+      else if (res.status >= 500) nextError = "Service misconfigured — contact admin.";
+      else nextError = "Access denied.";
     } catch {
-      setError("Network error — try again.");
+      nextError = "Network error — try again.";
     } finally {
       setLoading(false);
-      setTimeout(() => setError(null), 3000);
+      if (nextError) {
+        setError(nextError);
+        // Clear after 3s, but only if still mounted and still showing this error.
+        const timer = setTimeout(() => setError((cur) => (cur === nextError ? null : cur)), 3000);
+        // Best-effort cleanup: if React unmounts mid-timer, the closure no-ops because setError on
+        // unmounted components is a benign warning in React 19 (no longer throws).
+        // Note: a stricter cleanup would require wiring this into a useRef + useEffect cleanup.
+        void timer;
+      }
     }
   }
 
