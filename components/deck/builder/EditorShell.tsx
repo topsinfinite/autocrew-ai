@@ -1,6 +1,8 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { loadDraft, saveDraft, type DeckDraft } from "@/lib/deck/state";
+import { newDraftFromTemplate } from "@/lib/deck/draft-factory";
 import { DeckThemeProvider } from "@/components/deck/builder/DeckThemeContext";
 import { SlideRail } from "./SlideRail";
 import { SlideStage } from "./SlideStage";
@@ -8,6 +10,7 @@ import { DownloadButtons } from "./DownloadButtons";
 import { HiddenRenderIframe } from "./HiddenRenderIframe";
 
 export function EditorShell({ draftId }: { draftId: string }) {
+  const router = useRouter();
   const [draft, setDraft] = useState<DeckDraft | null>(null);
   const [activeIdx, setActiveIdx] = useState(0);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -34,6 +37,20 @@ export function EditorShell({ draftId }: { draftId: string }) {
     });
   }, []);
 
+  const handleReset = useCallback(async () => {
+    if (!draft) return;
+    if (!window.confirm("Reset this deck to template defaults? Your edits will be lost (prospect info and theme are kept).")) return;
+    const newDraft = await newDraftFromTemplate({
+      templateId: draft.template,
+      prospect: draft.prospect,
+      salesRep: draft.salesRep,
+      now: new Date(draft.createdAt),
+      themeOverride: draft.theme,
+    });
+    saveDraft(newDraft);
+    router.push(`/decks/preview/${newDraft.id}`);
+  }, [draft, router]);
+
   if (draft === null) {
     // loading
     return <main style={{ padding: 80, color: "var(--deck-text-muted)" }}>Loading…</main>;
@@ -56,7 +73,10 @@ export function EditorShell({ draftId }: { draftId: string }) {
           <span style={{ fontFamily: "var(--deck-mono-family)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--deck-text-muted)" }}>
             {draft.id} · {draft.template}
           </span>
-          <DownloadButtons draft={draft} />
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <button onClick={handleReset} style={ghostBtn}>Reset</button>
+            <DownloadButtons draft={draft} />
+          </div>
         </header>
         {otherTab && (
           <div style={{ background: "color-mix(in srgb, var(--deck-accent-yellow) 20%, transparent)", padding: "8px 24px", color: "var(--deck-text-primary)", fontFamily: "var(--deck-mono-family)", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase" }}>
@@ -79,3 +99,16 @@ export function EditorShell({ draftId }: { draftId: string }) {
 }
 
 const navBtn: React.CSSProperties = { background: "transparent", border: "none", color: "var(--deck-text-muted)", fontFamily: "var(--deck-mono-family)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" };
+
+const ghostBtn: React.CSSProperties = {
+  padding: "8px 16px",
+  background: "transparent",
+  color: "var(--deck-text-muted)",
+  border: "1px solid var(--deck-border)",
+  borderRadius: 2,
+  fontFamily: "var(--deck-mono-family)",
+  fontSize: 11,
+  letterSpacing: "0.18em",
+  textTransform: "uppercase",
+  cursor: "pointer",
+};
