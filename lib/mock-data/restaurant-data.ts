@@ -1,259 +1,266 @@
-import type { StatItem, Step } from "@/lib/mock-data/landing-data";
 import type { FAQItem } from "@/lib/mock-data/docs-content";
 
-// Restaurant Hero Data
+/**
+ * Content for the Restaurant industry page.
+ *
+ * Voice mirrors the new healthcare, coaching, and legal pages: outcome-
+ * focused sentences for the people who decide whether to deploy this —
+ * independent owners, multi-location operators, and fine-dining GMs. No
+ * fabricated metrics, no stock testimonials. Concrete nouns over generic
+ * percentages.
+ */
+
 export const restaurantHeroData = {
-  badge: "For Restaurant Professionals",
-  headline: {
-    prefix: "Fill Every Seat",
-    accent: "Without the Phone Tag",
+  status: {
+    location: "On every reservation, walk-in, and review",
+    role: "Sarah · AI Host",
+    coverage: "24/7",
+    standard: "30+ integrations",
   },
-  subheadline:
-    "AI-powered automation handles reservations, guest follow-ups, and review management — so you can focus on the experience only you can create.",
-  primaryCta: {
-    text: "Start Free Trial",
-    href: "https://app.autocrew-ai.com/signup",
-  },
-  secondaryCta: {
-    text: "See how it works",
-    href: "#how-it-works",
-  },
-  trustText: "15+ Hours Saved Weekly  ·  30% Fewer No-Shows  ·  Setup in Days",
-  workflowSteps: [
-    { label: "Guest Calls", icon: "Phone" },
-    { label: "AI Books", icon: "BotMessageSquare" },
-    { label: "You Host", icon: "UtensilsCrossed" },
+  badges: [
+    { label: "OpenTable · Resy · Toast", icon: "plug" as const },
+    { label: "Setup in days", icon: "shield" as const },
   ],
-};
-
-// Pain Points Data
-export interface RestaurantPainPoint {
-  title: string;
-  description: string;
-  icon: string;
-}
-
-export const restaurantPainPointsData = {
-  badge: "The Restaurant Challenge",
-  headline: "Great Restaurants Shouldn't Lose Guests to Voicemail",
-  subheadline:
-    "The average restaurant misses 30% of incoming calls during peak hours — every missed call is a lost reservation, a lost guest, lost revenue.",
-  items: [
-    {
-      title: "Missed Calls, Lost Revenue",
-      description:
-        "Peak hours mean unanswered phones. Walk-ins get priority while callers hang up and book somewhere else.",
-      icon: "PhoneOff",
-    },
-    {
-      title: "No-Show Nightmares",
-      description:
-        "Empty tables from no-shows cost the average restaurant $1,500/month. Manual confirmation calls eat into prep time.",
-      icon: "CalendarX2",
-    },
-    {
-      title: "Review Response Overload",
-      description:
-        "Dozens of reviews across Google, Yelp, and TripAdvisor pile up. Unanswered reviews hurt your rating and your reputation.",
-      icon: "Star",
-    },
-  ] as RestaurantPainPoint[],
-};
-
-// Features Data (3 Pillars)
-export interface RestaurantFeature {
-  title: string;
-  description: string;
-  icon: string;
-  bullets: string[];
-}
-
-export const restaurantFeaturesData = {
-  badge: "Your AI-Powered Crew",
   headline: {
-    prefix: "Automation That Understands",
-    accent: "the Restaurant Business",
+    prefix: "Fill every seat,",
+    accent: "without picking up the phone.",
   },
+  subheadline:
+    "Autocrew answers the line during your dinner rush, books the table, sends the confirmation, and flags the VIP — so your hostess stays at the door, not on hold, and your kitchen gets a clean cover count.",
+  spec: {
+    label: "Connected · By default",
+    figure: "Your stack",
+    figureSub: "we plug into the booking, POS, and review tools you use",
+    cells: [
+      { label: "Reservations", value: "OpenTable · Resy" },
+      { label: "POS", value: "Toast · Square" },
+      { label: "Reviews", value: "Google · Yelp" },
+      { label: "Comms", value: "SMS · Email" },
+    ],
+    footer: "No-code setup · Live in days",
+  },
+  primaryCta: { text: "Talk to Sarah live" },
+  secondaryCta: { text: "Book a demo", href: "/contact" },
+} as const;
+
+export const restaurantSqueeze = {
+  eyebrow: "Where the phone takes a bite out of service",
+  heading: "Three patterns we hear from every kind of restaurant.",
+  intro:
+    "It's not that the calls are hard. It's that they ring during the worst possible moments — Friday at 6:47pm, mid-rush, with a line at the door. Here is the squeeze, framed for the three kinds of operation we see most.",
   items: [
     {
-      title: "24/7 Reservation Management",
-      description:
-        "An AI booking agent that handles calls, online reservations, waitlist management, and confirmation texts automatically.",
-      icon: "CalendarCheck",
-      bullets: [
-        "Automatic confirmation & reminders",
-        "Smart waitlist management",
-        "No-show prediction & follow-up",
-        "Syncs with OpenTable, Resy & Google",
-      ],
+      audience: "For the owner-operator",
+      headline: "The phone rings during the dinner rush.",
+      body: "It's 7:12pm. The hostess is seating a four-top, the line stretches to the bar, and the phone has rung four times. The fourth caller hangs up. They wanted Saturday at 8 — they're booking somewhere else now. The funnel works; the answer rate doesn't.",
     },
     {
-      title: "Intelligent Guest Communication",
-      description:
-        "AI that responds to inquiries, sends personalized follow-ups, and manages review responses across all platforms.",
-      icon: "MessageSquare",
-      bullets: [
-        "Instant inquiry responses",
-        "Post-visit thank-you messages",
-        "Review response drafting",
-        "Birthday & anniversary outreach",
-      ],
+      audience: "For the multi-location operator",
+      headline: "Five hostesses, five answering styles, no shared playbook.",
+      body: "Each location has its own approach to phone reservations, waitlists, no-show policies, and VIP handling. Nothing is consistent, nothing is reportable, and the loyalty guest at one venue is a stranger at the next.",
     },
     {
-      title: "Smart Operations Assistant",
-      description:
-        "AI that tracks orders, manages staff scheduling reminders, and surfaces actionable insights from your guest data.",
-      icon: "ClipboardList",
-      bullets: [
-        "Peak hour staffing alerts",
-        "Menu performance insights",
-        "Guest preference tracking",
-        "Online order coordination",
-      ],
+      audience: "For the fine-dining GM",
+      headline: "VIP requests get lost between the host stand and the kitchen.",
+      body: "The 7-top wants the back booth. Two are vegan, one is celebrating a 25th anniversary, the host took the call on the floor and meant to write it down. The kitchen finds out at order time — too late to do the thing that would've made it the meal of the year.",
     },
-  ] as RestaurantFeature[],
-};
+  ],
+} as const;
 
-// Metrics Data
-export const restaurantMetrics: StatItem[] = [
-  {
-    value: "15+",
-    label: "Hours Saved",
-    sublabel: "Per week on admin tasks",
-  },
-  {
-    value: "30%",
-    label: "Fewer No-Shows",
-    sublabel: "With automated confirmations",
-  },
-  {
-    value: "$4.20",
-    label: "ROI per $1",
-    sublabel: "Average return on investment",
-  },
-  {
-    value: "30",
-    label: "Day Results",
-    sublabel: "See measurable impact fast",
-  },
-];
-
-// How It Works Steps
-export const restaurantSteps: Step[] = [
-  {
-    number: "01",
-    title: "Tell Us About Your Restaurant",
-    description:
-      "Share your cuisine, service style, and hours. We configure your AI crew to match your brand voice.",
-  },
-  {
-    number: "02",
-    title: "Connect Your Tools",
-    description:
-      "Link your reservation system, POS, and review platforms. Autocrew integrates with OpenTable, Toast, Google, and more.",
-  },
-  {
-    number: "03",
-    title: "Go Live in Days",
-    description:
-      "Your AI crew starts handling reservations, guest communication, and reviews. You focus on hospitality.",
-  },
-  {
-    number: "04",
-    title: "Grow With Confidence",
-    description:
-      "Use analytics to see what's working. Fill more seats without adding more staff.",
-  },
-];
-
-// Testimonials Data
-export interface RestaurantTestimonial {
-  quote: string;
-  name: string;
-  role: string;
-  initials: string;
-  avatarColor: string;
-}
-
-export const restaurantTestimonialsData = {
-  badge: "Trusted by Restaurants",
-  headline: "Restaurants That've Made the Shift",
-  items: [
+export const restaurantOutcomes = {
+  eyebrow: "What it actually does",
+  heading: "Four jobs your team stops doing on Monday.",
+  intro:
+    "No new tablet on the host stand, no new platform for guests to learn. Sarah answers your existing line, books into the reservation system you already use, and writes notes back to the same POS your team already trusts.",
+  rows: [
     {
-      quote:
-        "We were missing 40% of dinner reservation calls during Friday rush. Autocrew now handles every call — our covers are up 25%.",
-      name: "Marco T.",
-      role: "Owner, Italian Bistro",
-      initials: "MT",
-      avatarColor: "from-[#FF6B35] to-[#FF8C5A]",
+      index: "01",
+      title: "Answers reservation calls 24/7 — every one of them.",
+      body: "During the rush, after-hours, on the day the manager is out sick. Sarah picks up before the third ring, finds the seating that fits party and time, books it directly into your reservation system, and sends the confirmation. Walk-ins still go to the host — the phone stops competing.",
+      footnote: "OpenTable · Resy · SevenRooms · Tock · Yelp Reservations",
     },
     {
-      quote:
-        "Responding to reviews used to take me an hour every morning. Now it's automated and our Google rating went from 4.1 to 4.5 stars.",
-      name: "Lisa W.",
-      role: "General Manager, Farm-to-Table",
-      initials: "LW",
-      avatarColor: "from-blue-500 to-blue-600",
+      index: "02",
+      title: "Confirms, reminds, and rebooks no-shows without anyone calling.",
+      body: "Confirmation texts go out the day before, reminders the day of, and a soft outreach if the table goes empty. Cancellations open the slot back up to the waitlist automatically. Your team stops being a confirmation desk; covers stop disappearing into thin air.",
+      footnote: "SMS · Email · Waitlist re-offer · Cancellation handling",
     },
     {
-      quote:
-        "No-shows dropped from 18% to under 8% in two months. The automated confirmation texts are a game-changer.",
-      name: "James O.",
-      role: "Restaurant Group Director",
-      initials: "JO",
-      avatarColor: "from-emerald-500 to-emerald-600",
+      index: "03",
+      title: "Captures the VIPs, dietary needs, and special occasions.",
+      body: "Allergy callouts, anniversary mentions, regulars by name — Sarah catches them in conversation and writes them straight into the reservation note. The kitchen and the captain see them at the same time, before service starts. Hospitality stops depending on someone remembering to write it down.",
+      footnote: "Notes write-back · Allergy flags · Special occasion tags",
     },
-  ] as RestaurantTestimonial[],
-};
+    {
+      index: "04",
+      title: "Drafts review responses in your voice across every platform.",
+      body: "Google, Yelp, OpenTable, TripAdvisor — Sarah drafts a thoughtful, on-brand reply for each new review and queues it for your approval. You stop letting weeks of reviews pile up; you stop posting boilerplate. One tap, on-brand, every time.",
+      footnote: "Google · Yelp · OpenTable · TripAdvisor · Approval queue",
+    },
+  ],
+} as const;
 
-// FAQ Data
+export const restaurantHandoff = {
+  eyebrow: "Where Sarah stops",
+  heading: "Some calls are still a host's job. Sarah knows which.",
+  intro:
+    "Reservations, confirmations, hours, and basic questions are safe to automate. The moments that need a human voice — large parties, special requests, complaints, payment disputes — get handed to a manager or host with the chart already pulled.",
+  columns: ["When this happens", "Sarah does this", "Your team gets"],
+  rows: [
+    {
+      condition: "Party of 10+ or full buyout request",
+      action: "Captures the brief, hands to your private events lead",
+      handoff: "A briefing with date, party size, occasion, and budget cues",
+    },
+    {
+      condition: "Guest complaint about a recent visit",
+      action: "Listens, acknowledges, routes immediately to a manager",
+      handoff: "An immediate ping with the guest's name, visit, and the issue",
+    },
+    {
+      condition: "Allergy or dietary need beyond your standard menu",
+      action: "Captures the detail, routes to the chef before booking confirms",
+      handoff: "A flagged reservation note with the specific request",
+    },
+    {
+      condition: "Payment, refund, or gift-card dispute",
+      action: "Pauses, logs the issue, hands to your billing contact",
+      handoff: "A ticket with guest, amount, date, and the dispute",
+    },
+  ],
+} as const;
+
+export const restaurantIntegrations = {
+  eyebrow: "Plugs into the stack you already pay for",
+  heading: "No new tablet on the host stand. No new platform for guests.",
+  body: "Autocrew connects to the booking, POS, review, and comms tools you've already chosen and works through them — guests keep using the same OpenTable link, the same SMS thread, the same Google listing. We're additive, not a replacement.",
+  ledger: [
+    { label: "Reservations", value: "OpenTable · Resy · SevenRooms" },
+    { label: "POS", value: "Toast · Square · Lightspeed" },
+    { label: "Reviews", value: "Google · Yelp · TripAdvisor" },
+    { label: "Comms", value: "SMS · Email · Voice" },
+    { label: "Waitlist", value: "Yelp · OpenTable · Tock" },
+    { label: "Calendar", value: "Google · Outlook" },
+  ],
+  docsLink: { text: "See the full integration list", href: "/docs" },
+} as const;
+
+export const restaurantByRole = {
+  eyebrow: "Built for the kind of restaurant you actually run",
+  heading: "Three answers, in the language of three operations.",
+  roles: [
+    {
+      title: "For the owner-operator",
+      body: "Stop losing the Friday-night reservation because your hostess was at the door. Sarah picks up before the third ring, books the table in your existing system, and sends the confirmation. Your team stays in the room, with the guests who are already there.",
+      metric: "Phone answer rate · 100%, 24/7",
+    },
+    {
+      title: "For the multi-location operator",
+      body: "One shared answering layer across every venue. Same booking flow, same waitlist policy, same VIP handling — configurable per location, reportable across the group. The loyalty guest at venue A is recognized at venue B.",
+      metric: "Consistency · across the whole group",
+    },
+    {
+      title: "For the fine-dining GM",
+      body: "VIPs, allergies, special occasions — captured in the reservation note before service starts. Your captain and kitchen see the brief at the same time, every time. Hospitality stops depending on whether the host wrote it down.",
+      metric: "VIP brief · in the note before the door",
+    },
+  ],
+} as const;
+
+export const restaurantAskStrip = {
+  eyebrow: "Ask Sarah anything a guest would",
+  heading: "She's already on the line. Try a real question.",
+  body: "These are the kinds of questions Sarah handles for restaurants every day. Tap one — the live widget will open and answer in your browser.",
+  prompts: [
+    {
+      label: "Can I book a table for four on Saturday?",
+      prompt:
+        "Hi, can I book a table for four on Saturday around 7:30pm?",
+    },
+    {
+      label: "Do you do private dining for a group of 20?",
+      prompt:
+        "I'm planning a birthday dinner for 20 — do you have private dining options?",
+    },
+    {
+      label: "Do you have gluten-free options?",
+      prompt:
+        "I have a gluten allergy — can the kitchen accommodate that?",
+    },
+    {
+      label: "What time do you close on Sundays?",
+      prompt:
+        "Hi, what are your hours on Sunday and is the kitchen open the whole time?",
+    },
+  ],
+  voiceCta: "Or call her live",
+} as const;
+
 export const restaurantFaqItems: FAQItem[] = [
   {
-    question: "Will guests feel like they're talking to a robot?",
+    question: "Will Sarah replace my host stand?",
     answer:
-      "Not at all. Autocrew uses natural language that matches your restaurant's brand voice. Guests get fast, friendly responses — and the AI seamlessly escalates to your team when a personal touch is needed.",
+      "No. Sarah handles the phone — reservations, confirmations, basic questions, review drafts. Your hostess stays at the door, focused on the guests in the room. Anything that needs a human voice (large parties, complaints, special requests) is routed immediately with full context.",
   },
   {
     question: "How long does setup take?",
     answer:
-      "Most restaurants are fully live within 3–5 days. Our team handles the configuration, connects your tools, and walks you through everything. No technical expertise required.",
+      "Most restaurants are live in days, not weeks. We wire up your existing reservation system, POS, and review platforms, tune the call flow to your service style, and validate the handoff rules with your manager. No new tablets, no migration.",
   },
   {
-    question: "Does it work with my existing reservation system?",
+    question: "What tools does it integrate with?",
     answer:
-      "Yes. Autocrew integrates with OpenTable, Resy, Yelp Reservations, Google Reserve, Toast, and more. We're adding new integrations regularly.",
+      "OpenTable, Resy, SevenRooms, Tock, Yelp Reservations, Toast, Square, Lightspeed, Google Business Profile, Yelp, TripAdvisor — plus SMS, email, and voice. We add new integrations on request; if it has an API, we can usually wire it in.",
   },
   {
-    question: "Can it handle special requests and dietary accommodations?",
+    question: "Can guests still book through OpenTable or Resy directly?",
     answer:
-      "Absolutely. The AI captures and flags special requests, allergies, dietary restrictions, and occasions like anniversaries — so your team is prepared before the guest arrives.",
+      "Yes — nothing changes for guests who already book online. Sarah handles the phone calls and the inquiries that don't have a clean online path. Bookings made through her flow into the same reservation system, so your team sees one unified diary.",
   },
   {
-    question: "What about walk-ins and phone orders?",
+    question: "What happens if a guest asks for the manager?",
     answer:
-      "AI manages phone reservations and takeout orders while your host handles walk-ins in person. It's designed to complement your FOH team, not replace them.",
+      "Smart escalation. Complaints, scope-of-service questions, payment disputes, and any request you flag as 'manager-only' are routed immediately to whoever is on shift, on whichever channel you prefer — phone, SMS, or push notification.",
   },
   {
-    question: "Is there a free trial?",
+    question: "Can I try it before I commit?",
     answer:
-      "Yes. We offer a 14-day free trial with full feature access. No credit card required. Start automating your restaurant today and see the difference.",
+      "Yes. Every primary CTA on this page opens the live AutoCrew widget — voice or chat — so you can hear Sarah handle a real reservation question before you book a demo. No sign-up required.",
   },
 ];
 
-// CTA Data
-export const restaurantCtaData = {
+export const restaurantCta = {
+  eyebrow: "Try her, then talk to us",
+  badges: [
+    { label: "30+ integrations", value: "OpenTable · Resy · Toast · Google" },
+    { label: "Setup", value: "Days, not weeks" },
+  ],
   headline: {
     line1: "Stop Missing Calls.",
-    line2: "Start Filling Tables.",
+    line2: "Start Filling Seats.",
   },
   subheadline:
-    "Join restaurants that've reclaimed 15+ hours per week. Start your free trial today.",
-  primaryCta: {
-    text: "Start Free Trial",
-    href: "https://app.autocrew-ai.com/signup",
+    "Pick up the line and ask Sarah a real reservation question — she'll answer the same way she would for one of your guests. When you're ready to wire her into your venue, book a demo and we'll walk through your booking system, POS, and service flow.",
+  contact: {
+    email: {
+      eyebrow: "Send us an email",
+      address: "support@autocrew-ai.com",
+    },
+    demo: {
+      eyebrow: "Schedule a demo",
+      cta: { text: "Book a demo", href: "/contact" },
+    },
+    try: {
+      eyebrow: "Talk to Sarah right now",
+      voiceCta: { text: "Talk to Sarah live" },
+      memberLink: {
+        text: "Already a member? Sign in",
+        href: "https://app.autocrew-ai.com/login",
+      },
+    },
   },
-  secondaryCta: {
-    text: "Book a Demo",
-    href: "/contact",
+  brand: {
+    blurb:
+      "AI host for restaurants — reservations, confirmations, no-show recovery, VIP and allergy capture, and review responses, across the booking, POS, and review tools you already use. Your team stays in the room.",
   },
-};
+} as const;
