@@ -9,6 +9,7 @@ import { CodePanel } from "@/components/deck/primitives/CodePanel";
 import { ACCENT_LIST, type AccentToken, type DisplayStyle } from "@/lib/deck/tokens";
 import { Cover } from "@/components/deck/slides/Cover";
 import { Problem } from "@/components/deck/slides/Problem";
+import { Solution } from "@/components/deck/slides/Solution";
 
 const STYLES: DisplayStyle[] = ["serif-italic", "bold-sans"];
 
@@ -86,6 +87,22 @@ export default function PrimitivesQAPage() {
                       rightLabel: "WIDGET",
                       rightValues: ["CLICK", "TALK", "ANSWERED", "BOOKED"],
                     },
+                  }}
+                />
+              </div>
+              <div style={{ marginTop: 24 }}>
+                <Solution
+                  positionLabel="03 / 15"
+                  content={{
+                    number: "02",
+                    label: "THE SOLUTION",
+                    headlineParts: [
+                      { text: "One widget. " },
+                      { text: "Five surfaces.", accent: true },
+                      { text: " Zero forms." },
+                    ],
+                    body: "Drop a single script tag and any element on the page becomes an entry point to your AI agent — buttons, links, images, sections, even the page itself.",
+                    bullets: ["BUTTONS", "LINKS", "IMAGES", "SECTIONS", "PAGE"],
                   }}
                 />
               </div>
