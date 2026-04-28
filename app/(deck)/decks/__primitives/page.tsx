@@ -7,6 +7,7 @@ import { BodyCopy } from "@/components/deck/primitives/BodyCopy";
 import { MonoLabel } from "@/components/deck/primitives/MonoLabel";
 import { CodePanel } from "@/components/deck/primitives/CodePanel";
 import { ACCENT_LIST, type AccentToken, type DisplayStyle } from "@/lib/deck/tokens";
+import { Cover } from "@/components/deck/slides/Cover";
 
 const STYLES: DisplayStyle[] = ["serif-italic", "bold-sans"];
 
@@ -52,6 +53,20 @@ export default function PrimitivesQAPage() {
                   </div>
                 </div>
               </SlideFrame>
+              <div style={{ marginTop: 24 }}>
+                <Cover
+                  positionLabel="01 / 15"
+                  content={{
+                    eyebrow: "V1.1 · LIVE",
+                    headlineParts: [
+                      { text: "Turn every button into a " },
+                      { text: "live conversation.", accent: true },
+                    ],
+                    sub: "A trigger system for AI agents — five surfaces, zero forms, on any site.",
+                    footerLeft: "autocrew-ai.com / widget",
+                  }}
+                />
+              </div>
             </DeckThemeProvider>
           </div>
         ))
