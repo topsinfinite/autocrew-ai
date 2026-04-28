@@ -1,50 +1,30 @@
 import type { Metadata } from "next";
 import { RestaurantHero } from "@/components/industry/restaurant/restaurant-hero";
-import { RestaurantPainPoints } from "@/components/industry/restaurant/restaurant-pain-points";
-import { RestaurantFeatures } from "@/components/industry/restaurant/restaurant-features";
-import { RestaurantMetrics } from "@/components/industry/restaurant/restaurant-metrics";
-import { RestaurantHowItWorks } from "@/components/industry/restaurant/restaurant-how-it-works";
-import { RestaurantTestimonials } from "@/components/industry/restaurant/restaurant-testimonials";
+import { RestaurantSqueeze } from "@/components/industry/restaurant/restaurant-squeeze";
+import { RestaurantOutcomes } from "@/components/industry/restaurant/restaurant-outcomes";
+import { RestaurantAskStrip } from "@/components/industry/restaurant/restaurant-ask-strip";
+import { RestaurantHandoff } from "@/components/industry/restaurant/restaurant-handoff";
+import { RestaurantIntegrations } from "@/components/industry/restaurant/restaurant-integrations";
+import { RestaurantByRole } from "@/components/industry/restaurant/restaurant-by-role";
 import { RestaurantFaq } from "@/components/industry/restaurant/restaurant-faq";
 import { RestaurantCta } from "@/components/industry/restaurant/restaurant-cta";
 import { CrossIndustryLinks } from "@/components/seo/cross-industry-links";
 import { JsonLd } from "@/components/seo/json-ld";
-import {
-  faqPageSchema,
-  serviceSchema,
-  reviewSchema,
-  howToSchema,
-} from "@/lib/seo/schemas";
-import {
-  restaurantFaqItems,
-  restaurantTestimonialsData,
-  restaurantSteps,
-} from "@/lib/mock-data/restaurant-data";
+import { faqPageSchema, serviceSchema } from "@/lib/seo/schemas";
+import { restaurantFaqItems } from "@/lib/mock-data/restaurant-data";
 
 export const metadata: Metadata = {
   title: "AI Automation for Restaurants",
   description:
-    "Fill every seat with AI-powered reservations, guest communication, and review management. Save 15+ hours per week on admin. Start your free trial.",
+    "Autocrew answers your reservation line during the dinner rush, books the table, sends the confirmation, and flags the VIP — so your team stays in the room. Plugs into OpenTable, Resy, Toast, and Google.",
   alternates: {
     canonical: "/industry/restaurant",
   },
   openGraph: {
     title: "AI Automation for Restaurants",
     description:
-      "Fill every seat with AI-powered reservations, guest communication, and review management. Save 15+ hours per week on admin.",
+      "AI host that handles reservations, no-show recovery, VIP capture, and review responses across the booking, POS, and review tools you already use.",
     url: "/industry/restaurant",
-    images: [
-      {
-        url: "/industry/restaurant/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "AI Automation for Restaurants – Autocrew",
-      },
-    ],
-  },
-  other: {
-    "article:published_time": "2025-12-01",
-    "article:modified_time": "2026-03-10",
   },
 };
 
@@ -55,18 +35,17 @@ export default function RestaurantPage() {
       <JsonLd
         data={serviceSchema(
           "Autocrew for Restaurants",
-          "AI-powered automation platform for restaurant professionals. Handles reservations, guest communication, review management, and operations 24/7.",
-          "AI Automation",
+          "AI host for restaurants — handles reservations, confirmations, no-show recovery, VIP and allergy capture, and review responses across the booking, POS, and review tools you already use (OpenTable, Resy, SevenRooms, Toast, Square, Google, Yelp, TripAdvisor).",
+          "Restaurant Automation",
         )}
       />
-      <JsonLd data={reviewSchema(restaurantTestimonialsData.items)} />
-      <JsonLd data={howToSchema(restaurantSteps)} />
       <RestaurantHero />
-      <RestaurantPainPoints />
-      <RestaurantFeatures />
-      <RestaurantMetrics />
-      <RestaurantHowItWorks />
-      <RestaurantTestimonials />
+      <RestaurantSqueeze />
+      <RestaurantOutcomes />
+      <RestaurantAskStrip />
+      <RestaurantHandoff />
+      <RestaurantIntegrations />
+      <RestaurantByRole />
       <RestaurantFaq />
       <CrossIndustryLinks currentIndustry="Restaurants" />
       <RestaurantCta />
