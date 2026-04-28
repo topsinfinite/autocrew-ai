@@ -1,50 +1,30 @@
 import type { Metadata } from "next";
 import { CoachingHero } from "@/components/industry/coaching/coaching-hero";
-import { CoachingPainPoints } from "@/components/industry/coaching/coaching-pain-points";
-import { CoachingFeatures } from "@/components/industry/coaching/coaching-features";
-import { CoachingMetrics } from "@/components/industry/coaching/coaching-metrics";
-import { CoachingHowItWorks } from "@/components/industry/coaching/coaching-how-it-works";
-import { CoachingTestimonials } from "@/components/industry/coaching/coaching-testimonials";
+import { CoachingSqueeze } from "@/components/industry/coaching/coaching-squeeze";
+import { CoachingOutcomes } from "@/components/industry/coaching/coaching-outcomes";
+import { CoachingAskStrip } from "@/components/industry/coaching/coaching-ask-strip";
+import { CoachingHandoff } from "@/components/industry/coaching/coaching-handoff";
+import { CoachingIntegrations } from "@/components/industry/coaching/coaching-integrations";
+import { CoachingByRole } from "@/components/industry/coaching/coaching-by-role";
 import { CoachingFaq } from "@/components/industry/coaching/coaching-faq";
 import { CoachingCta } from "@/components/industry/coaching/coaching-cta";
 import { CrossIndustryLinks } from "@/components/seo/cross-industry-links";
 import { JsonLd } from "@/components/seo/json-ld";
-import {
-  faqPageSchema,
-  serviceSchema,
-  reviewSchema,
-  howToSchema,
-} from "@/lib/seo/schemas";
-import {
-  coachingFaqItems,
-  coachingTestimonialsData,
-  coachingSteps,
-} from "@/lib/mock-data/coaching-data";
+import { faqPageSchema, serviceSchema } from "@/lib/seo/schemas";
+import { coachingFaqItems } from "@/lib/mock-data/coaching-data";
 
 export const metadata: Metadata = {
   title: "AI Automation for Coaches",
   description:
-    "Scale your coaching practice with AI-powered scheduling, client intake, and intelligent follow-ups. Save 10+ hours per week on admin. Start your free trial.",
+    "Autocrew handles discovery calls, intake, scheduling, payments, and follow-ups in the background — so the work you actually trained for stops getting interrupted. Plugs into Calendly, Stripe, Notion, Slack.",
   alternates: {
     canonical: "/industry/coaching",
   },
   openGraph: {
     title: "AI Automation for Coaches",
     description:
-      "Scale your coaching practice with AI-powered scheduling, client intake, and intelligent follow-ups. Save 10+ hours per week on admin.",
+      "AI coordinator for coaching practices. Handles intake, scheduling, payments, and follow-ups across the tools you already use.",
     url: "/industry/coaching",
-    images: [
-      {
-        url: "/industry/coaching/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "AI Automation for Coaches – Autocrew",
-      },
-    ],
-  },
-  other: {
-    "article:published_time": "2025-11-01",
-    "article:modified_time": "2026-03-10",
   },
 };
 
@@ -55,18 +35,17 @@ export default function CoachingPage() {
       <JsonLd
         data={serviceSchema(
           "Autocrew for Coaches",
-          "AI-powered automation platform for coaching professionals. Handles scheduling, client intake, follow-ups, and admin tasks 24/7.",
-          "AI Automation",
+          "AI coordinator for coaching practices. Handles discovery calls, intake, scheduling, payments, and follow-ups across the tools you already use — Calendly, Stripe, Notion, Slack, Zoom, and more.",
+          "Coaching Automation",
         )}
       />
-      <JsonLd data={reviewSchema(coachingTestimonialsData.items)} />
-      <JsonLd data={howToSchema(coachingSteps)} />
       <CoachingHero />
-      <CoachingPainPoints />
-      <CoachingFeatures />
-      <CoachingMetrics />
-      <CoachingHowItWorks />
-      <CoachingTestimonials />
+      <CoachingSqueeze />
+      <CoachingOutcomes />
+      <CoachingAskStrip />
+      <CoachingHandoff />
+      <CoachingIntegrations />
+      <CoachingByRole />
       <CoachingFaq />
       <CrossIndustryLinks currentIndustry="Coaching" />
       <CoachingCta />

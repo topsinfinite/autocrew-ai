@@ -3,194 +3,218 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  PlayCircle,
-  CalendarPlus,
-  BotMessageSquare,
-  Heart,
-  ChevronRight,
+  CalendarCheck,
+  Mic,
+  Plug,
+  ShieldCheck,
+  Sparkles,
 } from "lucide-react";
-import { SectionBadge } from "@/components/landing/section-badge";
 import { Button } from "@/components/ui/button";
+import { openVoice } from "@/lib/widget/ask-helpers";
 import { coachingHeroData } from "@/lib/mock-data/coaching-data";
-import { cn } from "@/lib/utils";
 
-const workflowIcons = {
-  CalendarPlus,
-  BotMessageSquare,
-  Heart,
-};
-
+/**
+ * Coaching hero — "Connected by default" briefing.
+ *
+ * Same editorial vocabulary as the healthcare hero: mono status masthead,
+ * asymmetric 8/4 split, integrations spec card on the right rail. The
+ * primary action opens the live AutoCrew voice widget so visitors hear
+ * Sarah before they ever talk to a salesperson.
+ */
 export function CoachingHero() {
+  const {
+    status,
+    badges,
+    headline,
+    subheadline,
+    spec,
+    primaryCta,
+    secondaryCta,
+  } = coachingHeroData;
+  const badgeIcon = { plug: Plug, shield: ShieldCheck };
+
   return (
-    <section className="relative z-10 section-glow-bottom overflow-hidden">
-      {/* Grid Background */}
-      <div className="absolute inset-0 pointer-events-none -z-5 overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-        {/* Decorative Crosses */}
-        <div
-          className="absolute top-1/4 left-10 w-4 h-4 text-[#FF6B35]/20 animate-pulse"
-          aria-hidden="true"
-        >
-          +
-        </div>
-        <div
-          className="absolute top-1/3 right-20 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-700"
-          aria-hidden="true"
-        >
-          +
-        </div>
-        <div
-          className="absolute bottom-1/3 left-1/4 w-4 h-4 text-[#FF6B35]/20 animate-pulse delay-300"
-          aria-hidden="true"
-        >
-          +
-        </div>
-
-        {/* Waveform Line */}
-        <svg
-          className="absolute top-1/2 left-0 w-full h-24 stroke-[#FF6B35]/10 fill-none opacity-50"
-          viewBox="0 0 1200 100"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 50 Q 300 100 600 50 T 1200 50"
-            vectorEffect="non-scaling-stroke"
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-5 md:pt-6 pb-4 sm:pb-6 relative z-10">
-        <div className="text-center max-w-4xl mt-4 sm:mt-6 mx-auto">
-          {/* Badge */}
-          <div
-            className="mb-6 animate-fade-up opacity-0"
-            style={{ animationDelay: "0ms", animationFillMode: "forwards" }}
-          >
-            <SectionBadge>{coachingHeroData.badge}</SectionBadge>
-          </div>
-
-          {/* Headline */}
-          <h1
-            className={cn(
-              "text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight font-space-grotesk text-foreground mb-6 leading-[1.1]",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
-          >
-            <span className="block">{coachingHeroData.headline.prefix}</span>
-            <span className="lg:whitespace-nowrap relative block">
-              <span className="hidden lg:block absolute bottom-2 left-0 w-full h-4 bg-[#FF6B35]/10 -skew-x-6 -z-10 rounded-sm" />
-              <span className="text-[#FF6B35]">
-                {coachingHeroData.headline.accent}
-              </span>
-            </span>
-          </h1>
-
-          {/* Subheadline */}
-          <p
-            className={cn(
-              "md:text-xl text-lg text-muted-foreground font-geist max-w-2xl mx-auto leading-relaxed",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
-          >
-            {coachingHeroData.subheadline}
-          </p>
-
-          {/* CTAs */}
-          <div
-            className={cn(
-              "flex flex-col sm:flex-row mt-10 items-center justify-center gap-4",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
-          >
-            <Button
-              variant="pill"
-              size="pill-lg"
-              className="w-full sm:w-auto group"
-              asChild
-            >
-              <Link href={coachingHeroData.primaryCta.href}>
-                {coachingHeroData.primaryCta.text}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            </Button>
-
-            <Link
-              href={coachingHeroData.secondaryCta.href}
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <PlayCircle className="w-4 h-4 text-[#FF6B35]" />
-              {coachingHeroData.secondaryCta.text}
-            </Link>
-          </div>
-
-          {/* Trust Text */}
-          <div
-            className={cn(
-              "flex text-sm mt-8 items-center justify-center text-muted-foreground",
-              "animate-fade-up opacity-0",
-            )}
-            style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
-          >
-            <span className="font-geist">{coachingHeroData.trustText}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Workflow Cascade Visual */}
+    <section className="relative z-10 overflow-hidden">
       <div
-        className="animate-scale-in opacity-0 max-w-[800px] mx-auto px-4 mt-12 pb-20 relative z-20"
-        style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
-      >
-        <div className="relative">
-          {/* Glow behind workflow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#FF6B35]/15 blur-[100px] -z-10 rounded-full" />
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(128,128,128,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.06)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,#000_55%,transparent_100%)]"
+      />
 
-          {/* Workflow Steps */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0">
-            {coachingHeroData.workflowSteps.map((step, index) => {
-              const Icon =
-                workflowIcons[step.icon as keyof typeof workflowIcons];
-              const isLast =
-                index === coachingHeroData.workflowSteps.length - 1;
+      <div className="relative mx-auto max-w-[1320px] px-6 pb-16 pt-12 lg:pb-24 lg:pt-16">
+        {/* Status masthead */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/55">
+          <span className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60 motion-reduce:hidden" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            On-duty
+          </span>
+          <span className="text-foreground/30">·</span>
+          <span>{status.location}</span>
+          <span className="text-foreground/30">·</span>
+          <span>{status.role}</span>
+          <span className="text-foreground/30">·</span>
+          <span className="tabular-nums">{status.coverage}</span>
+          <span className="text-foreground/30">·</span>
+          <span>{status.standard}</span>
+        </div>
 
-              return (
-                <div
-                  key={step.label}
-                  className="flex items-center gap-4 sm:gap-0"
-                >
-                  {/* Step Card */}
-                  <div
-                    className={cn(
-                      "flex items-center gap-3 px-6 py-4 rounded-2xl",
-                      "bg-card/80 border border-white/[0.08] backdrop-blur-sm",
-                      "hover:border-[#FF6B35]/30 hover:shadow-[0_0_20px_-5px_rgba(255,107,53,0.2)]",
-                      "transition-all duration-300",
-                    )}
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-[#FF6B35]/10 border border-[#FF6B35]/20 flex items-center justify-center text-[#FF6B35]">
-                      {Icon ? <Icon className="w-5 h-5" /> : null}
-                    </div>
-                    <span className="text-sm font-medium font-space-grotesk text-foreground whitespace-nowrap">
-                      {step.label}
-                    </span>
-                  </div>
+        {/* Asymmetric headline */}
+        <div className="mt-8 grid gap-6 lg:mt-10 lg:grid-cols-12 lg:gap-16">
+          <h1 className="lg:col-span-8 font-space-grotesk font-semibold text-foreground text-[clamp(2.25rem,4.4vw,4rem)] leading-[1.04] tracking-[-0.02em]">
+            {headline.prefix}{" "}
+            <span className="text-[#FF6B35]">{headline.accent}</span>
+          </h1>
+          <p className="lg:col-span-4 max-w-[44ch] self-end font-geist text-[15px] leading-[1.6] text-foreground/70">
+            {subheadline}
+          </p>
+        </div>
 
-                  {/* Connector Arrow */}
-                  {!isLast && (
-                    <div className="hidden sm:flex items-center px-3">
-                      <div className="w-8 h-px bg-gradient-to-r from-[#FF6B35]/40 to-[#FF6B35]/10" />
-                      <ChevronRight className="w-4 h-4 text-[#FF6B35]/40 -ml-1" />
-                    </div>
-                  )}
+        {/* Badge row */}
+        <ul className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 lg:mt-7">
+          {badges.map((b) => {
+            const Icon = badgeIcon[b.icon];
+            return (
+              <li
+                key={b.label}
+                className="inline-flex items-center gap-2 rounded-full border border-[#FF6B35]/25 bg-[#FF6B35]/[0.06] px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-[#FF6B35]"
+              >
+                <Icon className="h-3.5 w-3.5" aria-hidden />
+                {b.label}
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Console grid: copy column + spec card */}
+        <div className="mt-10 grid gap-4 lg:mt-12 lg:grid-cols-12">
+          {/* Copy / CTAs column */}
+          <div className="min-w-0 lg:col-span-8">
+            <div className="rounded-2xl border border-[var(--border-subtle)] bg-card">
+              <div className="flex items-center justify-between gap-4 border-b border-[var(--border-subtle)] bg-foreground/[0.025] px-5 py-3">
+                <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
+                  <CalendarCheck
+                    className="h-3.5 w-3.5 text-[#FF6B35]"
+                    aria-hidden
+                  />
+                  Coaching ops · Background
                 </div>
-              );
-            })}
+                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/45">
+                  You stay 1:1 with clients
+                </div>
+              </div>
+
+              <div className="px-5 py-7 sm:px-7 sm:py-8">
+                <ul className="grid gap-x-8 gap-y-4 font-geist text-[15px] leading-[1.55] text-foreground/80 sm:grid-cols-2">
+                  <li className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[9px] inline-block h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
+                    />
+                    <span>
+                      Books discovery calls and sessions through{" "}
+                      <span className="text-foreground">your Calendly</span> —
+                      no new client portal.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[9px] inline-block h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
+                    />
+                    <span>
+                      Runs intake and signed agreements before the{" "}
+                      <span className="text-foreground">first session</span>.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[9px] inline-block h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
+                    />
+                    <span>
+                      Sends post-session follow-ups in{" "}
+                      <span className="text-foreground">your voice</span>, on
+                      your cadence.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[9px] inline-block h-1 w-1 shrink-0 rounded-full bg-[#FF6B35]"
+                    />
+                    <span>
+                      Hands{" "}
+                      <span className="text-foreground">anything sensitive</span>{" "}
+                      to you immediately, with full context.
+                    </span>
+                  </li>
+                </ul>
+
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <Button
+                    variant="pill"
+                    size="pill-lg"
+                    onClick={() => openVoice()}
+                    className="group shadow-[0_0_18px_rgba(255,107,53,0.35)] hover:shadow-[0_0_22px_rgba(255,107,53,0.5)]"
+                  >
+                    <Mic className="h-4 w-4" aria-hidden />
+                    {primaryCta.text}
+                  </Button>
+                  <Link
+                    href={secondaryCta.href}
+                    className="inline-flex items-center gap-2 font-geist text-[14px] text-foreground/70 transition-colors hover:text-foreground"
+                  >
+                    {secondaryCta.text}
+                    <ArrowRight className="h-4 w-4 text-[#FF6B35]" aria-hidden />
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* Spec card — integrations */}
+          <aside className="min-w-0 lg:col-span-4">
+            <div className="flex h-full flex-col gap-5 rounded-2xl border border-[var(--border-subtle)] bg-foreground/[0.02] p-5 lg:p-6">
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/45">
+                    {spec.label}
+                  </div>
+                  <div className="mt-2 font-space-grotesk text-[28px] font-semibold leading-[1.05] tracking-tight text-foreground">
+                    {spec.figure}
+                  </div>
+                  <div className="mt-2 font-geist text-[12.5px] text-foreground/55">
+                    {spec.figureSub}
+                  </div>
+                </div>
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#FF6B35]/40 bg-[#FF6B35]/10 text-[#FF6B35]">
+                  <Sparkles className="h-4 w-4" aria-hidden />
+                </span>
+              </div>
+
+              <dl className="grid grid-cols-1 gap-2.5">
+                {spec.cells.map((cell) => (
+                  <div
+                    key={cell.label}
+                    className="rounded-lg border border-[var(--border-subtle)] bg-foreground/[0.015] px-3 py-2.5"
+                  >
+                    <dt className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-foreground/45">
+                      {cell.label}
+                    </dt>
+                    <dd className="mt-0.5 font-space-grotesk text-[14.5px] font-semibold tracking-[-0.005em] text-foreground">
+                      {cell.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="mt-auto font-mono text-[9.5px] uppercase tracking-[0.2em] text-foreground/40">
+                {spec.footer}
+              </p>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
