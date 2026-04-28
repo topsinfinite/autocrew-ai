@@ -168,7 +168,7 @@ Internal-only deck builder for the AutoCrew sales team. Password-gated, browser-
 
 **Where to access**
 
-- Live at `/decks/__login` (set `DECKS_PASSWORD` and `DECKS_AUTH_SECRET` env vars first; see `.env.example`).
+- Live at `/decks/login` (set `DECKS_PASSWORD` and `DECKS_AUTH_SECRET` env vars first; see `.env.example`).
 - Full design: `docs/superpowers/specs/2026-04-28-sales-deck-builder-design.md`
 - Implementation plan: `docs/superpowers/plans/2026-04-28-sales-deck-builder.md` (+ `-part2.md`)
 - Parking lot: `docs/superpowers/parking-lot/2026-04-28-{workflow-c-live-page-editor,deck-builder-v2-and-beyond}.md`

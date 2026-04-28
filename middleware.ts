@@ -9,7 +9,7 @@ export const config = {
 const COOKIE_NAME = "decks_auth";
 
 const PUBLIC_PATHS = new Set<string>([
-  "/decks/__login",
+  "/decks/login",
   "/api/decks/auth",
 ]);
 
@@ -34,7 +34,7 @@ export async function middleware(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     const url = req.nextUrl.clone();
-    url.pathname = "/decks/__login";
+    url.pathname = "/decks/login";
     url.searchParams.set("from", pathname);
     return NextResponse.redirect(url);
   }

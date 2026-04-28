@@ -1,10 +1,18 @@
 # Sales Deck Builder — Design Spec
 
-**Status:** Approved design, awaiting implementation plan
+**Status:** Implemented in PR #12. This document captures the original design intent.
 **Date:** 2026-04-28
 **Author:** Brainstorm session (Claude + jeberulz)
 **Scope:** v1 of an internal-only deck builder for the AutoCrew sales team
 **Parking lot:** `docs/superpowers/parking-lot/2026-04-28-workflow-c-live-page-editor.md` and `docs/superpowers/parking-lot/2026-04-28-deck-builder-v2-and-beyond.md`
+
+> **Post-implementation correction (read this first if checking the spec against the live code):**
+> The spec uses `/decks/__login` and `/decks/__primitives`. Next.js App Router treats any
+> folder whose name starts with `_` as a **private folder** that is excluded from routing —
+> so `__login` and `__primitives` 404 in practice. The shipped implementation uses
+> `/decks/login` and `/decks/primitives` (no leading underscores). Substitute mentally
+> wherever this spec mentions `__login` or `__primitives`. The middleware's `PUBLIC_PATHS`
+> set and redirect target use the corrected names.
 
 ---
 
