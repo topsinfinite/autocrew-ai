@@ -161,3 +161,47 @@ On submit, `lib/contextual-ai/adapter.ts` composes the selection, section label,
 **Opt an element out**
 
 Stamp `data-contextual-ai="off"` on any element; selections inside it are ignored.
+
+## Sales Deck Builder (`/decks`)
+
+Internal-only deck builder for the AutoCrew sales team. Password-gated, browser-local (Workflow A — no DB), client-side PDF + PPTX export.
+
+**Where to access**
+
+- Live at `/decks/__login` (set `DECKS_PASSWORD` and `DECKS_AUTH_SECRET` env vars first; see `.env.example`).
+- Full design: `docs/superpowers/specs/2026-04-28-sales-deck-builder-design.md`
+- Implementation plan: `docs/superpowers/plans/2026-04-28-sales-deck-builder.md` (+ `-part2.md`)
+- Parking lot: `docs/superpowers/parking-lot/2026-04-28-{workflow-c-live-page-editor,deck-builder-v2-and-beyond}.md`
+
+**Code layout**
+
+- `app/(deck)/` — isolated route group with its own layout + `decks.css` (scoped to `[data-surface="deck"]`). Pages nest under `decks/` because `(deck)` is a route group with no URL segment, so e.g. `app/(deck)/decks/preview/[id]/page.tsx` resolves to `/decks/preview/<id>`.
+- `app/api/decks/auth/route.ts` — POST password gate; HMAC cookie via `lib/deck/auth.ts`.
+- `middleware.ts` (root) — gates `/decks/*` and `/api/decks/*`.
+- `components/deck/primitives/*` — 7 slide primitives (SlideFrame, SlideHeader, DisplayHeadline, BodyCopy, Accent, MonoLabel, CodePanel).
+- `components/deck/slides/*` — 13 slide templates composed from primitives.
+- `components/deck/builder/*` — wizard, editor shell, slide rail (drag-reorder via `@dnd-kit`), slide stage, JSON inspector, login form, hidden render iframe, download buttons.
+- `lib/deck/templates/*` — 4 deck-template manifests (Widget Pitch=15, Healthcare=10, Restaurant=10, Blank=2).
+- `lib/deck/state.ts` + `draft-factory.ts` + `personalization.ts` + `hash.ts` + `canonical-json.ts` + `filename.ts` + `image.ts` — state layer.
+- `lib/deck/exporters/{pdf,pptx,wait}.ts` — client-side export pipeline.
+
+**Hard isolation rules**
+
+- ESLint config blocks `components/deck/**` and `lib/deck/**` from importing `components/landing/**` or `components/layout/**`.
+- Deck CSS variables live under `[data-surface="deck"]`, NOT `:root`. They also override marketing tokens (`--background`, `--primary`, etc.) so a stray Tailwind utility resolves to deck colors instead of cyan.
+- The marketing site is untouched by the deck feature.
+
+**Design system**
+
+- Dark `#0A0A0A` bg, 6 swappable accent colors (green default), 2 swappable display styles (Instrument Serif italic / Geist 700). Per-deck choice via `DeckThemeProvider` cascading CSS vars.
+- Slides are 1920×1080. PDF export uses `window.print()` with `@page` 1920×1080 rules in `decks.css`. PPTX export uses `html2canvas` per slide → `PptxGenJS` image-based PPT.
+
+**End-to-end flow**
+
+1. Sales hits `/decks` → password gate → gallery.
+2. Picks a deck template → wizard form (prospect, accent, display style, optional sales-rep info — sales-rep persists per browser).
+3. Editor opens at `/decks/preview/<id>`. Drag-reorder slides, toggle include/exclude, edit content via JSON inspector (right panel). Auto-save to localStorage debounced 500ms.
+4. Click PDF → browser print dialog → Save as PDF (vector text).
+5. Click PPTX → progress per slide → file downloads (image-based PPTX, opens in PowerPoint/Keynote pixel-identical to PDF).
+
+**Drafts are browser-local** — no DB, no cross-machine sync, no sharing. PDF/PPTX is the artifact for sharing. If a sales rep's browser cache clears, the draft is gone (intentional for v1; see parking lot for Workflow B if/when persistence is needed).

@@ -1,0 +1,84 @@
+/* Deck design tokens — scoped to [data-surface="deck"] so they never leak into the marketing site. */
+[data-surface="deck"] {
+  --deck-bg: #0A0A0A;
+  --deck-surface: #0F0F0F;
+  --deck-border: #1F1F1F;
+  --deck-text-primary: #FFFFFF;
+  --deck-text-muted: #7A7A7A;
+
+  --deck-accent-green: #5EBD3E;
+  --deck-accent-yellow: #FFB900;
+  --deck-accent-orange: #F78200;
+  --deck-accent-red: #E23838;
+  --deck-accent-purple: #973999;
+  --deck-accent-blue: #009CDF;
+
+  /* Active accent — set by DeckThemeContext via inline style. Default fallback to green. */
+  --deck-accent: var(--deck-accent-green);
+
+  /* Display family pair — switched by DeckThemeContext via inline style. */
+  --deck-display-family: var(--font-instrument-serif), Georgia, serif;
+  --deck-display-style: italic;
+  --deck-display-weight: 400;
+
+  --deck-body-family: var(--font-geist-sans), -apple-system, sans-serif;
+  --deck-mono-family: var(--font-dm-mono), "SF Mono", Menlo, monospace;
+
+  /* Block marketing CSS tokens from leaking in. The root layout loads globals.css,
+     which sets :root variables for the marketing palette (cyan/teal). We override
+     them inside the deck surface so any accidental Tailwind utility (bg-background,
+     text-foreground, etc.) resolves to deck tokens instead of marketing colors. */
+  --background: var(--deck-bg);
+  --foreground: var(--deck-text-primary);
+  --card: var(--deck-surface);
+  --card-foreground: var(--deck-text-primary);
+  --popover: var(--deck-surface);
+  --popover-foreground: var(--deck-text-primary);
+  --primary: var(--deck-accent);
+  --primary-foreground: #000000;
+  --secondary: var(--deck-surface);
+  --secondary-foreground: var(--deck-text-primary);
+  --muted: var(--deck-surface);
+  --muted-foreground: var(--deck-text-muted);
+  --accent: var(--deck-accent);
+  --accent-foreground: #000000;
+  --destructive: var(--deck-accent-red);
+  --destructive-foreground: #ffffff;
+  --border: var(--deck-border);
+  --input: var(--deck-border);
+  --ring: var(--deck-accent);
+  --radius: 2px;
+
+  background: var(--deck-bg);
+  color: var(--deck-text-primary);
+  font-family: var(--deck-body-family);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Print stylesheet for /decks/render/[id]. Each slide becomes a 1920×1080 page. */
+@page {
+  size: 1920px 1080px;
+  margin: 0;
+}
+@media print {
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    background: #0A0A0A;
+    margin: 0;
+    padding: 0;
+  }
+  [data-deck-slide] {
+    width: 1920px;
+    height: 1080px;
+    page-break-after: always;
+    break-after: page;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  [data-deck-slide]:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
