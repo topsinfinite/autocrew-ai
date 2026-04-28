@@ -8,6 +8,7 @@ import { MonoLabel } from "@/components/deck/primitives/MonoLabel";
 import { CodePanel } from "@/components/deck/primitives/CodePanel";
 import { ACCENT_LIST, type AccentToken, type DisplayStyle } from "@/lib/deck/tokens";
 import { Cover } from "@/components/deck/slides/Cover";
+import { Problem } from "@/components/deck/slides/Problem";
 
 const STYLES: DisplayStyle[] = ["serif-italic", "bold-sans"];
 
@@ -64,6 +65,27 @@ export default function PrimitivesQAPage() {
                     ],
                     sub: "A trigger system for AI agents — five surfaces, zero forms, on any site.",
                     footerLeft: "autocrew-ai.com / widget",
+                  }}
+                />
+              </div>
+              <div style={{ marginTop: 24 }}>
+                <Problem
+                  positionLabel="02 / 15"
+                  content={{
+                    number: "01",
+                    label: "THE PROBLEM",
+                    headlineParts: [
+                      { text: "Static forms send visitors into a " },
+                      { text: "queue", accent: true },
+                      { text: ". Conversations don’t." },
+                    ],
+                    body: "Every “Contact us” button is a form. Every form is a wait. The widget flips that model: visitors talk to your AI agent immediately.",
+                    comparison: {
+                      leftLabel: "FORM",
+                      leftValues: ["FILL", "SUBMIT", "WAIT", "MAYBE REPLY"],
+                      rightLabel: "WIDGET",
+                      rightValues: ["CLICK", "TALK", "ANSWERED", "BOOKED"],
+                    },
                   }}
                 />
               </div>
