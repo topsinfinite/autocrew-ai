@@ -11,6 +11,7 @@ import { Cover } from "@/components/deck/slides/Cover";
 import { Problem } from "@/components/deck/slides/Problem";
 import { Solution } from "@/components/deck/slides/Solution";
 import { FiveCardGrid } from "@/components/deck/slides/FiveCardGrid";
+import { DetailWithCode } from "@/components/deck/slides/DetailWithCode";
 
 const STYLES: DisplayStyle[] = ["serif-italic", "bold-sans"];
 
@@ -123,6 +124,23 @@ export default function PrimitivesQAPage() {
                       { number: "04", title: "Sections", body: "Whole sections become a “tap to ask” surface." },
                       { number: "05", title: "Page", body: "The entire page is one giant smart surface." },
                     ],
+                  }}
+                />
+              </div>
+              <div style={{ marginTop: 24 }}>
+                <DetailWithCode
+                  positionLabel="05 / 15"
+                  content={{
+                    number: "01",
+                    label: "DECLARATIVE",
+                    headline: "Stamp an attribute. You’re live.",
+                    body: "Add a single data attribute to any element and it becomes a trigger. No JS wiring, no event handlers, no state to manage.",
+                    bestFor: ["Marketing pages", "Static sites", "Quick experiments"],
+                    code: {
+                      filename: "example.html",
+                      cornerLabel: "01 / 05",
+                      code: `<button data-autocrew-question="What are your hours?">\n  See our hours\n</button>`,
+                    },
                   }}
                 />
               </div>
