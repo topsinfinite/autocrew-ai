@@ -161,3 +161,16 @@ On submit, `lib/contextual-ai/adapter.ts` composes the selection, section label,
 **Opt an element out**
 
 Stamp `data-contextual-ai="off"` on any element; selections inside it are ignored.
+
+## Sarah Training Corpus
+
+Hand-authored Markdown documents that train the AutoCrew widget on this site live
+in `content/sarah-training/`. One `.md` per landing page, plus a brand doc and a
+product doc. Whenever a landing page or its `lib/mock-data/*.ts` source is edited,
+update the matching `.md` file (bump `version` and `last_updated` in the
+frontmatter, append a line to `CHANGELOG.md`), and re-upload it in the AutoCrew
+admin under "Sarah → Knowledge documents."
+
+See `content/sarah-training/README.md` for the page-to-doc mapping and the
+authoring rules (no fabricated metrics, source files in frontmatter, 11-section
+structure).
