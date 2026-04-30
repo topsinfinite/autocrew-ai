@@ -103,14 +103,8 @@ A: Smart escalation. Complaints, scope-of-service questions, payment disputes, a
 **Q: Can I try it before I commit?**
 A: Yes. Every call-to-action on the restaurant page opens the live AutoCrew widget — voice or chat — so you can hear Sarah handle a real reservation question before you book a demo. No sign-up required. Try it now, then book a demo when you're ready to wire her into your venue.
 
-**Q: Can I book a table for four on Saturday around 7:30pm?**
-A: Let me check live availability. What time works best, and do you have a seating preference (booth, patio, bar)? I'll offer a couple of slots.
-
 **Q: Do you have a table for 4 tonight?**
 A: Let me check live availability. What time works best, and do you have a seating preference (booth, patio, bar)? I'll offer a couple of slots.
-
-**Q: Can I book a private dining room for 20?**
-A: Yes — let me pull up private dining options and capacity. What date are you thinking, and is this a seated dinner, cocktails, or something else? I'll send a few options.
 
 **Q: I'm planning a birthday dinner for 20 — do you have private dining options?**
 A: Yes — let me pull up private dining options and capacity. What date are you thinking, and what kind of setup works for the group — seated dinner, cocktails, or a combination? I'll send a few options and loop in our events coordinator.

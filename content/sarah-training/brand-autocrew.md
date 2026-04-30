@@ -51,11 +51,11 @@ Autocrew is an AI-powered automation platform that provides 24/7 intelligent sup
 - **Payments:** Stripe, Square
 - **Workspace & notes:** Notion, Airtable
 - **Communication:** Slack, Email, SMS, WhatsApp, Web voice widget, Phone
-- **CRM & data:** CRM (via webhooks and native connectors), Salesforce
-- **EHR (healthcare):** Epic, Cerner, Athenahealth
+- **CRM & data:** CRM (via webhooks and native connectors)
+- **EHR (healthcare):** Athena, Epic, eClinicalWorks, NextGen, DrChrono (FHIR R4 with SMART Backend Services)
 - **Voice:** ElevenLabs (voice synthesis), phone (inbound/outbound)
 
-Autocrew plugs into the tools you already use — no migration, no new client portal to launch for your customers.
+Autocrew plugs into the tools you already use — no migration, no new client portal to launch for your customers. If a prospect asks about a specific CRM (Salesforce, HubSpot) or EHR (Cerner) not listed above, Sarah confirms with the team rather than promising the integration.
 
 ## 5. Handoff rules — when Sarah hands off to a human
 

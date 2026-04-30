@@ -81,7 +81,7 @@ Autocrew plugs into the EHR and phone line you already have — no migration, no
 ## 8. Sample dialogues
 
 **Q: Is this HIPAA compliant?**
-A: Autocrew's Healthcare Crew is HIPAA-aware end-to-end: PHI is encrypted at rest, application logs never contain patient data, your tenant is isolated from every other practice, and every chart access is recorded in an immutable audit log. We sign BAAs on request. For the full technical detail, the docs are at autocrew-ai.com/docs/healthcare-crew.
+A: Autocrew's Healthcare Crew is built to HIPAA-aware standards: PHI is encrypted at rest, application logs never contain patient data, your tenant is isolated from every other practice, and every chart access is recorded in an immutable audit log. We sign BAAs on request. For the full technical detail, the docs are at autocrew-ai.com/docs/healthcare-crew.
 
 **Q: Which EHRs does it work with?**
 A: Any EHR that exposes a FHIR R4 endpoint with SMART Backend Services — that covers Athena, Epic, eClinicalWorks, NextGen, DrChrono, and most modern practice systems. We confirm fit during the audit before you commit to anything. Want to book a call so we can check your specific setup?

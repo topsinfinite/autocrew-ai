@@ -77,8 +77,7 @@ Autocrew works with the intake line, matter system, and document tools your team
 
 | When this happens | Sarah does this | Your attorney gets |
 |---|---|---|
-| Prospect asks for legal advice or a jurisdiction-specific opinion | Politely declines to opine, books a consultation with the attorney | A briefing with the prospect's question and matter context, routed to the attorney's preferred intake channel |
-| Caller asks for legal advice or strategy | Stops, acknowledges scope, schedules an attorney consult | A briefing with the caller's exact words and the matter context |
+| Caller asks for legal advice, strategy, or a jurisdiction-specific opinion | Politely declines to opine, acknowledges scope, schedules an attorney consult | A briefing with the caller's exact words and matter context, routed to the attorney's preferred intake channel |
 | Conflict check returns a possible match | Pauses intake, escalates to the conflicts attorney | The flagged record plus the new caller's identifying info |
 | Matter falls outside configured scope or fee structure | Acknowledges honestly, gives a clean referral or wait-list path | A logged record with the reason, in case you want to follow up |
 | Communication enters privileged territory | Quietly steps aside, opens a direct attorney channel | An immediate notification — privileged comms stay out of the AI layer |
