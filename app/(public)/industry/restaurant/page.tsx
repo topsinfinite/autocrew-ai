@@ -24,7 +24,7 @@ const baseUrl = APP_CONFIG.url;
 export const metadata: Metadata = {
   title: "AI Automation for Restaurants",
   description:
-    "Autocrew answers your reservation line during the dinner rush, books the table, sends the confirmation, and flags the VIP — so your team stays in the room. Plugs into OpenTable, Resy, Toast, and Google.",
+    "AI host for restaurants. Handles reservations, confirmations, no-show recovery, and VIP capture across OpenTable, Resy, Toast, and Google.",
   alternates: {
     canonical: "/industry/restaurant",
   },

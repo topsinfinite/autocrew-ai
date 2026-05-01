@@ -24,7 +24,7 @@ const baseUrl = APP_CONFIG.url;
 export const metadata: Metadata = {
   title: "AI Automation for Law Firms, Legal Ops & Legal Aid",
   description:
-    "Autocrew handles intake, conflict screening, document collection, and routine client communication — so your attorneys stay on substantive work. Privilege-respecting, conflicts-aware, integrated with Clio / LegalServer / MyCase.",
+    "Privilege-respecting AI intake for law firms. Conflict screening, document collection, and routine client comms — Clio, LegalServer, MyCase.",
   alternates: {
     canonical: "/industry/legal",
   },

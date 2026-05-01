@@ -23,7 +23,7 @@ const baseUrl = APP_CONFIG.url;
 export const metadata: Metadata = {
   title: "AI Automation for Healthcare Practices",
   description:
-    "Autocrew answers your clinic's calls 24/7 — books appointments, completes intake, triages refills, and hands the rare exception cleanly to your team. HIPAA-aware, EHR-integrated.",
+    "HIPAA-aware AI receptionist for clinics. Books appointments, completes intake, triages refills, and escalates to staff with full context.",
   alternates: {
     canonical: "/industry/healthcare",
   },

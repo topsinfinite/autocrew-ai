@@ -24,7 +24,7 @@ const baseUrl = APP_CONFIG.url;
 export const metadata: Metadata = {
   title: "AI Automation for Coaches",
   description:
-    "Autocrew handles discovery calls, intake, scheduling, payments, and follow-ups in the background — so the work you actually trained for stops getting interrupted. Plugs into Calendly, Stripe, Notion, Slack.",
+    "AI coordinator that handles discovery calls, intake, scheduling, payments, and follow-ups — across Calendly, Stripe, Notion, and Slack.",
   alternates: {
     canonical: "/industry/coaching",
   },
