@@ -88,12 +88,12 @@ const STYLE_BLUEPRINT = [
 
 const PROMPTS = {
   "sarah-autocrew": [
-    "A friendly stylised portrait avatar of an AI receptionist named Sarah",
-    "for a small-business voice-AI brand. Three-quarter framing, shoulders",
-    "and head only, calm and approachable expression, looking slightly off",
-    "to one side. A slim modern headset is visible to suggest a phone agent.",
-    "Centered subject, square composition with the head occupying the upper",
-    "two-thirds so it crops cleanly inside a circular frame.",
+    "Avatar headshot of one friendly woman named Sarah, an AI receptionist.",
+    "ONE person. Head and shoulders, facing the viewer, warm soft smile,",
+    "short bob hair. Slim modern call-center headset with mic on her ear.",
+    "Face centered, fills most of the square, crops cleanly into a small",
+    "circular avatar. Plain cream background — no rooms, no objects, no",
+    "other people. Magazine contributor profile-photo composition.",
   ].join(" "),
   "autocrew-team": [
     "A small editorial vignette representing an editorial team for a",
