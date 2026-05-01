@@ -115,6 +115,7 @@ Available gstack skills:
 - `/unfreeze` - Unfreeze deployments
 - `/gstack-upgrade` - Upgrade gstack
 - `/learn` - Learn workflow
+- `/new-post` - Full-cycle blog post creation (research → draft → cover → QA → ship)
 
 ## Skill routing
 
@@ -136,6 +137,7 @@ Key routing rules:
 - Architecture review → invoke plan-eng-review
 - Save progress, checkpoint, resume → invoke checkpoint
 - Code quality, health check → invoke health
+- New blog post, write a post, publish a post, create blog content → invoke new-post
 
 ## Contextual AI (Highlight-to-Chat)
 
