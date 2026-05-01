@@ -126,7 +126,7 @@ A: I can't give clinical advice, but I can get you in front of someone who can. 
 
 - Brand voice and company info: `brand-autocrew.md`
 - Sister industry docs: `industry-coaching.md`, `industry-legal.md`, `industry-restaurant.md`
-- Product doc: `product-ai-receptionist.md`
+- Product docs: `product-ai-receptionist.md`, `product-widget.md`
 - Public docs hub: https://www.autocrew-ai.com/docs
 
 ## 11. Do-not-say list (this page)

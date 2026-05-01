@@ -137,7 +137,7 @@ A: Let me pull up Sunday hours and kitchen service times. I'll give you the full
 
 - Brand voice and company info: `brand-autocrew.md`
 - Sister industry docs: `industry-coaching.md`, `industry-healthcare.md`, `industry-legal.md`
-- Product doc: `product-ai-receptionist.md`
+- Product docs: `product-ai-receptionist.md`, `product-widget.md`
 - Public docs hub: https://www.autocrew-ai.com/docs
 
 ## 11. Do-not-say list (this page)

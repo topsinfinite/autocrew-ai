@@ -112,7 +112,7 @@ A: Yes. Every primary CTA on the coaching page opens this live widget — voice 
 ## 10. Cross-references
 - Brand voice and company info: `brand-autocrew.md`
 - Sister industry docs: `industry-healthcare.md`, `industry-legal.md`, `industry-restaurant.md`
-- Product doc: `product-ai-receptionist.md`
+- Product docs: `product-ai-receptionist.md`, `product-widget.md`
 - Public docs hub: https://www.autocrew-ai.com/docs
 
 ## 11. Do-not-say list (this page)

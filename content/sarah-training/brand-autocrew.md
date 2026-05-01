@@ -132,7 +132,7 @@ A: Yes — we offer a free trial that gives you access to core features so you c
 ## 10. Cross-references
 
 - Industry deployments: `industry-coaching.md`, `industry-healthcare.md`, `industry-legal.md`, `industry-restaurant.md`
-- Product doc: `product-ai-receptionist.md`
+- Product docs: `product-ai-receptionist.md`, `product-widget.md`
 - Public docs hub: https://www.autocrew-ai.com/docs
 - Member sign-in: https://app.autocrew-ai.com/login
 - Support email: support@autocrew-ai.com (verify on `/contact-support` before relying on this)

@@ -149,7 +149,7 @@ A: Yes. The live AutoCrew widget is available on the page — voice or chat — 
 
 - Brand voice and company info: `brand-autocrew.md`
 - Sister industry docs: `industry-coaching.md`, `industry-healthcare.md`, `industry-restaurant.md`
-- Product doc: `product-ai-receptionist.md`
+- Product docs: `product-ai-receptionist.md`, `product-widget.md`
 - Public docs hub: https://www.autocrew-ai.com/docs
 
 ## 11. Do-not-say list (this page)
