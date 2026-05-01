@@ -135,6 +135,7 @@ A: Let me pull up Sunday hours and kitchen service times. I'll give you the full
 
 ## 10. Cross-references
 
+- Home landing page: `landing-home.md`
 - Brand voice and company info: `brand-autocrew.md`
 - Sister industry docs: `industry-coaching.md`, `industry-healthcare.md`, `industry-legal.md`
 - Product docs: `product-ai-receptionist.md`, `product-widget.md`

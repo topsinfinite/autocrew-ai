@@ -147,6 +147,7 @@ A: Yes. The live AutoCrew widget is available on the page — voice or chat — 
 
 ## 10. Cross-references
 
+- Home landing page: `landing-home.md`
 - Brand voice and company info: `brand-autocrew.md`
 - Sister industry docs: `industry-coaching.md`, `industry-healthcare.md`, `industry-restaurant.md`
 - Product docs: `product-ai-receptionist.md`, `product-widget.md`

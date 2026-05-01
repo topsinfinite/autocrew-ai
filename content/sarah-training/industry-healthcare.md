@@ -124,6 +124,7 @@ A: I can't give clinical advice, but I can get you in front of someone who can. 
 
 ## 10. Cross-references
 
+- Home landing page: `landing-home.md`
 - Brand voice and company info: `brand-autocrew.md`
 - Sister industry docs: `industry-coaching.md`, `industry-legal.md`, `industry-restaurant.md`
 - Product docs: `product-ai-receptionist.md`, `product-widget.md`

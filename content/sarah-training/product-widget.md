@@ -140,6 +140,7 @@ A: `<autocrew-search>` is a drop-in custom element that replaces a static help-c
 
 ## 10. Cross-references
 
+- Home landing page: `landing-home.md`
 - Brand voice and company info: `brand-autocrew.md`
 - Sister product doc: `product-ai-receptionist.md`
 - Industry deployments: `industry-coaching.md`, `industry-healthcare.md`, `industry-legal.md`, `industry-restaurant.md`

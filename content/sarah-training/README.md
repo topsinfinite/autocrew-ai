@@ -11,7 +11,8 @@ document and one product document.
 
 | Page route | Doc |
 | --- | --- |
-| `/` and `/about` | `brand-autocrew.md` |
+| `/` (home landing page) | `landing-home.md` |
+| `/about` and brand-wide fallback | `brand-autocrew.md` |
 | `/ai-receptionist` | `product-ai-receptionist.md` |
 | `/widget` | `product-widget.md` |
 | `/industry/coaching` | `industry-coaching.md` |

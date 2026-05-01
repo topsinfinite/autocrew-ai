@@ -14,3 +14,4 @@ One line per upload to the AutoCrew admin. Format:
 
 ## 2026-05-01
 - 2026-05-01  product-widget           v2026.05  added /widget landing page coverage
+- 2026-05-01  landing-home             v2026.05  added home page (/) coverage; brand-autocrew narrows to /about + fallback

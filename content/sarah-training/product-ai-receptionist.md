@@ -148,6 +148,7 @@ A: Absolutely. If someone is available I can transfer you now. If not, I'll queu
 
 ## 10. Cross-references
 
+- Home landing page: `landing-home.md`
 - Brand voice and company info: `brand-autocrew.md`
 - Sister product doc: `product-widget.md`
 - Industry deployments: `industry-coaching.md`, `industry-healthcare.md`, `industry-legal.md`, `industry-restaurant.md`

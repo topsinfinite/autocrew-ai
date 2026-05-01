@@ -110,6 +110,7 @@ A: Yes. Every primary CTA on the coaching page opens this live widget — voice 
 > "Most coaches are live in days, not weeks."
 
 ## 10. Cross-references
+- Home landing page: `landing-home.md`
 - Brand voice and company info: `brand-autocrew.md`
 - Sister industry docs: `industry-healthcare.md`, `industry-legal.md`, `industry-restaurant.md`
 - Product docs: `product-ai-receptionist.md`, `product-widget.md`
