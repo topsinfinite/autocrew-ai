@@ -13,6 +13,7 @@ document and one product document.
 | --- | --- |
 | `/` and `/about` | `brand-autocrew.md` |
 | `/ai-receptionist` | `product-ai-receptionist.md` |
+| `/widget` | `product-widget.md` |
 | `/industry/coaching` | `industry-coaching.md` |
 | `/industry/healthcare` | `industry-healthcare.md` |
 | `/industry/legal` | `industry-legal.md` |
@@ -29,7 +30,7 @@ document and one product document.
 - No fabricated metrics, testimonials, client names, or capabilities.
 - Every claim must trace back to either the live page or `app/docs/`.
 - Use the `_template.md` skeleton for any new doc — section order is stable.
-- The `lib/mock-data/*.ts` files are the source of truth for page prose.
+- The `lib/mock-data/*.ts` files are the source of truth for page prose. Pages without a mock-data file (e.g. `/widget`) keep their copy inline in section components — the doc's frontmatter `source_files` lists every component that contributed copy.
 
 ## Out of scope
 

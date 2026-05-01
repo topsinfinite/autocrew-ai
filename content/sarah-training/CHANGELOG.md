@@ -11,3 +11,6 @@ One line per upload to the AutoCrew admin. Format:
 - 2026-04-30  industry-healthcare      v2026.04  initial corpus
 - 2026-04-30  industry-legal           v2026.04  initial corpus
 - 2026-04-30  industry-restaurant      v2026.04  initial corpus
+
+## 2026-05-01
+- 2026-05-01  product-widget           v2026.05  added /widget landing page coverage
