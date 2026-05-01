@@ -227,6 +227,9 @@ export function CoachingCta() {
                       <Link href="/ai-receptionist" className="transition-colors hover:text-foreground">
                         AI Receptionist
                       </Link>
+                      <Link href="/widget" className="transition-colors hover:text-foreground">
+                        Embeddable Widget
+                      </Link>
                       <Link href="/#features" className="transition-colors hover:text-foreground">
                         Features
                       </Link>

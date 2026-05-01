@@ -196,6 +196,12 @@ export function CtaSection() {
                         Features
                       </Link>
                       <Link
+                        href="/widget"
+                        className="hover:text-foreground transition-colors"
+                      >
+                        Embeddable Widget
+                      </Link>
+                      <Link
                         href="/#solutions"
                         className="hover:text-foreground transition-colors"
                       >

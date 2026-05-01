@@ -225,6 +225,12 @@ export function LegalCta() {
                         AI Receptionist
                       </Link>
                       <Link
+                        href="/widget"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        Embeddable Widget
+                      </Link>
+                      <Link
                         href="/#features"
                         className="transition-colors hover:text-foreground"
                       >

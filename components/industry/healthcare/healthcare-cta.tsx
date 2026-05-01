@@ -224,6 +224,9 @@ export function HealthcareCta() {
                       <Link href="/ai-receptionist" className="hover:text-foreground transition-colors">
                         AI Receptionist
                       </Link>
+                      <Link href="/widget" className="hover:text-foreground transition-colors">
+                        Embeddable Widget
+                      </Link>
                       <Link href="/#features" className="hover:text-foreground transition-colors">
                         Features
                       </Link>
