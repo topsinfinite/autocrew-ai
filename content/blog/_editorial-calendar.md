@@ -23,6 +23,7 @@ _Updated: 2026-05-01_
 | Why Coaching Studios Lose Clients to No-Shows (And How AI Fixes It) | ai-receptionist-coaching-no-shows | coaching | 2026-05-20 | 🚀 Published | sarah-autocrew |
 | How AI Handles Restaurant Reservation Overflow on Friday Nights | restaurant-reservation-overflow-ai | restaurants | 2026-05-22 | 🚀 Published | sarah-autocrew |
 | Legal Intake After Hours: Why Missing That Call Costs You the Case | legal-after-hours-intake-ai | legal | 2026-05-28 | 🚀 Published | sarah-autocrew |
+| The True Cost of a Missed Call: A Calculator for Small Businesses | cost-of-missed-calls-calculator | ai-automation, customer-service | 2026-05-01 | 🚀 Published | sarah-autocrew |
 
 ---
 
@@ -32,7 +33,6 @@ _Updated: 2026-05-01_
 |-------|------|----------|-------------|--------|--------|
 | What Is an AI Receptionist? (And What It Can't Do Yet) | what-is-ai-receptionist | ai-automation | 2026-06-05 | 📝 Brief | — |
 | AI vs Live Answering Service: Which Is Right for Your Practice? | ai-vs-live-answering-service | ai-automation | 2026-06-12 | 💡 Idea | — |
-| The Real Cost of Missed Calls for Small Businesses | cost-of-missed-calls-calculator | ai-automation | 2026-06-18 | 💡 Idea | — |
 | How a Dental Clinic Cut No-Shows by 40% With AI Follow-Ups | dental-clinic-no-shows-ai | healthcare | 2026-06-25 | 💡 Idea | — |
 
 ---
