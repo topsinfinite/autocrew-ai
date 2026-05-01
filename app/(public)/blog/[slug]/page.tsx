@@ -17,6 +17,7 @@ import { IndustryCTA } from "@/components/blog/industry-cta";
 import { BlogNewsletter } from "@/components/blog/blog-newsletter";
 import { StickyTOC } from "@/components/blog/sticky-toc";
 import { PostCover } from "@/components/blog/post-cover";
+import { ShareButtons } from "@/components/blog/share-buttons";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -82,6 +83,7 @@ export default async function BlogPostPage({ params }: Props) {
   const related = getRelatedPosts(slug, 3);
   const primaryCategory = post.categories[0];
   const categoryLabel = primaryCategory ? getCategoryLabel(primaryCategory) : undefined;
+  const postUrl = `${APP_CONFIG.url}/blog/${post.slug}`;
 
   const jsonLd = [
     blogPostingSchema({
@@ -142,6 +144,9 @@ export default async function BlogPostPage({ params }: Props) {
             authorKey={post.author}
             date={post.publishedAt}
             readingTime={post.readingTime}
+            rightSlot={
+              <ShareButtons title={post.title} url={postUrl} variant="inline" />
+            }
           />
         </header>
 
@@ -173,6 +178,7 @@ export default async function BlogPostPage({ params }: Props) {
             {post.aeoSummary && <AEOSummary summary={post.aeoSummary} />}
             <PostBody content={post.content} />
             <PostFAQ faqs={post.faqs ?? []} />
+            <ShareButtons title={post.title} url={postUrl} variant="block" />
             <AuthorBioCard authorKey={post.author} />
           </main>
         </div>
