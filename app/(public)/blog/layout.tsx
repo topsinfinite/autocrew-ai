@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { APP_CONFIG } from "@/lib/constants";
 import { BlogNav } from "@/components/blog/blog-nav";
 import { BlogFooter } from "@/components/blog/blog-footer";
+import { getSearchIndex } from "@/lib/blog/loader";
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -30,12 +31,14 @@ export default function BlogLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const searchIndex = getSearchIndex();
+
   return (
     <div
       data-theme="cream"
       className={`${newsreader.variable} min-h-screen flex flex-col`}
     >
-      <BlogNav />
+      <BlogNav searchIndex={searchIndex} />
       <main className="flex-1">{children}</main>
       <BlogFooter />
     </div>

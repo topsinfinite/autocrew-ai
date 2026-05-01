@@ -6,6 +6,8 @@ import { ChevronDown, Search, Menu, X } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { SearchModal } from "@/components/blog/search-modal";
+import type { SearchIndexEntry } from "@/lib/blog/loader";
 
 type DropdownItem = { label: string; href: string; description?: string };
 type NavItem =
@@ -43,10 +45,15 @@ function isDropdown(
   return "children" in item;
 }
 
-export function BlogNav() {
+interface BlogNavProps {
+  searchIndex: SearchIndexEntry[];
+}
+
+export function BlogNav({ searchIndex }: BlogNavProps) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const openDropdownFor = useCallback((label: string) => {
@@ -71,6 +78,22 @@ export function BlogNav() {
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
+
+  // Cmd+K / Ctrl+K opens search
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+      if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
 
   return (
     <header className="relative z-40 px-4 sm:px-6 lg:px-12 pt-5 pb-4">
@@ -180,14 +203,18 @@ export function BlogNav() {
             "rounded-2xl px-2 py-1.5",
           )}
         >
-          <Link
-            href={ROUTES.BLOG}
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
             className="flex items-center gap-2 px-3 py-2 text-[14px] font-sans font-medium text-[hsl(20,26%,8%)] hover:bg-[rgba(26,20,16,0.04)] rounded-md transition-colors"
-            aria-label="Search"
+            aria-label="Search the Autocrew Journal"
           >
-            <Search className="w-4 h-4" strokeWidth={2.25} />
+            <Search className="w-4 h-4" strokeWidth={2.25} aria-hidden />
             <span className="hidden lg:inline">Search</span>
-          </Link>
+            <kbd className="hidden lg:inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 ml-1 border border-[rgba(26,20,16,0.18)] rounded text-[10px] font-sans text-[hsl(25,10%,45%)] bg-[hsl(40,35%,94%)]">
+              ⌘K
+            </kbd>
+          </button>
           <Link
             href="https://app.autocrew-ai.com/login"
             className="px-3 py-2 text-[14px] font-sans font-medium text-[hsl(20,26%,8%)] hover:bg-[rgba(26,20,16,0.04)] rounded-md transition-colors"
@@ -275,6 +302,17 @@ export function BlogNav() {
               </div>
             ))}
             <div className="border-t border-[rgba(26,20,16,0.12)] mt-3 pt-3 flex flex-col gap-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setSearchOpen(true);
+                }}
+                className="flex items-center gap-2 px-3 py-3 text-[15px] font-sans font-medium text-[hsl(20,26%,8%)] hover:bg-[rgba(26,20,16,0.04)] rounded-md text-left"
+              >
+                <Search className="w-4 h-4" strokeWidth={2.25} aria-hidden />
+                Search
+              </button>
               <Link
                 href="https://app.autocrew-ai.com/login"
                 onClick={() => setMobileOpen(false)}
@@ -300,6 +338,12 @@ export function BlogNav() {
           </nav>
         </div>
       )}
+
+      <SearchModal
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        index={searchIndex}
+      />
     </header>
   );
 }

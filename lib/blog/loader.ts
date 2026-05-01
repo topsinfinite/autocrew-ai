@@ -138,3 +138,29 @@ export function getFeaturedPost(): PostMeta | null {
   if (featured.length) return featured[0];
   return getAllPosts({ limit: 1 })[0] ?? null;
 }
+
+/**
+ * Lightweight, client-serializable index of every published post.
+ * Used by the BlogNav search modal — no MDX body, just the fields we filter on.
+ */
+export interface SearchIndexEntry {
+  slug: string;
+  title: string;
+  description: string;
+  categories: string[];
+  tags: string[];
+  publishedAt: string;
+  readingTime: string;
+}
+
+export function getSearchIndex(): SearchIndexEntry[] {
+  return getAllPosts().map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    description: p.description ?? "",
+    categories: p.categories,
+    tags: p.tags ?? [],
+    publishedAt: p.publishedAt,
+    readingTime: p.readingTime,
+  }));
+}
