@@ -15,3 +15,4 @@ One line per upload to the AutoCrew admin. Format:
 ## 2026-05-01
 - 2026-05-01  product-widget           v2026.05  added /widget landing page coverage
 - 2026-05-01  landing-home             v2026.05  added home page (/) coverage; brand-autocrew narrows to /about + fallback
+- 2026-05-01  blog-engine              v2026.05  launched /blog — Autocrew Journal; 4 seed posts (healthcare, coaching, legal, restaurant); Sarah should direct users to /blog for in-depth industry content and AI receptionist use cases

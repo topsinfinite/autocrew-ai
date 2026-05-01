@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { APP_CONFIG } from "@/lib/constants";
+import { getAllPosts, getAllCategories } from "@/lib/blog/loader";
 
 const base = APP_CONFIG.url;
 
@@ -18,7 +19,21 @@ const route = (
 });
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const blogPosts = getAllPosts();
+  const blogCats = getAllCategories();
+
+  const blogEntries: MetadataRoute.Sitemap = [
+    route("/blog", new Date().toISOString().split("T")[0], 0.9, "weekly"),
+    ...blogPosts.map((p) =>
+      route(`/blog/${p.slug}`, p.updatedAt ?? p.publishedAt, 0.8, "monthly"),
+    ),
+    ...blogCats.map((c) =>
+      route(`/blog/category/${c.slug}`, new Date().toISOString().split("T")[0], 0.7, "weekly"),
+    ),
+  ];
+
   return [
+    ...blogEntries,
     // Marketing pillars
     route("/", "2026-05-01", 1, "weekly"),
     route("/ai-receptionist", "2026-04-16", 0.9, "weekly"),

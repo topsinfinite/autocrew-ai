@@ -315,6 +315,7 @@ export const navLinks: NavLinkItem[] = [
       { label: "Healthcare", href: "/industry/healthcare" },
     ],
   },
+  { label: "Blog", href: "/blog" },
   { label: "Pricing", href: "/#contact-sales" },
 ];
 

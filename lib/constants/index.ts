@@ -46,6 +46,13 @@ export const ROUTES = {
   INDUSTRY_LEGAL: "/industry/legal",
   INDUSTRY_HEALTHCARE: "/industry/healthcare",
 
+  // Blog routes
+  BLOG: "/blog",
+  BLOG_POST: (slug: string) => `/blog/${slug}`,
+  BLOG_CATEGORY: (category: string) => `/blog/category/${category}`,
+  BLOG_AUTHOR: (author: string) => `/blog/author/${author}`,
+  BLOG_RSS: "/blog/rss.xml",
+
   // Documentation routes
   DOCS: "/docs",
   DOCS_GETTING_STARTED: "/docs/getting-started",

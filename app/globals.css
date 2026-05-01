@@ -129,6 +129,191 @@
   --animation-num-glow: rgba(255, 107, 53, 0.12);
 }
 
+/* Blog / Editorial "Cream" Theme - scoped to [data-theme="cream"] wrapper div */
+[data-theme="cream"] {
+  /* Warm parchment background — #F4EFE6 */
+  --background: 40 35% 94%;
+  --foreground: 20 26% 8%;
+
+  /* Card surfaces — slightly lighter cream */
+  --card: 40 50% 97%;
+  --card-foreground: 20 26% 8%;
+
+  /* Popover */
+  --popover: 40 50% 97%;
+  --popover-foreground: 20 26% 8%;
+
+  /* Brand orange — retained for anchor to product */
+  --primary: 16 100% 60%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Blue secondary */
+  --secondary: 199 89% 48%;
+  --secondary-foreground: 0 0% 100%;
+
+  /* Muted fills */
+  --muted: 35 12% 90%;
+  --muted-foreground: 25 10% 32%;
+
+  /* Peach accent for pull-quotes / highlights */
+  --accent: 18 100% 92%;
+  --accent-foreground: 20 26% 8%;
+
+  /* Standard semantic */
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --success: 142 71% 42%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+
+  /* Input/ring */
+  --input: 35 12% 85%;
+  --ring: 16 100% 60%;
+
+  /* Flat editorial: no radius */
+  --radius: 0px;
+
+  /* Hairline border: warm ink at 12% opacity */
+  --border-subtle: rgba(26, 20, 16, 0.12);
+  --glass-border: rgba(26, 20, 16, 0.08);
+  --glass-surface: rgba(26, 20, 16, 0.02);
+  --surface-subtle: rgba(26, 20, 16, 0.02);
+  --surface-hover: rgba(26, 20, 16, 0.04);
+
+  /* Override body-level bg/color for this wrapper */
+  background-color: hsl(40, 35%, 94%);
+  color: hsl(20, 26%, 8%);
+}
+
+/* Newsreader serif font utility */
+.font-newsreader {
+  font-family: var(--font-newsreader), Georgia, 'Times New Roman', serif;
+}
+
+/* Blog prose body text */
+[data-theme="cream"] .prose-blog {
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-size: 19px;
+  line-height: 1.75;
+  color: hsl(20, 26%, 8%);
+}
+
+[data-theme="cream"] .prose-blog h1,
+[data-theme="cream"] .prose-blog h2,
+[data-theme="cream"] .prose-blog h3,
+[data-theme="cream"] .prose-blog h4 {
+  font-family: 'Space Grotesk', var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  color: hsl(20, 26%, 8%);
+}
+
+[data-theme="cream"] .prose-blog h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+[data-theme="cream"] .prose-blog h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+[data-theme="cream"] .prose-blog p {
+  margin-bottom: 1.5rem;
+}
+
+[data-theme="cream"] .prose-blog a {
+  color: hsl(16, 100%, 50%);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+[data-theme="cream"] .prose-blog a:hover {
+  color: hsl(16, 100%, 42%);
+}
+
+[data-theme="cream"] .prose-blog blockquote {
+  border-left: 3px solid hsl(16, 100%, 60%);
+  padding-left: 1.25rem;
+  margin-left: 0;
+  font-style: italic;
+  color: hsl(25, 10%, 32%);
+}
+
+[data-theme="cream"] .prose-blog ul,
+[data-theme="cream"] .prose-blog ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme="cream"] .prose-blog li {
+  margin-bottom: 0.5rem;
+}
+
+[data-theme="cream"] .prose-blog code {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.875rem;
+  background: hsl(35, 12%, 90%);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+}
+
+[data-theme="cream"] .prose-blog pre {
+  background: hsl(20, 26%, 12%);
+  color: hsl(40, 35%, 94%);
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+[data-theme="cream"] .prose-blog pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+[data-theme="cream"] .prose-blog hr {
+  border: none;
+  border-top: 1px solid rgba(26, 20, 16, 0.12);
+  margin: 3rem 0;
+}
+
+[data-theme="cream"] .prose-blog strong {
+  font-weight: 600;
+  color: hsl(20, 26%, 8%);
+}
+
+[data-theme="cream"] .prose-blog table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+}
+
+[data-theme="cream"] .prose-blog th {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid rgba(26, 20, 16, 0.2);
+}
+
+[data-theme="cream"] .prose-blog td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(26, 20, 16, 0.12);
+}
+
+[data-theme="cream"] .prose-blog img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Light Mode Theme */
 :root[data-theme="light"] {
   /* Clean white backgrounds */

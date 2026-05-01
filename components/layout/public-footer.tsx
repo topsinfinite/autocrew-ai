@@ -17,6 +17,9 @@ const SUPPRESSED_ROUTES = new Set([
   "/industry/healthcare",
 ]);
 
+// Blog routes render their own (cream-themed) footer via the blog layout.
+const SUPPRESSED_PREFIXES = ["/blog"];
+
 const productLinks = [
   { href: "/ai-receptionist", label: "AI Receptionist" },
   { href: "/widget", label: "Widget" },
@@ -30,6 +33,7 @@ const industryLinks = [
 ];
 
 const resourceLinks = [
+  { href: "/blog", label: "Blog" },
   { href: "/docs", label: "Documentation" },
   { href: "/docs/getting-started", label: "Getting Started" },
   { href: "/docs/faq", label: "FAQ" },
@@ -78,6 +82,7 @@ function FooterColumn({ heading, links }: FooterColumnProps) {
 export function PublicFooter() {
   const pathname = usePathname();
   if (SUPPRESSED_ROUTES.has(pathname)) return null;
+  if (SUPPRESSED_PREFIXES.some((p) => pathname?.startsWith(p))) return null;
 
   return (
     <footer className="border-t border-border">

@@ -107,8 +107,13 @@ export default function RootLayout({
       style={{ colorScheme: "dark" } as React.CSSProperties}
     >
       <head>
-        <Script id="gtag-consent-default" strategy="beforeInteractive">
-          {`window.dataLayer = window.dataLayer || [];
+        {/* Native script + suppressHydrationWarning: ad blockers/extensions often replace
+            the first head script; Next <Script> then fails hydration on that node. */}
+        <script
+          id="gtag-consent-default"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('consent', 'default', {
   'ad_storage': 'denied',
@@ -117,8 +122,9 @@ gtag('consent', 'default', {
   'analytics_storage': 'denied',
   'functionality_storage': 'denied',
   'wait_for_update': 500
-});`}
-        </Script>
+});`,
+          }}
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HMHN49KVBJ"
           strategy="afterInteractive"
@@ -152,15 +158,23 @@ gtag('config', 'G-HMHN49KVBJ');`}
             </CookieBannerLayoutProvider>
           </ConsentProvider>
         </ThemeProvider>
-        <Script id="autocrew-queue-stub" strategy="beforeInteractive">
-          {`window.AutoCrew=window.AutoCrew||{q:[],ask:function(){(this.q=this.q||[]).push(['ask',arguments])},open:function(){(this.q=this.q||[]).push(['open',arguments])},close:function(){(this.q=this.q||[]).push(['close',arguments])},onReady:function(){(this.q=this.q||[]).push(['onReady',arguments])}};`}
-        </Script>
-        <Script id="autocrew-config" strategy="beforeInteractive">
-          {`window.AutoCrewConfig = {
+        <script
+          id="autocrew-queue-stub"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `window.AutoCrew=window.AutoCrew||{q:[],ask:function(){(this.q=this.q||[]).push(['ask',arguments])},open:function(){(this.q=this.q||[]).push(['open',arguments])},close:function(){(this.q=this.q||[]).push(['close',arguments])},onReady:function(){(this.q=this.q||[]).push(['onReady',arguments])}};`,
+          }}
+        />
+        <script
+          id="autocrew-config"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `window.AutoCrewConfig = {
             crewCode: 'AUTOCREW-001-SUP-001',
             configUrl: 'https://app.autocrew-ai.com/api/widget/config'
-          };`}
-        </Script>
+          };`,
+          }}
+        />
         <Script
           src="https://app.autocrew-ai.com/widget.js"
           strategy="afterInteractive"

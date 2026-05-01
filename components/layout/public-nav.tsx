@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -23,9 +24,11 @@ interface PublicNavProps {
 }
 
 export function PublicNav({ variant = "default" }: PublicNavProps) {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+
   const links = variant === "docs" ? docsLinks : navLinks;
   const desktopLinks =
     variant === "docs"
@@ -120,6 +123,10 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
 
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen, closeMobileMenu]);
+
+  // Blog routes render their own nav via app/(public)/blog/layout.tsx — must run after
+  // all hooks (no early return above useRef/useEffect).
+  if (pathname?.startsWith("/blog")) return null;
 
   const renderDesktopLink = (link: NavLinkItem) => {
     if (isDropdownLink(link)) {

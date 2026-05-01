@@ -84,6 +84,109 @@ export function faqPageSchema(items: FAQItem[]) {
   };
 }
 
+export function blogPostingSchema(post: {
+  title: string;
+  description: string;
+  publishedAt: string;
+  updatedAt?: string;
+  authorName: string;
+  categories: string[];
+  tags?: string[];
+  coverImage?: string;
+  slug: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt ?? post.publishedAt,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${baseUrl}/blog/${post.slug}`,
+    },
+    image: post.coverImage ? `${baseUrl}${post.coverImage}` : `${baseUrl}/images/og-image.png`,
+    author: {
+      "@type": "Person",
+      name: post.authorName,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: APP_CONFIG.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/images/logo.png`,
+      },
+    },
+    articleSection: post.categories[0] ?? "AI & Automation",
+    keywords: [...(post.tags ?? []), ...post.categories].join(", "),
+  };
+}
+
+export function personSchema(author: {
+  name: string;
+  role: string;
+  bio?: string;
+  avatar?: string;
+  key: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: author.name,
+    jobTitle: author.role,
+    description: author.bio,
+    image: author.avatar ? `${baseUrl}${author.avatar}` : undefined,
+    url: `${baseUrl}/blog/author/${author.key}`,
+    worksFor: {
+      "@type": "Organization",
+      name: APP_CONFIG.name,
+    },
+  };
+}
+
+export function blogFaqSchema(faqs: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
+}
+
+export function blogBreadcrumbSchema(post: {
+  title: string;
+  slug: string;
+  categories: string[];
+}, categoryLabel?: string) {
+  const items = [
+    { name: "Home", url: baseUrl },
+    { name: "Blog", url: `${baseUrl}/blog` },
+  ];
+  if (post.categories[0] && categoryLabel) {
+    items.push({ name: categoryLabel, url: `${baseUrl}/blog/category/${post.categories[0]}` });
+  }
+  items.push({ name: post.title, url: `${baseUrl}/blog/${post.slug}` });
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",
