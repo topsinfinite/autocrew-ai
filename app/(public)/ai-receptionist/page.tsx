@@ -13,12 +13,21 @@ import {
   AiReceptionistCta,
 } from "@/components/product/ai-receptionist";
 import { JsonLd } from "@/components/seo/json-ld";
-import { faqPageSchema, serviceSchema, howToSchema } from "@/lib/seo/schemas";
+import {
+  breadcrumbSchema,
+  faqPageSchema,
+  howToSchema,
+  serviceSchema,
+  webPageSchema,
+} from "@/lib/seo/schemas";
+import { APP_CONFIG } from "@/lib/constants";
 import {
   aiReceptionistFaqItems,
   aiReceptionistMetadata,
   aiReceptionistRolloutSteps,
 } from "@/lib/mock-data/ai-receptionist-data";
+
+const baseUrl = APP_CONFIG.url;
 
 export const metadata: Metadata = {
   title: aiReceptionistMetadata.title,
@@ -30,14 +39,6 @@ export const metadata: Metadata = {
     title: aiReceptionistMetadata.ogTitle,
     description: aiReceptionistMetadata.ogDescription,
     url: "/ai-receptionist",
-    images: [
-      {
-        url: "/ai-receptionist/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Autocrew AI Receptionist — Sarah",
-      },
-    ],
   },
   other: {
     "article:published_time": "2026-04-16",
@@ -53,6 +54,20 @@ const howToSteps = aiReceptionistRolloutSteps.map((s) => ({
 export default function AiReceptionistPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: `${baseUrl}/` },
+          { name: "AI Receptionist", url: `${baseUrl}/ai-receptionist` },
+        ])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          `${baseUrl}/ai-receptionist`,
+          aiReceptionistMetadata.title,
+          "2026-04-16",
+          "2026-04-16",
+        )}
+      />
       <JsonLd data={faqPageSchema(aiReceptionistFaqItems)} />
       <JsonLd
         data={serviceSchema(

@@ -9,8 +9,16 @@ import { HealthcareByRole } from "@/components/industry/healthcare/healthcare-by
 import { HealthcareCta } from "@/components/industry/healthcare/healthcare-cta";
 import { CrossIndustryLinks } from "@/components/seo/cross-industry-links";
 import { JsonLd } from "@/components/seo/json-ld";
-import { faqPageSchema, serviceSchema } from "@/lib/seo/schemas";
+import {
+  breadcrumbSchema,
+  faqPageSchema,
+  serviceSchema,
+  webPageSchema,
+} from "@/lib/seo/schemas";
+import { APP_CONFIG } from "@/lib/constants";
 import { healthcareFaqItems } from "@/lib/mock-data/healthcare-data";
+
+const baseUrl = APP_CONFIG.url;
 
 export const metadata: Metadata = {
   title: "AI Automation for Healthcare Practices",
@@ -30,6 +38,21 @@ export const metadata: Metadata = {
 export default function HealthcareIndustryPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: `${baseUrl}/` },
+          { name: "Industries", url: `${baseUrl}/#industries` },
+          { name: "Healthcare", url: `${baseUrl}/industry/healthcare` },
+        ])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          `${baseUrl}/industry/healthcare`,
+          "AI Automation for Healthcare Practices",
+          "2026-04-07",
+          "2026-04-07",
+        )}
+      />
       <JsonLd data={faqPageSchema(healthcareFaqItems)} />
       <JsonLd
         data={serviceSchema(

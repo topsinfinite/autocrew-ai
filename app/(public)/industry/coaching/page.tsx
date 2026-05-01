@@ -10,8 +10,16 @@ import { CoachingFaq } from "@/components/industry/coaching/coaching-faq";
 import { CoachingCta } from "@/components/industry/coaching/coaching-cta";
 import { CrossIndustryLinks } from "@/components/seo/cross-industry-links";
 import { JsonLd } from "@/components/seo/json-ld";
-import { faqPageSchema, serviceSchema } from "@/lib/seo/schemas";
+import {
+  breadcrumbSchema,
+  faqPageSchema,
+  serviceSchema,
+  webPageSchema,
+} from "@/lib/seo/schemas";
+import { APP_CONFIG } from "@/lib/constants";
 import { coachingFaqItems } from "@/lib/mock-data/coaching-data";
+
+const baseUrl = APP_CONFIG.url;
 
 export const metadata: Metadata = {
   title: "AI Automation for Coaches",
@@ -31,6 +39,21 @@ export const metadata: Metadata = {
 export default function CoachingPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: `${baseUrl}/` },
+          { name: "Industries", url: `${baseUrl}/#industries` },
+          { name: "Coaching", url: `${baseUrl}/industry/coaching` },
+        ])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          `${baseUrl}/industry/coaching`,
+          "AI Automation for Coaches",
+          "2026-03-10",
+          "2026-03-10",
+        )}
+      />
       <JsonLd data={faqPageSchema(coachingFaqItems)} />
       <JsonLd
         data={serviceSchema(

@@ -9,6 +9,15 @@ import { WidgetSectionConfigure } from "@/components/widget-landing/widget-secti
 import { WidgetSectionInstall } from "@/components/widget-landing/widget-section-install";
 import { WidgetSectionCompare } from "@/components/widget-landing/widget-section-compare";
 import { WidgetSectionCta } from "@/components/widget-landing/widget-section-cta";
+import { JsonLd } from "@/components/seo/json-ld";
+import {
+  breadcrumbSchema,
+  serviceSchema,
+  webPageSchema,
+} from "@/lib/seo/schemas";
+import { APP_CONFIG } from "@/lib/constants";
+
+const baseUrl = APP_CONFIG.url;
 
 export const metadata: Metadata = {
   title: "AutoCrew Widget — Turn every button into a live conversation",
@@ -17,11 +26,38 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/widget",
   },
+  openGraph: {
+    title: "AutoCrew Widget — Turn every button into a live conversation",
+    description:
+      "Five trigger surfaces. Zero forms. Embed AutoCrew on any site and let visitors reach your AI crew from any page, button, or link.",
+    url: "/widget",
+  },
 };
 
 export default function WidgetLandingPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: `${baseUrl}/` },
+          { name: "Widget", url: `${baseUrl}/widget` },
+        ])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          `${baseUrl}/widget`,
+          "AutoCrew Widget",
+          "2026-04-16",
+          "2026-04-16",
+        )}
+      />
+      <JsonLd
+        data={serviceSchema(
+          "AutoCrew Widget",
+          "Embeddable AI conversation widget with five trigger surfaces (button, link, page, intent, intent-with-data). Turns any page or button into a live AI-driven conversation — no forms, no friction.",
+          "Embeddable Widget",
+        )}
+      />
       <WidgetHero />
       <WidgetSectionProblem />
       <WidgetSectionSurfaces />

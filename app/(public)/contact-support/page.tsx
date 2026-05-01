@@ -1,14 +1,44 @@
-"use client";
-
+import type { Metadata } from "next";
 import { Mail, MessageSquare, ArrowLeft, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Logo } from "@/components/layout/logo";
 import { APP_CONFIG } from "@/lib/constants";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, webPageSchema } from "@/lib/seo/schemas";
+
+export const metadata: Metadata = {
+  title: "Contact Support",
+  description:
+    "Get help from the Autocrew support team. Email support@autocrew-ai.com, call us during business hours, or request access to your organization.",
+  alternates: { canonical: "/contact-support" },
+  openGraph: {
+    title: "Contact Autocrew Support",
+    description:
+      "Get help from the Autocrew support team. Email, phone, and access-request channels.",
+    url: "/contact-support",
+  },
+};
+
+const baseUrl = APP_CONFIG.url;
 
 export default function ContactSupportPage() {
   return (
     <div className="min-h-screen flex items-center justify-center py-20 px-4">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: `${baseUrl}/` },
+          { name: "Contact Support", url: `${baseUrl}/contact-support` },
+        ])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          `${baseUrl}/contact-support`,
+          "Contact Autocrew Support",
+          "2025-01-15",
+          "2026-05-01",
+        )}
+      />
       <div className="w-full max-w-2xl">
         {/* Logo */}
         <div className="flex justify-center mb-8">

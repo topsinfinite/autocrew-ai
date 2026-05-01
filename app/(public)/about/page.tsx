@@ -15,14 +15,6 @@ export const metadata: Metadata = {
     description:
       "Learn about Autocrew's mission to make AI automation accessible to every business.",
     url: "/about",
-    images: [
-      {
-        url: "/about/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "About Autocrew",
-      },
-    ],
   },
   other: {
     "article:published_time": "2025-01-15",

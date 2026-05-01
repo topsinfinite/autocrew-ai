@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DocNavigation } from "@/components/docs/doc-navigation";
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Security",
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
 export default function SecurityPage() {
   return (
     <div>
+      <DocsBreadcrumbSchema
+        currentPath="/docs/security"
+        currentTitle="Security"
+      />
       <h1 id="security" className="mb-4 text-4xl font-bold text-foreground">
         Security
       </h1>

@@ -62,7 +62,9 @@ export function FaqSection() {
                   className="border-foreground/[0.08] dark:border-white/[0.08]"
                 >
                   <AccordionTrigger className="text-left text-base font-medium text-foreground font-geist hover:no-underline">
-                    {item.question}
+                    <h3 className="text-base font-medium font-geist">
+                      {item.question}
+                    </h3>
                   </AccordionTrigger>
                   <AccordionContent className="text-sm leading-relaxed text-muted-foreground font-geist pr-8">
                     {item.answer}

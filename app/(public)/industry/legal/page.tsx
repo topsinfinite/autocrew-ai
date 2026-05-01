@@ -10,8 +10,16 @@ import { LegalFaq } from "@/components/industry/legal/legal-faq";
 import { LegalCta } from "@/components/industry/legal/legal-cta";
 import { CrossIndustryLinks } from "@/components/seo/cross-industry-links";
 import { JsonLd } from "@/components/seo/json-ld";
-import { faqPageSchema, serviceSchema } from "@/lib/seo/schemas";
+import {
+  breadcrumbSchema,
+  faqPageSchema,
+  serviceSchema,
+  webPageSchema,
+} from "@/lib/seo/schemas";
+import { APP_CONFIG } from "@/lib/constants";
 import { legalFaqItems } from "@/lib/mock-data/legal-data";
+
+const baseUrl = APP_CONFIG.url;
 
 export const metadata: Metadata = {
   title: "AI Automation for Law Firms, Legal Ops & Legal Aid",
@@ -31,6 +39,21 @@ export const metadata: Metadata = {
 export default function LegalIndustryPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: `${baseUrl}/` },
+          { name: "Industries", url: `${baseUrl}/#industries` },
+          { name: "Legal", url: `${baseUrl}/industry/legal` },
+        ])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          `${baseUrl}/industry/legal`,
+          "AI Automation for Law Firms, Legal Ops & Legal Aid",
+          "2026-04-07",
+          "2026-04-07",
+        )}
+      />
       <JsonLd data={faqPageSchema(legalFaqItems)} />
       <JsonLd
         data={serviceSchema(

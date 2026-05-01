@@ -3,127 +3,55 @@ import { APP_CONFIG } from "@/lib/constants";
 
 const base = APP_CONFIG.url;
 
+type Entry = MetadataRoute.Sitemap[number];
+
+const route = (
+  pathname: string,
+  lastModified: string,
+  priority: number,
+  changeFrequency: Entry["changeFrequency"] = "monthly",
+): Entry => ({
+  url: pathname === "/" ? base : `${base}${pathname}`,
+  lastModified: new Date(lastModified),
+  changeFrequency,
+  priority,
+});
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    {
-      url: base,
-      lastModified: new Date("2026-03-04"),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${base}/about`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/ai-receptionist`,
-      lastModified: new Date("2026-04-16"),
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${base}/contact`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/contact-support`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/industry/coaching`,
-      lastModified: new Date("2026-03-10"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/industry/restaurant`,
-      lastModified: new Date("2026-03-10"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/industry/legal`,
-      lastModified: new Date("2026-04-07"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/industry/healthcare`,
-      lastModified: new Date("2026-04-07"),
-      changeFrequency: "monthly",
-      priority: 0.75,
-    },
-    {
-      url: `${base}/docs`,
-      lastModified: new Date("2026-03-04"),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${base}/docs/getting-started`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/docs/user-guide`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/docs/support-crew`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/docs/leadgen-crew`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/docs/healthcare-crew`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/docs/faq`,
-      lastModified: new Date("2026-02-15"),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/docs/privacy`,
-      lastModified: new Date("2026-01-15"),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/docs/terms`,
-      lastModified: new Date("2026-01-15"),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/docs/security`,
-      lastModified: new Date("2026-01-15"),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/docs/compliance`,
-      lastModified: new Date("2026-01-15"),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
+    // Marketing pillars
+    route("/", "2026-05-01", 1, "weekly"),
+    route("/ai-receptionist", "2026-04-16", 0.9, "weekly"),
+    route("/widget", "2026-04-16", 0.9, "weekly"),
+
+    // Industry pages
+    route("/industry/coaching", "2026-03-10", 0.8),
+    route("/industry/healthcare", "2026-04-07", 0.8),
+    route("/industry/legal", "2026-04-07", 0.8),
+    route("/industry/restaurant", "2026-03-10", 0.8),
+
+    // Company
+    route("/about", "2026-02-15", 0.7),
+    route("/contact", "2026-05-01", 0.7),
+    route("/contact-support", "2026-05-01", 0.6),
+
+    // Documentation
+    route("/docs", "2026-03-04", 0.9, "weekly"),
+    route("/docs/getting-started", "2026-02-15", 0.8),
+    route("/docs/user-guide", "2026-02-15", 0.8),
+    route("/docs/support-crew", "2026-02-15", 0.8),
+    route("/docs/leadgen-crew", "2026-02-15", 0.8),
+    route("/docs/healthcare-crew", "2026-02-15", 0.8),
+    route("/docs/faq", "2026-02-15", 0.7),
+
+    // Legal & policy
+    route("/docs/privacy", "2026-01-15", 0.5, "yearly"),
+    route("/docs/terms", "2026-01-15", 0.5, "yearly"),
+    route("/docs/security", "2026-01-15", 0.5, "yearly"),
+    route("/docs/compliance", "2026-01-15", 0.5, "yearly"),
+
+    // AI / LLM corpus
+    route("/llms.txt", "2026-05-01", 0.4, "weekly"),
+    route("/llms-full.txt", "2026-05-01", 0.4, "weekly"),
   ];
 }

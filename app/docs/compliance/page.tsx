@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DocNavigation } from "@/components/docs/doc-navigation";
+import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "Compliance",
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
 export default function CompliancePage() {
   return (
     <div>
+      <DocsBreadcrumbSchema
+        currentPath="/docs/compliance"
+        currentTitle="Compliance"
+      />
       <h1 id="compliance" className="mb-4 text-4xl font-bold text-foreground">
         Compliance
       </h1>

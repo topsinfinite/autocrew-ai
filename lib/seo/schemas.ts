@@ -52,7 +52,6 @@ export function softwareApplicationSchema() {
       priceCurrency: "USD",
       description: "Free trial available",
     },
-    aggregateRating: aggregateRatingSchema(4.8, 50),
     featureList: [
       "HIPAA-Aware Healthcare Agents",
       "Multi-Channel Voice Access",

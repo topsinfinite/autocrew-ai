@@ -10,8 +10,16 @@ import { RestaurantFaq } from "@/components/industry/restaurant/restaurant-faq";
 import { RestaurantCta } from "@/components/industry/restaurant/restaurant-cta";
 import { CrossIndustryLinks } from "@/components/seo/cross-industry-links";
 import { JsonLd } from "@/components/seo/json-ld";
-import { faqPageSchema, serviceSchema } from "@/lib/seo/schemas";
+import {
+  breadcrumbSchema,
+  faqPageSchema,
+  serviceSchema,
+  webPageSchema,
+} from "@/lib/seo/schemas";
+import { APP_CONFIG } from "@/lib/constants";
 import { restaurantFaqItems } from "@/lib/mock-data/restaurant-data";
+
+const baseUrl = APP_CONFIG.url;
 
 export const metadata: Metadata = {
   title: "AI Automation for Restaurants",
@@ -31,6 +39,21 @@ export const metadata: Metadata = {
 export default function RestaurantPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: `${baseUrl}/` },
+          { name: "Industries", url: `${baseUrl}/#industries` },
+          { name: "Restaurant", url: `${baseUrl}/industry/restaurant` },
+        ])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          `${baseUrl}/industry/restaurant`,
+          "AI Automation for Restaurants",
+          "2026-03-10",
+          "2026-03-10",
+        )}
+      />
       <JsonLd data={faqPageSchema(restaurantFaqItems)} />
       <JsonLd
         data={serviceSchema(
