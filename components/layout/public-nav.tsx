@@ -26,7 +26,9 @@ interface PublicNavProps {
 export function PublicNav({ variant = "default" }: PublicNavProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [openDropdownLabel, setOpenDropdownLabel] = useState<string | null>(
+    null,
+  );
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
   const links = variant === "docs" ? docsLinks : navLinks;
@@ -44,17 +46,17 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
     menuButtonRef.current?.focus();
   }, []);
 
-  const openDropdown = useCallback(() => {
+  const handleDropdownEnter = useCallback((label: string) => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
       dropdownTimeoutRef.current = null;
     }
-    setDropdownOpen(true);
+    setOpenDropdownLabel(label);
   }, []);
 
-  const closeDropdown = useCallback(() => {
+  const handleDropdownLeave = useCallback(() => {
     dropdownTimeoutRef.current = setTimeout(() => {
-      setDropdownOpen(false);
+      setOpenDropdownLabel(null);
     }, 150);
   }, []);
 
@@ -79,15 +81,15 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
 
   // Close dropdown on Escape
   useEffect(() => {
-    if (!dropdownOpen) return;
+    if (!openDropdownLabel) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setDropdownOpen(false);
+        setOpenDropdownLabel(null);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [dropdownOpen]);
+  }, [openDropdownLabel]);
 
   // Focus trap and Escape key for mobile menu
   useEffect(() => {
@@ -130,24 +132,29 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
 
   const renderDesktopLink = (link: NavLinkItem) => {
     if (isDropdownLink(link)) {
+      const isOpen = openDropdownLabel === link.label;
       return (
         <li
           key={link.label}
           className="relative"
-          onMouseEnter={openDropdown}
-          onMouseLeave={closeDropdown}
+          onMouseEnter={() => handleDropdownEnter(link.label)}
+          onMouseLeave={handleDropdownLeave}
         >
           <button
             className="flex items-center gap-1 transition-colors duration-300 font-geist rounded-full py-2 px-4 text-muted-foreground hover:text-foreground hover:bg-foreground/[0.05]"
-            aria-expanded={dropdownOpen}
+            aria-expanded={isOpen}
             aria-haspopup="true"
-            onClick={() => setDropdownOpen((prev) => !prev)}
+            onClick={() =>
+              setOpenDropdownLabel((prev) =>
+                prev === link.label ? null : link.label,
+              )
+            }
           >
             {link.label}
             <ChevronDown
               className={cn(
                 "w-3.5 h-3.5 transition-transform duration-200",
-                dropdownOpen && "rotate-180",
+                isOpen && "rotate-180",
               )}
             />
           </button>
@@ -156,7 +163,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
             className={cn(
               "absolute top-full left-1/2 -translate-x-1/2 pt-3 min-w-[180px]",
               "transition-all duration-200 ease-out",
-              dropdownOpen
+              isOpen
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 -translate-y-1 pointer-events-none",
             )}
