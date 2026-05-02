@@ -316,6 +316,7 @@ export const navLinks: NavLinkItem[] = [
     ],
   },
   { label: "Blog", href: "/blog" },
+  { label: "ROI Calculator", href: "/roi-calculator" },
   { label: "Pricing", href: "/#contact-sales" },
 ];
 
