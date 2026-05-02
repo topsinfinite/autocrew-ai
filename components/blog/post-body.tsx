@@ -1,9 +1,11 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { MDX_OPTIONS } from "@/lib/blog/mdx-options";
 import { AEOSummary } from "./aeo-summary";
+import { RoiCalculatorEmbed } from "@/components/roi-calculator/roi-calculator-embed";
 
 const components = {
   AEOSummary,
+  RoiCalculator: RoiCalculatorEmbed,
   // Callout shortcode: <Callout type="tip">...</Callout>
   Callout: ({
     type = "info",
@@ -18,7 +20,9 @@ const components = {
       warning: "bg-[hsl(38,92%,94%)] border-l-4 border-[hsl(38,92%,50%)]",
     };
     return (
-      <div className={`${styles[type]} px-5 py-4 my-6 text-[hsl(20,26%,8%)] font-newsreader text-[17px] leading-relaxed`}>
+      <div
+        className={`${styles[type]} px-5 py-4 my-6 text-[hsl(20,26%,8%)] font-newsreader text-[17px] leading-relaxed`}
+      >
         {children}
       </div>
     );
@@ -37,7 +41,8 @@ const components = {
           See it in action
         </p>
         <p className="text-sm font-sans text-[hsl(25,10%,32%)]">
-          Autocrew's AI crews handle calls 24/7. Try a live demo — no signup required.
+          Autocrew's AI crews handle calls 24/7. Try a live demo — no signup
+          required.
         </p>
       </div>
       <a
@@ -53,7 +58,11 @@ const components = {
 export function PostBody({ content }: { content: string }) {
   return (
     <div className="prose-blog max-w-none">
-      <MDXRemote source={content} options={MDX_OPTIONS} components={components} />
+      <MDXRemote
+        source={content}
+        options={MDX_OPTIONS}
+        components={components}
+      />
     </div>
   );
 }
