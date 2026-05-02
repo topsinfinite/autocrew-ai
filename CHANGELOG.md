@@ -4,6 +4,18 @@ All notable changes to the Autocrew Marketing Site are documented here.
 
 ---
 
+## [v1.7.1] - 2026-05-02
+
+### Changed
+
+- **Public nav restructure.** Removed top-level "Features" link. Consolidated AI Receptionist, Embeddable widget, and ROI Calculator under a new **Product** dropdown so the desktop nav fits without "AI Receptionist" wrapping to two lines. Top-level order is now Product ▾ · Industry ▾ · Solutions · Blog. Mobile accordion supports both Product and Industry expanding independently.
+
+### Fixed
+
+- Desktop dropdown state was a single boolean shared across all dropdowns (legacy of having only Industry). Switched to label-keyed state so Product and Industry open/close independently — hover, click toggle, Escape, and the 150ms close delay all keyed off the per-dropdown label now.
+
+---
+
 ## [v1.7.0] - 2026-04-27
 
 ### New Features

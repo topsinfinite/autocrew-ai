@@ -303,9 +303,14 @@ export function isDropdownLink(
 }
 
 export const navLinks: NavLinkItem[] = [
-  { label: "Features", href: "/#features" },
-  { label: "AI Receptionist", href: "/ai-receptionist" },
-  { label: "Solutions", href: "/#solutions" },
+  {
+    label: "Product",
+    children: [
+      { label: "AI Receptionist", href: "/ai-receptionist" },
+      { label: "Embeddable widget", href: "/widget" },
+      { label: "ROI Calculator", href: "/roi-calculator" },
+    ],
+  },
   {
     label: "Industry",
     children: [
@@ -315,8 +320,8 @@ export const navLinks: NavLinkItem[] = [
       { label: "Healthcare", href: "/industry/healthcare" },
     ],
   },
+  { label: "Solutions", href: "/#solutions" },
   { label: "Blog", href: "/blog" },
-  { label: "ROI Calculator", href: "/roi-calculator" },
   { label: "Pricing", href: "/#contact-sales" },
 ];
 
