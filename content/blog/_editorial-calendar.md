@@ -24,6 +24,7 @@ _Updated: 2026-05-02_
 | How AI Handles Restaurant Reservation Overflow on Friday Nights | restaurant-reservation-overflow-ai | restaurants | 2026-05-22 | 🚀 Published | sarah-autocrew |
 | Legal Intake After Hours: Why Missing That Call Costs You the Case | legal-after-hours-intake-ai | legal | 2026-05-28 | 🚀 Published | sarah-autocrew |
 | The True Cost of a Missed Call: A Calculator for Small Businesses | cost-of-missed-calls-calculator | ai-automation, customer-service | 2026-05-01 | 🚀 Published | sarah-autocrew |
+| What Is an AI Receptionist? (And What It Can't Do Yet) | what-is-ai-receptionist | ai-automation, customer-service | 2026-05-02 | 🚀 Published | sarah-autocrew |
 
 ---
 
@@ -31,7 +32,6 @@ _Updated: 2026-05-02_
 
 | Title | Slug | Category | Target Date | Status | Author |
 |-------|------|----------|-------------|--------|--------|
-| What Is an AI Receptionist? (And What It Can't Do Yet) | what-is-ai-receptionist | ai-automation | 2026-06-05 | 📝 Brief | — |
 | AI Receptionist Cost: A 2026 Pricing Guide for Service Businesses | ai-receptionist-cost-2026-pricing-guide | ai-automation | 2026-06-19 | 📝 Brief | — |
 | AI Receptionist vs Live Answering Service: Which Is Right for Your Practice? | ai-vs-live-answering-service | ai-automation | 2026-06-26 | 📝 Brief | — |
 | How a Dental Clinic Cut No-Shows by 40% With AI Follow-Ups | dental-clinic-no-shows-ai | healthcare | 2026-06-25 | 💡 Idea | — |
