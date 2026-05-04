@@ -43,9 +43,9 @@ export function LegalCta() {
             {/* Badge row */}
             <ul className="mb-6 flex flex-wrap gap-2 sm:mb-8">
               {legalCta.badges.map((b) => {
-                const Icon = (badgeIcon as Record<string, typeof ShieldCheck>)[
-                  b.label
-                ] ?? ShieldCheck;
+                const Icon =
+                  (badgeIcon as Record<string, typeof ShieldCheck>)[b.label] ??
+                  ShieldCheck;
                 return (
                   <li
                     key={b.label}
@@ -288,6 +288,12 @@ export function LegalCta() {
                       Resources
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
+                      <Link
+                        href="/roi-calculator"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        ROI Calculator
+                      </Link>
                       <Link
                         href="/docs"
                         className="transition-colors hover:text-foreground"

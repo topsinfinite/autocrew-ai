@@ -14,7 +14,10 @@ import {
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { openVoice } from "@/lib/widget/ask-helpers";
-import { coachingCta, coachingIntegrations } from "@/lib/mock-data/coaching-data";
+import {
+  coachingCta,
+  coachingIntegrations,
+} from "@/lib/mock-data/coaching-data";
 import { footerData } from "@/lib/mock-data/landing-data";
 
 const badgeIcon = { Integrations: Plug, Setup: Settings2 };
@@ -224,19 +227,34 @@ export function CoachingCta() {
                       Product
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
-                      <Link href="/ai-receptionist" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/ai-receptionist"
+                        className="transition-colors hover:text-foreground"
+                      >
                         AI Receptionist
                       </Link>
-                      <Link href="/widget" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/widget"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Embeddable Widget
                       </Link>
-                      <Link href="/#features" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/#features"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Features
                       </Link>
-                      <Link href="/#solutions" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/#solutions"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Solutions
                       </Link>
-                      <Link href="/contact" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/contact"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Pricing
                       </Link>
                     </div>
@@ -247,16 +265,28 @@ export function CoachingCta() {
                       Coaching
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
-                      <Link href="/docs" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/docs"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Integrations
                       </Link>
-                      <Link href="/docs/getting-started" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/docs/getting-started"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Getting Started
                       </Link>
-                      <Link href="/docs/faq" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/docs/faq"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Coaching FAQ
                       </Link>
-                      <Link href="/contact" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/contact"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Talk to us
                       </Link>
                     </div>
@@ -267,13 +297,28 @@ export function CoachingCta() {
                       Resources
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
-                      <Link href="/docs" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/roi-calculator"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        ROI Calculator
+                      </Link>
+                      <Link
+                        href="/docs"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Documentation
                       </Link>
-                      <Link href="/docs/getting-started" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/docs/getting-started"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Getting Started
                       </Link>
-                      <Link href="/docs/faq" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/docs/faq"
+                        className="transition-colors hover:text-foreground"
+                      >
                         FAQ
                       </Link>
                     </div>
@@ -284,10 +329,16 @@ export function CoachingCta() {
                       Company
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
-                      <Link href="/about" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/about"
+                        className="transition-colors hover:text-foreground"
+                      >
                         About
                       </Link>
-                      <Link href="/contact" className="transition-colors hover:text-foreground">
+                      <Link
+                        href="/contact"
+                        className="transition-colors hover:text-foreground"
+                      >
                         Contact
                       </Link>
                     </div>
@@ -300,10 +351,16 @@ export function CoachingCta() {
                   {footerData.copyright}
                 </p>
                 <div className="flex gap-6 font-geist text-sm text-muted-foreground">
-                  <Link href="/docs/privacy" className="transition-colors hover:text-foreground">
+                  <Link
+                    href="/docs/privacy"
+                    className="transition-colors hover:text-foreground"
+                  >
                     Privacy Policy
                   </Link>
-                  <Link href="/docs/terms" className="transition-colors hover:text-foreground">
+                  <Link
+                    href="/docs/terms"
+                    className="transition-colors hover:text-foreground"
+                  >
                     Terms of Service
                   </Link>
                 </div>

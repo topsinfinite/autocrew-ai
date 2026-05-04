@@ -34,6 +34,7 @@ const industryLinks = [
 
 const resourceLinks = [
   { href: "/blog", label: "Blog" },
+  { href: "/roi-calculator", label: "ROI Calculator" },
   { href: "/docs", label: "Documentation" },
   { href: "/docs/getting-started", label: "Getting Started" },
   { href: "/docs/faq", label: "FAQ" },

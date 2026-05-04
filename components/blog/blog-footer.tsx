@@ -5,6 +5,7 @@ import { ROUTES, APP_CONFIG } from "@/lib/constants";
 const productLinks = [
   { href: "/ai-receptionist", label: "AI Receptionist" },
   { href: "/widget", label: "Widget" },
+  { href: "/roi-calculator", label: "ROI Calculator" },
 ];
 
 const industryLinks = [
@@ -65,7 +66,8 @@ export function BlogFooter() {
               <Logo height={22} className="text-[hsl(20,26%,8%)]" />
             </Link>
             <p className="text-[13px] font-sans text-[hsl(25,10%,45%)] leading-relaxed max-w-[200px]">
-              AI crews that answer every call, book every appointment, never sleep.
+              AI crews that answer every call, book every appointment, never
+              sleep.
             </p>
           </div>
           <FooterColumn heading="Product" links={productLinks} />
@@ -78,13 +80,22 @@ export function BlogFooter() {
             © {new Date().getFullYear()} {APP_CONFIG.name}. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-[12px] font-sans text-[hsl(25,10%,45%)]">
-            <Link href="/docs/privacy" className="hover:text-[hsl(20,26%,8%)] transition-colors">
+            <Link
+              href="/docs/privacy"
+              className="hover:text-[hsl(20,26%,8%)] transition-colors"
+            >
               Privacy
             </Link>
-            <Link href="/docs/terms" className="hover:text-[hsl(20,26%,8%)] transition-colors">
+            <Link
+              href="/docs/terms"
+              className="hover:text-[hsl(20,26%,8%)] transition-colors"
+            >
               Terms
             </Link>
-            <Link href="/docs/security" className="hover:text-[hsl(20,26%,8%)] transition-colors">
+            <Link
+              href="/docs/security"
+              className="hover:text-[hsl(20,26%,8%)] transition-colors"
+            >
               Security
             </Link>
             <a
