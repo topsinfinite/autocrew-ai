@@ -235,6 +235,12 @@ export function CtaSection() {
                     </p>
                     <div className="flex flex-col gap-3 text-sm text-muted-foreground font-geist">
                       <Link
+                        href="/roi-calculator"
+                        className="hover:text-foreground transition-colors"
+                      >
+                        ROI Calculator
+                      </Link>
+                      <Link
                         href="/docs"
                         className="hover:text-foreground transition-colors"
                       >

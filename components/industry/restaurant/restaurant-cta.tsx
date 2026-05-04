@@ -292,6 +292,12 @@ export function RestaurantCta() {
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
                       <Link
+                        href="/roi-calculator"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        ROI Calculator
+                      </Link>
+                      <Link
                         href="/docs"
                         className="transition-colors hover:text-foreground"
                       >

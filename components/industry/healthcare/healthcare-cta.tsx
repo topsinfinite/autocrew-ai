@@ -46,12 +46,11 @@ export function HealthcareCta() {
             {/* Compliance badges — HIPAA + EHR loud and early */}
             <ul className="mb-6 flex flex-wrap gap-2 sm:mb-8">
               {healthcareCta.badges.map((b) => {
-                const Icon =
-                  b.label.startsWith("HIPAA")
-                    ? badgeIcon.HIPAA
-                    : b.label.startsWith("EHR")
-                      ? badgeIcon.EHR
-                      : badgeIcon.BAA;
+                const Icon = b.label.startsWith("HIPAA")
+                  ? badgeIcon.HIPAA
+                  : b.label.startsWith("EHR")
+                    ? badgeIcon.EHR
+                    : badgeIcon.BAA;
                 return (
                   <li
                     key={b.label}
@@ -221,19 +220,34 @@ export function HealthcareCta() {
                       Product
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
-                      <Link href="/ai-receptionist" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/ai-receptionist"
+                        className="hover:text-foreground transition-colors"
+                      >
                         AI Receptionist
                       </Link>
-                      <Link href="/widget" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/widget"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Embeddable Widget
                       </Link>
-                      <Link href="/#features" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/#features"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Features
                       </Link>
-                      <Link href="/#solutions" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/#solutions"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Solutions
                       </Link>
-                      <Link href="/contact" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/contact"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Pricing
                       </Link>
                     </div>
@@ -244,16 +258,28 @@ export function HealthcareCta() {
                       Healthcare
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
-                      <Link href="/docs/healthcare-crew" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/docs/healthcare-crew"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Healthcare Crew
                       </Link>
-                      <Link href="/docs/security" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/docs/security"
+                        className="hover:text-foreground transition-colors"
+                      >
                         HIPAA &amp; Security
                       </Link>
-                      <Link href="/docs/getting-started" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/docs/getting-started"
+                        className="hover:text-foreground transition-colors"
+                      >
                         EHR Integration
                       </Link>
-                      <Link href="/contact" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/contact"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Request a BAA
                       </Link>
                     </div>
@@ -264,13 +290,28 @@ export function HealthcareCta() {
                       Resources
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
-                      <Link href="/docs" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/roi-calculator"
+                        className="hover:text-foreground transition-colors"
+                      >
+                        ROI Calculator
+                      </Link>
+                      <Link
+                        href="/docs"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Documentation
                       </Link>
-                      <Link href="/docs/getting-started" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/docs/getting-started"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Getting Started
                       </Link>
-                      <Link href="/docs/faq" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/docs/faq"
+                        className="hover:text-foreground transition-colors"
+                      >
                         FAQ
                       </Link>
                     </div>
@@ -281,10 +322,16 @@ export function HealthcareCta() {
                       Company
                     </p>
                     <div className="flex flex-col gap-3 font-geist text-sm text-muted-foreground">
-                      <Link href="/about" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/about"
+                        className="hover:text-foreground transition-colors"
+                      >
                         About
                       </Link>
-                      <Link href="/contact" className="hover:text-foreground transition-colors">
+                      <Link
+                        href="/contact"
+                        className="hover:text-foreground transition-colors"
+                      >
                         Contact
                       </Link>
                     </div>
@@ -297,10 +344,16 @@ export function HealthcareCta() {
                   {footerData.copyright}
                 </p>
                 <div className="flex gap-6 font-geist text-sm text-muted-foreground">
-                  <Link href="/docs/privacy" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/docs/privacy"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Privacy Policy
                   </Link>
-                  <Link href="/docs/terms" className="hover:text-foreground transition-colors">
+                  <Link
+                    href="/docs/terms"
+                    className="hover:text-foreground transition-colors"
+                  >
                     Terms of Service
                   </Link>
                 </div>
