@@ -1,6 +1,6 @@
 # Autocrew Journal — Editorial Calendar
 
-_Updated: 2026-05-02_
+_Updated: 2026-05-05_
 
 ## Pipeline stages
 
@@ -25,6 +25,7 @@ _Updated: 2026-05-02_
 | Legal Intake After Hours: Why Missing That Call Costs You the Case | legal-after-hours-intake-ai | legal | 2026-05-28 | 🚀 Published | sarah-autocrew |
 | The True Cost of a Missed Call: A Calculator for Small Businesses | cost-of-missed-calls-calculator | ai-automation, customer-service | 2026-05-01 | 🚀 Published | sarah-autocrew |
 | What Is an AI Receptionist? (And What It Can't Do Yet) | what-is-ai-receptionist | ai-automation, customer-service | 2026-05-02 | 🚀 Published | sarah-autocrew |
+| AI Receptionist for Home Services: Stop Losing 27% of Calls | ai-receptionist-home-services-hvac-plumbing | ai-automation, customer-service | 2026-05-05 | 🚀 Published | sarah-autocrew |
 
 ---
 
@@ -46,7 +47,6 @@ _Updated: 2026-05-02_
 | AI Receptionist Cost Calculator (Tool + Companion Post) | ai-receptionist-cost-calculator | ai-automation, tools | 2026-07-10 | 📝 Brief | — |
 | Smith.ai Alternatives: 7 AI Receptionists Compared (2026) | smith-ai-alternatives-comparison | ai-automation | 2026-07-17 | 📝 Brief | — |
 | How to Write an AI Receptionist Prompt (Without Sounding Like a Bot) | how-to-write-ai-receptionist-prompt | ai-automation | 2026-07-24 | 📝 Brief | — |
-| AI Receptionist for Home Services: HVAC, Plumbing, Electrical | ai-receptionist-home-services-hvac-plumbing | home-services | 2026-07-31 | 📝 Brief | — |
 
 ---
 
