@@ -26,7 +26,7 @@ export function CodeBlock({
 
   return (
     <div className={cn("group relative", className)}>
-      <div className="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100">
+      <div className="absolute right-2 top-2 opacity-60 transition-opacity hover:opacity-100 focus-within:opacity-100">
         <Button
           variant="ghost"
           size="sm"
@@ -40,7 +40,7 @@ export function CodeBlock({
           )}
         </Button>
       </div>
-      <pre className="overflow-x-auto rounded-lg border border-border bg-muted p-4">
+      <pre className="overflow-x-auto rounded-lg border border-border bg-muted p-3 sm:p-4">
         <code className="text-sm">{code}</code>
       </pre>
       {language && (
