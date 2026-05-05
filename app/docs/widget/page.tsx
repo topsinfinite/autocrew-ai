@@ -68,7 +68,7 @@ export default function WidgetDocsPage() {
       />
       <h1
         id="embeddable-widget"
-        className="mb-4 text-4xl font-bold text-foreground"
+        className="mb-4 text-3xl font-bold text-foreground sm:text-4xl"
       >
         Embeddable Widget
       </h1>
@@ -89,9 +89,8 @@ export default function WidgetDocsPage() {
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
           YOUR-CREW-CODE
         </code>{" "}
-        with the crew code from your Autocrew dashboard. The widget loads
-        async, picks up its config, and attaches the trigger listeners
-        automatically.
+        with the crew code from your Autocrew dashboard. The widget loads async,
+        picks up its config, and attaches the trigger listeners automatically.
       </p>
       <CodeBlock code={EMBED_SNIPPET} language="html" className="mb-8" />
 
@@ -147,9 +146,9 @@ export default function WidgetDocsPage() {
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
           ?autocrew_q=&hellip;
         </code>{" "}
-        to any URL. The widget opens on landing, sends the question, and
-        strips the param so a refresh doesn&rsquo;t re-fire. Pair with UTM
-        tags for full campaign attribution.
+        to any URL. The widget opens on landing, sends the question, and strips
+        the param so a refresh doesn&rsquo;t re-fire. Pair with UTM tags for
+        full campaign attribution.
       </p>
       <CodeBlock code={URL_SNIPPET} language="text" className="mb-3" />
       <p className="mb-6 text-sm text-muted-foreground">
@@ -173,8 +172,7 @@ export default function WidgetDocsPage() {
       <CodeBlock code={JS_API_SNIPPET} language="javascript" className="mb-3" />
       <p className="mb-6 text-sm text-muted-foreground">
         <strong>Best for:</strong> Post-form-submit handoff with prefilled
-        context, idle-detection recovery, scroll-depth or exit-intent
-        triggers.
+        context, idle-detection recovery, scroll-depth or exit-intent triggers.
       </p>
 
       <h3
@@ -200,8 +198,7 @@ export default function WidgetDocsPage() {
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
           primary-color
         </code>
-        ,{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 text-sm">mode</code>,
+        , <code className="rounded bg-muted px-1.5 py-0.5 text-sm">mode</code>,
         and{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
           auto-send
@@ -256,16 +253,20 @@ export default function WidgetDocsPage() {
         <table className="w-full text-sm">
           <thead className="bg-muted/50">
             <tr>
-              <th className="px-4 py-2 text-left font-semibold">Method</th>
-              <th className="px-4 py-2 text-left font-semibold">Purpose</th>
+              <th className="px-3 py-2 text-left font-semibold sm:px-4">
+                Method
+              </th>
+              <th className="px-3 py-2 text-left font-semibold sm:px-4">
+                Purpose
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
             <tr>
-              <td className="px-4 py-3 font-mono text-xs">
+              <td className="px-3 py-3 font-mono text-xs sm:px-4">
                 .ask(message, options?)
               </td>
-              <td className="px-4 py-3 text-muted-foreground">
+              <td className="px-3 py-3 text-muted-foreground sm:px-4">
                 Open the widget and send a message. Options include{" "}
                 <code className="rounded bg-muted px-1 py-0.5 text-xs">
                   mode
@@ -278,20 +279,22 @@ export default function WidgetDocsPage() {
               </td>
             </tr>
             <tr>
-              <td className="px-4 py-3 font-mono text-xs">.open()</td>
-              <td className="px-4 py-3 text-muted-foreground">
+              <td className="px-3 py-3 font-mono text-xs sm:px-4">.open()</td>
+              <td className="px-3 py-3 text-muted-foreground sm:px-4">
                 Open the widget without sending a message.
               </td>
             </tr>
             <tr>
-              <td className="px-4 py-3 font-mono text-xs">.close()</td>
-              <td className="px-4 py-3 text-muted-foreground">
+              <td className="px-3 py-3 font-mono text-xs sm:px-4">.close()</td>
+              <td className="px-3 py-3 text-muted-foreground sm:px-4">
                 Close the widget if it&rsquo;s open.
               </td>
             </tr>
             <tr>
-              <td className="px-4 py-3 font-mono text-xs">.isReady()</td>
-              <td className="px-4 py-3 text-muted-foreground">
+              <td className="px-3 py-3 font-mono text-xs sm:px-4">
+                .isReady()
+              </td>
+              <td className="px-3 py-3 text-muted-foreground sm:px-4">
                 Synchronous boolean. Returns{" "}
                 <code className="rounded bg-muted px-1 py-0.5 text-xs">
                   undefined
@@ -312,12 +315,12 @@ export default function WidgetDocsPage() {
               </td>
             </tr>
             <tr>
-              <td className="px-4 py-3 font-mono text-xs">
+              <td className="px-3 py-3 font-mono text-xs sm:px-4">
                 .onReady(callback)
               </td>
-              <td className="px-4 py-3 text-muted-foreground">
-                Run a callback once the widget is ready. Safe to call before
-                the script loads when paired with the queue stub.
+              <td className="px-3 py-3 text-muted-foreground sm:px-4">
+                Run a callback once the widget is ready. Safe to call before the
+                script loads when paired with the queue stub.
               </td>
             </tr>
           </tbody>
@@ -328,8 +331,7 @@ export default function WidgetDocsPage() {
         <AlertDescription>
           <strong>Tip:</strong> Calls to{" "}
           <code className="rounded bg-muted px-1 py-0.5 text-xs">.ask()</code>,{" "}
-          <code className="rounded bg-muted px-1 py-0.5 text-xs">.open()</code>
-          ,{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">.open()</code>,{" "}
           <code className="rounded bg-muted px-1 py-0.5 text-xs">.close()</code>
           , and{" "}
           <code className="rounded bg-muted px-1 py-0.5 text-xs">
@@ -355,8 +357,8 @@ export default function WidgetDocsPage() {
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
           widget.js
         </code>{" "}
-        finishes loading, drop in this GA-style queue stub to buffer and
-        replay calls. The widget drains the queue on init.
+        finishes loading, drop in this GA-style queue stub to buffer and replay
+        calls. The widget drains the queue on init.
       </p>
       <CodeBlock code={QUEUE_STUB} language="html" className="mb-8" />
 
@@ -370,7 +372,7 @@ export default function WidgetDocsPage() {
         The widget supports two modes — chat (the default) and voice. Set the
         mode declaratively or programmatically:
       </p>
-      <ul className="mb-4 list-disc space-y-2 pl-6 text-muted-foreground">
+      <ul className="mb-4 list-disc space-y-2 pl-5 text-muted-foreground sm:pl-6">
         <li>
           <strong>Declarative:</strong> add{" "}
           <code className="rounded bg-muted px-1 py-0.5 text-xs">
@@ -385,13 +387,17 @@ export default function WidgetDocsPage() {
         <li>
           <strong>Programmatic:</strong> pass{" "}
           <code className="rounded bg-muted px-1 py-0.5 text-xs">
-            { '{ mode: "voice" }' }
+            {'{ mode: "voice" }'}
           </code>{" "}
           as the second argument to{" "}
           <code className="rounded bg-muted px-1 py-0.5 text-xs">.ask()</code>.
         </li>
       </ul>
-      <CodeBlock code={VOICE_API_SNIPPET} language="javascript" className="mb-4" />
+      <CodeBlock
+        code={VOICE_API_SNIPPET}
+        language="javascript"
+        className="mb-4"
+      />
       <p className="mb-8 text-muted-foreground">
         Voice mode falls back to chat automatically if voice has been disabled
         in your dashboard or the visitor&rsquo;s browser blocks microphone
@@ -415,16 +421,20 @@ export default function WidgetDocsPage() {
         <table className="w-full text-sm">
           <thead className="bg-muted/50">
             <tr>
-              <th className="px-4 py-2 text-left font-semibold">Key</th>
-              <th className="px-4 py-2 text-left font-semibold">Type</th>
-              <th className="px-4 py-2 text-left font-semibold">Description</th>
+              <th className="px-3 py-2 text-left font-semibold sm:px-4">Key</th>
+              <th className="px-3 py-2 text-left font-semibold sm:px-4">
+                Type
+              </th>
+              <th className="px-3 py-2 text-left font-semibold sm:px-4">
+                Description
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
             <tr>
-              <td className="px-4 py-3 font-mono text-xs">crewCode</td>
-              <td className="px-4 py-3 font-mono text-xs">string</td>
-              <td className="px-4 py-3 text-muted-foreground">
+              <td className="px-3 py-3 font-mono text-xs sm:px-4">crewCode</td>
+              <td className="px-3 py-3 font-mono text-xs sm:px-4">string</td>
+              <td className="px-3 py-3 text-muted-foreground sm:px-4">
                 Identifies which crew to load. Required. Find this in the
                 Autocrew dashboard under your crew settings.
               </td>
@@ -435,8 +445,8 @@ export default function WidgetDocsPage() {
       <p className="mb-8 text-muted-foreground">
         All other settings — theme, position, suggested actions, voice
         availability, welcome message — are managed in the Autocrew dashboard
-        and applied automatically when the widget loads. You don&rsquo;t need
-        to specify them at embed time.
+        and applied automatically when the widget loads. You don&rsquo;t need to
+        specify them at embed time.
       </p>
 
       <DocNavigation />

@@ -21,7 +21,7 @@ export function DocNavigation() {
   const getPageTitle = (path: string) => titleMap[path] || path;
 
   return (
-    <div className="mt-12 flex items-center justify-between border-t border-border pt-8">
+    <div className="mt-12 flex flex-col gap-3 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex-1">
         {previous && (
           <Link href={previous}>
@@ -35,7 +35,7 @@ export function DocNavigation() {
           </Link>
         )}
       </div>
-      <div className="flex-1 text-right">
+      <div className="flex-1 sm:text-right">
         {next && (
           <Link href={next}>
             <Button variant="ghost" className="gap-2">

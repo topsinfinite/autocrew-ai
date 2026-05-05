@@ -19,7 +19,7 @@ export default function DocsLayout({
           <DocsSidebar className="hidden lg:block" />
 
           {/* Main Content */}
-          <main id="main-content" className="flex-1 px-6 py-8 lg:px-12">
+          <main id="main-content" className="flex-1 px-4 py-8 sm:px-6 lg:px-12">
             <article className="max-w-none">{children}</article>
           </main>
 
