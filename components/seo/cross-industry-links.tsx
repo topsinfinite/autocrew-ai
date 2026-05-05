@@ -20,9 +20,15 @@ const industries = [
   },
   {
     name: "Healthcare",
-    href: "/",
+    href: "/industry/healthcare",
     description:
       "AI scheduling, patient communication, and operations for healthcare providers",
+  },
+  {
+    name: "Home Services",
+    href: "/industry/home-services",
+    description:
+      "AI dispatch and 24/7 call coverage for HVAC, plumbing, and electrical shops",
   },
 ];
 
