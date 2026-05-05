@@ -7,6 +7,7 @@ import {
   HelpCircle,
   FileText,
   Zap,
+  Code2,
 } from "lucide-react";
 import {
   Card,
@@ -21,7 +22,7 @@ import { DocsBreadcrumbSchema } from "@/components/seo/docs-breadcrumb-schema";
 export const metadata: Metadata = {
   title: "Documentation",
   description:
-    "Learn how to automate your business with AI-powered crews that work 24/7 to support customers and generate leads.",
+    "Learn how to automate your business with AI-powered crews, embed the widget, and configure integrations across your site.",
   alternates: {
     canonical: "/docs",
   },
@@ -53,6 +54,13 @@ export default function DocsPage() {
       icon: Zap,
       href: "/docs/leadgen-crew",
       comingSoon: true,
+    },
+    {
+      title: "Integrations",
+      description:
+        "Embed the widget, set up the AI Receptionist, and configure contextual AI on your site",
+      icon: Code2,
+      href: "/docs/widget",
     },
     {
       title: "FAQ",
