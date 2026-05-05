@@ -34,6 +34,24 @@ export const docsNavigation: DocNavigationItem[] = [
     ],
   },
   {
+    title: "Integrations",
+    href: "#",
+    items: [
+      {
+        title: "Embeddable Widget",
+        href: "/docs/widget",
+      },
+      {
+        title: "AI Receptionist",
+        href: "/docs/ai-receptionist",
+      },
+      {
+        title: "Contextual AI",
+        href: "/docs/contextual-ai",
+      },
+    ],
+  },
+  {
     title: "FAQ",
     href: "/docs/faq",
   },

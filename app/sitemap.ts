@@ -57,6 +57,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     route("/docs/support-crew", "2026-02-15", 0.8),
     route("/docs/leadgen-crew", "2026-02-15", 0.8),
     route("/docs/healthcare-crew", "2026-02-15", 0.8),
+    route("/docs/widget", "2026-05-05", 0.8),
+    route("/docs/ai-receptionist", "2026-05-05", 0.8),
+    route("/docs/contextual-ai", "2026-05-05", 0.8),
     route("/docs/faq", "2026-02-15", 0.7),
 
     // Legal & policy
