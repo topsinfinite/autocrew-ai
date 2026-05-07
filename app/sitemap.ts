@@ -42,6 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Industry pages
     route("/industry/coaching", "2026-03-10", 0.8),
     route("/industry/healthcare", "2026-04-07", 0.8),
+    route("/industry/home-services", "2026-05-05", 0.8),
     route("/industry/legal", "2026-04-07", 0.8),
     route("/industry/restaurant", "2026-03-10", 0.8),
 

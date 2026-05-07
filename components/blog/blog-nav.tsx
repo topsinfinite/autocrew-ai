@@ -32,6 +32,7 @@ const industryItems: DropdownItem[] = [
   { label: "Coaching", href: "/industry/coaching" },
   { label: "Legal", href: "/industry/legal" },
   { label: "Restaurants", href: "/industry/restaurant" },
+  { label: "Home Services", href: "/industry/home-services" },
 ];
 
 const navItems: NavItem[] = [

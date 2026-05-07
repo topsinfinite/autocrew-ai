@@ -15,6 +15,7 @@ const SUPPRESSED_ROUTES = new Set([
   "/industry/restaurant",
   "/industry/legal",
   "/industry/healthcare",
+  "/industry/home-services",
 ]);
 
 // Blog routes render their own (cream-themed) footer via the blog layout.
@@ -28,6 +29,7 @@ const productLinks = [
 const industryLinks = [
   { href: "/industry/coaching", label: "Coaching" },
   { href: "/industry/healthcare", label: "Healthcare" },
+  { href: "/industry/home-services", label: "Home Services" },
   { href: "/industry/legal", label: "Legal" },
   { href: "/industry/restaurant", label: "Restaurant" },
 ];
