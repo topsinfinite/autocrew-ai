@@ -11,6 +11,7 @@ const productLinks = [
 const industryLinks = [
   { href: "/industry/coaching", label: "Coaching" },
   { href: "/industry/healthcare", label: "Healthcare" },
+  { href: "/industry/home-services", label: "Home Services" },
   { href: "/industry/legal", label: "Legal" },
   { href: "/industry/restaurant", label: "Restaurants" },
 ];

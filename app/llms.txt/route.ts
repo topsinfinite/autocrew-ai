@@ -21,6 +21,7 @@ export function GET() {
 - [Legal](${baseUrl}/industry/legal): Privilege-respecting intake, conflicts checks, and routine client communication for firms, legal ops, and legal aid.
 - [Coaching](${baseUrl}/industry/coaching): Discovery-call handling, intake, scheduling, payments, and follow-ups across Calendly, Stripe, Notion, Slack.
 - [Restaurant](${baseUrl}/industry/restaurant): Reservations, takeout, and overflow-call coverage.
+- [Home Services](${baseUrl}/industry/home-services): AI dispatch coordinator for HVAC, plumbing, and electrical — emergency triage and live dispatch into ServiceTitan, Housecall Pro, Jobber, and Workiz.
 
 ## Resources
 

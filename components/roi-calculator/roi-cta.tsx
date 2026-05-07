@@ -249,6 +249,12 @@ export function RoiCta() {
                       >
                         Restaurant
                       </Link>
+                      <Link
+                        href="/industry/home-services"
+                        className="transition-colors hover:text-foreground"
+                      >
+                        Home Services
+                      </Link>
                     </div>
                   </div>
 

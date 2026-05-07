@@ -369,6 +369,11 @@ export const aiReceptionistIndustryBridge = {
       href: "/industry/restaurant",
       description: "Reservations, hours, and high-volume guest calls",
     },
+    {
+      name: "Home Services",
+      href: "/industry/home-services",
+      description: "Emergency triage and live dispatch for HVAC, plumbing, and electrical",
+    },
   ],
 };
 

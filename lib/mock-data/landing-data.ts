@@ -318,6 +318,7 @@ export const navLinks: NavLinkItem[] = [
       { label: "Restaurant", href: "/industry/restaurant" },
       { label: "Legal", href: "/industry/legal" },
       { label: "Healthcare", href: "/industry/healthcare" },
+      { label: "Home Services", href: "/industry/home-services" },
     ],
   },
   { label: "Solutions", href: "/#solutions" },

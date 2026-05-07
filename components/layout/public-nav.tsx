@@ -217,7 +217,7 @@ export function PublicNav({ variant = "default" }: PublicNavProps) {
           <div
             className={cn(
               "overflow-hidden transition-all duration-200 ease-out",
-              isExpanded ? "max-h-40 opacity-100" : "max-h-0 opacity-0",
+              isExpanded ? "max-h-72 opacity-100" : "max-h-0 opacity-0",
             )}
           >
             <div className="pl-4 flex flex-col gap-1 pb-1">
