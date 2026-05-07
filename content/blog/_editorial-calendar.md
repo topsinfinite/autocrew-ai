@@ -1,6 +1,6 @@
 # Autocrew Journal — Editorial Calendar
 
-_Updated: 2026-05-05_
+_Updated: 2026-05-07_
 
 ## Pipeline stages
 
@@ -26,6 +26,7 @@ _Updated: 2026-05-05_
 | The True Cost of a Missed Call: A Calculator for Small Businesses | cost-of-missed-calls-calculator | ai-automation, customer-service | 2026-05-01 | 🚀 Published | sarah-autocrew |
 | What Is an AI Receptionist? (And What It Can't Do Yet) | what-is-ai-receptionist | ai-automation, customer-service | 2026-05-02 | 🚀 Published | sarah-autocrew |
 | AI Receptionist for Home Services: Stop Losing 27% of Calls | ai-receptionist-home-services-hvac-plumbing | ai-automation, customer-service | 2026-05-05 | 🚀 Published | sarah-autocrew |
+| AI Receptionist for Therapists: Stop Losing Clients to Voicemail | ai-receptionist-therapists-private-practice | healthcare, ai-automation | 2026-05-07 | 🚀 Published | sarah-autocrew |
 
 ---
 
