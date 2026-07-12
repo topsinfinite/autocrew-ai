@@ -47,3 +47,6 @@ widget/node_modules
 
 # pitch deck assets (internal sales material — never publish)
 /marketing
+
+# Agentic workflow worktrees
+.worktrees/
