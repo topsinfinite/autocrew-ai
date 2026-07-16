@@ -486,10 +486,6 @@ export default function CompliancePage() {
           <li>
             <strong>Data Protection Officer:</strong> support@autocrew-ai.com
           </li>
-          <li>
-            <strong>Address:</strong> Autocrew Inc., 19785 West 12 Mile Road,
-            STE 414, Southfield, Michigan 48076, USA
-          </li>
         </ul>
       </div>
 
