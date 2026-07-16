@@ -31,8 +31,6 @@ export const APP_CONFIG = {
     addressRegion: "Michigan",
     postalCode: "48076",
     addressCountry: "USA",
-    /** Pre-formatted single line for inline legal text */
-    displayLine: "Autocrew Inc., 19785 West 12 Mile Road, STE 414, Southfield, Michigan 48076, USA",
   },
 } as const;
 

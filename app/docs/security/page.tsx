@@ -438,10 +438,6 @@ export default function SecurityPage() {
           <li>
             <strong>Responsible Disclosure:</strong> support@autocrew-ai.com
           </li>
-          <li>
-            <strong>Address:</strong> Autocrew Inc., 19785 West 12 Mile Road,
-            STE 414, Southfield, Michigan 48076, USA
-          </li>
         </ul>
       </div>
 
