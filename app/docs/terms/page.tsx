@@ -25,7 +25,7 @@ export default function TermsPage() {
         Terms of Service
       </h1>
       <p className="mb-2 text-sm text-muted-foreground">
-        Last Updated: March 4, 2026
+        Last Updated: July 16, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
         These Terms of Service govern your access to and use of Autocrew's
@@ -452,6 +452,59 @@ export default function TermsPage() {
       </p>
 
       <h2
+        id="pos-integrations-clover"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
+        POS Integrations (Clover)
+      </h2>
+      <p className="mb-4 text-muted-foreground">
+        The following terms apply when you connect a Clover point-of-sale account
+        to Autocrew Restaurant Ordering (a &quot;POS Integration&quot;).
+      </p>
+      <ul className="mb-8 list-disc space-y-2 pl-6 text-muted-foreground">
+        <li>
+          <strong>Authorization:</strong> By connecting Clover, you authorize
+          Autocrew to access your Clover account within the permissions you grant
+          during Clover&apos;s OAuth consent &mdash; reading your menu, and
+          creating and reading orders and Hosted Checkout payment sessions on your
+          behalf.
+        </li>
+        <li>
+          <strong>Payments:</strong> All card payments are processed by Clover
+          Hosted Checkout under your existing Clover merchant agreement and
+          processing relationship. Autocrew does not process card payments, does
+          not act as a payment processor or money transmitter, and never handles
+          card data. Funds settle to you through Clover.
+        </li>
+        <li>
+          <strong>No surcharging:</strong> Autocrew does not add credit-card
+          surcharges. Order totals reflect your Clover menu prices and applicable
+          taxes.
+        </li>
+        <li>
+          <strong>Menu accuracy:</strong> Autocrew quotes items and prices from
+          the menu it syncs from your Clover account. You are responsible for
+          keeping your Clover menu, prices, and availability accurate.
+        </li>
+        <li>
+          <strong>Billing:</strong> Autocrew charges you for the Autocrew service
+          directly (via Autocrew&apos;s own billing). The Clover app itself is
+          free on Clover&apos;s side; Autocrew does not bill through Clover.
+        </li>
+        <li>
+          <strong>Compliance with Clover:</strong> Your use of the POS
+          Integration is also subject to Clover&apos;s applicable merchant and
+          platform terms. Autocrew&apos;s use of the Clover platform complies with
+          Clover&apos;s Developer Agreement and App Market policies.
+        </li>
+        <li>
+          <strong>Disconnection:</strong> You may disconnect the POS Integration
+          at any time from your Autocrew dashboard, or uninstall the app from
+          Clover, which revokes Autocrew&apos;s access.
+        </li>
+      </ul>
+
+      <h2
         id="general-provisions"
         className="mb-4 text-2xl font-semibold text-foreground"
       >
@@ -495,11 +548,11 @@ export default function TermsPage() {
             <strong>Email:</strong> support@autocrew-ai.com
           </li>
           <li>
-            <strong>Address:</strong> Autocrew Inc., 123 AI Street, San
-            Francisco, CA 94105
+            <strong>Phone:</strong> +1 (313) 504-5880
           </li>
           <li>
-            <strong>Phone:</strong> +1 (555) 123-4567
+            <strong>Address:</strong> Autocrew Inc., 19785 West 12 Mile Road,
+            STE 414, Southfield, Michigan 48076, USA
           </li>
         </ul>
       </div>

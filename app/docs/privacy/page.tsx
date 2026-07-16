@@ -25,7 +25,7 @@ export default function PrivacyPage() {
         Privacy Policy
       </h1>
       <p className="mb-2 text-sm text-muted-foreground">
-        Last Updated: March 4, 2026
+        Last Updated: July 16, 2026
       </p>
       <p className="mb-8 text-lg text-muted-foreground">
         This Privacy Policy describes how Autocrew collects, uses, and protects
@@ -450,6 +450,95 @@ export default function PrivacyPage() {
       </p>
 
       <h2
+        id="clover-pos-integration"
+        className="mb-4 text-2xl font-semibold text-foreground"
+      >
+        Clover POS Integration
+      </h2>
+      <p className="mb-4 text-muted-foreground">
+        This section applies specifically to restaurants (&quot;Merchants&quot;)
+        who connect their Clover point-of-sale account to Autocrew Restaurant
+        Ordering. It describes exactly what Clover-related data Autocrew accesses
+        and how it is handled.
+      </p>
+
+      <h3
+        id="clover-data-we-access"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
+        Clover Data We Access
+      </h3>
+      <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
+        <li>
+          <strong>Merchant profile</strong> (business name, country, currency,
+          Clover merchant ID) &mdash; read once when you connect, to label the
+          integration and format prices.
+        </li>
+        <li>
+          <strong>Menu / inventory</strong> (items, modifiers, tax rates) &mdash;
+          read <strong>only</strong>; Autocrew never edits your Clover menu.
+        </li>
+        <li>
+          <strong>Orders</strong> &mdash; Autocrew creates and reads orders in
+          your Clover account so paid orders print and fire to your kitchen.
+        </li>
+        <li>
+          <strong>Payment status</strong> &mdash; Autocrew receives whether a
+          payment succeeded, was declined, or was refunded, via a signed Clover
+          webhook.
+        </li>
+        <li>
+          <strong>Customer phone number</strong> &mdash; used to send the Clover
+          payment link and order updates by SMS.
+        </li>
+      </ul>
+
+      <h3
+        id="clover-card-data"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
+        Payment Card Data &mdash; Handled by Clover, Never by Autocrew
+      </h3>
+      <p className="mb-6 text-muted-foreground">
+        Autocrew does <strong>not</strong> collect, store, process, or transmit
+        payment card numbers, CVV, or expiry data. All card entry and processing
+        occur on <strong>Clover Hosted Checkout</strong>, a Clover-hosted payment
+        page. Autocrew only creates the checkout session and receives a signed
+        confirmation that payment occurred. Autocrew&apos;s card environment is
+        fully outsourced to Clover and self-assesses under PCI DSS SAQ-A.
+      </p>
+
+      <h3
+        id="clover-storage-security"
+        className="mb-3 text-xl font-semibold text-foreground"
+      >
+        Storage, Security, and Control
+      </h3>
+      <ul className="mb-6 list-disc space-y-1 pl-6 text-muted-foreground">
+        <li>
+          Clover OAuth access/refresh tokens and the webhook signing secret are
+          encrypted at rest using AES-256-GCM.
+        </li>
+        <li>
+          Clover webhook events are cryptographically verified (HMAC signature)
+          before Autocrew acts on them.
+        </li>
+        <li>
+          Merchant data is isolated per tenant and never shared across Merchants.
+        </li>
+        <li>
+          You can disconnect Clover at any time from your Autocrew dashboard;
+          doing so permanently deletes the stored Clover tokens. Uninstalling the
+          app in Clover revokes Autocrew&apos;s access.
+        </li>
+      </ul>
+      <p className="mb-8 text-muted-foreground">
+        Autocrew does not sell Clover Merchant or customer data, and does not use
+        it for any purpose other than providing the ordering service to that
+        Merchant.
+      </p>
+
+      <h2
         id="changes-policy"
         className="mb-4 text-2xl font-semibold text-foreground"
       >
@@ -475,8 +564,11 @@ export default function PrivacyPage() {
             <strong>Email:</strong> support@autocrew-ai.com
           </li>
           <li>
-            <strong>Address:</strong> Autocrew Inc., 123 AI Street, San
-            Francisco, CA 94105
+            <strong>Phone:</strong> +1 (313) 504-5880
+          </li>
+          <li>
+            <strong>Address:</strong> Autocrew Inc., 19785 West 12 Mile Road,
+            STE 414, Southfield, Michigan 48076, USA
           </li>
           <li>
             <strong>Data Protection Officer:</strong> support@autocrew-ai.com
