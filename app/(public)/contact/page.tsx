@@ -117,10 +117,12 @@ export default function ContactPage() {
                     Office
                   </h3>
                   <p className="text-muted-foreground font-geist">
-                    123 AI Street
+                    {APP_CONFIG.office.streetAddress}
                   </p>
                   <p className="text-muted-foreground font-geist">
-                    San Francisco, CA 94102
+                    {APP_CONFIG.office.addressLocality},{" "}
+                    {APP_CONFIG.office.addressRegion}{" "}
+                    {APP_CONFIG.office.postalCode}
                   </p>
                 </div>
               </div>
