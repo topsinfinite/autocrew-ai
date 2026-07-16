@@ -550,10 +550,6 @@ export default function TermsPage() {
           <li>
             <strong>Phone:</strong> +1 (313) 504-5880
           </li>
-          <li>
-            <strong>Address:</strong> Autocrew Inc., 19785 West 12 Mile Road,
-            STE 414, Southfield, Michigan 48076, USA
-          </li>
         </ul>
       </div>
 

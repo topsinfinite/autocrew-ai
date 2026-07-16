@@ -23,6 +23,15 @@ export const APP_CONFIG = {
   supportPhoneHours: "Mon–Fri 9am–6pm EST",
   /** Short line under “Speak to Sarah” phone CTAs */
   speakToSarahSubtitle: "(Autocrew's AI receptionist)",
+  /** Registered business address — single source of truth for contact/legal pages + schema.org */
+  legalEntityName: "Autocrew Inc.",
+  office: {
+    streetAddress: "19785 West 12 Mile Road, STE 414",
+    addressLocality: "Southfield",
+    addressRegion: "Michigan",
+    postalCode: "48076",
+    addressCountry: "USA",
+  },
 } as const;
 
 // ============================================================================

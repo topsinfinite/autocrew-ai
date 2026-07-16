@@ -438,10 +438,6 @@ export default function SecurityPage() {
           <li>
             <strong>Responsible Disclosure:</strong> support@autocrew-ai.com
           </li>
-          <li>
-            <strong>Address:</strong> Autocrew Inc., 123 AI Street, San
-            Francisco, CA 94105
-          </li>
         </ul>
       </div>
 

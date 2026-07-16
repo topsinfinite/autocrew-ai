@@ -11,6 +11,14 @@ export function organizationSchema() {
     url: baseUrl,
     logo: `${baseUrl}/images/logo.png`,
     description: APP_CONFIG.description,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: APP_CONFIG.office.streetAddress,
+      addressLocality: APP_CONFIG.office.addressLocality,
+      addressRegion: APP_CONFIG.office.addressRegion,
+      postalCode: APP_CONFIG.office.postalCode,
+      addressCountry: APP_CONFIG.office.addressCountry,
+    },
     contactPoint: {
       "@type": "ContactPoint",
       email: APP_CONFIG.supportEmail,

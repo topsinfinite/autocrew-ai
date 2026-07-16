@@ -486,10 +486,6 @@ export default function CompliancePage() {
           <li>
             <strong>Data Protection Officer:</strong> support@autocrew-ai.com
           </li>
-          <li>
-            <strong>Address:</strong> Autocrew Inc., 123 AI Street, San
-            Francisco, CA 94105
-          </li>
         </ul>
       </div>
 
